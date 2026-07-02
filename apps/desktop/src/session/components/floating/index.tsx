@@ -283,7 +283,6 @@ function useShouldShowChatFab(
   sessionMode: string,
   audioExists: boolean,
 ) {
-  const hasTranscript = useHasTranscript(tab.id);
   const currentTab = useCurrentNoteTab(tab, { audioExists });
   const enhancedNoteId = currentTab.type === "enhanced" ? currentTab.id : null;
   const taskId = enhancedNoteId
@@ -311,11 +310,7 @@ function useShouldShowChatFab(
   const canShowForSessionMode =
     sessionMode === "inactive" || sessionMode === "active";
 
-  return (
-    canShowForSessionMode &&
-    (hasTranscript || sessionMode === "active") &&
-    !hasVisibleIssue
-  );
+  return canShowForSessionMode && !hasVisibleIssue;
 }
 
 function isBlockingLLMStatus(status: LLMConnectionStatus) {

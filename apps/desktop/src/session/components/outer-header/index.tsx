@@ -1,5 +1,11 @@
 import { Trans, useLingui } from "@lingui/react/macro";
-import { ChevronDownIcon, HeadsetIcon, MicOff, VideoIcon } from "lucide-react";
+import {
+  ChevronDownIcon,
+  HeadsetIcon,
+  Mic,
+  MicOff,
+  VideoIcon,
+} from "lucide-react";
 
 import { commands as openerCommands } from "@hypr/plugin-opener2";
 import { DancingSticks } from "@hypr/ui/components/ui/dancing-sticks";
@@ -14,9 +20,11 @@ import {
   getRemoteMeeting,
   type RemoteMeeting,
 } from "~/session/hooks/useRemoteMeeting";
+import { useListenButtonState } from "~/session/components/shared";
 import { useSessionEvent } from "~/store/tinybase/hooks";
 import type { EditorView } from "~/store/zustand/tabs/schema";
 import { useListener } from "~/stt/contexts";
+import { useStartListening } from "~/stt/useStartListening";
 
 export function OuterHeader({
   sessionId,
@@ -81,6 +89,10 @@ export function OuterHeader({
           standaloneWindow={standaloneWindow}
         />
         <HeaderMeetingControl sessionId={sessionId} sessionMode={sessionMode} />
+        <HeaderRecordButton
+          sessionId={sessionId}
+          allowListening={!standaloneWindow}
+        />
         <OverflowButton
           allowListening={!standaloneWindow}
           standaloneWindow={standaloneWindow}
@@ -111,6 +123,44 @@ function HeaderMeetingControl({
       event={sessionEvent}
       sessionMode={sessionMode}
     />
+  );
+}
+
+function HeaderRecordButton({
+  sessionId,
+  allowListening,
+}: {
+  sessionId: string;
+  allowListening: boolean;
+}) {
+  const { t } = useLingui();
+  const { shouldRender, isDisabled, warningMessage } =
+    useListenButtonState(sessionId);
+  const startListening = useStartListening(sessionId);
+
+  if (!allowListening || !shouldRender) {
+    return null;
+  }
+
+  const label = warningMessage || t`Start recording`;
+
+  return (
+    <button
+      type="button"
+      data-tauri-drag-region="false"
+      onClick={startListening}
+      disabled={isDisabled}
+      aria-label={label}
+      title={label}
+      className={cn([
+        "flex h-7 w-7 shrink-0 items-center justify-center rounded-full",
+        "text-muted-foreground transition-colors hover:bg-red-50 hover:text-red-500",
+        "dark:hover:bg-red-950/50 dark:hover:text-red-300",
+        "disabled:pointer-events-none disabled:opacity-50",
+      ])}
+    >
+      <Mic size={14} />
+    </button>
   );
 }
 

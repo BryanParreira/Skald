@@ -23,6 +23,9 @@ const SELF_BUNDLE_IDS: &[&str] = &[
 ];
 
 const SELF_APP_NAMES: &[&str] = &[
+    "velo",
+    "velo staging",
+    "velo nightly",
     "anarlog",
     "anarlog staging",
     "anarlog nightly",
@@ -35,6 +38,9 @@ const SELF_APP_NAMES: &[&str] = &[
 ];
 
 const SELF_APP_PATH_SEGMENTS: &[&str] = &[
+    "/velo.app/",
+    "/velo staging.app/",
+    "/velo nightly.app/",
     "/anarlog.app/",
     "/anarlog staging.app/",
     "/anarlog nightly.app/",

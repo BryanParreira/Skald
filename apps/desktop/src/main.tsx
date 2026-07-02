@@ -29,6 +29,7 @@ import { EventListeners } from "./services/event-listeners";
 import { TaskManager } from "./services/task-manager";
 import { RawEditorSyncBridge } from "./session/raw-editor-sync";
 import { ErrorComponent, NotFoundComponent } from "./shared/control";
+import { SplashScreen } from "./shared/splash-screen";
 import { bootstrapThemeFromSettings } from "./shared/theme/apply";
 import { AppThemeProvider } from "./shared/theme/provider";
 import {
@@ -74,7 +75,7 @@ function App() {
   }, [store, settingsStore]);
 
   if (!store || !settingsStore || !aiTaskStore) {
-    return <div className="bg-background h-screen w-screen" />;
+    return <SplashScreen />;
   }
 
   return (
