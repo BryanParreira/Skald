@@ -61,7 +61,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        include: ${{ inputs.channel == 'staging' && fromJSON('[{"target":"aarch64-apple-darwin","arch":"aarch64","artifact_name":"silicon"}]') || fromJSON('[{"target":"aarch64-apple-darwin","arch":"aarch64","artifact_name":"silicon"},{"target":"x86_64-apple-darwin","arch":"x86_64","artifact_name":"intel"}]') }}
+        include: ${{ fromJSON('[{"target":"aarch64-apple-darwin","arch":"aarch64","artifact_name":"silicon"}]') }}
     defaults:
       run:
         shell: bash
@@ -233,19 +233,17 @@ jobs:
           pattern: release-artifacts-*
           path: dist
           merge-multiple: true
-      - run: mv dist/velo-macos-aarch64.dmg hyprnote-macos-aarch64.dmg && mv dist/velo-macos-x86_64.dmg hyprnote-macos-x86_64.dmg
+      - run: mv dist/velo-macos-aarch64.dmg hyprnote-macos-aarch64.dmg
       - id: checksums
         uses: ./.github/actions/generate_checksums
         with:
           files: |
             hyprnote-macos-aarch64.dmg
-            hyprnote-macos-x86_64.dmg
       - id: latest-json
         run: |
           TAG="desktop_v${{ needs.compute-version.outputs.version }}"
           BASE_URL="https://github.com/${{ github.repository }}/releases/download/${TAG}"
           SIG_AARCH64=$(cat dist/velo-macos-aarch64.app.tar.gz.sig)
-          SIG_X86_64=$(cat dist/velo-macos-x86_64.app.tar.gz.sig)
           PUB_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
           jq -n \
@@ -254,20 +252,17 @@ jobs:
             --arg notes "https://anarlog.so/changelog/${{ needs.compute-version.outputs.version }}" \
             --arg aarch64_sig "$SIG_AARCH64" \
             --arg aarch64_url "${BASE_URL}/velo-macos-aarch64.app.tar.gz" \
-            --arg x86_64_sig "$SIG_X86_64" \
-            --arg x86_64_url "${BASE_URL}/velo-macos-x86_64.app.tar.gz" \
             '{
               version: $version,
               notes: $notes,
               pub_date: $pub_date,
               platforms: {
-                "darwin-aarch64": { signature: $aarch64_sig, url: $aarch64_url },
-                "darwin-x86_64": { signature: $x86_64_sig, url: $x86_64_url }
+                "darwin-aarch64": { signature: $aarch64_sig, url: $aarch64_url }
               }
             }' > latest.json
       - id: artifacts
         run: |
-          ARTIFACTS="hyprnote-macos-aarch64.dmg,hyprnote-macos-x86_64.dmg,dist/velo-macos-aarch64.app.tar.gz,dist/velo-macos-aarch64.app.tar.gz.sig,dist/velo-macos-x86_64.app.tar.gz,dist/velo-macos-x86_64.app.tar.gz.sig,latest.json"
+          ARTIFACTS="hyprnote-macos-aarch64.dmg,dist/velo-macos-aarch64.app.tar.gz,dist/velo-macos-aarch64.app.tar.gz.sig,latest.json"
           if [[ -n "${{ steps.checksums.outputs.checksum_files }}" ]]; then
             ARTIFACTS="$ARTIFACTS,${{ steps.checksums.outputs.checksum_files }}"
           fi
