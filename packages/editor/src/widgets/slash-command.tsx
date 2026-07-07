@@ -362,6 +362,7 @@ export function SlashCommandMenu() {
         "shadow-[0_2px_8px_rgba(0,0,0,0.08),0_18px_42px_-16px_rgba(0,0,0,0.34)] backdrop-blur-sm",
       ])}
       style={{ top: 0, left: 0 }}
+      onMouseDown={(event) => event.preventDefault()}
     >
       <div className="text-muted-foreground px-1.5 py-0.5 text-[0.65rem] font-semibold tracking-wide uppercase select-none">
         Commands

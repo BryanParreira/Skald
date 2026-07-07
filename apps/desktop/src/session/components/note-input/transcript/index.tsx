@@ -1,5 +1,5 @@
 import type { RefObject } from "react";
-import { useCallback } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 import { TranscriptViewer } from "./renderer";
 import { BatchState } from "./screens/batch";
@@ -23,6 +23,21 @@ export function Transcript({
   const handleStopTranscription = useCallback(() => {
     void stopTranscription(sessionId);
   }, [sessionId, stopTranscription]);
+
+  const clearBatchSession = useListener((state) => state.clearBatchSession);
+  const batchTerminalReason = useListener(
+    (state) => state.batch[sessionId]?.terminalReason,
+  );
+  const batchTerminalReasonRef = useRef(batchTerminalReason);
+  batchTerminalReasonRef.current = batchTerminalReason;
+
+  useEffect(() => {
+    return () => {
+      if (batchTerminalReasonRef.current) {
+        clearBatchSession(sessionId);
+      }
+    };
+  }, [sessionId, clearBatchSession]);
 
   return (
     <div className="relative flex h-full flex-col overflow-hidden">
