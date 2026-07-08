@@ -662,6 +662,13 @@ export const NoteEditor = forwardRef<NoteEditorRef, NoteEditorProps>(
         // session changed while the user was still typing into the old
         // one). Retry as soon as focus leaves the view.
         const handleBlur = () => {
+          // The view may already have been torn down (e.g. this whole
+          // NoteEditor is being unmounted because the session changed)
+          // by the time a stale blur fires. Bumping renderGeneration on
+          // a disposed view forces a remount racing against that
+          // teardown, cascading into React's "Maximum update depth
+          // exceeded" loop guard instead of a clean unmount.
+          if (viewRef.current !== view) return;
           setRenderedContent(reconciledInitialContent);
           setRenderGeneration((n) => n + 1);
         };

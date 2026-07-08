@@ -27,7 +27,12 @@ export class EditorErrorBoundary extends Component<
   }
 
   componentDidCatch(error: Error, info: ErrorInfo) {
-    console.error("Editor render failed", error, info);
+    console.error(
+      "Editor render failed",
+      error?.message,
+      error?.stack,
+      info.componentStack,
+    );
 
     if (this.state.recoveryAttempts < MAX_AUTO_RECOVERY_ATTEMPTS) {
       this.setState((state) => ({
