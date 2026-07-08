@@ -480,17 +480,27 @@ export const NoteEditor = forwardRef<NoteEditorRef, NoteEditorProps>(
       const hydrated =
         taskSource && taskStorage
           ? (() => {
-              const sourceTasks = taskStorage.getTasksForSource(taskSource);
-              if (sourceTasks.length === 0) return normalizedInitialContent;
-              return hydrateTaskContent({
-                content: normalizedInitialContent,
-                sourceTasks,
-                getTask: taskStorage.getTask,
-              });
+              try {
+                const sourceTasks = taskStorage.getTasksForSource(taskSource);
+                if (sourceTasks.length === 0) return normalizedInitialContent;
+                return hydrateTaskContent({
+                  content: normalizedInitialContent,
+                  sourceTasks,
+                  getTask: taskStorage.getTask,
+                });
+              } catch (error) {
+                console.error("Task hydration failed", error);
+                return normalizedInitialContent;
+              }
             })()
           : normalizedInitialContent;
 
-      return ensureImageTrailingParagraphs(hydrated);
+      try {
+        return ensureImageTrailingParagraphs(hydrated);
+      } catch (error) {
+        console.error("Image paragraph reconciliation failed", error);
+        return hydrated;
+      }
     }, [normalizedInitialContent, taskSource, taskStorage]);
     const viewRef = useRef<EditorView | null>(null);
     const commandsRef = useRef<EditorCommands>(noopCommands);
@@ -514,15 +524,19 @@ export const NoteEditor = forwardRef<NoteEditorRef, NoteEditorProps>(
           return;
         }
 
-        const previousTasks = new Map(
-          taskStorage
-            .getTasksForSource(taskSource)
-            .map((task) => [task.taskId, task]),
-        );
-        taskStorage.upsertTasksForSource(
-          taskSource,
-          extractTasksFromContent(content, taskSource, previousTasks),
-        );
+        try {
+          const previousTasks = new Map(
+            taskStorage
+              .getTasksForSource(taskSource)
+              .map((task) => [task.taskId, task]),
+          );
+          taskStorage.upsertTasksForSource(
+            taskSource,
+            extractTasksFromContent(content, taskSource, previousTasks),
+          );
+        } catch (error) {
+          console.error("Task sync failed", error);
+        }
       },
       [taskSource, taskStorage],
     );
