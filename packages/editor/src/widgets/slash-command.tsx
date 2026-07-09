@@ -29,7 +29,7 @@ import { setBlockType } from "prosemirror-commands";
 import { wrapInList } from "prosemirror-schema-list";
 import type { EditorState, Transaction } from "prosemirror-state";
 import type { EditorView } from "prosemirror-view";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { cn } from "@hypr/utils";
@@ -257,6 +257,7 @@ function filterCommands(query: string): SlashCommandItem[] {
 // ---------------------------------------------------------------------------
 export function SlashCommandMenu() {
   const popupRef = useRef<HTMLDivElement>(null);
+  const selectedItemRef = useRef<HTMLButtonElement>(null);
   const cleanupRef = useRef<(() => void) | null>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [dismissedFrom, setDismissedFrom] = useState<number | null>(null);
@@ -317,6 +318,11 @@ export function SlashCommandMenu() {
     return false;
   });
 
+  useEffect(() => {
+    if (!active) return;
+    selectedItemRef.current?.scrollIntoView({ block: "nearest" });
+  }, [active, selectedIndex]);
+
   useEditorEffect((view) => {
     if (!view || !active || items.length === 0) {
       cleanupRef.current?.();
@@ -370,6 +376,7 @@ export function SlashCommandMenu() {
       {items.map((item, index) => (
         <button
           key={item.id}
+          ref={index === selectedIndex ? selectedItemRef : undefined}
           className={cn([
             "flex w-full items-center gap-1.5 rounded-md px-1.5 py-1 text-left",
             "cursor-pointer border-none bg-transparent transition-colors",

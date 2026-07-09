@@ -105,6 +105,29 @@ export interface JSONContent {
   text?: string;
 }
 
+// JSON.stringify is key-insertion-order sensitive, so two objects that
+// are semantically identical but built via different code paths (e.g.
+// hand-authored editor content vs. objects reconstructed by
+// cloneContentArray/createTaskItemNode during task hydration) can
+// serialize to different strings. Sorting keys recursively before
+// stringifying makes the comparison care about content, not
+// construction order.
+function stableStringify(value: unknown): string {
+  if (Array.isArray(value)) {
+    return `[${value.map(stableStringify).join(",")}]`;
+  }
+  if (value !== null && typeof value === "object") {
+    const keys = Object.keys(value as Record<string, unknown>).sort();
+    return `{${keys
+      .map(
+        (key) =>
+          `${JSON.stringify(key)}:${stableStringify((value as Record<string, unknown>)[key])}`,
+      )
+      .join(",")}}`;
+  }
+  return JSON.stringify(value);
+}
+
 export interface SearchReplaceParams {
   query: string;
   replacement: string;
@@ -644,13 +667,55 @@ export const NoteEditor = forwardRef<NoteEditorRef, NoteEditorProps>(
       reconciledInitialContent,
     );
     const [renderGeneration, setRenderGeneration] = useState(0);
+    const resyncAttemptsRef = useRef<{ count: number; windowStart: number }>({
+      count: 0,
+      windowStart: 0,
+    });
+
+    // Circuit breaker: whatever upstream source of "new but semantically
+    // equal" content we haven't found yet, this guarantees the resync
+    // mechanism below can never crash the editor via React's "Maximum
+    // update depth exceeded" guard again. If content genuinely keeps
+    // differing many times in a short window, something upstream is
+    // unstable -- stop remounting and let the note render as-is rather
+    // than looping forever.
+    const RESYNC_BUDGET = 8;
+    const RESYNC_WINDOW_MS = 3000;
+    const acceptResync = () => {
+      const now = Date.now();
+      const state = resyncAttemptsRef.current;
+      if (now - state.windowStart > RESYNC_WINDOW_MS) {
+        state.windowStart = now;
+        state.count = 0;
+      }
+      state.count += 1;
+      if (state.count > RESYNC_BUDGET) {
+        console.error(
+          "[NoteEditor] content kept changing on every resync attempt; " +
+            "giving up to avoid an update-depth crash. This means some " +
+            "upstream data source is regenerating non-idempotent content.",
+        );
+        return false;
+      }
+      return true;
+    };
 
     useEffect(() => {
-      if (renderedContent === reconciledInitialContent) return;
       if (
         !reconciledInitialContent ||
         reconciledInitialContent.type !== "doc"
       ) {
+        return;
+      }
+      // Compare by content, not reference: reconciledInitialContent is
+      // rebuilt fresh on renders triggered by unrelated causes (e.g. a
+      // background writer like live transcription touching the store
+      // while this note isn't focused). A reference check never
+      // settles against those semantically-identical-but-new objects,
+      // so this effect re-fires and remounts the editor every single
+      // time, cascading into React's "Maximum update depth exceeded"
+      // loop guard instead of converging.
+      if (stableStringify(renderedContent) === stableStringify(reconciledInitialContent)) {
         return;
       }
 
@@ -669,6 +734,7 @@ export const NoteEditor = forwardRef<NoteEditorRef, NoteEditorProps>(
           // teardown, cascading into React's "Maximum update depth
           // exceeded" loop guard instead of a clean unmount.
           if (viewRef.current !== view) return;
+          if (!acceptResync()) return;
           setRenderedContent(reconciledInitialContent);
           setRenderGeneration((n) => n + 1);
         };
@@ -678,6 +744,7 @@ export const NoteEditor = forwardRef<NoteEditorRef, NoteEditorProps>(
         };
       }
 
+      if (!acceptResync()) return;
       setRenderedContent(reconciledInitialContent);
       setRenderGeneration((n) => n + 1);
     }, [reconciledInitialContent, syncContentWhenFocused]);

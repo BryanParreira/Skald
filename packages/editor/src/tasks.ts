@@ -136,7 +136,12 @@ export function normalizeTaskContent(
     return content;
   }
 
-  return normalizeNode(content, new Set<string>(), new Set<string>()).node;
+  return normalizeNode(
+    content,
+    new Set<string>(),
+    new Set<string>(),
+    { current: 0 },
+  ).node;
 }
 
 export function extractTasksFromContent(
@@ -175,10 +180,15 @@ export function extractTasksFromContent(
   return tasks;
 }
 
-export function createTaskItemNode(task: TaskRecord): JSONContent {
+export function createTaskItemNode(
+  task: TaskRecord,
+  taskItemId?: string,
+): JSONContent {
   return {
     type: "taskItem",
-    attrs: createTaskItemAttrs(task.status, task.taskId),
+    attrs: taskItemId
+      ? createTaskItemAttrs(task.status, task.taskId, taskItemId)
+      : createTaskItemAttrs(task.status, task.taskId),
     content: cloneContentArray(task.body),
   };
 }
@@ -290,7 +300,17 @@ function hydrateNode(
     const sourceTask = sourceTasksById.get(taskId);
     if (sourceTask) {
       usedTaskIds.add(taskId);
-      return createTaskItemNode(sourceTask);
+      // Preserve the existing node's taskItemId. createTaskItemNode
+      // defaults to a fresh random one, which -- since this hydration
+      // path re-runs on every read of the same persisted content --
+      // would mint a new id every single pass and make the content
+      // never converge (see normalizeTaskContent for the same fix).
+      const existingTaskItemId =
+        typeof node.attrs?.taskItemId === "string" &&
+        node.attrs.taskItemId.trim()
+          ? node.attrs.taskItemId
+          : undefined;
+      return createTaskItemNode(sourceTask, existingTaskItemId);
     }
 
     if (getTask(taskId)) {
@@ -376,6 +396,7 @@ function normalizeNode(
   node: JSONContent,
   seenTaskIds: Set<string>,
   seenTaskItemIds: Set<string>,
+  autoCounter: { current: number },
 ): {
   node: JSONContent;
   changed: boolean;
@@ -394,12 +415,21 @@ function normalizeNode(
         ? node.attrs.taskItemId
         : "";
 
+    // Deterministic, not random: this hydration path re-runs on every
+    // read of the same persisted content (it feeds the editor's
+    // initial doc, not a dispatched transaction), so it must be
+    // idempotent. crypto.randomUUID() here would mint a new id on
+    // every call, making the resync-on-content-change effect in
+    // note/index.tsx see "different" content forever and loop until
+    // React's update-depth guard trips. Real, permanently-persisted
+    // random ids still get assigned by taskIdentityPlugin once a
+    // genuine transaction touches the document.
     while (!nextTaskId || seenTaskIds.has(nextTaskId)) {
-      nextTaskId = createTaskId();
+      nextTaskId = `auto-task-${autoCounter.current++}`;
     }
 
     while (!nextTaskItemId || seenTaskItemIds.has(nextTaskItemId)) {
-      nextTaskItemId = createTaskItemId();
+      nextTaskItemId = `auto-task-item-${autoCounter.current++}`;
     }
 
     seenTaskIds.add(nextTaskId);
@@ -420,7 +450,7 @@ function normalizeNode(
 
   if (node.content?.length) {
     const normalizedChildren = node.content.map((child) =>
-      normalizeNode(child, seenTaskIds, seenTaskItemIds),
+      normalizeNode(child, seenTaskIds, seenTaskItemIds, autoCounter),
     );
     if (normalizedChildren.some((child) => child.changed)) {
       nextContent = normalizedChildren.map((child) => child.node);

@@ -7,6 +7,10 @@ debug = true
 opt-level = 1
 debug = false
 
+[profile.release]
+strip = true
+lto = "thin"
+
 [workspace]
 resolver = "2"
 members = [
