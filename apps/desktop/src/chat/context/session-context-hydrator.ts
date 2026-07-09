@@ -1,3 +1,4 @@
+import { json2md, parseJsonContent } from "@hypr/editor/markdown";
 import { commands as fsSyncCommands } from "@hypr/plugin-fs-sync";
 import type { SessionContentData } from "@hypr/plugin-fs-sync";
 import type { SessionContext, Transcript } from "@hypr/plugin-template";
@@ -109,10 +110,28 @@ export async function hydrateSessionContextFromFs(
   );
   const eventName = extractEventName(payload.meta?.event);
 
+  // The fs-sync payload reflects whatever has already been flushed to
+  // disk. A note that was just created/edited and hasn't synced yet
+  // (or never had its raw markdown synced at all) comes back with
+  // rawMemoMarkdown/notes empty, silently sending the LLM an empty
+  // <context> block instead of the note the user is actually looking
+  // at. Fall back to the live in-memory content from the store.
+  const rawContent =
+    payload.rawMemoMarkdown ||
+    (store
+      ? json2md(
+          parseJsonContent(
+            store.getCell("sessions", sessionId, "raw_md") as
+              | string
+              | undefined,
+          ),
+        ) || null
+      : null);
+
   return {
     title: payload.meta?.title ?? null,
     date: payload.meta?.createdAt ?? null,
-    rawContent: payload.rawMemoMarkdown ?? null,
+    rawContent,
     enhancedContent: enhancedContent || null,
     transcript,
     participants,
