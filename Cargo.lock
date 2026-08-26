@@ -18144,16 +18144,31 @@ dependencies = [
 name = "tauri-plugin-dictation"
 version = "0.1.0"
 dependencies = [
+ "am",
+ "audio-actual",
+ "audio-utils",
+ "bytes",
  "dictation-ui-macos",
+ "futures-util",
+ "language",
+ "owhisper-client",
+ "owhisper-interface",
+ "resampler",
  "serde",
  "specta",
  "specta-typescript",
  "tauri",
  "tauri-plugin",
+ "tauri-plugin-clipboard-manager",
+ "tauri-plugin-local-stt",
  "tauri-plugin-shortcut",
  "tauri-specta",
+ "text-inject-macos",
  "thiserror 2.0.18",
+ "tokio",
+ "tokio-stream",
  "tracing",
+ "whisper-local-model",
 ]
 
 [[package]]
@@ -19441,6 +19456,13 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "eac95cde96549fc19c6bf19ef34cc42bd56e264c1cb97e700e21555be0ecf9e2"
 dependencies = [
  "testcontainers",
+]
+
+[[package]]
+name = "text-inject-macos"
+version = "0.1.0"
+dependencies = [
+ "thiserror 2.0.18",
 ]
 
 [[package]]

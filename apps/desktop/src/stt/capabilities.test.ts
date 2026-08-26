@@ -76,9 +76,9 @@ describe("isSupportedLocalSttModel", () => {
 
 describe("isConfiguredSttModel", () => {
   test("requires known model ids for Anarlog STT", () => {
-    expect(isConfiguredSttModel("hyprnote", "cloud")).toBe(true);
-    expect(isConfiguredSttModel("hyprnote", "soniqo-qwen3-small")).toBe(true);
-    expect(isConfiguredSttModel("hyprnote", "removed-local-model")).toBe(false);
+    expect(isConfiguredSttModel("velo", "cloud")).toBe(true);
+    expect(isConfiguredSttModel("velo", "soniqo-qwen3-small")).toBe(true);
+    expect(isConfiguredSttModel("velo", "removed-local-model")).toBe(false);
   });
 
   test("allows custom model ids for external providers", () => {

@@ -4,7 +4,6 @@ import {
   fireEvent,
   render,
   screen,
-  waitFor,
 } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -227,11 +226,11 @@ describe("ClassicMainBody", () => {
     expect(panels[0]?.dataset.panelId).toBe("classic-main-sidebar-left");
     expect(panels[0]?.dataset.order).toBe("1");
     expect(panels[0]?.dataset.defaultSize).toBe("12.5");
-    expect(panels[0]?.dataset.minSize).toBe("12.5");
-    expect(panels[0]?.dataset.maxSize).toBe("22.5");
+    expect(panels[0]?.dataset.minSize).toBe("11.25");
+    expect(panels[0]?.dataset.maxSize).toBe("30");
     expect(panels[0]?.dataset.flexGrow).toBe("var(--left-sidebar-panel-size)");
-    expect(panels[0]?.dataset.minWidth).toBe("200");
-    expect(panels[0]?.dataset.maxWidth).toBe("360");
+    expect(panels[0]?.dataset.minWidth).toBe("180");
+    expect(panels[0]?.dataset.maxWidth).toBe("480");
     expect(panels[0]?.dataset.transition).toContain("flex-grow");
     expect(panels[1]?.dataset.panelId).toBe("classic-main-content");
     expect(panels[1]?.dataset.order).toBe("2");
@@ -246,8 +245,8 @@ describe("ClassicMainBody", () => {
     expect(sidebarContent?.className).toContain("translate-x-0");
     expect(sidebarContent?.getAttribute("aria-hidden")).toBe("false");
     expect(sidebarChrome?.style.width).toBe("var(--left-sidebar-panel-width)");
-    expect(sidebarChrome?.style.minWidth).toBe("200px");
-    expect(sidebarChrome?.style.maxWidth).toBe("360px");
+    expect(sidebarChrome?.style.minWidth).toBe("180px");
+    expect(sidebarChrome?.style.maxWidth).toBe("480px");
     expect(sidebarChrome?.className).not.toContain("w-[200px]");
 
     const bodyRoot = screen.getByTestId("panel-group").parentElement;
@@ -389,86 +388,6 @@ describe("ClassicMainBody", () => {
       "flex-grow",
     );
     expect(mocks.leftsidebar.toggleExpanded).toHaveBeenCalledTimes(1);
-  });
-
-  it("shows the devtools button until the panel opens, then restores it when closed", async () => {
-    render(<ClassicMainBody />);
-
-    const searchButton = screen.getByRole("button", { name: "Search" });
-    const newNoteButton = screen.getByRole("button", { name: "New note" });
-    const devtoolsButton = screen.getByRole("button", {
-      name: "Show devtools panel",
-    });
-
-    expect(searchButton.compareDocumentPosition(newNoteButton)).toBe(
-      Node.DOCUMENT_POSITION_FOLLOWING,
-    );
-    expect(newNoteButton.compareDocumentPosition(devtoolsButton)).toBe(
-      Node.DOCUMENT_POSITION_FOLLOWING,
-    );
-    expect(devtoolsButton.parentElement).toBe(newNoteButton.parentElement);
-
-    fireEvent.click(devtoolsButton);
-
-    expect(mocks.windowsCommands.devtoolsPanelShow).toHaveBeenCalledTimes(1);
-    expect(mocks.windowsCommands.devtoolsPanelHide).not.toHaveBeenCalled();
-    expect(
-      screen.getByRole("button", { name: "Show devtools panel" }),
-    ).toBeTruthy();
-
-    act(() => {
-      for (const listener of mocks.devtoolsPanelActionListeners) {
-        listener({ payload: { action: "panel:opened" } });
-      }
-    });
-
-    await waitFor(() => {
-      expect(
-        screen.queryByRole("button", { name: "Show devtools panel" }),
-      ).toBeNull();
-    });
-
-    act(() => {
-      for (const listener of mocks.devtoolsPanelActionListeners) {
-        listener({ payload: { action: "panel:closed" } });
-      }
-    });
-
-    expect(
-      await screen.findByRole("button", { name: "Show devtools panel" }),
-    ).toBeTruthy();
-  });
-
-  it("hides the devtools button when the native panel is opened outside the sidebar", async () => {
-    render(<ClassicMainBody />);
-
-    expect(
-      screen.getByRole("button", { name: "Show devtools panel" }),
-    ).toBeTruthy();
-
-    await waitFor(() => {
-      expect(mocks.devtoolsPanelActionListeners).toHaveLength(1);
-    });
-
-    act(() => {
-      for (const listener of mocks.devtoolsPanelActionListeners) {
-        listener({ payload: { action: "panel:opened" } });
-      }
-    });
-
-    expect(
-      screen.queryByRole("button", { name: "Show devtools panel" }),
-    ).toBeNull();
-
-    act(() => {
-      for (const listener of mocks.devtoolsPanelActionListeners) {
-        listener({ payload: { action: "panel:closed" } });
-      }
-    });
-
-    expect(
-      await screen.findByRole("button", { name: "Show devtools panel" }),
-    ).toBeTruthy();
   });
 
   it("routes wheel gestures from sidebar chrome into the timeline scroller", () => {

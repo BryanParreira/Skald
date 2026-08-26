@@ -43,7 +43,7 @@ export const useSTTConnection = () => {
 
   const local = useQuery({
     enabled: current_stt_provider === "velo",
-    queryKey: ["stt-connection", localModel],
+    queryKey: ["stt-connection", current_stt_provider, localModel],
     refetchInterval: 1000,
     queryFn: async () => {
       if (!localModel) {

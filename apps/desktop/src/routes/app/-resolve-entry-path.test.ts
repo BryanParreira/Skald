@@ -33,13 +33,14 @@ describe("app entry path resolution", () => {
     await expect(resolveAppEntryPath()).resolves.toBe("/app/main");
   });
 
-  it("routes to onboarding before either shell", async () => {
+  it("always resolves to the main shell since onboarding is disabled", async () => {
     vi.mocked(commands.getOnboardingNeeded).mockResolvedValue({
       status: "ok",
       data: true,
     });
 
-    await expect(resolveAppEntryPath()).resolves.toBe("/app/onboarding");
+    await expect(getOnboardingNeeded()).resolves.toBe(false);
+    await expect(resolveAppEntryPath()).resolves.toBe("/app/main");
   });
 
   it("normalizes and identifies shell entry paths", () => {

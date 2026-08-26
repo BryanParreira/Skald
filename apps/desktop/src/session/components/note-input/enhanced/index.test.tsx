@@ -126,10 +126,7 @@ describe("Enhanced", () => {
 
     expect(screen.queryByText("Enhanced editor")).toBeNull();
     expect(screen.getByRole("status")).not.toBeNull();
-    expect(screen.getByText("Analyzing structure...")).not.toBeNull();
-    expect(
-      screen.getByText("Tip: The Anarlog team loves our users!"),
-    ).not.toBeNull();
+    expect(screen.getByText("Generating notes")).not.toBeNull();
   });
 
   it("renders streamed summary in the generating view", () => {

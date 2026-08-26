@@ -336,6 +336,7 @@ function useHasLanguageWarning() {
       "stt-language-support",
       current_stt_provider,
       selectedSttModel,
+      isOnDeviceModel,
       useLiveOnDeviceModel,
       liveSupport.data,
       spoken_languages,

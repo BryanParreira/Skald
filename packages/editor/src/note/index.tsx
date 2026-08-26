@@ -97,6 +97,15 @@ export type { MentionConfig, FileHandlerConfig, PlaceholderFunction };
 export { schema };
 export { useLinkedItemOpenBehavior };
 
+// Registry of every mounted editor's pending (debounced) update flush, so
+// the app shell can force all in-flight edits into the store before quitting
+// — the 500ms debounce below has no way to know the process is about to die.
+const pendingFlushers = new Set<() => void>();
+
+export function flushAllPendingNoteUpdates() {
+  pendingFlushers.forEach((flush) => flush());
+}
+
 export interface JSONContent {
   type?: string;
   attrs?: Record<string, any>;
@@ -606,7 +615,9 @@ export const NoteEditor = forwardRef<NoteEditorRef, NoteEditorProps>(
     // guarantees an in-flight edit lands on the session it was typed
     // into instead of leaking into whichever session mounts/renders next.
     useEffect(() => {
+      pendingFlushers.add(flushPendingUpdate);
       return () => {
+        pendingFlushers.delete(flushPendingUpdate);
         flushPendingUpdate();
       };
     }, [flushPendingUpdate, onUpdate]);

@@ -14,7 +14,7 @@ import {
 const settingsMocks = vi.hoisted(() => ({
   vaultBase: vi
     .fn()
-    .mockResolvedValue({ status: "ok", data: "/mock/data/dir/hyprnote" }),
+    .mockResolvedValue({ status: "ok", data: "/mock/data/dir/velo" }),
 }));
 
 const fsSyncMocks = vi.hoisted(() => ({

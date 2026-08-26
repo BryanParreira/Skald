@@ -164,6 +164,8 @@ export function useDesktopUpdateControl(): DesktopUpdateControl {
     };
   });
 
+  // setEventState is a useState setter, referentially stable across renders — not a real query dependency.
+  // eslint-disable-next-line @tanstack/query/exhaustive-deps
   const updateCheck = useQuery({
     queryKey: UPDATE_CHECK_QUERY_KEY,
     queryFn: async (): Promise<UpdateCheckState> => {

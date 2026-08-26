@@ -102,7 +102,7 @@ describe("useCurrentNoteTab", () => {
   it("normalizes the transcript view when audio and transcript rows are missing", () => {
     const { result } = renderHook(() => useCurrentNoteTab(tab));
 
-    expect(result.current).toEqual({ type: "raw" });
+    expect(result.current).toEqual({ type: "enhanced", id: "note-1" });
   });
 
   it("normalizes active transcript view when no transcript evidence exists", () => {
@@ -111,7 +111,7 @@ describe("useCurrentNoteTab", () => {
 
     const { result } = renderHook(() => useCurrentNoteTab(tab));
 
-    expect(result.current).toEqual({ type: "raw" });
+    expect(result.current).toEqual({ type: "enhanced", id: "note-1" });
   });
 
   it("normalizes active transcript view when only in-progress audio exists", () => {
@@ -122,7 +122,7 @@ describe("useCurrentNoteTab", () => {
       useCurrentNoteTab(tab, { audioExists: true }),
     );
 
-    expect(result.current).toEqual({ type: "raw" });
+    expect(result.current).toEqual({ type: "enhanced", id: "note-1" });
   });
 });
 
@@ -200,9 +200,9 @@ describe("computeCurrentNoteTab", () => {
       expect(result).toEqual({ type: "enhanced", id: "note-1" });
     });
 
-    it("preserves raw view", () => {
+    it("normalizes raw view to enhanced", () => {
       const result = computeCurrentNoteTab({ type: "raw" }, true, "note-1");
-      expect(result).toEqual({ type: "raw" });
+      expect(result).toEqual({ type: "enhanced", id: "note-1" });
     });
 
     it("preserves transcript view when transcript can show", () => {
@@ -222,12 +222,12 @@ describe("computeCurrentNoteTab", () => {
         "note-1",
         false,
       );
-      expect(result).toEqual({ type: "raw" });
+      expect(result).toEqual({ type: "enhanced", id: "note-1" });
     });
 
-    it("returns raw view when no persisted view", () => {
+    it("returns enhanced view when no persisted view", () => {
       const result = computeCurrentNoteTab(null, true, "note-1");
-      expect(result).toEqual({ type: "raw" });
+      expect(result).toEqual({ type: "enhanced", id: "note-1" });
     });
   });
 
@@ -242,9 +242,9 @@ describe("computeCurrentNoteTab", () => {
       expect(result).toEqual({ type: "enhanced", id: "note-1" });
     });
 
-    it("respects persisted raw view", () => {
+    it("normalizes persisted raw view to enhanced", () => {
       const result = computeCurrentNoteTab({ type: "raw" }, false, "note-1");
-      expect(result).toEqual({ type: "raw" });
+      expect(result).toEqual({ type: "enhanced", id: "note-1" });
     });
 
     it("respects persisted transcript view", () => {
@@ -264,17 +264,17 @@ describe("computeCurrentNoteTab", () => {
         "note-1",
         false,
       );
-      expect(result).toEqual({ type: "raw" });
+      expect(result).toEqual({ type: "enhanced", id: "note-1" });
     });
 
-    it("normalizes persisted attachments view to raw", () => {
+    it("normalizes persisted attachments view to enhanced", () => {
       const result = computeCurrentNoteTab(
         { type: "attachments" },
         false,
         "note-1",
         false,
       );
-      expect(result).toEqual({ type: "raw" });
+      expect(result).toEqual({ type: "enhanced", id: "note-1" });
     });
 
     it("normalizes persisted enhanced view when no enhanced notes exist", () => {
@@ -284,7 +284,7 @@ describe("computeCurrentNoteTab", () => {
         undefined,
         false,
       );
-      expect(result).toEqual({ type: "raw" });
+      expect(result).toEqual({ type: "enhanced", id: "" });
     });
 
     it("defaults to enhanced view when available and no persisted view", () => {
@@ -292,9 +292,9 @@ describe("computeCurrentNoteTab", () => {
       expect(result).toEqual({ type: "enhanced", id: "note-1" });
     });
 
-    it("defaults to raw when no enhanced notes and no persisted view", () => {
+    it("defaults to an empty enhanced draft when no enhanced notes and no persisted view", () => {
       const result = computeCurrentNoteTab(null, false, undefined);
-      expect(result).toEqual({ type: "raw" });
+      expect(result).toEqual({ type: "enhanced", id: "" });
     });
 
     it("scopes the empty-note fallback id to the session so two empty sessions never collide", () => {

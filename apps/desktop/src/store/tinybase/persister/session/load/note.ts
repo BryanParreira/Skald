@@ -46,6 +46,7 @@ export async function processMdFile(
         template_id: fm.template_id ?? "",
         position: fm.position ?? 0,
         title: fm.title ?? "",
+        generated_hash: fm.generated_hash ?? "",
       };
     }
   } catch (error) {

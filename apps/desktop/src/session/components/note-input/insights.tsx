@@ -44,11 +44,11 @@ export function Insights({ sessionId }: { sessionId: string }) {
 
       <div
         className={cn([
-          "scroll-fade-y h-full overflow-y-auto py-3 pl-2",
-          pastNotes.notes.length > 0 ? "pr-9" : "pr-2",
+          "scroll-fade-y h-full overflow-y-auto py-4 pl-3",
+          pastNotes.notes.length > 0 ? "pr-10" : "pr-3",
         ])}
       >
-        <div className="flex min-w-0 flex-col gap-2">
+        <div className="flex min-w-0 flex-col gap-2.5">
           {insightFacts.length > 0 ? (
             <ul className="text-muted-foreground min-w-0 list-disc space-y-1.5 pr-1 pl-5 text-xs leading-5">
               {insightFacts.map((fact) => (

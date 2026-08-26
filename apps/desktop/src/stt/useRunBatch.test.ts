@@ -208,7 +208,7 @@ describe("getBatchProvider", () => {
   });
 
   test("maps local soniqo models to soniqo batch provider", () => {
-    expect(getBatchProvider("hyprnote", "soniqo-parakeet-batch")).toBe(
+    expect(getBatchProvider("velo", "soniqo-parakeet-batch")).toBe(
       "soniqo",
     );
   });
@@ -421,13 +421,6 @@ describe("useRunBatch", () => {
       }),
       expect.any(Object),
     );
-    expect(sonnerToastMessageMock).toHaveBeenCalledWith(
-      "Using a batch transcription provider",
-      expect.objectContaining({
-        description:
-          "realtime-only is not available for batch transcription. Using Soniqo batch transcription instead.",
-      }),
-    );
   });
 
   test("falls back to hosted cloud transcription for paid users", async () => {
@@ -451,13 +444,6 @@ describe("useRunBatch", () => {
         api_key: "paid-token",
       }),
       expect.any(Object),
-    );
-    expect(sonnerToastMessageMock).toHaveBeenCalledWith(
-      "Using a batch transcription provider",
-      expect.objectContaining({
-        description:
-          "nova-3 is not available for batch transcription. Using Pro cloud transcription instead.",
-      }),
     );
   });
 });

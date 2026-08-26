@@ -1,10 +1,13 @@
 import { useEffect } from "react";
 
+import { getCurrentWindow } from "@tauri-apps/api/window";
+
+import { flushAllPendingNoteUpdates } from "@hypr/editor/note";
 import { getCurrentWebviewWindowLabel } from "@hypr/plugin-windows";
 
 import { useInitializeStore } from "./initialize";
 import { type Store } from "./main";
-import { registerSaveHandler } from "./save";
+import { registerSaveHandler, save } from "./save";
 
 import { useCalendarPersister } from "~/store/tinybase/persister/calendar";
 import { useChatPersister } from "~/store/tinybase/persister/chat";
@@ -66,6 +69,39 @@ export function useMainPersisters(store: Store) {
     dailyNotePersister,
     taskPersister,
   ]);
+
+  // The editor debounces store writes by 500ms (packages/editor/src/note/index.tsx),
+  // and TinyBase persister saves are fire-and-forget from the store's perspective —
+  // neither has any way to know the window is about to close. Without this, closing
+  // the app within that window drops whatever was typed since the last flush.
+  useEffect(() => {
+    if (getCurrentWebviewWindowLabel() !== "main") {
+      return;
+    }
+
+    let closing = false;
+    const window = getCurrentWindow();
+    const unlistenPromise = window.onCloseRequested(async (event) => {
+      if (closing) {
+        return;
+      }
+      closing = true;
+      event.preventDefault();
+
+      try {
+        flushAllPendingNoteUpdates();
+        await save();
+      } catch (error) {
+        console.error("[persisters] flush-on-close failed:", error);
+      }
+
+      await window.close();
+    });
+
+    return () => {
+      void unlistenPromise.then((unlisten) => unlisten());
+    };
+  }, []);
 
   useInitializeStore(store, {
     session: sessionPersister,

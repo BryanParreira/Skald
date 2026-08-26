@@ -13,10 +13,88 @@
         background: transparent !important;
         background-color: transparent !important;
       }
+
+      /* Painted the instant the window shows, before the JS bundle has
+         loaded/executed — the window is otherwise a transparent hole
+         into the desktop until React mounts its own SplashScreen. Shape
+         mirrors that component (apps/desktop/src/shared/splash-screen.tsx)
+         — a sidebar column + content lines — so this reads as "the app
+         is loading" rather than a logo screen, and the swap to the React
+         version (same layout) is seamless. Hardcoded to match
+         packages/ui/src/styles/globals.css's --background/--muted-foreground
+         tokens directly (not Tailwind classes) so it renders correctly
+         regardless of whether the stylesheet has loaded yet. React's
+         first render replaces #root's children, so this needs no manual
+         teardown. */
+      #boot-splash {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        display: flex;
+        background: hsl(60 9% 98%);
+      }
+      html.dark #boot-splash {
+        background: hsl(24 10% 11%);
+      }
+      #boot-splash .boot-splash-sidebar {
+        width: 240px;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 48px 12px 0;
+        border-right: 1px solid hsl(24 6% 90%);
+      }
+      html.dark #boot-splash .boot-splash-sidebar {
+        border-right-color: hsl(24 6% 28%);
+      }
+      #boot-splash .boot-splash-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 56px 40px 0;
+      }
+      #boot-splash .boot-splash-bar {
+        border-radius: 9999px;
+        background: hsl(25 5% 45% / 0.1);
+        animation: boot-splash-pulse 1.8s ease-in-out infinite;
+      }
+      html.dark #boot-splash .boot-splash-bar {
+        background: hsl(25 5% 55% / 0.1);
+      }
+      @keyframes boot-splash-pulse {
+        0%, 100% { opacity: 0.5; }
+        50% { opacity: 0.9; }
+      }
     </style>
     <script src="/relay-shim.js"></script>
   </head>
   <body spellcheck="false">
+    <!--
+      Sibling of #root, not a child of it — main.tsx only calls
+      createRoot().render() when #root.innerHTML is empty (a guard
+      against double-mounting present since day one), so static
+      pre-JS content must live outside #root or React never mounts.
+      Removed by main.tsx immediately after the real render commits.
+    -->
+    <div id="boot-splash">
+      <div class="boot-splash-sidebar">
+        <div class="boot-splash-bar" style="height: 28px; width: 85%; animation-delay: 0s"></div>
+        <div class="boot-splash-bar" style="height: 28px; width: 70%; animation-delay: 0.1s"></div>
+        <div class="boot-splash-bar" style="height: 28px; width: 90%; animation-delay: 0.2s"></div>
+        <div class="boot-splash-bar" style="height: 28px; width: 60%; animation-delay: 0.3s"></div>
+        <div class="boot-splash-bar" style="height: 28px; width: 75%; animation-delay: 0.4s"></div>
+        <div class="boot-splash-bar" style="height: 28px; width: 65%; animation-delay: 0.5s"></div>
+      </div>
+      <div class="boot-splash-content">
+        <div class="boot-splash-bar" style="height: 16px; width: 40%; animation-delay: 0s"></div>
+        <div class="boot-splash-bar" style="height: 12px; width: 95%; animation-delay: 0.1s"></div>
+        <div class="boot-splash-bar" style="height: 12px; width: 88%; animation-delay: 0.2s"></div>
+        <div class="boot-splash-bar" style="height: 12px; width: 92%; animation-delay: 0.3s"></div>
+        <div class="boot-splash-bar" style="height: 12px; width: 55%; animation-delay: 0.4s"></div>
+      </div>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

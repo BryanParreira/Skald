@@ -7,6 +7,7 @@ import { useListener } from "./contexts";
 import { useKeywords } from "./useKeywords";
 import { useSTTConnection } from "./useSTTConnection";
 
+import { useAuth } from "~/auth";
 import { useBillingAccess } from "~/auth/billing";
 import { env } from "~/env";
 import { deleteProcessedAudioForRetention } from "~/services/audio-retention";
@@ -188,6 +189,7 @@ export const useRunBatch = (sessionId: string) => {
 
   const startTranscription = useListener((state) => state.startTranscription);
   const { conn } = useSTTConnection();
+  const { session } = useAuth();
   const billing = useBillingAccess();
   const keywords = useKeywords(sessionId);
   const aiLanguage = useConfigValue("ai_language");
@@ -228,7 +230,8 @@ export const useRunBatch = (sessionId: string) => {
         : false;
       const fallbackTarget = getBatchFallbackTarget({
         isPaid: billing.isPaid,
-        accessToken: undefined,
+        accessToken: (session as { access_token?: string } | null)
+          ?.access_token,
         apiBaseUrl: env.VITE_API_URL,
       });
       const shouldUseSelectedTarget =
@@ -398,18 +401,17 @@ export const useRunBatch = (sessionId: string) => {
       }
     },
     [
-      conn,
-      undefined,
-      aiLanguage,
-      billing.isPaid,
-      indexes,
-      keywords,
-      spokenLanguages,
-      startTranscription,
-      sessionId,
-      settingsStore,
-      store,
-      user_id,
-    ],
+	conn,
+	aiLanguage,
+	billing.isPaid,
+	indexes,
+	keywords,
+	spokenLanguages,
+	startTranscription,
+	sessionId,
+	settingsStore,
+	store,
+	user_id
+],
   );
 };

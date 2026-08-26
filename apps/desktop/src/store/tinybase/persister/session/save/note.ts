@@ -71,6 +71,7 @@ function collectEnhancedNotes(ctx: BuildContext): DocumentItem[] {
         template_id: note.template_id || undefined,
         position: note.position,
         title: note.title || undefined,
+        generated_hash: note.generated_hash || undefined,
       };
 
       return [{ frontmatter, content: markdown }, path] as DocumentItem;

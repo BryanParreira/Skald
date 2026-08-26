@@ -12,15 +12,31 @@ tauri-plugin = { workspace = true, features = ["build"] }
 specta-typescript = { workspace = true }
 
 [dependencies]
+bytes = { workspace = true }
+futures-util = { workspace = true }
 serde = { workspace = true }
 specta = { workspace = true }
 thiserror = { workspace = true }
+tokio = { workspace = true, features = ["sync", "rt", "macros"] }
+tokio-stream = { workspace = true }
 tracing = { workspace = true }
 
 tauri = { workspace = true, features = ["test"] }
 tauri-specta = { workspace = true, features = ["derive", "typescript"] }
 
+tauri-plugin-clipboard-manager = { workspace = true }
 tauri-plugin-shortcut = { workspace = true }
 
+owhisper-client = { workspace = true }
+owhisper-interface = { workspace = true }
+
 [target.'cfg(target_os = "macos")'.dependencies]
+hypr-am = { workspace = true }
+hypr-audio-actual = { workspace = true }
+hypr-audio-utils = { workspace = true }
 hypr-dictation-ui-macos = { workspace = true }
+hypr-language = { workspace = true }
+hypr-resampler = { workspace = true }
+hypr-text-inject-macos = { workspace = true }
+hypr-whisper-local-model = { workspace = true }
+tauri-plugin-local-stt = { workspace = true, features = ["whisper-cpp"] }

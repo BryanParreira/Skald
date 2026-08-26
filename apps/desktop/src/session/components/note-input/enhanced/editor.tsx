@@ -1,7 +1,9 @@
 import type { EditorView } from "prosemirror-view";
 import { forwardRef, useCallback, useMemo } from "react";
 
-import { parseJsonContent } from "@hypr/editor/markdown";
+import { cn } from "@hypr/utils";
+
+import { json2md, parseJsonContent } from "@hypr/editor/markdown";
 import {
   NoteEditor,
   type JSONContent,
@@ -21,6 +23,7 @@ import {
   ensureFirstLineTitle,
   extractFirstLineTitle,
 } from "~/session/title-content";
+import { createSourceHash } from "~/shared/hash";
 import * as main from "~/store/tinybase/store/main";
 
 const extraNodeViews = { appLink: AppLinkView, session: SessionNodeView };
@@ -55,6 +58,25 @@ export const EnhancedEditor = forwardRef<
       "content",
       main.STORE_ID,
     );
+    const generatedHash = main.UI.useCell(
+      "enhanced_notes",
+      enhancedNoteId,
+      "generated_hash",
+      main.STORE_ID,
+    ) as string | undefined;
+    // The note reads as freshly-AI-written (muted) until the user edits it —
+    // generatedHash is stamped once at generation time and never touched by
+    // handleChange, so the moment live content diverges from it, this flips.
+    const isUntouchedAiContent = useMemo(() => {
+      if (!generatedHash || typeof content !== "string" || !content) {
+        return false;
+      }
+      try {
+        return createSourceHash(json2md(parseJsonContent(content))) === generatedHash;
+      } catch {
+        return false;
+      }
+    }, [content, generatedHash]);
     const sessionTitle = main.UI.useCell(
       "sessions",
       sessionId,
@@ -111,7 +133,10 @@ export const EnhancedEditor = forwardRef<
       >
         <NoteEditor
           ref={ref}
-          className="session-note-editor enhanced-summary-editor"
+          className={cn([
+            "session-note-editor enhanced-summary-editor",
+            isUntouchedAiContent ? "text-muted-foreground" : null,
+          ])}
           key={editorKey}
           initialContent={initialContent}
           handleChange={persistChanges ? handleChange : undefined}

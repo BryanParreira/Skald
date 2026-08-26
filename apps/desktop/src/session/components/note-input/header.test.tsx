@@ -650,7 +650,6 @@ describe("Header", () => {
 
     expect(result.current).toEqual([
       { type: "enhanced", id: "note-1" },
-      { type: "raw" },
       { type: "transcript" },
     ]);
   });
@@ -665,7 +664,6 @@ describe("Header", () => {
     expect(result.current).toEqual([
       { type: "enhanced", id: "note-1" },
       { type: "insights" },
-      { type: "raw" },
       { type: "transcript" },
     ]);
   });
@@ -681,7 +679,6 @@ describe("Header", () => {
 
     expect(result.current).toEqual([
       { type: "enhanced", id: "note-1" },
-      { type: "raw" },
     ]);
   });
 
@@ -697,7 +694,6 @@ describe("Header", () => {
 
     expect(result.current).toEqual([
       { type: "enhanced", id: "note-1" },
-      { type: "raw" },
       { type: "transcript" },
     ]);
   });
@@ -711,7 +707,6 @@ describe("Header", () => {
 
     expect(result.current).toEqual([
       { type: "enhanced", id: "note-1" },
-      { type: "raw" },
     ]);
   });
 });

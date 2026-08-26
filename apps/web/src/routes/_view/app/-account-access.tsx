@@ -9,8 +9,8 @@ import {
   AccordionTrigger,
 } from "@hypr/ui/components/ui/accordion";
 
+import { deleteAccount } from "@/functions/account";
 import { signOutFn } from "@/functions/auth";
-import { deleteAccount } from "@/functions/billing";
 
 export function AccountAccessSection() {
   const navigate = useNavigate();
@@ -35,7 +35,13 @@ export function AccountAccessSection() {
   });
 
   const deleteAccountMutation = useMutation({
-    mutationFn: () => deleteAccount(),
+    mutationFn: async () => {
+      const res = await deleteAccount();
+      if (!res.success) {
+        throw new Error(res.error);
+      }
+      return true;
+    },
     onSuccess: () => {
       navigate({ to: "/" });
     },

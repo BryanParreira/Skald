@@ -5,6 +5,8 @@ import { Button } from "@hypr/ui/components/ui/button";
 import { computeCurrentNoteTab } from "./compute-note-tab";
 
 import { extractPlainText } from "~/search/contexts/engine/utils";
+import { useCanShowActionItems } from "~/session/insights/action-items";
+import { useCanShowBrief } from "~/session/insights/brief";
 import { useCanShowInsights } from "~/session/insights/past-notes";
 import { useMainStoreRowsRevision } from "~/store/tinybase/hooks";
 import * as main from "~/store/tinybase/store/main";
@@ -81,6 +83,8 @@ export function useCurrentNoteTab(
   const isLiveSessionActive = sessionMode === "active";
   const canShowTranscript = useCanShowTranscript(tab.id, { audioExists });
   const canShowInsights = useCanShowInsights(tab.id);
+  const canShowBrief = useCanShowBrief(tab.id);
+  const canShowActionItems = useCanShowActionItems(tab.id);
 
   const enhancedNoteIds = main.UI.useSliceRowIds(
     main.INDEXES.enhancedNotesBySession,
@@ -91,6 +95,14 @@ export function useCurrentNoteTab(
 
   return useMemo(() => {
     if (tab.state.view?.type === "insights" && canShowInsights) {
+      return tab.state.view;
+    }
+
+    if (tab.state.view?.type === "brief" && canShowBrief) {
+      return tab.state.view;
+    }
+
+    if (tab.state.view?.type === "action_items" && canShowActionItems) {
       return tab.state.view;
     }
 
@@ -108,6 +120,8 @@ export function useCurrentNoteTab(
     firstEnhancedNoteId,
     canShowTranscript,
     canShowInsights,
+    canShowBrief,
+    canShowActionItems,
   ]);
 }
 

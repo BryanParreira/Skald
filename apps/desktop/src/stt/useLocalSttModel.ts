@@ -128,13 +128,14 @@ export function useLocalModelDownload(
     setProgress(0);
   }, [model]);
 
+  const refetchIsDownloaded = isDownloaded.refetch;
   const handleDelete = useCallback(() => {
     void localSttCommands.deleteModel(model).then((result) => {
       if (result.status === "ok") {
-        void isDownloaded.refetch();
+        void refetchIsDownloaded();
       }
     });
-  }, [model, isDownloaded]);
+  }, [model, refetchIsDownloaded]);
 
   return {
     progress,

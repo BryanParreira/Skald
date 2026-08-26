@@ -135,6 +135,7 @@ export const tableSchemaForTinybase = {
     template_id: { type: "string" },
     position: { type: "number" },
     title: { type: "string" },
+    generated_hash: { type: "string" },
   } as const satisfies InferTinyBaseSchema<typeof enhancedNoteSchema>,
   session_key_facts: {
     user_id: { type: "string" },

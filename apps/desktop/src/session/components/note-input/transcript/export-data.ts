@@ -40,6 +40,10 @@ export function useTranscriptExportSegments(sessionId: string): {
     [request],
   );
 
+  // requestKey is a content-hash of `request` (getRenderTranscriptRequestKey covers every
+  // field of RenderTranscriptRequest), so it stands in for `request` in the queryKey. queryFn
+  // still closes over the live `request` each render, so there's no staleness.
+  // eslint-disable-next-line @tanstack/query/exhaustive-deps
   const { data = [], isLoading } = useQuery({
     queryKey: ["transcript-export-segments", sessionId, requestKey],
     queryFn: async () => {

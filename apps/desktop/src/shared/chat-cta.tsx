@@ -51,10 +51,10 @@ export function ChatCTA({
           aria-hidden="true"
           className={cn([
             "max-w-0 min-w-0 flex-1 truncate text-left opacity-0",
-            "group-focus-within/anarlog-chat-cta:text-muted-foreground group-hover/velo-chat-cta:text-muted-foreground text-white/55",
+            "group-focus-within/velo-chat-cta:text-muted-foreground group-hover/velo-chat-cta:text-muted-foreground text-white/55",
             "transition-[max-width,opacity] duration-200 ease-out",
             "group-hover/velo-chat-cta:max-w-full group-hover/velo-chat-cta:opacity-100",
-            "group-focus-within/anarlog-chat-cta:max-w-full group-focus-within/anarlog-chat-cta:opacity-100",
+            "group-focus-within/velo-chat-cta:max-w-full group-focus-within/velo-chat-cta:opacity-100",
           ])}
         >
           {resolvedLabel}

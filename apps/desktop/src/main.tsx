@@ -143,6 +143,10 @@ async function renderApp() {
       <AppWithTiny />
     </StrictMode>,
   );
+  // Static pre-mount splash (index.html) lives outside #root so it doesn't
+  // trip the empty-innerHTML guard below — remove it now that the real
+  // render has committed.
+  document.getElementById("boot-splash")?.remove();
 }
 
 if (!rootElement.innerHTML) {

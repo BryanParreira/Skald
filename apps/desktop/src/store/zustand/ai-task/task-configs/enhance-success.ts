@@ -1,4 +1,4 @@
-import { md2json } from "@hypr/editor/markdown";
+import { json2md, md2json } from "@hypr/editor/markdown";
 
 import { createTaskId, type TaskConfig } from ".";
 import {
@@ -12,6 +12,7 @@ import {
 } from "./title-success";
 
 import { ensureMarkdownFirstLineTitle } from "~/session/title-content";
+import { createSourceHash } from "~/shared/hash";
 import { hasLiveSessionTitleDraft } from "~/store/zustand/live-title";
 
 type EnhanceSuccessParams = Parameters<
@@ -111,8 +112,14 @@ function persistEnhancedNoteContent({
 
   try {
     const jsonContent = md2json(titledText);
+    const content = JSON.stringify(jsonContent);
+    // Hash the markdown form, not the raw JSON string — content round-trips
+    // through markdown on every save/load, and json2md normalizes away the
+    // JSON-level noise (key order, incidental fields) that would otherwise
+    // make the hash mismatch on the very first reload of untouched content.
     store.setPartialRow("enhanced_notes", args.enhancedNoteId, {
-      content: JSON.stringify(jsonContent),
+      content,
+      generated_hash: createSourceHash(json2md(jsonContent)),
     });
     upsertSessionTags(store, args.sessionId, tagNames);
     return true;

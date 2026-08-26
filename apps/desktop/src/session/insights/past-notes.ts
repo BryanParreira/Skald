@@ -16,6 +16,7 @@ import { useLanguageModel } from "~/ai/hooks";
 import { deterministicGenerationSettings } from "~/ai/model-settings";
 import { extractPlainText } from "~/search/contexts/engine/utils";
 import { getSessionEvent } from "~/session/utils";
+import { createSourceHash } from "~/shared/hash";
 import { showTransientToast } from "~/sidebar/toast/transient";
 import * as main from "~/store/tinybase/store/main";
 
@@ -145,14 +146,17 @@ export function usePastSessionNotes(
     },
   });
 
+  const { mutate, isPending: mutationIsPending, variables: mutationVariables } =
+    mutation;
+
   const generatingIds = useMemo(
     () =>
-      mutation.isPending && mutation.variables
-        ? new Set(mutation.variables.map((request) => request.sessionId))
+      mutationIsPending && mutationVariables
+        ? new Set(mutationVariables.map((request) => request.sessionId))
         : new Set<string>(),
-    [mutation.isPending, mutation.variables],
+    [mutationIsPending, mutationVariables],
   );
-  const isGenerating = mutation.isPending || activeMutationCount > 0;
+  const isGenerating = mutationIsPending || activeMutationCount > 0;
 
   const notes = useMemo(
     () =>
@@ -177,9 +181,9 @@ export function usePastSessionNotes(
         return;
       }
 
-      mutation.mutate([request]);
+      mutate([request]);
     },
-    [built.requests, enabled, isGenerating, model, mutation],
+    [built.requests, enabled, isGenerating, model, mutate],
   );
 
   const regenerateAll = useCallback(() => {
@@ -187,8 +191,8 @@ export function usePastSessionNotes(
       return;
     }
 
-    mutation.mutate(built.requests);
-  }, [built.requests, enabled, isGenerating, model, mutation]);
+    mutate(built.requests);
+  }, [built.requests, enabled, isGenerating, model, mutate]);
 
   return {
     notes,
@@ -677,11 +681,3 @@ function formatSessionDate(session: {
   return parsed ? format(parsed, "MMM d, yyyy") : "";
 }
 
-function createSourceHash(text: string): string {
-  let hash = 0x811c9dc5;
-  for (let i = 0; i < text.length; i++) {
-    hash ^= text.charCodeAt(i);
-    hash = Math.imul(hash, 0x01000193);
-  }
-  return (hash >>> 0).toString(16);
-}

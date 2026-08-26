@@ -3,6 +3,7 @@ import {
   AudioLinesIcon,
   FileDownIcon,
   FileTextIcon,
+  MailIcon,
   MoreHorizontalIcon,
   PictureInPicture2Icon,
   SquareArrowOutUpRightIcon,
@@ -21,6 +22,7 @@ import {
 
 import { DeleteNote } from "./delete";
 import { ExportModal } from "./export-modal";
+import { FollowUpModal } from "./follow-up-modal";
 import { Listening } from "./listening";
 import { ShowInFinder } from "./misc";
 
@@ -49,6 +51,7 @@ export function OverflowButton({
 }) {
   const [open, setOpen] = useState(false);
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
+  const [isFollowUpModalOpen, setIsFollowUpModalOpen] = useState(false);
   const hasTranscript = useHasTranscript(sessionId);
   const currentNoteHasContent = useCurrentNoteHasContent(
     sessionId,
@@ -66,6 +69,10 @@ export function OverflowButton({
   const openExportModal = () => {
     setOpen(false);
     requestAnimationFrame(() => setIsExportModalOpen(true));
+  };
+  const openFollowUpModal = () => {
+    setOpen(false);
+    requestAnimationFrame(() => setIsFollowUpModalOpen(true));
   };
   const handleUploadAudio = () => {
     setOpen(false);
@@ -112,6 +119,17 @@ export function OverflowButton({
                 <Trans>Export</Trans>
               </span>
             </DropdownMenuItem>
+            {currentNoteHasContent && (
+              <DropdownMenuItem
+                onClick={openFollowUpModal}
+                className="cursor-pointer"
+              >
+                <MailIcon />
+                <span>
+                  <Trans>Draft follow-up</Trans>
+                </span>
+              </DropdownMenuItem>
+            )}
             <DropdownMenuSeparator />
             {allowListening && (
               <Listening sessionId={sessionId} hasTranscript={hasTranscript} />
@@ -171,6 +189,11 @@ export function OverflowButton({
         currentView={currentView}
         open={isExportModalOpen}
         onOpenChange={setIsExportModalOpen}
+      />
+      <FollowUpModal
+        sessionId={sessionId}
+        open={isFollowUpModalOpen}
+        onOpenChange={setIsFollowUpModalOpen}
       />
     </>
   );

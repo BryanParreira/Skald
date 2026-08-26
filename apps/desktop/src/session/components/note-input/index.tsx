@@ -9,11 +9,14 @@ import {
   useRef,
   useState,
 } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { useHotkeys } from "react-hotkeys-hook";
 
 import type { NoteEditorRef } from "@hypr/editor/note";
 import { cn } from "@hypr/utils";
 
+import { ActionItems } from "./action-items";
+import { Brief } from "./brief";
 import { Enhanced } from "./enhanced";
 import { Header, useEditorTabs } from "./header";
 import { Insights } from "./insights";
@@ -228,27 +231,50 @@ export const NoteInput = forwardRef<
               "h-full px-3",
               "pt-2",
               renderedCurrentTab.type === "transcript" ||
-              renderedCurrentTab.type === "insights"
+              renderedCurrentTab.type === "insights" ||
+              renderedCurrentTab.type === "brief" ||
+              renderedCurrentTab.type === "action_items"
                 ? "overflow-hidden pb-0"
                 : "scroll-fade-y overflow-auto pb-6",
             ])}
           >
-            {renderedCurrentTab.type === "enhanced" && (
-              <Enhanced
-                ref={internalEditorRef}
-                sessionId={sessionId}
-                enhancedNoteId={renderedCurrentTab.id}
-                onNavigateToTitle={onNavigateToTitle}
-                onViewReady={handleViewReady}
-                onViewDisposed={handleViewDisposed}
-              />
-            )}
-            {renderedCurrentTab.type === "transcript" && (
-              <Transcript sessionId={sessionId} scrollRef={scrollRef} />
-            )}
-            {renderedCurrentTab.type === "insights" && (
-              <Insights sessionId={sessionId} />
-            )}
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={
+                  renderedCurrentTab.type === "enhanced"
+                    ? `enhanced-${renderedCurrentTab.id}`
+                    : renderedCurrentTab.type
+                }
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.15, ease: "easeOut" }}
+                className="h-full"
+              >
+                {renderedCurrentTab.type === "enhanced" && (
+                  <Enhanced
+                    ref={internalEditorRef}
+                    sessionId={sessionId}
+                    enhancedNoteId={renderedCurrentTab.id}
+                    onNavigateToTitle={onNavigateToTitle}
+                    onViewReady={handleViewReady}
+                    onViewDisposed={handleViewDisposed}
+                  />
+                )}
+                {renderedCurrentTab.type === "transcript" && (
+                  <Transcript sessionId={sessionId} scrollRef={scrollRef} />
+                )}
+                {renderedCurrentTab.type === "insights" && (
+                  <Insights sessionId={sessionId} />
+                )}
+                {renderedCurrentTab.type === "brief" && (
+                  <Brief sessionId={sessionId} />
+                )}
+                {renderedCurrentTab.type === "action_items" && (
+                  <ActionItems sessionId={sessionId} />
+                )}
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </div>

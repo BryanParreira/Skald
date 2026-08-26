@@ -11,6 +11,10 @@ crate::common_derives! {
         Enhanced { id: String },
         #[serde(rename = "attachments")]
         Attachments,
+        #[serde(rename = "brief")]
+        Brief,
+        #[serde(rename = "action_items")]
+        ActionItems,
     }
 }
 

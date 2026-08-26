@@ -30,8 +30,8 @@ vi.mock("~/contexts/notifications", () => ({
 
 vi.mock("~/shared/config", () => ({
   useConfigValues: () => ({
-    current_llm_provider: "local",
-    current_llm_model: "model",
+    current_llm_provider: null,
+    current_llm_model: null,
     current_stt_provider: "local",
     current_stt_model: "model",
   }),
@@ -102,7 +102,7 @@ describe("ToastArea", () => {
     });
 
     const toastContainer = screen
-      .getByText("Pro features available")
+      .getByText("Language model needed")
       .closest(".fixed") as HTMLElement | null;
 
     expect(toastContainer?.style.left).toBe("calc(50% + 0px)");
@@ -132,7 +132,7 @@ describe("ToastArea", () => {
     });
 
     const toastContainer = screen
-      .getByText("Pro features available")
+      .getByText("Language model needed")
       .closest(".fixed") as HTMLElement | null;
 
     expect(toastContainer?.style.left).toBe("calc(50% + 0px)");
@@ -177,7 +177,7 @@ describe("ToastArea", () => {
     });
 
     const toastContainer = screen
-      .getByText("Pro features available")
+      .getByText("Language model needed")
       .closest(".fixed") as HTMLElement | null;
 
     expect(toastContainer?.style.left).toBe("600px");
@@ -209,7 +209,7 @@ describe("ToastArea", () => {
     });
 
     const toastContainer = screen
-      .getByText("Pro features available")
+      .getByText("Language model needed")
       .closest(".fixed") as HTMLElement | null;
 
     expect(toastContainer?.style.top).toBe("56px");
@@ -260,7 +260,7 @@ describe("ToastArea", () => {
     });
 
     const toastContainer = screen
-      .getByText("Pro features available")
+      .getByText("Language model needed")
       .closest(".fixed") as HTMLElement | null;
 
     expect(toastContainer?.style.left).toBe("600px");

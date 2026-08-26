@@ -65,6 +65,10 @@ vi.mock("./export-modal", () => ({
   ExportModal: () => null,
 }));
 
+vi.mock("./follow-up-modal", () => ({
+  FollowUpModal: () => null,
+}));
+
 vi.mock("./listening", () => ({
   Listening: () => <button type="button">Resume listening</button>,
 }));

@@ -219,6 +219,10 @@ export const enhancedNoteSchema = z.object({
   template_id: z.preprocess((val) => val ?? undefined, z.string().optional()),
   position: z.number(),
   title: z.preprocess((val) => val ?? undefined, z.string().optional()),
+  generated_hash: z.preprocess(
+    (val) => val ?? undefined,
+    z.string().optional(),
+  ),
 });
 
 export const sessionKeyFactsSchema = z.object({

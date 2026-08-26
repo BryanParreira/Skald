@@ -2,9 +2,11 @@ import { useLingui } from "@lingui/react/macro";
 import {
   AlignLeftIcon,
   AudioLinesIcon,
+  CalendarClockIcon,
   ChevronDownIcon,
   ChevronRightIcon,
   HeartIcon,
+  ListChecksIcon,
   PlusIcon,
   SearchIcon,
   SparklesIcon,
@@ -38,6 +40,8 @@ import { useSessionTranscriptRenderData } from "~/session/components/note-input/
 import { useCanShowTranscript } from "~/session/components/shared";
 import { shouldShowEmptySummaryConfigError } from "~/session/enhance-config";
 import { useEnsureDefaultSummary } from "~/session/hooks/useEnhancedNotes";
+import { useCanShowActionItems } from "~/session/insights/action-items";
+import { useCanShowBrief } from "~/session/insights/brief";
 import { useCanShowInsights } from "~/session/insights/past-notes";
 import {
   type MenuItemDef,
@@ -743,6 +747,44 @@ function HeaderTabInsights({
   );
 }
 
+function HeaderTabBrief({
+  isActive,
+  onClick = () => {},
+}: {
+  isActive: boolean;
+  onClick?: () => void;
+}) {
+  const { t } = useLingui();
+
+  return (
+    <IconHeaderTab
+      isActive={isActive}
+      label={t`Brief`}
+      icon={<CalendarClockIcon className="size-4" />}
+      onClick={onClick}
+    />
+  );
+}
+
+function HeaderTabActionItems({
+  isActive,
+  onClick = () => {},
+}: {
+  isActive: boolean;
+  onClick?: () => void;
+}) {
+  const { t } = useLingui();
+
+  return (
+    <IconHeaderTab
+      isActive={isActive}
+      label={t`Actions`}
+      icon={<ListChecksIcon className="size-4" />}
+      onClick={onClick}
+    />
+  );
+}
+
 function useOpenTemplatesTab() {
   const openNew = useTabs((state) => state.openNew);
   const selectTab = useTabs((state) => state.select);
@@ -1261,6 +1303,26 @@ export function Header({
                 );
               }
 
+              if (view.type === "brief") {
+                return (
+                  <HeaderTabBrief
+                    key={view.type}
+                    isActive={currentTab.type === view.type}
+                    onClick={() => handleTabChange(view)}
+                  />
+                );
+              }
+
+              if (view.type === "action_items") {
+                return (
+                  <HeaderTabActionItems
+                    key={view.type}
+                    isActive={currentTab.type === view.type}
+                    onClick={() => handleTabChange(view)}
+                  />
+                );
+              }
+
               if (view.type === "transcript") {
                 return (
                   <HeaderTabTranscript
@@ -1292,6 +1354,8 @@ export function useEditorTabs({
   useEnsureDefaultSummary(sessionId);
   const canShowTranscript = useCanShowTranscript(sessionId, { audioExists });
   const canShowInsights = useCanShowInsights(sessionId);
+  const canShowBrief = useCanShowBrief(sessionId);
+  const canShowActionItems = useCanShowActionItems(sessionId);
 
   const enhancedNoteIds = main.UI.useSliceRowIds(
     main.INDEXES.enhancedNotesBySession,
@@ -1302,6 +1366,8 @@ export function useEditorTabs({
   return createEditorTabs({
     enhancedNoteIds: enhancedNoteIds || [],
     canShowInsights,
+    canShowBrief,
+    canShowActionItems,
     canShowTranscript,
   });
 }
@@ -1309,10 +1375,14 @@ export function useEditorTabs({
 function createEditorTabs({
   enhancedNoteIds,
   canShowInsights,
+  canShowBrief,
+  canShowActionItems,
   canShowTranscript,
 }: {
   enhancedNoteIds: string[];
   canShowInsights: boolean;
+  canShowBrief: boolean;
+  canShowActionItems: boolean;
   canShowTranscript: boolean;
 }): EditorView[] {
   const enhancedTabs: EditorView[] = enhancedNoteIds.map((id) => ({
@@ -1321,8 +1391,10 @@ function createEditorTabs({
   }));
 
   return [
+    ...(canShowBrief ? [{ type: "brief" } as const] : []),
     ...enhancedTabs,
     ...(canShowInsights ? [{ type: "insights" } as const] : []),
+    ...(canShowActionItems ? [{ type: "action_items" } as const] : []),
     ...(canShowTranscript ? [{ type: "transcript" } as const] : []),
   ];
 }

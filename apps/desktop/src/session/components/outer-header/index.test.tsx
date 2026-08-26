@@ -16,6 +16,7 @@ const mocks = vi.hoisted(() => ({
   sessionModes: {} as Record<string, string>,
   sessionEvents: {} as Record<string, any>,
   stopListening: vi.fn(),
+  startListening: vi.fn(async () => {}),
   nowMs: new Date("2026-06-05T09:50:00.000Z").getTime(),
   openUrl: vi.fn(),
 }));
@@ -91,6 +92,10 @@ vi.mock("~/stt/contexts", () => ({
       stop: mocks.stopListening,
     }),
   ),
+}));
+
+vi.mock("~/stt/useStartListening", () => ({
+  useStartListening: () => mocks.startListening,
 }));
 
 import { OuterHeader } from "./index";

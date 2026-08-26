@@ -22,11 +22,6 @@ export const env = createEnv({
     SUPABASE_ANON_KEY: requiredInProd(z.string().min(1)),
     SUPABASE_SERVICE_ROLE_KEY: z.string().min(1).optional(),
 
-    STRIPE_SECRET_KEY: requiredInProd(z.string().min(1)),
-    STRIPE_MONTHLY_PRICE_ID: requiredInProd(z.string().min(1)),
-    STRIPE_YEARLY_PRICE_ID: requiredInProd(z.string().min(1)),
-    STRIPE_LITE_MONTHLY_PRICE_ID: requiredInProd(z.string().min(1)),
-
     LOOPS_KEY: requiredInProd(z.string().min(1)),
 
     GITHUB_TOKEN: z.string().optional(),

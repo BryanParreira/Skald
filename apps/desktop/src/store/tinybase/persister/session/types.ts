@@ -25,4 +25,5 @@ export type NoteFrontmatter = {
   template_id?: string;
   position?: number;
   title?: string;
+  generated_hash?: string;
 };
