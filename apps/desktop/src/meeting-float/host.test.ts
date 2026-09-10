@@ -223,7 +223,10 @@ describe("getLiveCaptionRouteState", () => {
     ).toBeNull();
   });
 
-  it("does not hide captions directly from the default preference", () => {
+  // Previously this preference only seeded `liveCaptionMinimized` at the start
+  // of a session, so the overlay could still appear in the window before that
+  // sync ran. Switching it off now hides the overlay outright.
+  it("hides captions when the preference is off", () => {
     expect(
       getLiveCaptionRouteState(
         createListenerStateWithCaption(
@@ -242,6 +245,30 @@ describe("getLiveCaptionRouteState", () => {
           liveCaptionPosition: "bottomRight",
           liveCaptionMinimized: false,
           liveCaptionEnabled: false,
+        },
+      ),
+    ).toBeNull();
+  });
+
+  it("still shows captions when the preference is on and not minimized", () => {
+    expect(
+      getLiveCaptionRouteState(
+        createListenerStateWithCaption(
+          {
+            status: "active",
+            sessionId: "session-1",
+            liveTranscriptionActive: true,
+          },
+          "hello",
+        ),
+        {
+          floatingBarOpacity: 0.7,
+          liveCaptionOpacity: 0.66,
+          liveCaptionWidth: 520,
+          liveCaptionLineCount: 3,
+          liveCaptionPosition: "bottomRight",
+          liveCaptionMinimized: false,
+          liveCaptionEnabled: true,
         },
       ),
     ).toEqual({

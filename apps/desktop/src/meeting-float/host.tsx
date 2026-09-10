@@ -677,6 +677,14 @@ export function getLiveCaptionRouteState(
     return null;
   }
 
+  // Checked directly rather than relying on `liveCaptionMinimized`, which is
+  // only derived from this setting by a one-shot per-session sync — if that
+  // sync hasn't run yet (or ran before the store was ready), the overlay
+  // would appear despite being switched off.
+  if (!settings.liveCaptionEnabled) {
+    return null;
+  }
+
   if (settings.liveCaptionMinimized) {
     return null;
   }
