@@ -283,23 +283,36 @@ pub async fn main() {
 
                 let stt_app_handle = app_handle.clone();
                 tauri::async_runtime::spawn(async move {
-                    let model = tauri_plugin_local_stt::LocalModel::Soniqo(
+                    // Both, and the batch one matters most: streaming handles
+                    // the live transcript during recording, but every finished
+                    // transcript is produced by the batch model — including the
+                    // fallback when live yields nothing. Prefetching only
+                    // streaming left the model that does the real work to
+                    // download on first use, mid-transcription.
+                    for model in [
                         tauri_plugin_local_stt::SoniqoModel::ParakeetStreaming,
-                    );
-                    tracing::info!("stt prefetch: checking is_model_downloaded for {model:?}");
-                    match stt_app_handle.local_stt().is_model_downloaded(&model).await {
-                        Ok(true) => {
-                            tracing::info!("stt prefetch: already downloaded");
-                        }
-                        Ok(false) => {
-                            tracing::info!("stt prefetch: not downloaded, starting download");
-                            match stt_app_handle.local_stt().download_model(model).await {
-                                Ok(()) => tracing::info!("stt prefetch: download call returned ok"),
-                                Err(e) => tracing::warn!("local STT model prefetch failed: {e}"),
+                        tauri_plugin_local_stt::SoniqoModel::ParakeetBatch,
+                    ] {
+                        let model = tauri_plugin_local_stt::LocalModel::Soniqo(model);
+                        tracing::info!("stt prefetch: checking is_model_downloaded for {model:?}");
+                        match stt_app_handle.local_stt().is_model_downloaded(&model).await {
+                            Ok(true) => {
+                                tracing::info!("stt prefetch: {model:?} already downloaded");
                             }
-                        }
-                        Err(e) => {
-                            tracing::warn!("failed to check local STT model download state: {e}")
+                            Ok(false) => {
+                                tracing::info!("stt prefetch: {model:?} not downloaded, starting");
+                                match stt_app_handle.local_stt().download_model(model).await {
+                                    Ok(()) => {
+                                        tracing::info!("stt prefetch: download call returned ok")
+                                    }
+                                    Err(e) => {
+                                        tracing::warn!("local STT model prefetch failed: {e}")
+                                    }
+                                }
+                            }
+                            Err(e) => {
+                                tracing::warn!("failed to check local STT model download state: {e}")
+                            }
                         }
                     }
                 });
