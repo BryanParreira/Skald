@@ -4,15 +4,21 @@ import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { createOpenAI } from "@ai-sdk/openai";
 import { createOpenAICompatible } from "@ai-sdk/openai-compatible";
 import { createOpenRouter } from "@openrouter/ai-sdk-provider";
+import { useQuery } from "@tanstack/react-query";
 import { fetch as tauriFetch } from "@tauri-apps/plugin-http";
 import { extractReasoningMiddleware, wrapLanguageModel } from "ai";
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 
 import type { CharTask } from "@hypr/api-client";
 import type { AIProviderStorage } from "@hypr/store";
 
 import { createAuthFetch } from "../auth-fetch";
 import { createTracedFetch, tracedFetch } from "../traced-fetch";
+import {
+  DEFAULT_LOCAL_LLM_MODEL,
+  localLlmQueries,
+  useLocalLlmServer,
+} from "./useLocalLlmModel";
 
 import { useAuth } from "~/auth";
 import { useBillingAccess } from "~/auth/billing";
@@ -37,6 +43,11 @@ type LLMConnectionInfo = {
 export type LLMConnectionStatus =
   | { status: "pending"; reason: "missing_provider" }
   | { status: "pending"; reason: "missing_model"; providerId: ProviderId }
+  | {
+      status: "pending";
+      reason: "local_server_starting";
+      providerId: "velo_local";
+    }
   | { status: "error"; reason: "provider_not_found"; providerId: string }
   | { status: "error"; reason: "unauthenticated"; providerId: "velo" }
   | { status: "error"; reason: "not_pro"; providerId: "velo" }
@@ -85,6 +96,44 @@ export const useLLMConnection = (): LLMConnectionResult => {
     settings.STORE_ID,
   ) as AIProviderStorage | undefined;
 
+  const localLlmServer = useLocalLlmServer();
+  useEffect(() => {
+    if (current_llm_provider === "velo_local") {
+      void localLlmServer.ensureStarted();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [current_llm_provider, localLlmServer.url]);
+
+  // First-run only: once the background-prefetched local model finishes
+  // downloading, auto-select it — but only if the user hasn't configured
+  // *any* provider yet. Never overrides an existing choice.
+  const isLocalModelDownloaded = useQuery(
+    localLlmQueries.isDownloaded(DEFAULT_LOCAL_LLM_MODEL),
+  ).data;
+  const setLlmProvider = settings.UI.useSetValueCallback(
+    "current_llm_provider",
+    (provider: string) => provider,
+    [],
+    settings.STORE_ID,
+  );
+  const setLlmModel = settings.UI.useSetValueCallback(
+    "current_llm_model",
+    (model: string) => model,
+    [],
+    settings.STORE_ID,
+  );
+  useEffect(() => {
+    if (!current_llm_provider && isLocalModelDownloaded) {
+      setLlmProvider("velo_local");
+      setLlmModel(DEFAULT_LOCAL_LLM_MODEL);
+    }
+  }, [
+    current_llm_provider,
+    isLocalModelDownloaded,
+    setLlmProvider,
+    setLlmModel,
+  ]);
+
   return useMemo<LLMConnectionResult>(
     () =>
       resolveLLMConnection({
@@ -93,6 +142,7 @@ export const useLLMConnection = (): LLMConnectionResult => {
         providerConfig,
         session: auth?.session,
         isPaid: billing.isPaid,
+        localServerUrl: localLlmServer.url,
       }),
     [
       auth,
@@ -100,6 +150,7 @@ export const useLLMConnection = (): LLMConnectionResult => {
       current_llm_model,
       current_llm_provider,
       providerConfig,
+      localLlmServer.url,
     ],
   );
 };
@@ -115,6 +166,7 @@ const resolveLLMConnection = (params: {
   providerConfig: AIProviderStorage | undefined;
   session: { access_token: string } | null | undefined;
   isPaid: boolean;
+  localServerUrl: string | null;
 }): LLMConnectionResult => {
   const {
     providerId: rawProviderId,
@@ -122,6 +174,7 @@ const resolveLLMConnection = (params: {
     providerConfig,
     session,
     isPaid,
+    localServerUrl,
   } = params;
 
   if (!rawProviderId) {
@@ -150,6 +203,24 @@ const resolveLLMConnection = (params: {
         reason: "provider_not_found",
         providerId: rawProviderId,
       },
+    };
+  }
+
+  if (providerId === "velo_local") {
+    if (!localServerUrl) {
+      return {
+        conn: null,
+        status: {
+          status: "pending",
+          reason: "local_server_starting",
+          providerId: "velo_local",
+        },
+      };
+    }
+
+    return {
+      conn: { providerId, modelId, baseUrl: localServerUrl, apiKey: "" },
+      status: { status: "success", providerId, isHosted: false },
     };
   }
 
@@ -296,6 +367,15 @@ const createLanguageModel = (
         baseURL: conn.baseUrl,
         apiKey: conn.apiKey,
         headers: { "api-key": conn.apiKey },
+      });
+      return wrapWithThinkingMiddleware(provider.chatModel(conn.modelId));
+    }
+
+    case "velo_local": {
+      const provider = createOpenAICompatible({
+        fetch: tauriFetch,
+        name: conn.providerId,
+        baseURL: conn.baseUrl,
       });
       return wrapWithThinkingMiddleware(provider.chatModel(conn.modelId));
     }

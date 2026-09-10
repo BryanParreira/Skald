@@ -156,6 +156,23 @@ impl<'a, M: tauri::Manager<tauri::Wry>> Tray<'a, tauri::Wry, M> {
         Ok(())
     }
 
+    // Unlike `set_visible(false)`, this removes the tray icon immediately on
+    // the calling thread instead of deferring via `run_on_main_thread` — for
+    // use on app-exit paths, where the event loop may stop pumping before a
+    // deferred closure gets a chance to run, leaving a ghost icon behind.
+    pub fn remove_immediate(&self) -> Result<()> {
+        let app = self.manager.app_handle();
+
+        if let Ok(mut task) = ANIMATION_TASK.lock()
+            && let Some(handle) = task.take()
+        {
+            handle.abort();
+        }
+
+        let _ = app.remove_tray_by_id(TRAY_ID);
+        Ok(())
+    }
+
     pub fn set_title(&self, title: Option<&str>) -> Result<()> {
         let app = self.manager.app_handle().clone();
         let title = title.map(str::to_string);

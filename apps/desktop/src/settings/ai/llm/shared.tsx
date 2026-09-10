@@ -37,10 +37,15 @@ const _PROVIDERS = [
     badge: "Recommended",
     icon: <VeloProviderIcon />,
     baseUrl: new URL("/llm", env.VITE_API_URL).toString(),
-    requirements: [
-      { kind: "requires_auth" },
-      { kind: "requires_entitlement", entitlement: "pro" },
-    ],
+    requirements: [{ kind: "requires_auth" }],
+  },
+  {
+    id: "velo_local",
+    displayName: "Velo (Local)",
+    badge: "On-device",
+    icon: <VeloProviderIcon />,
+    baseUrl: undefined,
+    requirements: [],
   },
   {
     id: "lmstudio",

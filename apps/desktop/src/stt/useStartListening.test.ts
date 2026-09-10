@@ -266,6 +266,25 @@ describe("useStartListening", () => {
   });
 
   test("cleans up processed audio after live capture stops", async () => {
+    useIndexesMock.mockReturnValue({
+      getSliceRowIds: vi.fn(() => ["live-transcript"]),
+    });
+    mainStoreMock.getCell.mockImplementation((table, _rowId, cell) => {
+      if (table === "transcripts" && cell === "words") {
+        return JSON.stringify([
+          {
+            id: "live-word",
+            text: "live",
+            start_ms: 0,
+            end_ms: 100,
+            channel: 0,
+          },
+        ]);
+      }
+
+      return "";
+    });
+
     const { result } = renderHook(() => useStartListening("session-1"));
 
     await act(async () => {
@@ -284,14 +303,32 @@ describe("useStartListening", () => {
     });
 
     expect(runBatchMock).not.toHaveBeenCalled();
-    expect(queueAutoEnhanceIfSummaryEmptyMock).toHaveBeenCalledWith(
-      "session-1",
-    );
     expect(deleteProcessedAudioForRetentionMock).toHaveBeenCalledWith(
       mainStoreMock,
       settingsStoreMock,
       "session-1",
     );
+  });
+
+  test("falls back to batch when live capture produced no transcript", async () => {
+    const { result } = renderHook(() => useStartListening("session-1"));
+
+    await act(async () => {
+      await result.current();
+    });
+
+    const onStopped = startMock.mock.calls[0]?.[1]?.onStopped;
+
+    await act(async () => {
+      await onStopped?.("session-1", {
+        durationSeconds: 42,
+        audioPath: "/tmp/session.wav",
+        requestedLiveTranscription: true,
+        liveTranscriptionActive: true,
+      });
+    });
+
+    expect(runBatchMock).toHaveBeenCalledWith("/tmp/session.wav");
   });
 
   test("regenerates the summary after resumed live capture writes transcript", async () => {

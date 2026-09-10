@@ -85,12 +85,33 @@ async serverUrl() : Promise<Result<string | null, string>> {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
 }
+},
+async startServer(model: GgufLlmModel) : Promise<Result<string, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("plugin:local-llm|start_server", { model }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async stopServer() : Promise<Result<null, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("plugin:local-llm|stop_server") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
 }
 }
 
 /** user-defined events **/
 
 
+export const events = __makeEvents__<{
+downloadProgressPayload: DownloadProgressPayload
+}>({
+downloadProgressPayload: "plugin:local-llm:download-progress-payload"
+})
 
 /** user-defined constants **/
 
@@ -99,9 +120,10 @@ async serverUrl() : Promise<Result<string | null, string>> {
 /** user-defined types **/
 
 export type CustomModelInfo = { path: string; name: string }
-export type GgufLlmModel = "Llama3p2_3bQ4" | "Gemma3_4bQ4" | "HyprLLM"
+export type DownloadProgressPayload = { model: GgufLlmModel; status: DownloadStatus }
+export type DownloadStatus = { downloading: number } | "completed" | { failed: string }
+export type GgufLlmModel = "Llama3p2_3bQ4" | "Gemma3_4bQ4" | "HyprLLM" | "Qwen2p5_3bQ4"
 export type ModelInfo = { key: GgufLlmModel; name: string; description: string; size_bytes: number }
-export type TAURI_CHANNEL<TSend> = null
 
 /** tauri-specta globals **/
 

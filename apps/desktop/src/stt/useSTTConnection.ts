@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 import { commands as localSttCommands } from "@hypr/plugin-local-stt";
 import type { AIProviderStorage } from "@hypr/store";
@@ -27,6 +27,44 @@ export const useSTTConnection = () => {
     current_stt_provider ? providerRowId("stt", current_stt_provider) : "",
     settings.STORE_ID,
   ) as AIProviderStorage | undefined;
+
+  // First-run only, mirrors the same pattern for the local LLM provider:
+  // once the background-prefetched Parakeet Streaming model finishes
+  // downloading, auto-select it — but only if the user hasn't configured
+  // *any* STT provider yet. Never overrides an existing choice.
+  const defaultLocalModel = "soniqo-parakeet-streaming" as const;
+  const isDefaultLocalModelDownloaded = useQuery({
+    queryKey: ["stt-default-local-model-downloaded"],
+    queryFn: () => localSttCommands.isModelDownloaded(defaultLocalModel),
+    refetchInterval: (query) =>
+      query.state.data?.status === "ok" && query.state.data.data
+        ? false
+        : 2000,
+    select: (result) => result.status === "ok" && result.data,
+  }).data;
+  const setSttProvider = settings.UI.useSetValueCallback(
+    "current_stt_provider",
+    (provider: string) => provider,
+    [],
+    settings.STORE_ID,
+  );
+  const setSttModel = settings.UI.useSetValueCallback(
+    "current_stt_model",
+    (model: string) => model,
+    [],
+    settings.STORE_ID,
+  );
+  useEffect(() => {
+    if (!current_stt_provider && isDefaultLocalModelDownloaded) {
+      setSttProvider("velo");
+      setSttModel(defaultLocalModel);
+    }
+  }, [
+    current_stt_provider,
+    isDefaultLocalModelDownloaded,
+    setSttProvider,
+    setSttModel,
+  ]);
 
   const localModel = isHyprnoteLocalSttModel(
     current_stt_provider,

@@ -115,6 +115,8 @@ function createDeps(
     aiTaskStore: createMockAITaskStore(),
     getModel: () => ({}) as LanguageModel,
     getLLMConn: () => ({ providerId: "test", modelId: "test-model" }),
+    getLLMConnStatus: () =>
+      ({ status: "success", providerId: "openai", isHosted: false }) as const,
     getSelectedTemplateId: () => undefined,
     ...overrides,
   };

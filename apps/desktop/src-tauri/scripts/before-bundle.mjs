@@ -29,6 +29,7 @@ if (process.platform === "win32") {
 
 if (process.platform === "darwin") {
   await runScript("compile-icons.sh");
+  await runScript("sign-llama-server-bin.sh");
 }
 
 await runScript("fix-dylib.sh");

@@ -557,6 +557,15 @@ pub fn batch_response_from_channels(
                     } else {
                         batch_words_from_chunks(&channel.chunks, channel_index as i32)
                     };
+                    tracing::info!(
+                        hyprnote.stt.provider.name = "soniqo",
+                        channel.index = channel_index,
+                        channel.transcript_chars = transcript.len(),
+                        channel.word_count = words.len(),
+                        channel.had_chunks = !channel.chunks.is_empty(),
+                        "soniqo_batch_response_channel_built"
+                    );
+
                     batch::Channel {
                         alternatives: vec![batch::Alternatives {
                             words,

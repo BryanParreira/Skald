@@ -170,7 +170,7 @@ export function formatModelSize(sizeBytes?: number | null) {
 
 const _PROVIDERS = [
   {
-    disabled: true,
+    disabled: false,
     id: "velo",
     displayName: "Velo",
     badge: null,

@@ -12,3 +12,4 @@ hypr-whisper-local-model = { workspace = true }
 
 serde = { workspace = true }
 specta = { workspace = true }
+tracing = { workspace = true }

@@ -47,10 +47,7 @@ import {
 import { useBillingAccess } from "~/auth/billing";
 import { useNotifications } from "~/contexts/notifications";
 import { providerRowId, ProviderIconSlot } from "~/settings/ai/shared";
-import {
-  getProviderSelectionBlockers,
-  requiresEntitlement,
-} from "~/settings/ai/shared/eligibility";
+import { getProviderSelectionBlockers } from "~/settings/ai/shared/eligibility";
 import { useConfigValues } from "~/shared/config";
 import { SettingsAlert } from "~/shared/ui/settings-alert";
 import * as settings from "~/store/tinybase/store/settings";
@@ -70,7 +67,6 @@ export function SelectProviderAndModel() {
     "current_stt_provider",
     "current_stt_model",
   ] as const);
-  const billing = useBillingAccess();
   const configuredProviders = useConfiguredMapping();
   const { startDownload, startTrial } = useSttSettings();
   const health = useConnectionHealth();
@@ -178,36 +174,21 @@ export function SelectProviderAndModel() {
               {PROVIDERS.filter(({ disabled }) => !disabled).map((provider) => {
                 const configured =
                   configuredProviders[provider.id]?.configured ?? false;
-                const requiresPro = requiresEntitlement(
-                  provider.requirements,
-                  "pro",
-                );
-                const locked = requiresPro && !billing.isPaid;
                 return (
                   <SelectItem
                     key={provider.id}
                     value={provider.id}
-                    disabled={provider.disabled || locked}
+                    disabled={provider.disabled}
                     className={cn([
                       "data-disabled:text-muted-foreground data-disabled:!opacity-100",
-                      !configured && !locked && "text-muted-foreground",
+                      !configured && "text-muted-foreground",
                     ])}
                   >
                     <div className="flex flex-col gap-0.5">
                       <div className="flex items-center gap-2">
                         <ProviderIconSlot>{provider.icon}</ProviderIconSlot>
                         <span>{provider.displayName}</span>
-                        {requiresPro ? (
-                          <span className="border-border text-muted-foreground rounded-full border px-2 py-0.5 text-[10px] tracking-wide uppercase">
-                            <Trans>Pro</Trans>
-                          </span>
-                        ) : null}
                       </div>
-                      {locked ? (
-                        <span className="text-muted-foreground text-[11px]">
-                          <Trans>Upgrade to Pro to use this provider.</Trans>
-                        </span>
-                      ) : null}
                     </div>
                   </SelectItem>
                 );

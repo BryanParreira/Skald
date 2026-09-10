@@ -2,6 +2,11 @@ use std::path::{Path, PathBuf};
 
 #[cfg(target_arch = "aarch64")]
 pub static SUPPORTED_MODELS: &[SupportedModel] = &[
+    // Qwen2p5_3bQ4 excluded: its download URL 404s (GitHub release was
+    // never published in this fork) and can never succeed as-is. Its enum
+    // variant and match arms stay (see `supported_model_info` below) so
+    // existing serialized settings referencing it still deserialize, but
+    // it's not offered anywhere a user could pick it and get stuck.
     SupportedModel::Llama3p2_3bQ4,
     SupportedModel::HyprLLM,
     SupportedModel::Gemma3_4bQ4,
@@ -33,19 +38,18 @@ pub fn llm_models_dir(models_base: &Path) -> PathBuf {
 }
 
 pub fn list_supported_models() -> Vec<ModelInfo> {
-    vec![
-        supported_model_info(&SupportedModel::HyprLLM),
-        supported_model_info(&SupportedModel::Gemma3_4bQ4),
-        supported_model_info(&SupportedModel::Llama3p2_3bQ4),
-    ]
+    SUPPORTED_MODELS.iter().map(supported_model_info).collect()
 }
 
 pub fn supported_model_info(model: &SupportedModel) -> ModelInfo {
     let description = match model {
+        // Download URL 404s (GitHub release never published in this fork)
+        // — kept selectable so it starts working the moment that's fixed,
+        // but not offered as the default in the meantime.
+        SupportedModel::Qwen2p5_3bQ4 => "Currently unavailable — model download is broken.",
         SupportedModel::HyprLLM => "Experimental model trained by the Char team.",
-        SupportedModel::Gemma3_4bQ4 | SupportedModel::Llama3p2_3bQ4 => {
-            "Deprecated. Exists only for backward compatibility."
-        }
+        SupportedModel::Llama3p2_3bQ4 => "Recommended default — fast, strong structured output.",
+        SupportedModel::Gemma3_4bQ4 => "Deprecated. Exists only for backward compatibility.",
     };
 
     ModelInfo {

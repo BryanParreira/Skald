@@ -11,12 +11,14 @@ mod commands;
 mod error;
 mod ext;
 mod migrate;
+mod types;
 
 pub use error::*;
 pub use ext::*;
 pub use hypr_local_llm_core::{
     CustomModelInfo, ModelIdentifier, ModelInfo, SUPPORTED_MODELS, SupportedModel,
 };
+pub use types::*;
 
 const PLUGIN_NAME: &str = "local-llm";
 
@@ -25,8 +27,17 @@ pub type SharedState = std::sync::Arc<TokioMutex<State>>;
 pub struct State {
     pub model_downloader: ModelDownloadManager<SupportedModel>,
     pub download_channels: Arc<Mutex<HashMap<String, tauri::ipc::Channel<i8>>>>,
-    pub server: Option<hypr_local_llm_core::LlmServer>,
 }
+
+// Separate from `State` (and locked for the full spawn + readiness wait,
+// which can take up to `READY_TIMEOUT`) so concurrent `start_server` calls
+// serialize on this slot specifically instead of blocking unrelated state
+// like `model_downloader` — and, critically, so the "is one already
+// running" check and the "store the new one" write happen under the same
+// lock acquisition. Checking under a lock that gets dropped before the
+// spawn completes lets every concurrent caller see `None` and spawn its
+// own server (this happened: 14 llama-server processes at once).
+pub type ServerState = std::sync::Arc<TokioMutex<Option<hypr_local_llm_core::LlmServer>>>;
 
 fn make_specta_builder<R: tauri::Runtime>() -> tauri_specta::Builder<R> {
     tauri_specta::Builder::<R>::new()
@@ -42,6 +53,11 @@ fn make_specta_builder<R: tauri::Runtime>() -> tauri_specta::Builder<R> {
             commands::list_downloaded_model::<Wry>,
             commands::list_custom_models::<Wry>,
             commands::server_url::<Wry>,
+            commands::start_server::<Wry>,
+            commands::stop_server::<Wry>,
+        ])
+        .events(tauri_specta::collect_events![
+            types::DownloadProgressPayload
         ])
         .error_handling(tauri_specta::ErrorHandlingMode::Result)
 }
@@ -69,10 +85,12 @@ pub fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
             let state = State {
                 model_downloader,
                 download_channels,
-                server: None,
             };
             let state = Arc::new(TokioMutex::new(state));
             app.manage(state.clone());
+
+            let server_state: crate::ServerState = Arc::new(TokioMutex::new(None));
+            app.manage(server_state);
 
             Ok(())
         })

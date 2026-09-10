@@ -1,10 +1,12 @@
 import { Trans } from "@lingui/react/macro";
+import { Loader2 } from "lucide-react";
 
 import { Accordion } from "@hypr/ui/components/ui/accordion";
 
 import { useLlmSettings } from "./context";
 import { ProviderId, PROVIDERS } from "./shared";
 
+import { useLocalLlmModelDownload } from "~/ai/hooks/useLocalLlmModel";
 import { NonHyprProviderCard, StyledStreamdown } from "~/settings/ai/shared";
 
 export function ConfigureProviders() {
@@ -39,6 +41,10 @@ export function ConfigureProviders() {
 }
 
 function ProviderContext({ providerId }: { providerId: ProviderId }) {
+  if (providerId === "velo_local") {
+    return <LocalLlmDownloadStatus />;
+  }
+
   const content =
     providerId === "lmstudio"
       ? "- Ensure LM Studio server is **running.** (Default port is 1234)\n- Enable **CORS** in LM Studio config."
@@ -63,4 +69,58 @@ function ProviderContext({ providerId }: { providerId: ProviderId }) {
   }
 
   return <StyledStreamdown className="mb-3">{content}</StyledStreamdown>;
+}
+
+function LocalLlmDownloadStatus() {
+  const {
+    isDownloaded,
+    showProgress,
+    progress,
+    hasError,
+    errorMessage,
+    handleDownload,
+    handleCancel,
+  } = useLocalLlmModelDownload();
+
+  return (
+    <div className="mb-3 flex flex-col gap-2">
+      <StyledStreamdown>
+        Runs fully on-device — no account, no external server to install or
+        configure. The model downloads once and stays local.
+      </StyledStreamdown>
+
+      {hasError && errorMessage && (
+        <p className="text-destructive text-xs">{errorMessage}</p>
+      )}
+
+      {isDownloaded ? (
+        <span className="text-muted-foreground text-xs">
+          <Trans>Model downloaded and ready.</Trans>
+        </span>
+      ) : showProgress ? (
+        <div className="flex items-center gap-2 text-xs">
+          <Loader2 className="size-3 animate-spin" />
+          <span>{Math.round(progress)}%</span>
+          <button
+            type="button"
+            className="text-muted-foreground underline"
+            onClick={handleCancel}
+          >
+            <Trans>Cancel</Trans>
+          </button>
+        </div>
+      ) : (
+        <button
+          type="button"
+          className={[
+            "w-fit rounded-full px-3 py-1 text-[11px] font-medium",
+            "from-muted to-accent text-foreground bg-linear-to-t shadow-xs hover:shadow-md",
+          ].join(" ")}
+          onClick={handleDownload}
+        >
+          <Trans>Download model</Trans>
+        </button>
+      )}
+    </div>
+  );
 }

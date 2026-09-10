@@ -85,7 +85,7 @@ impl Actor for RecorderActor {
     ) -> Result<(), ActorProcessingErr> {
         match &mut st.sink {
             RecorderSink::Disk(sink) => {
-                disk::finalize_disk_sink(sink)?;
+                disk::finalize_disk_sink(sink).await?;
             }
         }
 

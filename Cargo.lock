@@ -10661,8 +10661,10 @@ dependencies = [
  "gguf",
  "lmstudio",
  "local-model",
+ "port_check",
  "serde",
  "specta",
+ "tauri-plugin-shell",
  "thiserror 2.0.18",
  "tokio",
 ]
@@ -10676,6 +10678,7 @@ dependencies = [
  "model-downloader",
  "serde",
  "specta",
+ "tracing",
  "transcribe-soniqo",
  "whisper-local-model",
 ]
@@ -18427,6 +18430,7 @@ dependencies = [
  "tauri",
  "tauri-plugin",
  "tauri-plugin-settings",
+ "tauri-plugin-shell",
  "tauri-plugin-store",
  "tauri-specta",
  "thiserror 2.0.18",

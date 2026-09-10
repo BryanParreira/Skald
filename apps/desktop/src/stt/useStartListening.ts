@@ -1,6 +1,7 @@
 import { useCallback, useRef } from "react";
 
 import { commands as analyticsCommands } from "@hypr/plugin-analytics";
+import { commands as fsSyncCommands } from "@hypr/plugin-fs-sync";
 import type { TranscriptStorage } from "@hypr/store";
 
 import { useListener } from "./contexts";
@@ -24,6 +25,7 @@ import type {
   LiveTranscriptPersistCallback,
   OnStoppedCallback,
 } from "~/store/zustand/listener/transcript";
+import { useTabs } from "~/store/zustand/tabs";
 import {
   getLiveTranscriptionConfig,
   getTranscriptionLanguages,
@@ -45,6 +47,58 @@ function hasTranscriptContent(
   return transcriptIds.some(
     (transcriptId) => parseTranscriptWords(store, transcriptId).length > 0,
   );
+}
+
+const LIVE_TRANSCRIPT_SETTLE_INTERVAL_MS = 500;
+const LIVE_TRANSCRIPT_SETTLE_MAX_ATTEMPTS = 6; // ~3s
+
+// Live segments persist asynchronously, so an empty store right at stop time
+// doesn't yet mean live transcription failed. Give it a short window before
+// concluding there's nothing and falling back to batch.
+async function waitForLiveTranscript(
+  store: main.Store,
+  indexes: ReturnType<typeof main.UI.useIndexes> | undefined,
+  sessionId: string,
+): Promise<boolean> {
+  for (
+    let attempt = 0;
+    attempt < LIVE_TRANSCRIPT_SETTLE_MAX_ATTEMPTS;
+    attempt++
+  ) {
+    if (hasTranscriptContent(store, indexes, sessionId)) {
+      return true;
+    }
+
+    await new Promise((resolve) =>
+      setTimeout(resolve, LIVE_TRANSCRIPT_SETTLE_INTERVAL_MS),
+    );
+  }
+
+  return hasTranscriptContent(store, indexes, sessionId);
+}
+
+const AUDIO_FINALIZE_POLL_INTERVAL_MS = 2000;
+const AUDIO_FINALIZE_POLL_MAX_ATTEMPTS = 30; // ~60s
+
+// The recorder finalizes (WAV -> mp3) asynchronously after the stop signal
+// fires; on a busy local-transcription runtime that can lag a few seconds,
+// so the very first `audioPath` we get can be null even though the file is
+// about to show up. Poll briefly instead of giving up permanently — this is
+// exactly what the user otherwise has to trigger by hand via "regenerate
+// transcript".
+async function waitForAudioPath(sessionId: string): Promise<string | null> {
+  for (let attempt = 0; attempt < AUDIO_FINALIZE_POLL_MAX_ATTEMPTS; attempt++) {
+    await new Promise((resolve) =>
+      setTimeout(resolve, AUDIO_FINALIZE_POLL_INTERVAL_MS),
+    );
+
+    const result = await fsSyncCommands.audioPath(sessionId);
+    if (result.status === "ok") {
+      return result.data;
+    }
+  }
+
+  return null;
 }
 
 export function getPostCaptureAction(
@@ -108,14 +162,75 @@ export function useStartListening(sessionId: string) {
       transcriptAccumulatorRef.current?.dispose();
       transcriptAccumulatorRef.current = null;
 
-      const postCaptureAction = getPostCaptureAction(
+      let postCaptureAction = getPostCaptureAction(
         details,
         canRunBatchRef.current,
       );
+      let resolvedAudioPath = details.audioPath;
+
+      console.info("[onStopped] post-capture decision", {
+        sessionId,
+        postCaptureAction,
+        liveTranscriptionActive: details.liveTranscriptionActive,
+        audioPath: details.audioPath,
+        canRunBatch: canRunBatchRef.current,
+      });
+
+      if (
+        postCaptureAction === "none" &&
+        !details.liveTranscriptionActive &&
+        !details.audioPath &&
+        canRunBatchRef.current
+      ) {
+        resolvedAudioPath = await waitForAudioPath(sessionId);
+        if (resolvedAudioPath) {
+          postCaptureAction = "batch_then_enhance";
+        }
+      }
+
+      // "Live transcription was running" was being treated as "a transcript
+      // exists", so batch got skipped entirely. When live yields nothing —
+      // it needs a moment to warm up, so short recordings routinely end with
+      // zero words — that left the note with no transcript at all and no
+      // second attempt. Fall back to batch against the audio we already have.
+      if (postCaptureAction === "enhance_only" && canRunBatchRef.current) {
+        const liveProducedWords = await waitForLiveTranscript(
+          store as main.Store,
+          indexes ?? undefined,
+          sessionId,
+        );
+
+        if (!liveProducedWords) {
+          const audioPath =
+            details.audioPath ?? (await waitForAudioPath(sessionId));
+          if (audioPath) {
+            console.info(
+              "[onStopped] live transcription produced no words; falling back to batch",
+              { sessionId },
+            );
+            resolvedAudioPath = audioPath;
+            postCaptureAction = "batch_then_enhance";
+          }
+        }
+      }
 
       if (postCaptureAction === "batch_then_enhance") {
+        // Surface the transcript actually generating instead of leaving the
+        // user on whatever tab they were on (usually Summary, since a draft
+        // summary note exists from the moment the session starts) — they'd
+        // otherwise have no visible sign transcription is happening at all.
+        const sessionTab = useTabs
+          .getState()
+          .tabs.find((t) => t.type === "sessions" && t.id === sessionId);
+        if (sessionTab && sessionTab.type === "sessions") {
+          useTabs.getState().updateSessionTabState(sessionTab, {
+            ...sessionTab.state,
+            view: { type: "transcript" },
+          });
+        }
+
         try {
-          await runBatchRef.current(details.audioPath!);
+          await runBatchRef.current(resolvedAudioPath!);
         } catch (error) {
           if (isStoppedTranscriptionError(error)) {
             return;

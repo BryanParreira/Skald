@@ -16,13 +16,11 @@ import { HealthStatusIndicator, useConnectionHealth } from "./health";
 import { getPreferredProviderModel } from "./selection";
 import { type Provider, PROVIDERS } from "./shared";
 
+import { DEFAULT_LOCAL_LLM_MODEL } from "~/ai/hooks/useLocalLlmModel";
 import { useAuth } from "~/auth";
 import { useBillingAccess } from "~/auth/billing";
 import { providerRowId, ProviderIconSlot } from "~/settings/ai/shared";
-import {
-  getProviderSelectionBlockers,
-  requiresEntitlement,
-} from "~/settings/ai/shared/eligibility";
+import { getProviderSelectionBlockers } from "~/settings/ai/shared/eligibility";
 import { listAnthropicModels } from "~/settings/ai/shared/list-anthropic";
 import { listAzureAIModels } from "~/settings/ai/shared/list-azure-ai";
 import { listAzureOpenAIModels } from "~/settings/ai/shared/list-azure-openai";
@@ -48,7 +46,6 @@ import * as settings from "~/store/tinybase/store/settings";
 export function SelectProviderAndModel() {
   const { t } = useLingui();
   const configuredProviders = useConfiguredMapping();
-  const billing = useBillingAccess();
   const queryClient = useQueryClient();
   const { setAccordionValue } = useLlmSettings();
 
@@ -129,11 +126,6 @@ export function SelectProviderAndModel() {
   };
 
   const handleProviderChange = (provider: string) => {
-    if (provider === "velo" && !billing.isPaid) {
-      billing.upgradeToPro();
-      return;
-    }
-
     const status = configuredProviders[provider];
     if (!status?.listModels) {
       setAccordionValue(provider);
@@ -207,11 +199,6 @@ export function SelectProviderAndModel() {
             </SelectTrigger>
             <SelectContent>
               {PROVIDERS.map((provider) => {
-                const requiresPro = requiresEntitlement(
-                  provider.requirements,
-                  "pro",
-                );
-                const locked = requiresPro && !billing.isPaid;
                 const configured =
                   configuredProviders[provider.id]?.configured ?? false;
 
@@ -219,10 +206,10 @@ export function SelectProviderAndModel() {
                   <SelectItem
                     key={provider.id}
                     value={provider.id}
-                    disabled={locked || !configured}
+                    disabled={!configured}
                     className={cn([
                       "data-disabled:text-muted-foreground data-disabled:!opacity-100",
-                      !configured && !locked && "text-muted-foreground",
+                      !configured && "text-muted-foreground",
                     ])}
                   >
                     <div className="flex flex-col gap-0.5">
@@ -230,12 +217,7 @@ export function SelectProviderAndModel() {
                         <ProviderIconSlot>{provider.icon}</ProviderIconSlot>
                         <span>{provider.displayName}</span>
                       </div>
-                      {locked ? (
-                        <span className="text-muted-foreground text-[11px]">
-                          <Trans>Upgrade to Pro to use this provider.</Trans>
-                        </span>
-                      ) : null}
-                      {!locked && !configured ? (
+                      {!configured ? (
                         <span className="text-muted-foreground text-[11px]">
                           <Trans>Configure this provider to use it.</Trans>
                         </span>
@@ -312,6 +294,19 @@ export function getLlmProviderStatus({
       metadata: {
         Auto: {
           input_modalities: ["text", "image"] as InputModality[],
+        },
+      },
+    };
+    return { configured: true, listModels: async () => result };
+  }
+
+  if (provider.id === "velo_local") {
+    const result: ListModelsResult = {
+      models: [DEFAULT_LOCAL_LLM_MODEL],
+      ignored: [],
+      metadata: {
+        [DEFAULT_LOCAL_LLM_MODEL]: {
+          input_modalities: ["text"] as InputModality[],
         },
       },
     };

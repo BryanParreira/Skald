@@ -10,6 +10,7 @@ pub enum GgufLlmModel {
     Llama3p2_3bQ4,
     Gemma3_4bQ4,
     HyprLLM,
+    Qwen2p5_3bQ4,
 }
 
 impl GgufLlmModel {
@@ -18,6 +19,7 @@ impl GgufLlmModel {
             GgufLlmModel::Llama3p2_3bQ4 => "llm.gguf",
             GgufLlmModel::HyprLLM => "hypr-llm.gguf",
             GgufLlmModel::Gemma3_4bQ4 => "gemma-3-4b-it-Q4_K_M.gguf",
+            GgufLlmModel::Qwen2p5_3bQ4 => "qwen2.5-3b-instruct-q4_k_m.gguf",
         }
     }
 
@@ -32,6 +34,12 @@ impl GgufLlmModel {
             GgufLlmModel::Gemma3_4bQ4 => {
                 "https://hyprnote.s3.us-east-1.amazonaws.com/v0/unsloth/gemma-3-4b-it-GGUF/gemma-3-4b-it-Q4_K_M.gguf"
             }
+            // Hosted as a GitHub release asset rather than S3 — sha256
+            // verified to match the official Qwen/Qwen2.5-3B-Instruct-GGUF
+            // source file byte-for-byte before upload.
+            GgufLlmModel::Qwen2p5_3bQ4 => {
+                "https://github.com/BryanParreira/Velo/releases/download/models-v1/qwen2.5-3b-instruct-q4_k_m.gguf"
+            }
         }
     }
 
@@ -40,6 +48,8 @@ impl GgufLlmModel {
             GgufLlmModel::Llama3p2_3bQ4 => 2019377440,
             GgufLlmModel::HyprLLM => 1107409056,
             GgufLlmModel::Gemma3_4bQ4 => 2489894016,
+            // Confirmed via HF's LFS metadata for the source file.
+            GgufLlmModel::Qwen2p5_3bQ4 => 2104932768,
         }
     }
 
@@ -48,6 +58,7 @@ impl GgufLlmModel {
             GgufLlmModel::Llama3p2_3bQ4 => 2831308098,
             GgufLlmModel::HyprLLM => 4037351144,
             GgufLlmModel::Gemma3_4bQ4 => 2760830291,
+            GgufLlmModel::Qwen2p5_3bQ4 => 237264834,
         }
     }
 
@@ -56,6 +67,7 @@ impl GgufLlmModel {
             GgufLlmModel::Llama3p2_3bQ4 => "Llama 3.2 3B Q4",
             GgufLlmModel::HyprLLM => "HyprLLM",
             GgufLlmModel::Gemma3_4bQ4 => "Gemma 3 4B Q4",
+            GgufLlmModel::Qwen2p5_3bQ4 => "Qwen 2.5 3B Q4",
         }
     }
 
@@ -117,6 +129,7 @@ impl LocalModel {
         ]);
 
         models.extend([
+            LocalModel::GgufLlm(GgufLlmModel::Qwen2p5_3bQ4),
             LocalModel::GgufLlm(GgufLlmModel::Llama3p2_3bQ4),
             LocalModel::GgufLlm(GgufLlmModel::HyprLLM),
             LocalModel::GgufLlm(GgufLlmModel::Gemma3_4bQ4),
@@ -159,6 +172,7 @@ impl LocalModel {
             LocalModel::GgufLlm(GgufLlmModel::Llama3p2_3bQ4) => "llm-llama3-2-3b-q4",
             LocalModel::GgufLlm(GgufLlmModel::HyprLLM) => "llm-hypr-llm",
             LocalModel::GgufLlm(GgufLlmModel::Gemma3_4bQ4) => "llm-gemma3-4b-q4",
+            LocalModel::GgufLlm(GgufLlmModel::Qwen2p5_3bQ4) => "llm-qwen2-5-3b-q4",
         }
     }
 
@@ -221,12 +235,28 @@ impl DownloadableModel for GgufLlmModel {
     fn is_downloaded(&self, models_base: &Path) -> Result<bool, Error> {
         let path = models_base.join("llm").join(self.file_name());
         if !path.exists() {
+            tracing::warn!(
+                path = %path.display(),
+                models_base = %models_base.display(),
+                "gguf_is_downloaded_path_missing"
+            );
             return Ok(false);
         }
 
         let actual =
             hypr_file::file_size(&path).map_err(|e| Error::OperationFailed(e.to_string()))?;
-        Ok(actual == self.model_size())
+        let expected = self.model_size();
+        // Only when it disagrees — this is polled every second, so logging
+        // the success case floods the log.
+        if actual != expected {
+            tracing::warn!(
+                path = %path.display(),
+                actual_size = actual,
+                expected_size = expected,
+                "gguf_is_downloaded_size_mismatch"
+            );
+        }
+        Ok(actual == expected)
     }
 
     fn finalize_download(&self, _downloaded_path: &Path, _models_base: &Path) -> Result<(), Error> {

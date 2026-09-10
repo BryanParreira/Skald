@@ -12,6 +12,7 @@ import {
 
 import { commands as analyticsCommands } from "@hypr/plugin-analytics";
 import { commands as detectCommands } from "@hypr/plugin-detect";
+import { commands as localLlmCommands } from "@hypr/plugin-local-llm";
 import { commands as localSttCommands } from "@hypr/plugin-local-stt";
 import { commands as trayCommands } from "@hypr/plugin-tray";
 import {
@@ -49,7 +50,7 @@ export const SETTINGS_MAPPING = {
     floating_bar_enabled: {
       type: "boolean",
       path: ["general", "floating_bar_enabled"],
-      default: true as boolean,
+      default: false as boolean,
     },
     floating_bar_opacity: {
       type: "number",
@@ -383,6 +384,19 @@ function syncLocalSttServer(store: Store) {
   }
 }
 
+function syncLocalLlmServer(store: Store) {
+  const provider = store.getValue("current_llm_provider") as string | undefined;
+  const model = store.getValue("current_llm_model") as string | undefined;
+
+  if (provider === "velo_local" && model) {
+    localLlmCommands.startServer(model as Parameters<typeof localLlmCommands.startServer>[0]).catch(
+      console.error,
+    );
+  } else {
+    localLlmCommands.stopServer().catch(console.error);
+  }
+}
+
 const SETTINGS_LISTENERS: SettingsListeners = {
   autostart: (_store, newValue) => {
     if (newValue) {
@@ -411,6 +425,8 @@ const SETTINGS_LISTENERS: SettingsListeners = {
   },
   current_stt_provider: (store) => syncLocalSttServer(store),
   current_stt_model: (store) => syncLocalSttServer(store),
+  current_llm_provider: (store) => syncLocalLlmServer(store),
+  current_llm_model: (store) => syncLocalLlmServer(store),
   telemetry_consent: (_store, newValue) => {
     analyticsCommands.setDisabled(!newValue).catch(console.error);
   },

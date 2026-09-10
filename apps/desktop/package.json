@@ -14,7 +14,9 @@
     "i18n:extract": "lingui extract",
     "i18n:compile": "lingui compile",
     "i18n:check": "lingui extract --clean --workers 1 && lingui compile --strict --workers 1 && git diff --exit-code -- src/i18n/locales",
+    "pretauri:dev": "./src-tauri/scripts/fetch-llama-server.sh",
     "tauri:dev": "dotenvx run --ignore MISSING_ENV_FILE --env RELAY_PORT=1424 -f ../../.env.supabase -f .env -- tauri dev --no-watch --features dev",
+    "pretauri:build": "./src-tauri/scripts/fetch-llama-server.sh",
     "tauri:build": "tauri build"
   },
   "dependencies": {
@@ -44,6 +46,7 @@
     "@hypr/plugin-hooks": "workspace:*",
     "@hypr/plugin-icon": "workspace:*",
     "@hypr/plugin-importer": "workspace:*",
+    "@hypr/plugin-local-llm": "workspace:*",
     "@hypr/plugin-local-stt": "workspace:*",
     "@hypr/plugin-misc": "workspace:*",
     "@hypr/plugin-notification": "workspace:*",

@@ -137,7 +137,11 @@ impl WindowImpl for AppWindow {
                     .window_builder(app, "/app")
                     .maximizable(true)
                     .minimizable(true)
-                    .min_inner_size(500.0, 500.0);
+                    // Layout needs >= sidebar min (180px) + content min
+                    // (500px, NOTE_SURFACE_MIN_WIDTH_PX) to fit both panels.
+                    // 500 alone let the window shrink below that, leaving
+                    // the sidebar with nowhere to put the content pane.
+                    .min_inner_size(700.0, 500.0);
                 let window = builder.build()?;
                 window.set_size(LogicalSize::new(910.0, 600.0))?;
                 window

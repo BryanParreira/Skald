@@ -104,3 +104,22 @@ pub async fn server_url<R: tauri::Runtime>(
         .await
         .map_err(|e| e.to_string())
 }
+
+#[tauri::command]
+#[specta::specta]
+pub async fn start_server<R: tauri::Runtime>(
+    app: tauri::AppHandle<R>,
+    model: crate::SupportedModel,
+) -> Result<String, String> {
+    app.local_llm()
+        .start_server(model)
+        .await
+        .map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+#[specta::specta]
+pub async fn stop_server<R: tauri::Runtime>(app: tauri::AppHandle<R>) -> Result<(), String> {
+    app.local_llm().stop_server().await;
+    Ok(())
+}

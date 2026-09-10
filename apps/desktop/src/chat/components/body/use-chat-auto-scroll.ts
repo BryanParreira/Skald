@@ -7,6 +7,7 @@ export function useChatAutoScroll(status: ChatStatus) {
   const shouldAutoScrollRef = useRef(true);
   const previousIsGeneratingRef = useRef(false);
   const pendingUserScrollIntentRef = useRef(false);
+  const scrollFrameRef = useRef<number | null>(null);
   const [isAtBottom, setIsAtBottom] = useState(true);
   const [showGoToRecent, setShowGoToRecent] = useState(false);
   const isGenerating = status === "submitted" || status === "streaming";
@@ -21,6 +22,21 @@ export function useChatAutoScroll(status: ChatStatus) {
     pendingUserScrollIntentRef.current = false;
     setIsAtBottom(true);
     setShowGoToRecent(false);
+  };
+
+  // Streaming tokens can trigger the render-effect below and the
+  // ResizeObserver within the same frame, each writing `scrollTop`
+  // synchronously — that double (or rapid repeated) write is what reads as
+  // glitchy/jittery scroll during fast local-model streaming. Coalesce any
+  // burst of scroll requests into a single write per animation frame.
+  const scheduleScrollToBottom = () => {
+    if (scrollFrameRef.current !== null) {
+      return;
+    }
+    scrollFrameRef.current = requestAnimationFrame(() => {
+      scrollFrameRef.current = null;
+      scrollToBottom();
+    });
   };
 
   const updateAutoScrollState = () => {
@@ -70,7 +86,7 @@ export function useChatAutoScroll(status: ChatStatus) {
     previousIsGeneratingRef.current = isGenerating;
 
     if (shouldAutoScrollRef.current) {
-      scrollToBottom();
+      scheduleScrollToBottom();
     }
   });
 
@@ -81,13 +97,19 @@ export function useChatAutoScroll(status: ChatStatus) {
 
     const observer = new ResizeObserver(() => {
       if (shouldAutoScrollRef.current) {
-        scrollToBottom();
+        scheduleScrollToBottom();
       }
     });
 
     observer.observe(contentRef.current);
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      if (scrollFrameRef.current !== null) {
+        cancelAnimationFrame(scrollFrameRef.current);
+        scrollFrameRef.current = null;
+      }
+    };
   }, []);
 
   return {

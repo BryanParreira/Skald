@@ -14,7 +14,10 @@ hypr-local-model = { workspace = true }
 
 dirs = { workspace = true }
 serde = { workspace = true }
+tauri-plugin-shell = { workspace = true }
 thiserror = { workspace = true }
-tokio = { workspace = true }
+tokio = { workspace = true, features = ["net", "io-util", "time", "rt"] }
+
+port_check = "0.3.0"
 
 specta = { workspace = true, optional = true }

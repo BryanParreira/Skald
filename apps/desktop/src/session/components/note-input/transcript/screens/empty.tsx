@@ -1,7 +1,24 @@
 import { AlertCircleIcon, AudioLinesIcon, SquareIcon } from "lucide-react";
 
 import { Button } from "@hypr/ui/components/ui/button";
-import { Spinner } from "@hypr/ui/components/ui/spinner";
+
+// Widths vary per line so the placeholder reads as text rather than a solid
+// block — mirrors how a real transcript line wraps.
+const SKELETON_LINE_WIDTHS = ["92%", "78%", "85%", "60%", "88%", "70%"];
+
+function TranscriptSkeleton() {
+  return (
+    <div className="flex w-full max-w-md flex-col gap-3" aria-hidden>
+      {SKELETON_LINE_WIDTHS.map((width, index) => (
+        <div
+          key={index}
+          className="bg-muted h-3 animate-pulse rounded-full"
+          style={{ width, animationDelay: `${index * 100}ms` }}
+        />
+      ))}
+    </div>
+  );
+}
 
 export function TranscriptEmptyState({
   isBatching,
@@ -36,14 +53,10 @@ export function TranscriptEmptyState({
     );
   }
 
-  return (
-    <div className="text-muted-foreground flex h-full flex-col items-center justify-center gap-3">
-      {isBatching ? (
-        <Spinner size={28} />
-      ) : (
-        <AudioLinesIcon className="h-8 w-8" />
-      )}
-      {isBatching ? (
+  if (isBatching) {
+    return (
+      <div className="text-muted-foreground flex h-full flex-col items-center justify-center gap-4 px-6">
+        <TranscriptSkeleton />
         <div className="flex flex-col items-center gap-1">
           {typeof percentage === "number" && percentage > 0 ? (
             <p className="text-muted-foreground text-2xl font-medium tabular-nums">
@@ -67,36 +80,37 @@ export function TranscriptEmptyState({
             </Button>
           ) : null}
         </div>
-      ) : (
-        <div className="flex max-w-sm flex-col items-center gap-1 text-center">
-          <p className="text-muted-foreground text-sm">
-            {hasAudio ? "Recording available" : "No transcript available"}
-          </p>
-          <p className="text-muted-foreground text-xs">
-            {hasAudio
-              ? "Use the refresh button above to generate a transcript, or upload a file."
-              : "Upload audio or a transcript file to populate this note."}
-          </p>
-          {(onUploadAudio || onUploadTranscript) && (
-            <div className="mt-3 flex items-center gap-2">
-              {onUploadAudio && (
-                <Button variant="outline" size="sm" onClick={onUploadAudio}>
-                  Upload audio
-                </Button>
-              )}
-              {onUploadTranscript && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={onUploadTranscript}
-                >
-                  Upload transcript
-                </Button>
-              )}
-            </div>
-          )}
-        </div>
-      )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="text-muted-foreground flex h-full flex-col items-center justify-center gap-3">
+      <AudioLinesIcon className="h-8 w-8" />
+      <div className="flex max-w-sm flex-col items-center gap-1 text-center">
+        <p className="text-muted-foreground text-sm">
+          {hasAudio ? "Recording available" : "No transcript available"}
+        </p>
+        <p className="text-muted-foreground text-xs">
+          {hasAudio
+            ? "Use the refresh button above to generate a transcript, or upload a file."
+            : "Upload audio or a transcript file to populate this note."}
+        </p>
+        {(onUploadAudio || onUploadTranscript) && (
+          <div className="mt-3 flex items-center gap-2">
+            {onUploadAudio && (
+              <Button variant="outline" size="sm" onClick={onUploadAudio}>
+                Upload audio
+              </Button>
+            )}
+            {onUploadTranscript && (
+              <Button variant="outline" size="sm" onClick={onUploadTranscript}>
+                Upload transcript
+              </Button>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

@@ -246,10 +246,63 @@ pub async fn main() {
             }
 
             {
+                // Prefetch the default local AI models in the background so
+                // they're already there by the time a user picks the local
+                // provider in Settings — no manual "Download" click needed.
+                // Idempotent (both check is-downloaded first) and silent —
+                // failures (e.g. offline on first launch) are logged, not
+                // surfaced, since this is a convenience prefetch, not a
+                // blocking requirement.
                 use tauri_plugin_local_llm::LocalLlmPluginExt;
-                if false {
-                    app_handle.local_llm().start_server();
-                }
+                use tauri_plugin_local_stt::LocalSttPluginExt;
+
+                let llm_app_handle = app_handle.clone();
+                tauri::async_runtime::spawn(async move {
+                    // Qwen2p5_3bQ4's download URL 404s (see
+                    // useLocalLlmModel.ts's DEFAULT_LOCAL_LLM_MODEL comment)
+                    // — keep this prefetch in sync with that default.
+                    let model = tauri_plugin_local_llm::SupportedModel::Llama3p2_3bQ4;
+
+                    // Download only — do NOT auto-start the server here.
+                    // Starting loads the model into RAM for the lifetime of
+                    // the process, and this prefetch runs on every launch
+                    // regardless of whether the user has picked the local
+                    // provider. The frontend starts the server on demand
+                    // (see useLLMConnection's `current_llm_provider ===
+                    // "velo_local"` effect) and stops it again when the
+                    // user switches away (see settings.ts
+                    // `syncLocalLlmServer`).
+                    if let Err(e) = llm_app_handle
+                        .local_llm()
+                        .ensure_model_downloaded(model)
+                        .await
+                    {
+                        tracing::warn!("local LLM model prefetch failed: {e}");
+                    }
+                });
+
+                let stt_app_handle = app_handle.clone();
+                tauri::async_runtime::spawn(async move {
+                    let model = tauri_plugin_local_stt::LocalModel::Soniqo(
+                        tauri_plugin_local_stt::SoniqoModel::ParakeetStreaming,
+                    );
+                    tracing::info!("stt prefetch: checking is_model_downloaded for {model:?}");
+                    match stt_app_handle.local_stt().is_model_downloaded(&model).await {
+                        Ok(true) => {
+                            tracing::info!("stt prefetch: already downloaded");
+                        }
+                        Ok(false) => {
+                            tracing::info!("stt prefetch: not downloaded, starting download");
+                            match stt_app_handle.local_stt().download_model(model).await {
+                                Ok(()) => tracing::info!("stt prefetch: download call returned ok"),
+                                Err(e) => tracing::warn!("local STT model prefetch failed: {e}"),
+                            }
+                        }
+                        Err(e) => {
+                            tracing::warn!("failed to check local STT model download state: {e}")
+                        }
+                    }
+                });
             }
 
             Ok(())
@@ -314,6 +367,39 @@ pub async fn main() {
             let _ = app.set_activation_policy(tauri::ActivationPolicy::Accessory);
         }
         tauri::RunEvent::Exit => {
+            {
+                use tauri_plugin_tray::TrayPluginExt;
+                // NSStatusItem lingers as a ghost icon in the macOS menu bar if
+                // the process exits without explicitly tearing it down first.
+                let _ = app.tray().remove_immediate();
+            }
+
+            {
+                // llama-server ships as a bundle.resources binary, not a
+                // Tauri sidecar, so it's invisible to the
+                // `ProcessMatcher::Sidecar` cleanup below — without this it
+                // outlives the app entirely as an orphaned process still
+                // holding the model in memory.
+                //
+                // Killed directly by process name rather than through
+                // `local_llm().stop_server()`: that goes through an async
+                // lock a concurrent `start_server()` call may still be
+                // holding (itself possibly mid-flight for up to ~60s waiting
+                // on the server's health check). A `block_on` there — even
+                // timeout-wrapped — still has to get scheduled on the same
+                // tokio runtime, which under load doesn't fire promptly
+                // either, so quitting during a stuck start could still hang
+                // the whole app (confirmed via a real 6.58s main-thread hang
+                // in `psynch_cvwait` at quit). Killing by name is
+                // synchronous, touches no lock, and can't hang.
+                let killed = hypr_host::kill_processes_by_matcher(
+                    hypr_host::ProcessMatcher::Name("llama-server".to_string()),
+                );
+                if killed > 0 {
+                    tracing::info!("killed {killed} llama-server process(es) on quit");
+                }
+            }
+
             {
                 use tauri_plugin_store2::Store2PluginExt;
                 if let Ok(store) = app.store2().store() {

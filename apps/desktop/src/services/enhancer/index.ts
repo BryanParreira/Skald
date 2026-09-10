@@ -4,6 +4,7 @@ import { commands as analyticsCommands } from "@hypr/plugin-analytics";
 
 import { getEligibility } from "./eligibility";
 
+import type { LLMConnectionStatus } from "~/ai/hooks";
 import type { Store as MainStore } from "~/store/tinybase/store/main";
 import { INDEXES } from "~/store/tinybase/store/main";
 import { createTaskId } from "~/store/zustand/ai-task/task-configs";
@@ -40,6 +41,7 @@ type EnhancerDeps = {
   };
   getModel: () => LanguageModel | null;
   getLLMConn: () => { providerId?: string; modelId?: string } | null;
+  getLLMConnStatus: () => LLMConnectionStatus;
   getSelectedTemplateId: () => string | undefined;
 };
 
@@ -218,6 +220,28 @@ export class EnhancerService {
     const result = this.enhance(sessionId, { isAuto: true });
 
     if (result.type === "no_model") {
+      // A local model still cold-starting (server spinning up, or the
+      // model file still downloading) reports as "no model" exactly like a
+      // genuinely unconfigured provider — but it's transient and usually
+      // resolves within seconds. Retry through that window instead of
+      // giving up for good on the first check; only stop retrying once the
+      // connection reports a real error (bad config, unauthenticated) or
+      // there's truly no provider selected at all.
+      const status = this.deps.getLLMConnStatus();
+      const isTransient =
+        status.status === "pending" &&
+        (status.reason === "local_server_starting" ||
+          status.reason === "missing_model");
+
+      if (isTransient && attempt < 40) {
+        const timer = setTimeout(() => {
+          this.pendingRetries.delete(sessionId);
+          this.tryAutoEnhance(sessionId, attempt + 1);
+        }, 750);
+        this.pendingRetries.set(sessionId, timer);
+        return;
+      }
+
       this.activeAutoEnhance.delete(sessionId);
       this.emit({ type: "auto-enhance-no-model", sessionId });
       return;

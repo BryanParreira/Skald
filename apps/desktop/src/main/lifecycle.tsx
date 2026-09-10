@@ -1,7 +1,11 @@
 import { useRouteContext } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef } from "react";
 
-import { useLanguageModel, useLLMConnection } from "~/ai/hooks";
+import {
+  useLanguageModel,
+  useLLMConnection,
+  useLLMConnectionStatus,
+} from "~/ai/hooks";
 import { useAuth } from "~/auth";
 import { useSessionTab } from "~/chat/components/use-session-tab";
 import { buildChatTools } from "~/chat/tools";
@@ -46,6 +50,7 @@ function EnhancerInit() {
   const indexes = main.UI.useIndexes(main.STORE_ID);
   const model = useLanguageModel("enhance");
   const { conn } = useLLMConnection();
+  const connectionStatus = useLLMConnectionStatus();
   const selectedTemplateId = settings.UI.useValue(
     "selected_template_id",
     settings.STORE_ID,
@@ -55,6 +60,8 @@ function EnhancerInit() {
   modelRef.current = model;
   const connRef = useRef(conn);
   connRef.current = conn;
+  const connectionStatusRef = useRef(connectionStatus);
+  connectionStatusRef.current = connectionStatus;
   const templateIdRef = useRef(selectedTemplateId);
   templateIdRef.current = selectedTemplateId;
 
@@ -78,6 +85,7 @@ function EnhancerInit() {
               modelId: connRef.current.modelId,
             }
           : null,
+      getLLMConnStatus: () => connectionStatusRef.current,
       getSelectedTemplateId: () => templateIdRef.current,
     });
 

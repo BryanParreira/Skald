@@ -5,3 +5,4 @@ ttt
 cli/*
 !cli/.gitkeep
 mlx.metallib
+llama-server-bin

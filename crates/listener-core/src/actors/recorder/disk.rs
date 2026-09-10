@@ -122,24 +122,46 @@ pub(super) fn write_dual(
     Ok(())
 }
 
-pub(super) fn finalize_disk_sink(sink: &mut DiskSink) -> Result<(), ActorProcessingErr> {
+pub(super) async fn finalize_disk_sink(sink: &mut DiskSink) -> Result<(), ActorProcessingErr> {
     finalize_writer(&mut sink.writer, Some(&sink.wav_path))?;
     finalize_writer(&mut sink.writer_mic, None)?;
     finalize_writer(&mut sink.writer_spk, None)?;
 
     if sink.wav_path.exists() {
-        let encoded_path = sink.wav_path.with_extension("mp3");
-        match hypr_mp3::encode_wav(&sink.wav_path, &encoded_path) {
-            Ok(()) => {
+        let wav_path = sink.wav_path.clone();
+        let encoded_path = wav_path.with_extension("mp3");
+
+        // LAME encoding is CPU-bound and was previously called inline on
+        // whatever tokio worker thread is running this actor's shutdown —
+        // if local on-device transcription is saturating that same limited
+        // worker pool at the moment recording stops, this task doesn't get
+        // scheduled for minutes, `resolve_final_audio_path` finds nothing,
+        // and the frontend is told (once, with no retry) that there's no
+        // audio. `spawn_blocking` gives it a dedicated thread so it isn't
+        // starved by whatever else the async runtime is doing.
+        let encode_result = {
+            let wav_path = wav_path.clone();
+            let encoded_path = encoded_path.clone();
+            tokio::task::spawn_blocking(move || hypr_mp3::encode_wav(&wav_path, &encoded_path))
+                .await
+        };
+
+        match encode_result {
+            Ok(Ok(())) => {
                 sync_file(&encoded_path);
                 sync_dir(&encoded_path);
-                std::fs::remove_file(&sink.wav_path)?;
-                sync_dir(&sink.wav_path);
+                std::fs::remove_file(&wav_path)?;
+                sync_dir(&wav_path);
             }
-            Err(error) => {
+            Ok(Err(error)) => {
                 tracing::error!("Encoding to mp3 failed, keeping WAV: {}", error);
-                sync_file(&sink.wav_path);
-                sync_dir(&sink.wav_path);
+                sync_file(&wav_path);
+                sync_dir(&wav_path);
+            }
+            Err(join_error) => {
+                tracing::error!("mp3 encode task panicked/cancelled: {}", join_error);
+                sync_file(&wav_path);
+                sync_dir(&wav_path);
             }
         }
     }
