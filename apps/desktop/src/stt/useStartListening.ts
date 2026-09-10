@@ -25,7 +25,6 @@ import type {
   LiveTranscriptPersistCallback,
   OnStoppedCallback,
 } from "~/store/zustand/listener/transcript";
-import { useTabs } from "~/store/zustand/tabs";
 import {
   getLiveTranscriptionConfig,
   getTranscriptionLanguages,
@@ -215,20 +214,6 @@ export function useStartListening(sessionId: string) {
       }
 
       if (postCaptureAction === "batch_then_enhance") {
-        // Surface the transcript actually generating instead of leaving the
-        // user on whatever tab they were on (usually Summary, since a draft
-        // summary note exists from the moment the session starts) — they'd
-        // otherwise have no visible sign transcription is happening at all.
-        const sessionTab = useTabs
-          .getState()
-          .tabs.find((t) => t.type === "sessions" && t.id === sessionId);
-        if (sessionTab && sessionTab.type === "sessions") {
-          useTabs.getState().updateSessionTabState(sessionTab, {
-            ...sessionTab.state,
-            view: { type: "transcript" },
-          });
-        }
-
         try {
           await runBatchRef.current(resolvedAudioPath!);
         } catch (error) {

@@ -21,6 +21,12 @@ const hoisted = vi.hoisted(() => ({
     isHosted: true,
   } as LLMConnectionStatus,
   content: "",
+  sessionMode: "inactive" as string,
+}));
+
+vi.mock("~/stt/contexts", () => ({
+  useListener: (selector: (state: unknown) => unknown) =>
+    selector({ getSessionMode: () => hoisted.sessionMode }),
 }));
 
 vi.mock("@hypr/ui/components/ui/spinner", () => ({
@@ -102,6 +108,7 @@ describe("Enhanced", () => {
       isHosted: true,
     };
     hoisted.content = "";
+    hoisted.sessionMode = "inactive";
   });
 
   it("renders an empty editor before the auto-enhance task is visible", () => {
@@ -111,6 +118,28 @@ describe("Enhanced", () => {
     expect(screen.queryByRole("status")).toBeNull();
     expect(screen.queryByText("Preparing summary...")).toBeNull();
     expect(screen.queryByTestId("spinner")).toBeNull();
+  });
+
+  it("shows a skeleton while transcription is still running", () => {
+    hoisted.sessionMode = "running_batch";
+
+    const { container } = render(
+      <Enhanced sessionId="session-1" enhancedNoteId="note-1" />,
+    );
+
+    expect(screen.queryByText("Enhanced editor")).toBeNull();
+    expect(container.querySelectorAll(".animate-pulse").length).toBeGreaterThan(
+      0,
+    );
+  });
+
+  it("keeps showing existing summary content while transcription re-runs", () => {
+    hoisted.sessionMode = "running_batch";
+    hoisted.content = "previous summary";
+
+    render(<Enhanced sessionId="session-1" enhancedNoteId="note-1" />);
+
+    expect(screen.getByText("Enhanced editor")).not.toBeNull();
   });
 
   it("shows a generating status before streamed text arrives", () => {

@@ -35,7 +35,21 @@ export function useChatAutoScroll(status: ChatStatus) {
     }
     scrollFrameRef.current = requestAnimationFrame(() => {
       scrollFrameRef.current = null;
-      scrollToBottom();
+
+      // Re-check at fire time rather than trusting the state that queued
+      // this frame: the user can scroll up in between, and a queued frame
+      // that still ran `scrollToBottom` would both yank them back down and
+      // re-arm auto-scroll — which repeated every streamed token, making it
+      // impossible to scroll up while a reply was generating.
+      if (!shouldAutoScrollRef.current || pendingUserScrollIntentRef.current) {
+        return;
+      }
+
+      if (!scrollRef.current) {
+        return;
+      }
+
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     });
   };
 

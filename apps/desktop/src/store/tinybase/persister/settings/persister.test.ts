@@ -439,7 +439,7 @@ describe("settingsPersister roundtrip", () => {
     const [tables, values] = settingsToContent({
       general: {
         autostart: true,
-        floating_bar_enabled: false,
+        floating_bar_enabled: true,
         save_recordings: true,
       },
       notification: {
@@ -456,7 +456,7 @@ describe("settingsPersister roundtrip", () => {
 
     expect(result.general).toEqual({
       autostart: true,
-      floating_bar_enabled: false,
+      floating_bar_enabled: true,
     });
     expect(result.notification).toEqual({ event: false });
   });
