@@ -297,6 +297,24 @@ describe("computeCurrentNoteTab", () => {
       expect(result).toEqual({ type: "enhanced", id: "" });
     });
 
+    // Right after recording there's often no enhanced note yet while
+    // transcription runs; the summary is what the user is waiting on.
+    it("defaults to the summary rather than the transcript while a transcript is available", () => {
+      const result = computeCurrentNoteTab(null, false, undefined, true, "s-1");
+      expect(result).toEqual({ type: "enhanced", id: "draft-s-1" });
+    });
+
+    it("still respects an explicitly chosen transcript view", () => {
+      const result = computeCurrentNoteTab(
+        { type: "transcript" },
+        false,
+        undefined,
+        true,
+        "s-1",
+      );
+      expect(result).toEqual({ type: "transcript" });
+    });
+
     it("scopes the empty-note fallback id to the session so two empty sessions never collide", () => {
       const sessionA = computeCurrentNoteTab(
         null,

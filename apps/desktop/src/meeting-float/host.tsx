@@ -72,7 +72,7 @@ const DEFAULT_FLOATING_OVERLAY_SETTINGS: FloatingOverlaySettings = {
   liveCaptionLineCount: 1,
   liveCaptionPosition: "topCenter",
   liveCaptionMinimized: false,
-  liveCaptionEnabled: true,
+  liveCaptionEnabled: false,
 };
 
 const FLOATING_BAR_MIN_OPACITY = 0.35;
@@ -157,7 +157,11 @@ function getFloatingOverlaySettingsFromStore(
       store?.getValue("live_caption_position"),
     ),
     liveCaptionMinimized: store?.getValue("live_caption_minimized") === true,
-    liveCaptionEnabled: store?.getValue("live_caption_enabled") !== false,
+    // `=== true`, not `!== false`: the store can still be undefined here, and
+    // the old form turned that into "enabled". Since the settings listeners
+    // are also skipped when there's no store, the overlay then latched on for
+    // the whole session no matter what the user had set.
+    liveCaptionEnabled: store?.getValue("live_caption_enabled") === true,
   };
 }
 
@@ -229,7 +233,7 @@ function LiveCaptionDefaultVisibilitySync({
       store.setValue(
         "live_caption_minimized",
         getLiveCaptionMinimizedForSessionDefault({
-          liveCaptionEnabled: store.getValue("live_caption_enabled") !== false,
+          liveCaptionEnabled: store.getValue("live_caption_enabled") === true,
         }),
       );
     };

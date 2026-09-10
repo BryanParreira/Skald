@@ -139,6 +139,15 @@ describe("getLiveCaptionRouteState", () => {
           },
           "  we should ship this  ",
         ),
+        {
+          floatingBarOpacity: 0.7,
+          liveCaptionOpacity: 0.3,
+          liveCaptionWidth: 440,
+          liveCaptionLineCount: 1,
+          liveCaptionPosition: "topCenter",
+          liveCaptionMinimized: false,
+          liveCaptionEnabled: true,
+        },
       ),
     ).toEqual({
       sessionId: "session-1",
@@ -307,6 +316,15 @@ describe("getLiveCaptionRouteState", () => {
           },
           " ",
         ),
+        {
+          floatingBarOpacity: 0.7,
+          liveCaptionOpacity: 0.3,
+          liveCaptionWidth: 440,
+          liveCaptionLineCount: 1,
+          liveCaptionPosition: "topCenter",
+          liveCaptionMinimized: false,
+          liveCaptionEnabled: true,
+        },
       ),
     ).toEqual({
       sessionId: "session-1",
