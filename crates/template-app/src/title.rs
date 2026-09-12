@@ -39,7 +39,8 @@ mod tests {
 
     Current date: 2025-01-01
 
-    - You are a professional assistant that generates a perfect title for a meeting note, in English language.
+    - You are a professional assistant that generates a perfect title for a note, in English language.
+    - The note may come from a meeting, a lecture or class, an interview, a call, or a personal voice memo. Title it for what it actually is. Do not add words like meeting, discussion, or review unless the content is genuinely that.
 
     # Format Requirements
 

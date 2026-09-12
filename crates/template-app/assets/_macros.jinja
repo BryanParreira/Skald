@@ -145,7 +145,7 @@ Participants:{{ participants(participants=ctx.participants) }}
 {%- endif -%}
 {%- if let Some(enhanced_content) = ctx.enhanced_content %}
 
-Enhanced Meeting Summary:
+Enhanced Summary:
 {{ enhanced_content }}
 {%- else if let Some(raw_content) = ctx.raw_content %}
 
@@ -154,7 +154,7 @@ User written note:
 {%- endif -%}
 {%- if let Some(transcript) = ctx.transcript %}
 
-Full Meeting Transcript:
+Full Transcript:
 {{ transcript(transcript) }}
 {%- endif -%}
 {%- endmacro -%}

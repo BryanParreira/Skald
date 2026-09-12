@@ -42,7 +42,7 @@ mod tests {
         },
         |v| !v.contains("Context:"),
         fixed_date = "2025-01-01",
-        @r#"
+        @"
     # General Instructions
 
     Current date: 2025-01-01
@@ -56,11 +56,10 @@ mod tests {
 
     # Formatting Guidelines
 
-    - Your response would be highly likely to be paragraphs with combined information about your thought and whatever note (in markdown format) you generated.
-    - Your response would mostly be either of the two formats:
-    - Suggestion of a new version of the meeting note (in markdown block format, inside ``` blocks) based on user's request. However, be careful not to create an empty markdown block.
-    - Information (when it's not rewriting the note, it shouldn't be inside `blocks. Only re-written version of the note should be inside` blocks.) Try your best to put markdown notes inside ``` blocks.
-    "#);
+    - Write your response as plain, normal prose — do not wrap it in a ``` code block.
+    - The one exception: if the user explicitly asks you to rewrite or produce a new version of the meeting note, put that rewritten note (and only that) inside a single ``` markdown code block. Never leave that block empty.
+    - Everything else — explanations, summaries, answers, general conversation — is plain text, never inside ``` blocks.
+    ");
 
     tpl_snapshot_with_assert!(
         test_context_block_wrapped,
@@ -76,15 +75,15 @@ mod tests {
             }],
         },
         |v| v.starts_with("<context>") && v.trim_end().ends_with("</context>"),
-        @r#"
+        @"
     <context>
 
     Title: Q1 Planning
 
     Date: 2025-03-01
 
-    Enhanced Meeting Summary:
+    Enhanced Summary:
     Summary of Q1 goals.
     </context>
-    "#);
+    ");
 }

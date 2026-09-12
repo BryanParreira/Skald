@@ -6,13 +6,13 @@
 {{- macros::participants_list(participants=participants) }}
 {% if !pre_meeting_memo.is_empty() %}
 
-# Pre-Meeting Notes
+# Notes Before Recording
 
 {{ pre_meeting_memo }}
 {% endif %}
 {% if !post_meeting_memo.is_empty() %}
 
-# Meeting Notes
+# Notes
 
 {{ post_meeting_memo }}
 {% endif %}
