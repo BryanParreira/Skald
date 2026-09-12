@@ -16,7 +16,6 @@ import { LightbulbIcon } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { json2md, parseJsonContent } from "@hypr/editor/markdown";
-import { commands as analyticsCommands } from "@hypr/plugin-analytics";
 import {
   AppFloatingPanel,
   Popover,
@@ -1422,10 +1421,6 @@ function useEnhanceLogic(sessionId: string, enhancedNoteId: string) {
 
       setMissingModelError(null);
 
-      void analyticsCommands.event({
-        event: "note_enhanced",
-        is_auto: false,
-      });
 
       await enhanceTask.start({
         model,

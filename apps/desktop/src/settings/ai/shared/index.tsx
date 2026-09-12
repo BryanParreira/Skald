@@ -5,7 +5,6 @@ import { ExternalLink } from "lucide-react";
 import type { ReactNode } from "react";
 import { Streamdown } from "streamdown";
 
-import { commands as analyticsCommands } from "@hypr/plugin-analytics";
 import type { AIProvider } from "@hypr/store";
 import { aiProviderSchema } from "@hypr/store";
 import {
@@ -172,15 +171,6 @@ export function NonHyprProviderCard({
   const form = useForm({
     onSubmit: ({ value }) => {
       setProvider(value);
-      void analyticsCommands.event({
-        event: "ai_provider_configured",
-        provider: value.type,
-      });
-      void analyticsCommands.setProperties({
-        set: {
-          has_configured_ai: true,
-        },
-      });
     },
     defaultValues:
       provider ??

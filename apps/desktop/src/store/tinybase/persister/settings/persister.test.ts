@@ -127,6 +127,9 @@ describe("settingsPersister roundtrip", () => {
     // storeToSettings omits values that equal schema defaults
     delete (expected as any).general.save_recordings;
     delete (expected as any).notification.event;
+    // telemetry_consent is no longer a setting, so a stale copy left in an
+    // existing user's settings file is dropped rather than round-tripped.
+    delete (expected as any).general.telemetry_consent;
     expect(result).toEqual(expected);
   });
 
@@ -189,7 +192,6 @@ describe("settingsPersister roundtrip", () => {
       included_platforms: '["code"]',
       autostart: true,
       audio_retention: "none",
-      telemetry_consent: false,
       ai_language: "en",
       spoken_languages: '["en","ko"]',
       personalization_dictionary_terms: '["Anarlog","Parakeet TDT"]',

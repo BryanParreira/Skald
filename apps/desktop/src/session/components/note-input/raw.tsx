@@ -7,7 +7,6 @@ import {
   type JSONContent,
   type NoteEditorRef,
 } from "@hypr/editor/note";
-import { commands as analyticsCommands } from "@hypr/plugin-analytics";
 import { cn } from "@hypr/utils";
 
 import { AudioDropTarget } from "./audio-drop-target";
@@ -117,10 +116,6 @@ export const RawEditor = forwardRef<
           const hasContent = hasNonEmptyText(input);
           if (hasContent) {
             hasTrackedWriteRef.current = true;
-            void analyticsCommands.event({
-              event: "note_edited",
-              has_content: true,
-            });
           }
         }
       },

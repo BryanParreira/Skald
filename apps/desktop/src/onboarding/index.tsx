@@ -5,7 +5,6 @@ import { Volume2Icon, VolumeXIcon } from "lucide-react";
 import { motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import { commands as analyticsCommands } from "@hypr/plugin-analytics";
 import { commands as sfxCommands } from "@hypr/plugin-sfx";
 import { cn } from "@hypr/utils";
 
@@ -93,11 +92,6 @@ function OnboardingScreenContent({
   }, [currentStep]);
 
   useEffect(() => {
-    void analyticsCommands.event({
-      event: "onboarding_step_viewed",
-      step: currentStep,
-      platform: currentPlatform,
-    });
   }, [currentPlatform, currentStep]);
 
   useEffect(() => {

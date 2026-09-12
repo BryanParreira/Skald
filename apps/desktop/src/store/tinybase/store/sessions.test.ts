@@ -1,16 +1,8 @@
-import { beforeEach, describe, expect, test, vi } from "vitest";
+import { beforeEach, describe, expect, test } from "vitest";
 
 import { createSession, isSessionEmpty } from "./sessions";
 
 import { createTestMainStore } from "~/store/tinybase/persister/testing/mocks";
-
-const analyticsEventMock = vi.hoisted(() => vi.fn());
-
-vi.mock("@hypr/plugin-analytics", () => ({
-  commands: {
-    event: analyticsEventMock,
-  },
-}));
 
 type Store = Parameters<typeof createSession>[0];
 
@@ -31,7 +23,6 @@ describe("createSession", () => {
       memo: "",
       pinned: false,
     });
-    analyticsEventMock.mockClear();
   });
 
   test("adds the current user as a participant", () => {
@@ -55,10 +46,6 @@ describe("createSession", () => {
         source: "manual",
       }),
     ]);
-    expect(analyticsEventMock).toHaveBeenCalledWith({
-      event: "note_created",
-      has_event_id: false,
-    });
   });
 
   test("keeps a note with only the default user participant empty", () => {

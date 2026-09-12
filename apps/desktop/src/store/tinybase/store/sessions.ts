@@ -1,5 +1,4 @@
 import { json2md } from "@hypr/editor/markdown";
-import { commands as analyticsCommands } from "@hypr/plugin-analytics";
 import type {
   Event,
   EventParticipant,
@@ -31,10 +30,6 @@ export function createSession(store: Store, title?: string): string {
     addCurrentUserParticipant(store, sessionId, userId);
   });
 
-  void analyticsCommands.event({
-    event: "note_created",
-    has_event_id: false,
-  });
   return sessionId;
 }
 
@@ -83,10 +78,6 @@ export function getOrCreateSessionForEventId(
 
   createParticipantsFromEvent(store, sessionId, event);
 
-  void analyticsCommands.event({
-    event: "note_created",
-    has_event_id: true,
-  });
   return sessionId;
 }
 

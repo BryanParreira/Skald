@@ -4,7 +4,6 @@ import { open as selectFile } from "@tauri-apps/plugin-dialog";
 import { Effect, pipe } from "effect";
 import { useCallback } from "react";
 
-import { commands as analyticsCommands } from "@hypr/plugin-analytics";
 import {
   commands as fsSyncCommands,
   events as fsSyncEvents,
@@ -200,10 +199,6 @@ export function useUploadFile(sessionId: string) {
         ),
         Effect.tap(() =>
           Effect.sync(() => {
-            void analyticsCommands.event({
-              event: "file_uploaded",
-              file_type: "audio",
-            });
             void queryClient.invalidateQueries({
               queryKey: ["audio", sessionId, "exist"],
             });
@@ -293,11 +288,6 @@ export function useUploadFile(sessionId: string) {
 
               store.setRow("transcripts", transcriptId, transcriptRow);
 
-              void analyticsCommands.event({
-                event: "file_uploaded",
-                file_type: "transcript",
-                token_count: subtitle.tokens.length,
-              });
 
               triggerEnhance();
             }),

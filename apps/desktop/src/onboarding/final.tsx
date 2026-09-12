@@ -1,7 +1,6 @@
 import { Icon } from "@iconify-icon/react";
 import { Trans } from "@lingui/react/macro";
 
-import { commands as analyticsCommands } from "@hypr/plugin-analytics";
 import { commands as openerCommands } from "@hypr/plugin-opener2";
 import { commands as sfxCommands } from "@hypr/plugin-sfx";
 
@@ -62,7 +61,6 @@ export async function finishOnboarding(onContinue?: () => void) {
   await new Promise((resolve) => setTimeout(resolve, 100));
   await commands.setOnboardingNeeded(false).catch(console.error);
   await new Promise((resolve) => setTimeout(resolve, 100));
-  await analyticsCommands.event({ event: "onboarding_completed" });
   if (await flushAutomaticRelaunch()) {
     return;
   }

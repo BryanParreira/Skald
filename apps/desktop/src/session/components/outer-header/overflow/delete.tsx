@@ -2,7 +2,6 @@ import { Trans } from "@lingui/react/macro";
 import { Loader2Icon, TrashIcon } from "lucide-react";
 import { useCallback } from "react";
 
-import { commands as analyticsCommands } from "@hypr/plugin-analytics";
 import { DropdownMenuItem } from "@hypr/ui/components/ui/dropdown-menu";
 import { cn } from "@hypr/utils";
 
@@ -79,10 +78,6 @@ export function DeleteNote({ sessionId }: { sessionId: string }) {
       });
     }
 
-    void analyticsCommands.event({
-      event: "session_deleted",
-      includes_recording: true,
-    });
   }, [store, indexes, sessionId, invalidateResource, addDeletion]);
 
   return (

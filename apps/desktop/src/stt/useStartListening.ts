@@ -1,6 +1,5 @@
 import { useCallback, useRef } from "react";
 
-import { commands as analyticsCommands } from "@hypr/plugin-analytics";
 import { commands as fsSyncCommands } from "@hypr/plugin-fs-sync";
 import type { TranscriptStorage } from "@hypr/store";
 
@@ -16,7 +15,6 @@ import { useSTTConnection } from "./useSTTConnection";
 import { useShell } from "~/contexts/shell";
 import { deleteProcessedAudioForRetention } from "~/services/audio-retention";
 import { getEnhancerService } from "~/services/enhancer";
-import { getSessionEventById } from "~/session/utils";
 import { useConfigValue } from "~/shared/config";
 import { id } from "~/shared/utils";
 import * as main from "~/store/tinybase/store/main";
@@ -346,16 +344,6 @@ export function useStartListening(sessionId: string) {
 
     setLeftSidebarExpanded(false);
 
-    void analyticsCommands.event({
-      event: "session_started",
-      has_calendar_event: !!getSessionEventById(store, sessionId),
-      ...(conn
-        ? {
-            stt_provider: conn.provider,
-            stt_model: conn.model,
-          }
-        : {}),
-    });
   }, [
     aiLanguage,
     conn,

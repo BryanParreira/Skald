@@ -2,7 +2,6 @@ import { Trans } from "@lingui/react/macro";
 import { useForm } from "@tanstack/react-form";
 import { disable, enable } from "@tauri-apps/plugin-autostart";
 
-import { commands as analyticsCommands } from "@hypr/plugin-analytics";
 import { commands as trayCommands } from "@hypr/plugin-tray";
 import { commands as windowsCommands } from "@hypr/plugin-windows";
 import type { General, GeneralStorage } from "@hypr/store";
@@ -38,7 +37,6 @@ function useSettingsForm() {
     "show_app_in_dock",
     "show_tray_icon",
     "notification_detect",
-    "telemetry_consent",
     "ai_language",
     "spoken_languages",
     "current_stt_provider",
@@ -79,7 +77,6 @@ function useSettingsForm() {
       show_app_in_dock: settingsValue.show_app_in_dock,
       show_tray_icon: settingsValue.show_tray_icon,
       notification_detect: settingsValue.notification_detect,
-      telemetry_consent: settingsValue.telemetry_consent,
       ai_language: settingsValue.ai_language,
       spoken_languages: getAdditionalSpokenLanguages(
         settingsValue.ai_language,
@@ -138,24 +135,6 @@ function useSettingsForm() {
           .catch(console.error);
       }
 
-      void analyticsCommands.event({
-        event: "settings_changed",
-        autostart: normalizedValue.autostart,
-        auto_start_scheduled_meetings:
-          normalizedValue.auto_start_scheduled_meetings,
-        auto_stop_meetings: normalizedValue.auto_stop_meetings,
-        floating_bar_enabled: normalizedValue.floating_bar_enabled,
-        live_caption_enabled: normalizedValue.live_caption_enabled,
-        show_app_in_dock: normalizedValue.show_app_in_dock,
-        show_tray_icon: normalizedValue.show_tray_icon,
-        notification_detect: normalizedValue.notification_detect,
-        telemetry_consent: normalizedValue.telemetry_consent,
-      });
-      void analyticsCommands.setProperties({
-        set: {
-          telemetry_opt_out: normalizedValue.telemetry_consent === false,
-        },
-      });
     },
   });
 
@@ -184,8 +163,6 @@ export function SettingsApp() {
                               {(showAppInDockField) => (
                                 <form.Field name="show_tray_icon">
                                   {(showTrayIconField) => (
-                                    <form.Field name="telemetry_consent">
-                                      {(telemetryConsentField) => (
                                         <AppSettingsView
                                           autostart={{
                                             value: autostartField.state.value,
@@ -243,17 +220,7 @@ export function SettingsApp() {
                                                 val,
                                               ),
                                           }}
-                                          telemetryConsent={{
-                                            value:
-                                              telemetryConsentField.state.value,
-                                            onChange: (val) =>
-                                              telemetryConsentField.handleChange(
-                                                val,
-                                              ),
-                                          }}
                                         />
-                                      )}
-                                    </form.Field>
                                   )}
                                 </form.Field>
                               )}

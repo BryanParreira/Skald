@@ -1,6 +1,5 @@
 import type { LanguageModel } from "ai";
 
-import { commands as analyticsCommands } from "@hypr/plugin-analytics";
 
 import { getEligibility } from "./eligibility";
 
@@ -274,7 +273,7 @@ export class EnhancerService {
   }
 
   enhance(sessionId: string, opts?: EnhanceOpts): EnhanceResult {
-    const { aiTaskStore, getModel, getLLMConn, getSelectedTemplateId } =
+    const { aiTaskStore, getModel, getSelectedTemplateId } =
       this.deps;
 
     const model = getModel();
@@ -303,14 +302,6 @@ export class EnhancerService {
       return { type: "already_active", noteId: enhancedNoteId };
     }
 
-    const llmConn = getLLMConn();
-    void analyticsCommands.event({
-      event: "note_enhanced",
-      is_auto: opts?.isAuto ?? false,
-      llm_provider: llmConn?.providerId,
-      llm_model: llmConn?.modelId,
-      template_id: templateId,
-    });
 
     void aiTaskStore.getState().generate(enhanceTaskId, {
       model,

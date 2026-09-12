@@ -10,7 +10,6 @@ import {
   type ValuesSchema,
 } from "tinybase/with-schemas";
 
-import { commands as analyticsCommands } from "@hypr/plugin-analytics";
 import { commands as detectCommands } from "@hypr/plugin-detect";
 import { commands as localLlmCommands } from "@hypr/plugin-local-llm";
 import { commands as localSttCommands } from "@hypr/plugin-local-stt";
@@ -127,11 +126,6 @@ export const SETTINGS_MAPPING = {
       type: "boolean",
       path: ["notification", "respect_dnd"],
       default: false as boolean,
-    },
-    telemetry_consent: {
-      type: "boolean",
-      path: ["general", "telemetry_consent"],
-      default: true as boolean,
     },
     // Actual values populated via persister load; defaults here are for type inference.
     ai_language: {
@@ -427,9 +421,6 @@ const SETTINGS_LISTENERS: SettingsListeners = {
   current_stt_model: (store) => syncLocalSttServer(store),
   current_llm_provider: (store) => syncLocalLlmServer(store),
   current_llm_model: (store) => syncLocalLlmServer(store),
-  telemetry_consent: (_store, newValue) => {
-    analyticsCommands.setDisabled(!newValue).catch(console.error);
-  },
   show_app_in_dock: (_store, newValue) => {
     windowsCommands.setShowAppInDock(newValue).catch(console.error);
   },

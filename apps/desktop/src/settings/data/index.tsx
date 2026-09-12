@@ -2,7 +2,6 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { XCircleIcon } from "lucide-react";
 import { useState } from "react";
 
-import { commands as analyticsCommands } from "@hypr/plugin-analytics";
 import {
   commands,
   type ImportSourceInfo,
@@ -65,10 +64,6 @@ export function Data() {
     },
     onSuccess: () => {
       const source = dryRunResult?.source;
-      void analyticsCommands.event({
-        event: "data_imported",
-        source,
-      });
       if (source) {
         setSuccessfulSource(source);
       }

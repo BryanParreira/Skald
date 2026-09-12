@@ -34,16 +34,13 @@ pub fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
     tauri::plugin::Builder::new(PLUGIN_NAME)
         .invoke_handler(specta_builder.invoke_handler())
         .setup(|app, _api| {
-            let posthog_key = option_env!("POSTHOG_API_KEY");
-
-            let client = {
-                let mut builder = hypr_analytics::AnalyticsClientBuilder::default();
-                if let Some(key) = posthog_key {
-                    builder = builder.with_posthog(key);
-                }
-
-                builder.build()
-            };
+            // Velo collects no usage analytics. The client is built with no
+            // PostHog key, which leaves its `posthog` field `None` and makes
+            // every event a no-op, so nothing leaves the device no matter
+            // what any caller does. The plugin itself stays because
+            // `plugins/flag` reuses `hypr_analytics::AnalyticsClient` as the
+            // type of its managed state for feature flags.
+            let client = hypr_analytics::AnalyticsClientBuilder::default().build();
 
             assert!(app.manage(client));
             Ok(())

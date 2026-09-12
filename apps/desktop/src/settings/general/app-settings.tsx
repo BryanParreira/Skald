@@ -15,7 +15,6 @@ interface AppSettingsViewProps {
   liveCaption: SettingItem;
   showAppInDock: SettingItem;
   showTrayIcon: SettingItem;
-  telemetryConsent: SettingItem;
 }
 
 export function AppSettingsView({
@@ -26,7 +25,6 @@ export function AppSettingsView({
   liveCaption,
   showAppInDock,
   showTrayIcon,
-  telemetryConsent,
 }: AppSettingsViewProps) {
   return (
     <div className="flex flex-col gap-8">
@@ -37,12 +35,6 @@ export function AppSettingsView({
             description="Always ready without manually launching."
             checked={autostart.value}
             onChange={autostart.onChange}
-          />
-          <SettingRow
-            title="Share usage data"
-            description="Send anonymous usage analytics to help improve Velo."
-            checked={telemetryConsent.value}
-            onChange={telemetryConsent.onChange}
           />
           <SettingRow
             title="Show app in Dock"
