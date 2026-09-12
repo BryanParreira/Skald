@@ -6,6 +6,7 @@ common_derives! {
     #[template(path = "enhance.system.md.jinja")]
     pub struct EnhanceSystem {
         pub language: Option<String>,
+        pub has_transcript: bool,
     }
 }
 
@@ -32,13 +33,14 @@ mod tests {
         test_language_as_specified,
         EnhanceSystem {
             language: Some("ko".to_string()),
+            has_transcript: true,
         },
         |v| { v.contains("Korean") }
     );
 
     tpl_snapshot!(
         test_enhance_system_formatting,
-        EnhanceSystem { language: None },
+        EnhanceSystem { language: None, has_transcript: true },
         fixed_date = "2025-01-01",
         @r#"
     # General Instructions
@@ -53,7 +55,7 @@ mod tests {
     - Structure with # (h1) headings for main topics and bullet points for content.
     - Use only h1 headers. Do not use h2 or h3. Each header represents a section.
     - Each section should have at least 3 detailed bullet points.
-    - Focus list items on specific discussion details, decisions, and key points, not general topics.
+    - Focus list items on specific details, decisions, and key points, not general topics.
     - Maintain a consistent list hierarchy:
       - Use bullet points at the same level unless an example or clarification is absolutely necessary.
       - Avoid nesting lists beyond one level of indentation.
@@ -79,6 +81,19 @@ mod tests {
     - Pay close attention to emphasized text in notes. Users highlight information using four styles: bold(**text**), italic(_text_), underline(<u>text</u>), strikethrough(~~text~~).
     - Recognize H3 headers (### Header) in notes—these indicate highly important topics that the user wants to retain no matter what.
     "#);
+
+    tpl_assert!(
+        test_system_note_mode_avoids_meeting_framing,
+        EnhanceSystem {
+            language: None,
+            has_transcript: false,
+        },
+        |v| {
+            v.contains("summaries of written notes")
+                && v.contains("no recording or transcript")
+                && !v.contains("Pre-Meeting Notes")
+        }
+    );
 
     tpl_snapshot!(
         test_enhance_user_formatting_1,
@@ -153,6 +168,42 @@ mod tests {
     ");
 
     tpl_snapshot!(
+        test_enhance_user_without_transcript,
+        EnhanceUser {
+            session: Session {
+                title: Some("Reading list".to_string()),
+                started_at: None,
+                ended_at: None,
+                event: None,
+            },
+            participants: vec![],
+            template: None,
+            transcripts: vec![],
+            pre_meeting_memo: String::new(),
+            post_meeting_memo: "- ship the parser\n- read the spec".to_string(),
+        }, @"
+    # Context
+
+
+    Session: Reading list
+
+
+    # Notes
+
+    - ship the parser
+    - read the spec
+
+
+    # Output Template
+
+    # Instructions
+
+    1. Analyze the content and decide the sections to use.
+    2. Generate a well-formatted markdown summary.
+    "
+    );
+
+    tpl_snapshot!(
         test_enhance_user_with_memos,
         EnhanceUser {
             session: Session {
@@ -207,3 +258,4 @@ mod tests {
     "
     );
 }
+

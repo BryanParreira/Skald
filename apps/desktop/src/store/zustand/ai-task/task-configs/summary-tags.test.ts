@@ -11,6 +11,7 @@ function createEnhanceArgs(
 ): Parameters<typeof extractEnhanceTagNames>[1] {
   return {
     language: "en",
+    hasTranscript: false,
     session: {
       title: "Weekly Review",
       startedAt: null,

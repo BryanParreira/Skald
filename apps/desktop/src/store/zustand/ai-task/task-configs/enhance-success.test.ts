@@ -15,6 +15,7 @@ type EnhanceSuccessParams = Parameters<
 function createTransformedArgs(): EnhanceSuccessParams["transformedArgs"] {
   return {
     language: "en",
+    hasTranscript: false,
     session: {
       title: "Weekly Review",
       startedAt: null,

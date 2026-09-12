@@ -146,8 +146,28 @@ describe("processMetaFile", () => {
       title: "Test Session",
       folder_id: "/data/sessions",
       event_json: JSON.stringify(eventObj),
-      raw_md: "",
     });
+  });
+
+  test("does not set raw_md — content lives in a separate file loaded elsewhere", () => {
+    // Regression test: this metadata-only pass runs for every session on
+    // every app startup, whether or not that session's note content is
+    // ever opened. Stamping raw_md here (even as "") made "never loaded"
+    // indistinguishable from "genuinely empty" downstream in
+    // save/note.ts's collectMemos, which deleted on-disk note content for
+    // any session not opened in the current run the moment a full save
+    // fired (app quit, session delete, relaunch).
+    const content = JSON.stringify({
+      id: "session-1",
+      user_id: "user-1",
+      created_at: "2024-01-01T00:00:00Z",
+      title: "Test Session",
+      participants: [],
+    });
+
+    processMetaFile("/data/sessions/session-1/_meta.json", content, result);
+
+    expect("raw_md" in result.sessions["session-1"]!).toBe(false);
   });
 
   test("creates mapping_session_participant entries", () => {

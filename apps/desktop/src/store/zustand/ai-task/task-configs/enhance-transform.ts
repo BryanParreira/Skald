@@ -68,14 +68,17 @@ async function transformArgs(
       ])
     : [];
 
+  const transcripts = formatTranscripts(segments, sessionContext.transcriptsMeta);
+
   return {
     language,
+    hasTranscript: transcripts.length > 0,
     session: sessionContext.session,
     participants: sessionContext.participants,
     template,
     preMeetingMemo: sessionContext.preMeetingMemo,
     postMeetingMemo: sessionContext.postMeetingMemo,
-    transcripts: formatTranscripts(segments, sessionContext.transcriptsMeta),
+    transcripts,
     imageContext,
   };
 }

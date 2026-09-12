@@ -221,6 +221,8 @@ interface SlashCommandState {
 function findSlashCommand(state: EditorState): SlashCommandState | null {
   const { $from } = state.selection;
   if (!state.selection.empty) return null;
+  // Don't hijack "/" while writing actual code (comments, paths, regex, etc.).
+  if ($from.parent.type === schema.nodes.codeBlock) return null;
 
   const textBefore = $from.parent.textBetween(
     0,
@@ -231,7 +233,6 @@ function findSlashCommand(state: EditorState): SlashCommandState | null {
 
   const slashIndex = textBefore.lastIndexOf("/");
   if (slashIndex === -1) return null;
-  if (slashIndex > 0 && !/\s/.test(textBefore[slashIndex - 1])) return null;
 
   const query = textBefore.slice(slashIndex + 1);
   if (/\s/.test(query)) return null;

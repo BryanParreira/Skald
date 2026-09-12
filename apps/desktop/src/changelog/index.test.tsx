@@ -69,7 +69,7 @@ describe("TabContentChangelog", () => {
     render(<TabContentChangelog tab={buildChangelogTab()} />);
 
     const heading = screen.getByRole("heading", {
-      name: "What's new in 1.0.36?",
+      name: "What's new?",
     });
     const titleSlot = heading.parentElement;
 
@@ -94,7 +94,7 @@ describe("TabContentChangelog", () => {
     render(<TabContentChangelog tab={buildChangelogTab()} />);
 
     const heading = screen.getByRole("heading", {
-      name: "What's new in 1.0.36?",
+      name: "What's new?",
     });
     const titleSlot = heading.parentElement;
 
@@ -111,7 +111,7 @@ describe("TabContentChangelog", () => {
     const header = getHeader();
     const headerFrame = header.parentElement;
     const heading = screen.getByRole("heading", {
-      name: "What's new in 1.0.36?",
+      name: "What's new?",
     });
     const titleSlot = heading.parentElement;
     const closeButton = screen.getByRole("button", {
@@ -127,7 +127,7 @@ describe("TabContentChangelog", () => {
 
 function getHeader() {
   const heading = screen.getByRole("heading", {
-    name: "What's new in 1.0.36?",
+    name: "What's new?",
   });
 
   return heading.parentElement?.parentElement as HTMLElement;

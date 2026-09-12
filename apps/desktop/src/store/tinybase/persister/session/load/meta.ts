@@ -40,7 +40,15 @@ export function processMetaFile(
       title: meta.title ?? "",
       folder_id: folderPath,
       event_json: eventValue,
-      raw_md: "",
+      // Deliberately omitted: raw_md lives in a separate file (_memo.md)
+      // loaded by processMdFile, not this metadata-only pass. Meta loads
+      // run for every session on every startup regardless of whether that
+      // session's content is ever opened (see load/index.ts's
+      // includeContent gate) — stamping raw_md here would make "never
+      // loaded" indistinguishable from "genuinely empty" downstream in
+      // save/note.ts's collectMemos, which is exactly what caused notes
+      // not opened in a session to get their on-disk content deleted the
+      // moment any full save ran (app quit, session delete, relaunch).
     };
 
     for (const participant of meta.participants) {

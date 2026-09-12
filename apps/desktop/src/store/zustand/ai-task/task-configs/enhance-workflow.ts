@@ -83,6 +83,7 @@ async function getSystemPrompt(args: TaskArgsMapTransformed["enhance"]) {
   const result = await templateCommands.render({
     enhanceSystem: {
       language: args.language,
+      hasTranscript: args.transcripts.length > 0,
     },
   });
 
@@ -152,7 +153,11 @@ async function generateTemplateIfNeeded(params: {
       model,
       schema,
       signal,
-      prompt: createTemplatePrompt(userPrompt, schema),
+      prompt: createTemplatePrompt(
+        userPrompt,
+        schema,
+        args.transcripts.length > 0,
+      ),
       imageContext: [],
     });
 
@@ -172,13 +177,23 @@ async function generateTemplateIfNeeded(params: {
 function createTemplatePrompt(
   userPrompt: string,
   schema: z.ZodObject<any>,
+  hasTranscript: boolean,
 ): string {
-  return `Analyze this meeting content and suggest appropriate section headings for a comprehensive summary.
+  const intro = hasTranscript
+    ? `Analyze this meeting content and suggest appropriate section headings for a comprehensive summary.
   The sections should cover the main themes and topics discussed.
   Generate around 5-7 sections based on the content depth.
   Avoid generic catch-all headings like "Overview", "Meeting Overview", "Introduction", "Summary", or "Participants".
   Prefer concrete, topic-specific section titles tied to the actual discussion.
-  Do not create a standalone participants section unless the meeting materially focused on stakeholder roles, ownership, or org structure.
+  Do not create a standalone participants section unless the meeting materially focused on stakeholder roles, ownership, or org structure.`
+    : `Analyze this written note and suggest appropriate section headings for a comprehensive summary.
+  This is a regular note with no recording or transcript, so it is not a meeting. Never frame sections as meeting, call, or discussion sections.
+  The sections should cover the main themes and topics the note actually contains.
+  Generate around 3-7 sections based on the content depth; use fewer sections for short notes.
+  Avoid generic catch-all headings like "Overview", "Introduction", "Summary", or "Notes".
+  Prefer concrete, topic-specific section titles tied to the actual content.`;
+
+  return `${intro}
   Give me in bullet points.
 
   Content:

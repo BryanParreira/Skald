@@ -39,7 +39,6 @@ export function TabContentChangelog({
       <div className="flex h-full flex-col">
         <div data-tauri-drag-region className="shrink-0 pr-1 pl-3">
           <ChangelogHeader
-            version={current}
             showSidebarTimelineHeaderGutter={showSidebarTimelineHeaderGutter}
             showExpandedSidebarTimelineHeader={
               showExpandedSidebarTimelineHeader
@@ -126,12 +125,10 @@ function ChangelogBody({
 function ChangelogHeader({
   showExpandedSidebarTimelineHeader,
   showSidebarTimelineHeaderGutter,
-  version,
   onClose,
 }: {
   showExpandedSidebarTimelineHeader: boolean;
   showSidebarTimelineHeaderGutter: boolean;
-  version: string;
   onClose: () => void;
 }) {
   const { t } = useLingui();
@@ -162,7 +159,7 @@ function ChangelogHeader({
               : "text-center",
           ])}
         >
-          <Trans>What's new in {version}?</Trans>
+          <Trans>What's new?</Trans>
         </h1>
       </div>
 

@@ -11,7 +11,7 @@ use tauri_plugin_dialog::{DialogExt, MessageDialogButtons};
 use tauri_plugin_updater2::Updater2PluginExt;
 use tauri_specta::Event;
 
-use super::{MenuItemHandler, TrayOpen, TrayQuit, TrayStart, TrayVersion};
+use super::{MenuItemHandler, TrayOpen, TrayQuit, TrayStart};
 
 const STATE_CHECK_FOR_UPDATE: u8 = 0;
 const STATE_DOWNLOADING: u8 = 1;
@@ -58,8 +58,6 @@ impl TrayCheckUpdate {
                     &MenuItemKind::MenuItem(check_update_item),
                     &PredefinedMenuItem::separator(app)?,
                     &TrayQuit::build(app)?,
-                    &PredefinedMenuItem::separator(app)?,
-                    &TrayVersion::build(app)?,
                 ],
             )?;
 

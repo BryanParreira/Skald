@@ -34,11 +34,6 @@ pub fn should_force_quit() -> bool {
 }
 
 #[cfg(target_os = "macos")]
-pub fn set_force_quit() {
-    FORCE_QUIT.store(true, Ordering::SeqCst);
-}
-
-#[cfg(target_os = "macos")]
 pub fn show_quit_overlay() {
     unsafe {
         _show_quit_overlay();
@@ -50,10 +45,4 @@ pub fn demo_quit_progress() {
     unsafe {
         _demo_quit_progress();
     }
-}
-
-#[unsafe(no_mangle)]
-#[cfg(target_os = "macos")]
-pub extern "C" fn rust_set_force_quit() {
-    FORCE_QUIT.store(true, Ordering::SeqCst);
 }

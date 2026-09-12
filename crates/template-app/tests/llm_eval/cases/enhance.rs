@@ -12,7 +12,7 @@ pub fn structured_summary(samples: usize) -> Result<EvalCase, Failed> {
         messages: vec![
             EvalMessage {
                 role: "system".to_string(),
-                content: render(Template::EnhanceSystem(EnhanceSystem { language: None }))
+                content: render(Template::EnhanceSystem(EnhanceSystem { language: None, has_transcript: true }))
                     .map_err(render_failed)?,
             },
             EvalMessage {

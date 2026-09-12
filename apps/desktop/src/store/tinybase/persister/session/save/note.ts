@@ -90,6 +90,17 @@ function collectMemos(ctx: BuildContext): {
   for (const session of iterateTableRows(tables, "sessions")) {
     if (changedSessionIds && !changedSessionIds.has(session.id)) continue;
 
+    // The initial full-table load is metadata-only (includeContent: false) —
+    // raw_md is populated lazily, only once a session is actually opened.
+    // A session whose raw_md was never loaded this run has an absent cell
+    // here, indistinguishable-by-value from "loaded and genuinely emptied"
+    // unless we check presence explicitly. Treating "never loaded" as
+    // "empty" would delete on-disk content for every session the user
+    // didn't happen to open before quitting — skip it entirely instead.
+    if (!("raw_md" in session)) {
+      continue;
+    }
+
     const sessionDir = buildSessionPath(
       dataDir,
       session.id,

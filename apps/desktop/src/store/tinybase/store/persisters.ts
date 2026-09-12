@@ -7,7 +7,7 @@ import { getCurrentWebviewWindowLabel } from "@hypr/plugin-windows";
 
 import { useInitializeStore } from "./initialize";
 import { type Store } from "./main";
-import { registerSaveHandler, save } from "./save";
+import { registerSaveHandler } from "./save";
 
 import { useCalendarPersister } from "~/store/tinybase/persister/calendar";
 import { useChatPersister } from "~/store/tinybase/persister/chat";
@@ -74,13 +74,29 @@ export function useMainPersisters(store: Store) {
   // and TinyBase persister saves are fire-and-forget from the store's perspective —
   // neither has any way to know the window is about to close. Without this, closing
   // the app within that window drops whatever was typed since the last flush.
+  //
+  // This runs in EVERY window, not just "main" — a note opened via "Open in New
+  // Window" (windows plugin's "note" window type) is its own separate webview
+  // with its own JS runtime, so `flushAllPendingNoteUpdates` there only sees that
+  // window's own pending edits, and the global `save()` (which drives off the
+  // save-handler registry the effect above only populates for "main") would be a
+  // no-op for it. Save each of THIS window's own persister instances directly
+  // instead, so a standalone note window closing is just as safe as the main one.
   useEffect(() => {
-    if (getCurrentWebviewWindowLabel() !== "main") {
-      return;
-    }
-
     let closing = false;
     const window = getCurrentWindow();
+    const persisters = [
+      valuesPersister,
+      sessionPersister,
+      organizationPersister,
+      humanPersister,
+      eventPersister,
+      chatPersister,
+      calendarPersister,
+      dailyNotePersister,
+      taskPersister,
+    ];
+
     const unlistenPromise = window.onCloseRequested(async (event) => {
       if (closing) {
         return;
@@ -90,7 +106,9 @@ export function useMainPersisters(store: Store) {
 
       try {
         flushAllPendingNoteUpdates();
-        await save();
+        await Promise.all(
+          persisters.map((persister) => persister?.save()),
+        );
       } catch (error) {
         console.error("[persisters] flush-on-close failed:", error);
       }
@@ -101,7 +119,17 @@ export function useMainPersisters(store: Store) {
     return () => {
       void unlistenPromise.then((unlisten) => unlisten());
     };
-  }, []);
+  }, [
+    valuesPersister,
+    sessionPersister,
+    organizationPersister,
+    humanPersister,
+    eventPersister,
+    chatPersister,
+    calendarPersister,
+    dailyNotePersister,
+    taskPersister,
+  ]);
 
   useInitializeStore(store, {
     session: sessionPersister,

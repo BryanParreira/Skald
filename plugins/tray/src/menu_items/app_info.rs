@@ -21,13 +21,9 @@ impl MenuItemHandler for AppInfo {
 
     fn handle(app: &AppHandle<tauri::Wry>) {
         let app_name = app.package_info().name.clone();
-        let app_version = app.package_info().version.to_string();
         let app_commit = app.misc().get_git_hash();
 
-        let message = format!(
-            "- App Name: {}\n- App Version: {}\n- SHA:\n  {}",
-            app_name, app_version, app_commit
-        );
+        let message = format!("- App Name: {}\n- SHA:\n  {}", app_name, app_commit);
 
         let app_clone = app.clone();
 

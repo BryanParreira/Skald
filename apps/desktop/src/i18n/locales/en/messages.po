@@ -23,20 +23,28 @@ msgid "{0} opened on"
 msgstr "{0} opened on"
 
 #: src/settings/general/account.tsx:223
-msgid "{trialDaysRemaining} day left"
-msgstr "{trialDaysRemaining} day left"
+#~ msgid "{trialDaysRemaining} day left"
+#~ msgstr "{trialDaysRemaining} day left"
 
 #: src/settings/general/account.tsx:224
-msgid "{trialDaysRemaining} days left"
-msgstr "{trialDaysRemaining} days left"
+#~ msgid "{trialDaysRemaining} days left"
+#~ msgstr "{trialDaysRemaining} days left"
 
 #: src/settings/ai/llm/select.tsx:185
-msgid "<0>Language model</0> is needed to make Anarlog summarize and chat about your conversations."
-msgstr "<0>Language model</0> is needed to make Anarlog summarize and chat about your conversations."
+#~ msgid "<0>Language model</0> is needed to make Anarlog summarize and chat about your conversations."
+#~ msgstr "<0>Language model</0> is needed to make Anarlog summarize and chat about your conversations."
+
+#: src/settings/ai/llm/select.tsx:185
+msgid "<0>Language model</0> is needed to make Velo summarize and chat about your conversations."
+msgstr "<0>Language model</0> is needed to make Velo summarize and chat about your conversations."
 
 #: src/settings/ai/stt/select.tsx:154
-msgid "<0>Transcription model</0> is needed to make Anarlog listen to your conversations."
-msgstr "<0>Transcription model</0> is needed to make Anarlog listen to your conversations."
+#~ msgid "<0>Transcription model</0> is needed to make Anarlog listen to your conversations."
+#~ msgstr "<0>Transcription model</0> is needed to make Anarlog listen to your conversations."
+
+#: src/settings/ai/stt/select.tsx:154
+msgid "<0>Transcription model</0> is needed to make Velo listen to your conversations."
+msgstr "<0>Transcription model</0> is needed to make Velo listen to your conversations."
 
 #: src/settings/general/storage/index.tsx:167
 msgid "1 day"
@@ -62,13 +70,13 @@ msgstr "A to Z"
 msgid "Accessibility"
 msgstr "Accessibility"
 
-#: src/onboarding/index.tsx:234
-#: src/settings/general/account.tsx:76
-#: src/settings/general/account.tsx:104
-#: src/settings/general/account.tsx:139
-#: src/sidebar/settings.tsx:73
+#: src/settings/general/account.tsx:8
 msgid "Account"
 msgstr "Account"
+
+#: src/session/components/note-input/header.tsx:781
+msgid "Actions"
+msgstr "Actions"
 
 #: src/contacts/shared.tsx:151
 #: src/settings/todo/github.tsx:206
@@ -85,6 +93,10 @@ msgstr "Add \"{0}\""
 #: src/calendar/components/sidebar.tsx:307
 msgid "Add {0} account"
 msgstr "Add {0} account"
+
+#: src/session/components/outer-header/overflow/follow-up-modal.tsx:84
+msgid "Add a summary to this note first."
+msgstr "Add a summary to this note first."
 
 #: src/settings/general/spoken-languages.tsx:177
 msgid "Add language"
@@ -119,7 +131,7 @@ msgstr "Additional spoken languages"
 msgid "Advanced"
 msgstr "Advanced"
 
-#: src/settings/ai/stt/select.tsx:691
+#: src/settings/ai/stt/select.tsx:707
 msgid "After recording"
 msgstr "After recording"
 
@@ -144,36 +156,40 @@ msgid "Allow system audio access"
 msgstr "Allow system audio access"
 
 #: src/settings/general/app-settings.tsx:39
-msgid "Always ready without manually launching."
-msgstr "Always ready without manually launching."
+#~ msgid "Always ready without manually launching."
+#~ msgstr "Always ready without manually launching."
+
+#: src/session/components/outer-header/overflow/follow-up-modal.tsx:65
+msgid "An AI-drafted follow-up based on this note."
+msgstr "An AI-drafted follow-up based on this note."
 
 #: src/session/components/note-input/enhanced/streaming.tsx:33
-msgid "Analyzing structure..."
-msgstr "Analyzing structure..."
+#~ msgid "Analyzing structure..."
+#~ msgstr "Analyzing structure..."
 
 #: src/onboarding/permissions.tsx:153
-msgid "Anarlog can hear others"
-msgstr "Anarlog can hear others"
+#~ msgid "Anarlog can hear others"
+#~ msgstr "Anarlog can hear others"
 
 #: src/onboarding/permissions.tsx:141
-msgid "Anarlog can hear your voice"
-msgstr "Anarlog can hear your voice"
+#~ msgid "Anarlog can hear your voice"
+#~ msgstr "Anarlog can hear your voice"
 
 #: src/onboarding/index.tsx:207
-msgid "Anarlog needs access to your microphone and system audio to record and transcribe your meetings"
-msgstr "Anarlog needs access to your microphone and system audio to record and transcribe your meetings"
+#~ msgid "Anarlog needs access to your microphone and system audio to record and transcribe your meetings"
+#~ msgstr "Anarlog needs access to your microphone and system audio to record and transcribe your meetings"
 
 #: src/onboarding/index.tsx:256
-msgid "Anarlog will sync your calendar to get meeting reminders"
-msgstr "Anarlog will sync your calendar to get meeting reminders"
+#~ msgid "Anarlog will sync your calendar to get meeting reminders"
+#~ msgstr "Anarlog will sync your calendar to get meeting reminders"
 
 #: src/settings/ai/shared/index.tsx:249
 #: src/settings/ai/shared/index.tsx:309
 msgid "API Key"
 msgstr "API Key"
 
-#: src/settings/general/index.tsx:171
-#: src/sidebar/settings.tsx:71
+#: src/settings/general/index.tsx:170
+#: src/sidebar/settings.tsx:60
 msgid "App"
 msgstr "App"
 
@@ -198,13 +214,17 @@ msgid "Ask & search about anything, or be creative!"
 msgstr "Ask & search about anything, or be creative!"
 
 #: src/shared/chat-cta.tsx:32
-msgid "Ask Anarlog anything"
-msgstr "Ask Anarlog anything"
+#~ msgid "Ask Anarlog anything"
+#~ msgstr "Ask Anarlog anything"
 
 #: src/chat/components/input/index.tsx:68
 #: src/shared/chat-cta.tsx:18
 msgid "Ask anything"
 msgstr "Ask anything"
+
+#: src/shared/chat-cta.tsx:32
+msgid "Ask Velo anything"
+msgstr "Ask Velo anything"
 
 #: src/task/resource-view.tsx:156
 msgid "Assignees:"
@@ -216,20 +236,24 @@ msgid "Audio"
 msgstr "Audio"
 
 #: src/instruction/index.tsx:188
-msgid "Authorize access in your browser, then return to Anarlog."
-msgstr "Authorize access in your browser, then return to Anarlog."
+#~ msgid "Authorize access in your browser, then return to Anarlog."
+#~ msgstr "Authorize access in your browser, then return to Anarlog."
+
+#: src/instruction/index.tsx:188
+msgid "Authorize access in your browser, then return to Velo."
+msgstr "Authorize access in your browser, then return to Velo."
 
 #: src/settings/general/notification.tsx:238
 msgid "Automatically detect when a meeting starts based on microphone activity."
 msgstr "Automatically detect when a meeting starts based on microphone activity."
 
 #: src/settings/general/app-settings.tsx:81
-msgid "Automatically start listening when an event-backed note reaches its scheduled start time."
-msgstr "Automatically start listening when an event-backed note reaches its scheduled start time."
+#~ msgid "Automatically start listening when an event-backed note reaches its scheduled start time."
+#~ msgstr "Automatically start listening when an event-backed note reaches its scheduled start time."
 
 #: src/settings/general/app-settings.tsx:92
-msgid "Automatically stop listening when the meeting app releases the microphone."
-msgstr "Automatically stop listening when the meeting app releases the microphone."
+#~ msgid "Automatically stop listening when the meeting app releases the microphone."
+#~ msgstr "Automatically stop listening when the meeting app releases the microphone."
 
 #: src/calendar/components/apple/permission.tsx:161
 #: src/instruction/index.tsx:63
@@ -242,6 +266,10 @@ msgstr "Back"
 msgid "Base URL"
 msgstr "Base URL"
 
+#: src/session/components/note-input/header.tsx:762
+msgid "Brief"
+msgstr "Brief"
+
 #: src/settings/general/storage/index.tsx:332
 msgid "Browse"
 msgstr "Browse"
@@ -253,20 +281,18 @@ msgstr "Browser handoff not working? Paste the callback link instead"
 #: src/calendar/components/sidebar.tsx:328
 #: src/settings/general/permissions.tsx:191
 #: src/sidebar/calendar.tsx:10
-#: src/sidebar/settings.tsx:106
+#: src/sidebar/settings.tsx:89
 msgid "Calendar"
 msgstr "Calendar"
 
-#: src/onboarding/index.tsx:260
+#: src/onboarding/index.tsx:218
 msgid "Calendar connected"
 msgstr "Calendar connected"
 
-#: src/settings/ai/stt/select.tsx:696
+#: src/settings/ai/stt/select.tsx:712
 msgid "Can transcribe while the meeting is happening."
 msgstr "Can transcribe while the meeting is happening."
 
-#: src/settings/general/account.tsx:266
-#: src/settings/general/account.tsx:293
 #: src/settings/todo/github.tsx:217
 msgid "Cancel"
 msgstr "Cancel"
@@ -292,8 +318,8 @@ msgid "Checking folder..."
 msgstr "Checking folder..."
 
 #: src/onboarding/account/after-login.tsx:15
-msgid "Checking trial eligibility..."
-msgstr "Checking trial eligibility..."
+#~ msgid "Checking trial eligibility..."
+#~ msgstr "Checking trial eligibility..."
 
 #: src/session/components/outer-header/overflow/export-modal.tsx:470
 msgid "Choose a file format and what to include."
@@ -308,8 +334,12 @@ msgid "Choose storage location"
 msgstr "Choose storage location"
 
 #: src/settings/general/storage/index.tsx:294
-msgid "Choose where Anarlog should store data. (notes, settings, etc)"
-msgstr "Choose where Anarlog should store data. (notes, settings, etc)"
+#~ msgid "Choose where Anarlog should store data. (notes, settings, etc)"
+#~ msgstr "Choose where Anarlog should store data. (notes, settings, etc)"
+
+#: src/settings/general/storage/index.tsx:294
+msgid "Choose where Velo should store data. (notes, settings, etc)"
+msgstr "Choose where Velo should store data. (notes, settings, etc)"
 
 #: src/contacts/shared.tsx:173
 #: src/templates/template-sidebar.tsx:365
@@ -320,13 +350,13 @@ msgstr "Clear search"
 msgid "Clone"
 msgstr "Clone"
 
-#: src/changelog/index.tsx:176
+#: src/changelog/index.tsx:173
 #: src/session/components/note-input/search/bar.tsx:280
 #: src/shared/open-note-dialog.tsx:223
 msgid "Close"
 msgstr "Close"
 
-#: src/changelog/index.tsx:175
+#: src/changelog/index.tsx:172
 msgid "Close changelog"
 msgstr "Close changelog"
 
@@ -357,16 +387,20 @@ msgid "Company"
 msgstr "Company"
 
 #: src/settings/general/account.tsx:460
-msgid "Compare Free, Lite, and Pro before you sign in."
-msgstr "Compare Free, Lite, and Pro before you sign in."
+#~ msgid "Compare Free, Lite, and Pro before you sign in."
+#~ msgstr "Compare Free, Lite, and Pro before you sign in."
 
 #: src/instruction/index.tsx:241
-msgid "Complete sign-in in your browser, then return to Anarlog."
-msgstr "Complete sign-in in your browser, then return to Anarlog."
+#~ msgid "Complete sign-in in your browser, then return to Anarlog."
+#~ msgstr "Complete sign-in in your browser, then return to Anarlog."
+
+#: src/instruction/index.tsx:241
+msgid "Complete sign-in in your browser, then return to Velo."
+msgstr "Complete sign-in in your browser, then return to Velo."
 
 #: src/settings/general/account.tsx:80
-msgid "Complete the sign-in flow in your browser, then come back here if Anarlog does not reconnect automatically."
-msgstr "Complete the sign-in flow in your browser, then come back here if Anarlog does not reconnect automatically."
+#~ msgid "Complete the sign-in flow in your browser, then come back here if Anarlog does not reconnect automatically."
+#~ msgstr "Complete the sign-in flow in your browser, then come back here if Anarlog does not reconnect automatically."
 
 #: src/instruction/index.tsx:170
 msgid "Complete your purchase"
@@ -399,7 +433,7 @@ msgstr "Confirm"
 msgid "Connect {0}"
 msgstr "Connect {0}"
 
-#: src/onboarding/index.tsx:254
+#: src/onboarding/index.tsx:212
 msgid "Connect calendar"
 msgstr "Connect calendar"
 
@@ -407,11 +441,11 @@ msgstr "Connect calendar"
 msgid "Connect GitHub for private repos."
 msgstr "Connect GitHub for private repos."
 
-#: src/onboarding/calendar.tsx:527
+#: src/onboarding/calendar.tsx:418
 msgid "Connect Google Calendar"
 msgstr "Connect Google Calendar"
 
-#: src/onboarding/calendar.tsx:421
+#: src/onboarding/calendar.tsx:366
 msgid "Connect Outlook"
 msgstr "Connect Outlook"
 
@@ -420,7 +454,6 @@ msgid "Connect your integration"
 msgstr "Connect your integration"
 
 #: src/sidebar/contacts.tsx:304
-#: src/sidebar/settings.tsx:111
 msgid "Contacts"
 msgstr "Contacts"
 
@@ -428,25 +461,37 @@ msgstr "Contacts"
 msgid "Content"
 msgstr "Content"
 
-#: src/onboarding/calendar.tsx:569
+#: src/onboarding/calendar.tsx:452
 msgid "Continue"
 msgstr "Continue"
 
 #: src/onboarding/account/after-login.tsx:56
-msgid "Continuing without trial"
-msgstr "Continuing without trial"
+#~ msgid "Continuing without trial"
+#~ msgstr "Continuing without trial"
+
+#: src/session/components/outer-header/overflow/follow-up-modal.tsx:102
+msgid "Copied!"
+msgstr "Copied!"
 
 #: src/chat/components/message/normal.tsx:83
 msgid "Copy message"
 msgstr "Copy message"
 
+#: src/session/components/outer-header/overflow/follow-up-modal.tsx:102
+msgid "Copy to clipboard"
+msgstr "Copy to clipboard"
+
+#: src/session/components/outer-header/overflow/follow-up-modal.tsx:74
+msgid "Could not draft a follow-up. Try again."
+msgstr "Could not draft a follow-up. Try again."
+
 #: src/onboarding/account/after-login.tsx:68
-msgid "Could not start trial"
-msgstr "Could not start trial"
+#~ msgid "Could not start trial"
+#~ msgstr "Could not start trial"
 
 #: src/onboarding/index.tsx:221
-msgid "Create account"
-msgstr "Create account"
+#~ msgid "Create account"
+#~ msgstr "Create account"
 
 #: src/templates/details.tsx:92
 msgid "Create template"
@@ -465,8 +510,8 @@ msgstr "Customize"
 msgid "Dark"
 msgstr "Dark"
 
-#: src/settings/general/index.tsx:325
-#: src/sidebar/settings.tsx:72
+#: src/settings/general/index.tsx:324
+#: src/sidebar/settings.tsx:61
 msgid "Data"
 msgstr "Data"
 
@@ -488,7 +533,7 @@ msgstr "Delete All Recurring Events"
 msgid "Delete Event"
 msgstr "Delete Event"
 
-#: src/settings/ai/stt/select.tsx:768
+#: src/settings/ai/stt/select.tsx:784
 msgid "Delete model"
 msgstr "Delete model"
 
@@ -545,9 +590,18 @@ msgstr "Don't save"
 msgid "Don't show notifications when Do-Not-Disturb is enabled on your system"
 msgstr "Don't show notifications when Do-Not-Disturb is enabled on your system"
 
-#: src/settings/ai/stt/select.tsx:649
+#: src/settings/ai/stt/select.tsx:665
 msgid "Download"
 msgstr "Download"
+
+#: src/session/components/outer-header/overflow/follow-up-modal.tsx:62
+#: src/session/components/outer-header/overflow/index.tsx:129
+msgid "Draft follow-up"
+msgstr "Draft follow-up"
+
+#: src/session/components/outer-header/overflow/follow-up-modal.tsx:71
+msgid "Drafting..."
+msgstr "Drafting..."
 
 #: src/templates/details.tsx:178
 #: src/templates/template-form.tsx:279
@@ -567,8 +621,8 @@ msgstr "Edit date"
 #: src/onboarding/account/after-login.tsx:23
 #: src/onboarding/account/after-login.tsx:44
 #: src/onboarding/account/after-login.tsx:64
-msgid "Eligible for free trial"
-msgstr "Eligible for free trial"
+#~ msgid "Eligible for free trial"
+#~ msgstr "Eligible for free trial"
 
 #: src/contacts/details.tsx:453
 msgid "Email"
@@ -637,7 +691,7 @@ msgstr "Expire recordings after three days"
 
 #: src/session/components/outer-header/overflow/export-modal.tsx:467
 #: src/session/components/outer-header/overflow/export-modal.tsx:552
-#: src/session/components/outer-header/overflow/index.tsx:112
+#: src/session/components/outer-header/overflow/index.tsx:119
 msgid "Export"
 msgstr "Export"
 
@@ -645,7 +699,15 @@ msgstr "Export"
 msgid "Exporting..."
 msgstr "Exporting..."
 
-#: src/onboarding/calendar.tsx:467
+#: src/session/components/note-input/action-items.tsx:105
+msgid "Extract action items"
+msgstr "Extract action items"
+
+#: src/session/components/note-input/action-items.tsx:83
+msgid "Extracting action items..."
+msgstr "Extracting action items..."
+
+#: src/onboarding/calendar.tsx:397
 msgid "Failed to load Google Calendar"
 msgstr "Failed to load Google Calendar"
 
@@ -657,7 +719,7 @@ msgstr "Failed to load integration status"
 msgid "Failed to load issue"
 msgstr "Failed to load issue"
 
-#: src/onboarding/calendar.tsx:362
+#: src/onboarding/calendar.tsx:346
 msgid "Failed to load Outlook Calendar"
 msgstr "Failed to load Outlook Calendar"
 
@@ -679,7 +741,7 @@ msgstr "File format"
 msgid "Filter synced items by {0}."
 msgstr "Filter synced items by {0}."
 
-#: src/session/components/outer-header/index.tsx:292
+#: src/session/components/outer-header/index.tsx:342
 msgid "Finalizing"
 msgstr "Finalizing"
 
@@ -688,12 +750,16 @@ msgid "Find a note..."
 msgstr "Find a note..."
 
 #: src/instruction/index.tsx:171
-msgid "Finish checkout in your browser, then return to Anarlog."
-msgstr "Finish checkout in your browser, then return to Anarlog."
+#~ msgid "Finish checkout in your browser, then return to Anarlog."
+#~ msgstr "Finish checkout in your browser, then return to Anarlog."
+
+#: src/instruction/index.tsx:171
+msgid "Finish checkout in your browser, then return to Velo."
+msgstr "Finish checkout in your browser, then return to Velo."
 
 #: src/settings/general/account.tsx:78
-msgid "Finish sign-in"
-msgstr "Finish sign-in"
+#~ msgid "Finish sign-in"
+#~ msgstr "Finish sign-in"
 
 #: src/settings/general/week-start.tsx:58
 msgid "First day of the week in the calendar view"
@@ -716,10 +782,14 @@ msgid "Forever"
 msgstr "Forever"
 
 #: src/settings/general/account.tsx:218
-msgid "Free"
-msgstr "Free"
+#~ msgid "Free"
+#~ msgstr "Free"
 
-#: src/sidebar/settings.tsx:69
+#: src/session/components/note-input/brief.tsx:73
+msgid "From past meetings"
+msgstr "From past meetings"
+
+#: src/sidebar/settings.tsx:58
 msgid "General"
 msgstr "General"
 
@@ -732,12 +802,12 @@ msgid "Get notified 5 minutes before calendar events start"
 msgstr "Get notified 5 minutes before calendar events start"
 
 #: src/settings/general/account.tsx:124
-msgid "Get started"
-msgstr "Get started"
+#~ msgid "Get started"
+#~ msgstr "Get started"
 
 #: src/onboarding/account/before-login.tsx:19
-msgid "Get started for free"
-msgstr "Get started for free"
+#~ msgid "Get started for free"
+#~ msgstr "Get started for free"
 
 #: src/sidebar/timeline/index.tsx:798
 msgid "Go back to now"
@@ -765,12 +835,20 @@ msgid "Having trouble?"
 msgstr "Having trouble?"
 
 #: src/onboarding/permissions.tsx:156
-msgid "Help Anarlog listen to others"
-msgstr "Help Anarlog listen to others"
+#~ msgid "Help Anarlog listen to others"
+#~ msgstr "Help Anarlog listen to others"
 
 #: src/onboarding/permissions.tsx:144
-msgid "Help Anarlog listen to you"
-msgstr "Help Anarlog listen to you"
+#~ msgid "Help Anarlog listen to you"
+#~ msgstr "Help Anarlog listen to you"
+
+#: src/onboarding/permissions.tsx:156
+msgid "Help Velo listen to others"
+msgstr "Help Velo listen to others"
+
+#: src/onboarding/permissions.tsx:144
+msgid "Help Velo listen to you"
+msgstr "Help Velo listen to you"
 
 #: src/sidebar/timeline/index.tsx:410
 msgid "Hide Deleted Events"
@@ -785,8 +863,8 @@ msgid "Human"
 msgstr "Human"
 
 #: src/settings/general/account.tsx:92
-msgid "If the browser does not reopen Anarlog, use the paste-link fallback in the sign-in instruction window."
-msgstr "If the browser does not reopen Anarlog, use the paste-link fallback in the sign-in instruction window."
+#~ msgid "If the browser does not reopen Anarlog, use the paste-link fallback in the sign-in instruction window."
+#~ msgstr "If the browser does not reopen Anarlog, use the paste-link fallback in the sign-in instruction window."
 
 #: src/sidebar/timeline/upcoming-meeting.ts:127
 msgid "In {minutes} minute"
@@ -816,12 +894,12 @@ msgstr "Insert above"
 msgid "Insert below"
 msgstr "Insert below"
 
-#: src/session/components/note-input/header.tsx:739
+#: src/session/components/note-input/header.tsx:743
 msgid "Insights"
 msgstr "Insights"
 
 #: src/settings/ai/llm/index.tsx:13
-#: src/sidebar/settings.tsx:81
+#: src/sidebar/settings.tsx:69
 msgid "Intelligence"
 msgstr "Intelligence"
 
@@ -829,27 +907,27 @@ msgstr "Intelligence"
 msgid "Job Title"
 msgstr "Job Title"
 
-#: src/session/components/outer-header/index.tsx:178
+#: src/session/components/outer-header/index.tsx:228
 msgid "Join"
 msgstr "Join"
 
-#: src/session/components/outer-header/index.tsx:158
+#: src/session/components/outer-header/index.tsx:208
 msgid "Join {name}"
 msgstr "Join {name}"
 
 #: src/onboarding/final.tsx:38
-msgid "Join our community and stay updated:"
-msgstr "Join our community and stay updated:"
+#~ msgid "Join our community and stay updated:"
+#~ msgstr "Join our community and stay updated:"
 
 #: src/settings/general/app-settings.tsx:65
-msgid "Keep Anarlog available from the menu bar."
-msgstr "Keep Anarlog available from the menu bar."
+#~ msgid "Keep Anarlog available from the menu bar."
+#~ msgstr "Keep Anarlog available from the menu bar."
 
 #: src/settings/general/storage/index.tsx:184
 msgid "Keep recordings until manually deleted"
 msgstr "Keep recordings until manually deleted"
 
-#: src/settings/general/index.tsx:276
+#: src/settings/general/index.tsx:275
 msgid "Language & Region"
 msgstr "Language & Region"
 
@@ -869,7 +947,7 @@ msgstr "Light"
 msgid "LinkedIn"
 msgstr "LinkedIn"
 
-#: src/settings/ai/stt/select.tsx:691
+#: src/settings/ai/stt/select.tsx:707
 msgid "Live"
 msgstr "Live"
 
@@ -881,15 +959,14 @@ msgstr "Loading calendars..."
 msgid "Loading models..."
 msgstr "Loading models..."
 
-#: src/changelog/index.tsx:92
-#: src/settings/general/account.tsx:332
+#: src/changelog/index.tsx:91
 #: src/task/resource-view.tsx:81
 msgid "Loading..."
 msgstr "Loading..."
 
 #: src/onboarding/account/before-login.tsx:29
-msgid "Login with existing account"
-msgstr "Login with existing account"
+#~ msgid "Login with existing account"
+#~ msgstr "Login with existing account"
 
 #: src/settings/general/main-language.tsx:50
 msgid "Main language"
@@ -900,8 +977,8 @@ msgid "Manage"
 msgstr "Manage"
 
 #: src/settings/general/account.tsx:384
-msgid "Manage billing"
-msgstr "Manage billing"
+#~ msgid "Manage billing"
+#~ msgstr "Manage billing"
 
 #: src/session/components/note-input/search/bar.tsx:216
 msgid "Match case"
@@ -916,8 +993,8 @@ msgid "Meeting"
 msgstr "Meeting"
 
 #: src/settings/general/app-settings.tsx:75
-msgid "Meetings"
-msgstr "Meetings"
+#~ msgid "Meetings"
+#~ msgstr "Meetings"
 
 #: src/contacts/organization-details.tsx:69
 msgid "member"
@@ -934,7 +1011,7 @@ msgstr "members"
 msgid "Memo"
 msgstr "Memo"
 
-#: src/session/components/note-input/header.tsx:268
+#: src/session/components/note-input/header.tsx:272
 msgid "Memos"
 msgstr "Memos"
 
@@ -1014,6 +1091,10 @@ msgstr "Newest"
 msgid "Next match"
 msgstr "Next match"
 
+#: src/session/components/note-input/action-items.tsx:84
+msgid "No action items yet."
+msgstr "No action items yet."
+
 #: src/settings/general/notification.tsx:370
 msgid "No apps found."
 msgstr "No apps found."
@@ -1022,7 +1103,7 @@ msgstr "No apps found."
 msgid "No calendars found"
 msgstr "No calendars found"
 
-#: src/changelog/index.tsx:121
+#: src/changelog/index.tsx:120
 msgid "No changelog available for this version."
 msgstr "No changelog available for this version."
 
@@ -1037,6 +1118,10 @@ msgstr "No content."
 #: src/task/resource-view.tsx:186
 msgid "No description provided."
 msgstr "No description provided."
+
+#: src/session/components/outer-header/overflow/follow-up-modal.tsx:83
+msgid "No draft yet."
+msgstr "No draft yet."
 
 #: src/sidebar/timeline/index.tsx:899
 msgid "No items today"
@@ -1096,8 +1181,8 @@ msgstr "Note breadcrumb"
 msgid "Notes"
 msgstr "Notes"
 
-#: src/settings/general/index.tsx:335
-#: src/sidebar/settings.tsx:74
+#: src/settings/general/index.tsx:334
+#: src/sidebar/settings.tsx:62
 msgid "Notifications"
 msgstr "Notifications"
 
@@ -1128,8 +1213,8 @@ msgid "Open {0} settings"
 msgstr "Open {0} settings"
 
 #: src/onboarding/final.tsx:66
-msgid "Open Anarlog"
-msgstr "Open Anarlog"
+#~ msgid "Open Anarlog"
+#~ msgstr "Open Anarlog"
 
 #: src/sidebar/timeline/index.tsx:587
 #: src/sidebar/timeline/index.tsx:591
@@ -1140,7 +1225,7 @@ msgstr "Open calendar"
 msgid "Open calendar account actions"
 msgstr "Open calendar account actions"
 
-#: src/session/components/outer-header/overflow/index.tsx:148
+#: src/session/components/outer-header/overflow/index.tsx:166
 msgid "Open floating panel"
 msgstr "Open floating panel"
 
@@ -1148,7 +1233,7 @@ msgstr "Open floating panel"
 msgid "Open in New Tab"
 msgstr "Open in New Tab"
 
-#: src/session/components/outer-header/overflow/index.tsx:160
+#: src/session/components/outer-header/overflow/index.tsx:178
 #: src/sidebar/timeline/item.tsx:600
 msgid "Open in New Window"
 msgstr "Open in New Window"
@@ -1168,6 +1253,10 @@ msgstr "Open repository on GitHub"
 #: src/onboarding/permissions.tsx:45
 msgid "Open settings"
 msgstr "Open settings"
+
+#: src/onboarding/final.tsx:55
+msgid "Open Velo"
+msgstr "Open Velo"
 
 #: src/calendar/components/apple/permission.tsx:154
 #: src/settings/general/permissions.tsx:98
@@ -1200,8 +1289,12 @@ msgid "Participants"
 msgstr "Participants"
 
 #: src/instruction/index.tsx:263
-msgid "Paste the browser URL here if the browser button did not reopen Anarlog."
-msgstr "Paste the browser URL here if the browser button did not reopen Anarlog."
+#~ msgid "Paste the browser URL here if the browser button did not reopen Anarlog."
+#~ msgstr "Paste the browser URL here if the browser button did not reopen Anarlog."
+
+#: src/instruction/index.tsx:263
+msgid "Paste the browser URL here if the browser button did not reopen Velo."
+msgstr "Paste the browser URL here if the browser button did not reopen Velo."
 
 #: src/contacts/organization-details.tsx:65
 #: src/session/components/note-input/transcript/renderer/speaker-assign.tsx:505
@@ -1214,17 +1307,17 @@ msgstr "People"
 msgid "permission panel."
 msgstr "permission panel."
 
-#: src/settings/general/index.tsx:344
-#: src/sidebar/settings.tsx:99
+#: src/settings/general/index.tsx:343
+#: src/sidebar/settings.tsx:82
 msgid "Permissions"
 msgstr "Permissions"
 
-#: src/onboarding/index.tsx:205
+#: src/onboarding/index.tsx:196
 msgid "Permissions granted"
 msgstr "Permissions granted"
 
 #: src/settings/personalization/index.tsx:27
-#: src/sidebar/settings.tsx:84
+#: src/sidebar/settings.tsx:72
 msgid "Personalization"
 msgstr "Personalization"
 
@@ -1233,12 +1326,12 @@ msgid "Phone"
 msgstr "Phone"
 
 #: src/settings/general/account.tsx:376
-msgid "Plan & Billing"
-msgstr "Plan & Billing"
+#~ msgid "Plan & Billing"
+#~ msgstr "Plan & Billing"
 
 #: src/settings/general/account.tsx:457
-msgid "Plans"
-msgstr "Plans"
+#~ msgid "Plans"
+#~ msgstr "Plans"
 
 #: src/session/components/outer-header/overflow/export-modal.tsx:551
 msgid "Preparing transcript..."
@@ -1253,10 +1346,10 @@ msgid "Pro"
 msgstr "Pro"
 
 #: src/settings/general/account.tsx:227
-msgid "Pro trial"
-msgstr "Pro trial"
+#~ msgid "Pro trial"
+#~ msgstr "Pro trial"
 
-#: src/onboarding/index.tsx:285
+#: src/onboarding/index.tsx:240
 msgid "Ready to go"
 msgstr "Ready to go"
 
@@ -1270,12 +1363,20 @@ msgid "Reconnect required"
 msgstr "Reconnect required"
 
 #: src/settings/general/account.tsx:614
-msgid "Refresh billing status"
-msgstr "Refresh billing status"
+#~ msgid "Refresh billing status"
+#~ msgstr "Refresh billing status"
 
 #: src/calendar/components/calendar-selection.tsx:91
 msgid "Refresh calendars"
 msgstr "Refresh calendars"
+
+#: src/session/components/outer-header/overflow/follow-up-modal.tsx:95
+msgid "Regenerate"
+msgstr "Regenerate"
+
+#: src/session/components/note-input/action-items.tsx:105
+msgid "Regenerate action items"
+msgstr "Regenerate action items"
 
 #: src/session/components/note-input/insights.tsx:138
 #: src/session/components/note-input/insights.tsx:156
@@ -1311,8 +1412,8 @@ msgid "Reopen in browser"
 msgstr "Reopen in browser"
 
 #: src/settings/general/account.tsx:87
-msgid "Reopen sign-in page"
-msgstr "Reopen sign-in page"
+#~ msgid "Reopen sign-in page"
+#~ msgstr "Reopen sign-in page"
 
 #: src/session/components/note-input/search/bar.tsx:233
 #: src/session/components/note-input/search/bar.tsx:307
@@ -1362,8 +1463,12 @@ msgid "Required to record your voice during meetings and calls"
 msgstr "Required to record your voice during meetings and calls"
 
 #: src/settings/general/permissions.tsx:192
-msgid "Required to sync Apple Calendar events into Anarlog"
-msgstr "Required to sync Apple Calendar events into Anarlog"
+#~ msgid "Required to sync Apple Calendar events into Anarlog"
+#~ msgstr "Required to sync Apple Calendar events into Anarlog"
+
+#: src/settings/general/permissions.tsx:192
+msgid "Required to sync Apple Calendar events into Velo"
+msgstr "Required to sync Apple Calendar events into Velo"
 
 #: src/calendar/components/apple/permission.tsx:152
 #: src/settings/general/permissions.tsx:96
@@ -1379,8 +1484,12 @@ msgstr "Respect Do-Not-Disturb mode"
 msgid "Retry"
 msgstr "Retry"
 
+#: src/settings/general/account.tsx:15
+msgid "Running locally. No account required."
+msgstr "Running locally. No account required."
+
 #: src/settings/ai/shared/index.tsx:348
-#: src/settings/ai/stt/select.tsx:698
+#: src/settings/ai/stt/select.tsx:714
 msgid "Runs after the recording finishes, not during the meeting."
 msgstr "Runs after the recording finishes, not during the meeting."
 
@@ -1429,7 +1538,7 @@ msgstr "Search or type owner/repo"
 msgid "Search people"
 msgstr "Search people"
 
-#: src/session/components/note-input/header.tsx:1092
+#: src/session/components/note-input/header.tsx:1134
 #: src/templates/template-sidebar.tsx:354
 msgid "Search templates..."
 msgstr "Search templates..."
@@ -1447,7 +1556,7 @@ msgstr "Search..."
 msgid "Section actions"
 msgstr "Section actions"
 
-#: src/session/components/note-input/header.tsx:1158
+#: src/session/components/note-input/header.tsx:1200
 msgid "See all templates"
 msgstr "See all templates"
 
@@ -1494,8 +1603,8 @@ msgid "Select..."
 msgstr "Select..."
 
 #: src/settings/general/app-settings.tsx:47
-msgid "Send anonymous usage analytics to help improve Anarlog."
-msgstr "Send anonymous usage analytics to help improve Anarlog."
+#~ msgid "Send anonymous usage analytics to help improve Anarlog."
+#~ msgstr "Send anonymous usage analytics to help improve Anarlog."
 
 #: src/contacts/organization-details.tsx:134
 msgid "Send email"
@@ -1505,7 +1614,7 @@ msgstr "Send email"
 msgid "Send message"
 msgstr "Send message"
 
-#: src/session/components/note-input/header.tsx:1197
+#: src/session/components/note-input/header.tsx:1239
 msgid "Session note tabs"
 msgstr "Session note tabs"
 
@@ -1518,25 +1627,25 @@ msgid "Set as default"
 msgstr "Set as default"
 
 #: src/main/empty.tsx:52
-#: src/sidebar/settings.tsx:117
+#: src/sidebar/settings.tsx:95
 msgid "Settings"
 msgstr "Settings"
 
 #: src/settings/general/app-settings.tsx:45
-msgid "Share usage data"
-msgstr "Share usage data"
+#~ msgid "Share usage data"
+#~ msgstr "Share usage data"
 
 #: src/sidebar/timeline/item.tsx:394
 msgid "Show All Recurring Events"
 msgstr "Show All Recurring Events"
 
 #: src/settings/general/app-settings.tsx:57
-msgid "Show Anarlog in the Dock and app switcher."
-msgstr "Show Anarlog in the Dock and app switcher."
+#~ msgid "Show Anarlog in the Dock and app switcher."
+#~ msgstr "Show Anarlog in the Dock and app switcher."
 
 #: src/settings/general/app-settings.tsx:55
-msgid "Show app in Dock"
-msgstr "Show app in Dock"
+#~ msgid "Show app in Dock"
+#~ msgstr "Show app in Dock"
 
 #: src/sidebar/timeline/index.tsx:411
 msgid "Show Deleted Events"
@@ -1547,61 +1656,61 @@ msgid "Show Event"
 msgstr "Show Event"
 
 #: src/settings/general/app-settings.tsx:101
-msgid "Show floating bar"
-msgstr "Show floating bar"
+#~ msgid "Show floating bar"
+#~ msgstr "Show floating bar"
 
-#: src/settings/ai/stt/select.tsx:753
+#: src/settings/ai/stt/select.tsx:769
 #: src/sidebar/timeline/item.tsx:605
 msgid "Show in Finder"
 msgstr "Show in Finder"
 
 #: src/settings/general/app-settings.tsx:109
-msgid "Show live transcript overlay"
-msgstr "Show live transcript overlay"
+#~ msgid "Show live transcript overlay"
+#~ msgstr "Show live transcript overlay"
 
 #: src/settings/general/app-settings.tsx:103
-msgid "Show the compact floating control while listening."
-msgstr "Show the compact floating control while listening."
+#~ msgid "Show the compact floating control while listening."
+#~ msgstr "Show the compact floating control while listening."
 
 #: src/settings/general/app-settings.tsx:111
-msgid "Show the live transcript overlay by default while listening."
-msgstr "Show the live transcript overlay by default while listening."
+#~ msgid "Show the live transcript overlay by default while listening."
+#~ msgstr "Show the live transcript overlay by default while listening."
 
 #: src/sidebar/timeline/item.tsx:389
 msgid "Show This Event"
 msgstr "Show This Event"
 
 #: src/settings/general/app-settings.tsx:63
-msgid "Show tray icon"
-msgstr "Show tray icon"
+#~ msgid "Show tray icon"
+#~ msgstr "Show tray icon"
 
 #: src/settings/general/account.tsx:428
 #: src/settings/general/account.tsx:437
-msgid "Sign in"
-msgstr "Sign in"
+#~ msgid "Sign in"
+#~ msgstr "Sign in"
 
 #: src/settings/general/account.tsx:425
-msgid "Sign in for Lite"
-msgstr "Sign in for Lite"
+#~ msgid "Sign in for Lite"
+#~ msgstr "Sign in for Lite"
 
 #: src/settings/todo/github.tsx:105
 msgid "Sign in for private repo access."
 msgstr "Sign in for private repo access."
 
 #: src/settings/general/account.tsx:427
-msgid "Sign in for Pro"
-msgstr "Sign in for Pro"
+#~ msgid "Sign in for Pro"
+#~ msgstr "Sign in for Pro"
 
 #: src/settings/general/account.tsx:110
-msgid "Sign in to Anarlog"
-msgstr "Sign in to Anarlog"
+#~ msgid "Sign in to Anarlog"
+#~ msgstr "Sign in to Anarlog"
 
 #: src/onboarding/calendar.tsx:396
 #: src/onboarding/calendar.tsx:415
 #: src/onboarding/calendar.tsx:502
 #: src/onboarding/calendar.tsx:521
-msgid "Sign in to connect"
-msgstr "Sign in to connect"
+#~ msgid "Sign in to connect"
+#~ msgstr "Sign in to connect"
 
 #. placeholder {0}: config.displayName
 #: src/settings/todo/provider-content.tsx:79
@@ -1609,39 +1718,39 @@ msgid "Sign in to connect {0}"
 msgstr "Sign in to connect {0}"
 
 #: src/settings/general/account.tsx:113
-msgid "Sign in to unlock cloud transcription and AI models, plus Pro features like sharing."
-msgstr "Sign in to unlock cloud transcription and AI models, plus Pro features like sharing."
+#~ msgid "Sign in to unlock cloud transcription and AI models, plus Pro features like sharing."
+#~ msgstr "Sign in to unlock cloud transcription and AI models, plus Pro features like sharing."
 
 #: src/onboarding/index.tsx:223
-msgid "Sign in to unlock powerful AI models, sync across devices, and personalization."
-msgstr "Sign in to unlock powerful AI models, sync across devices, and personalization."
+#~ msgid "Sign in to unlock powerful AI models, sync across devices, and personalization."
+#~ msgstr "Sign in to unlock powerful AI models, sync across devices, and personalization."
 
 #: src/instruction/index.tsx:240
 msgid "Sign in to your account"
 msgstr "Sign in to your account"
 
 #: src/settings/general/account.tsx:152
-msgid "Sign out"
-msgstr "Sign out"
+#~ msgid "Sign out"
+#~ msgstr "Sign out"
 
 #: src/onboarding/account/after-login.tsx:10
 #: src/onboarding/account/after-login.tsx:87
 #: src/onboarding/index.tsx:230
 #: src/settings/general/account.tsx:142
-msgid "Signed in"
-msgstr "Signed in"
+#~ msgid "Signed in"
+#~ msgstr "Signed in"
 
 #: src/settings/general/account.tsx:152
-msgid "Signing out..."
-msgstr "Signing out..."
+#~ msgid "Signing out..."
+#~ msgstr "Signing out..."
 
 #: src/onboarding/shared.tsx:105
 msgid "Skip"
 msgstr "Skip"
 
 #: src/onboarding/index.tsx:232
-msgid "Skipped"
-msgstr "Skipped"
+#~ msgid "Skipped"
+#~ msgstr "Skipped"
 
 #: src/contacts/details.tsx:430
 msgid "Software Engineer"
@@ -1655,31 +1764,39 @@ msgstr "Something went wrong while generating the summary."
 msgid "Sort options"
 msgstr "Sort options"
 
+#: src/onboarding/final.tsx:27
+msgid "Star us on GitHub:"
+msgstr "Star us on GitHub:"
+
 #: src/settings/general/app-settings.tsx:37
-msgid "Start Anarlog at login"
-msgstr "Start Anarlog at login"
+#~ msgid "Start Anarlog at login"
+#~ msgstr "Start Anarlog at login"
+
+#: src/session/components/outer-header/index.tsx:145
+msgid "Start recording"
+msgstr "Start recording"
 
 #: src/main/empty.tsx:46
 msgid "Start Recording"
 msgstr "Start Recording"
 
 #: src/settings/general/app-settings.tsx:79
-msgid "Start when meeting begins"
-msgstr "Start when meeting begins"
+#~ msgid "Start when meeting begins"
+#~ msgstr "Start when meeting begins"
 
-#: src/onboarding/index.tsx:204
+#: src/onboarding/index.tsx:195
 msgid "Start with permissions"
 msgstr "Start with permissions"
 
 #: src/onboarding/account/after-login.tsx:27
-msgid "Starting your trial..."
-msgstr "Starting your trial..."
+#~ msgid "Starting your trial..."
+#~ msgstr "Starting your trial..."
 
-#: src/session/components/outer-header/index.tsx:319
+#: src/session/components/outer-header/index.tsx:369
 msgid "Stop"
 msgstr "Stop"
 
-#: src/session/components/outer-header/index.tsx:292
+#: src/session/components/outer-header/index.tsx:342
 #: src/sidebar/timeline/item.tsx:244
 msgid "Stop listening"
 msgstr "Stop listening"
@@ -1689,15 +1806,15 @@ msgid "Stop response"
 msgstr "Stop response"
 
 #: src/settings/general/app-settings.tsx:90
-msgid "Stop when meeting ends"
-msgstr "Stop when meeting ends"
+#~ msgid "Stop when meeting ends"
+#~ msgstr "Stop when meeting ends"
 
-#: src/onboarding/index.tsx:272
+#: src/onboarding/index.tsx:227
 #: src/settings/general/storage/index.tsx:103
 msgid "Storage"
 msgstr "Storage"
 
-#: src/onboarding/index.tsx:276
+#: src/onboarding/index.tsx:231
 msgid "Storage configured"
 msgstr "Storage configured"
 
@@ -1751,7 +1868,6 @@ msgstr "Template actions"
 msgid "Template content with Jinja2: {{ variable }}, {% if condition %}"
 msgstr "Template content with Jinja2: {{ variable }}, {% if condition %}"
 
-#: src/sidebar/settings.tsx:89
 #: src/templates/template-sidebar.tsx:298
 msgid "Templates"
 msgstr "Templates"
@@ -1777,10 +1893,10 @@ msgid "Timezone"
 msgstr "Timezone"
 
 #: src/session/components/note-input/enhanced/streaming.tsx:41
-msgid "Tip: The Anarlog team loves our users!"
-msgstr "Tip: The Anarlog team loves our users!"
+#~ msgid "Tip: The Anarlog team loves our users!"
+#~ msgstr "Tip: The Anarlog team loves our users!"
 
-#: src/session/components/note-input/header.tsx:620
+#: src/session/components/note-input/header.tsx:624
 #: src/session/components/outer-header/overflow/export-modal.tsx:245
 #: src/session/components/outer-header/overflow/export-modal.tsx:295
 #: src/session/components/outer-header/overflow/export-modal.tsx:350
@@ -1789,18 +1905,18 @@ msgid "Transcript"
 msgstr "Transcript"
 
 #: src/settings/ai/stt/index.tsx:17
-#: src/sidebar/settings.tsx:80
+#: src/sidebar/settings.tsx:68
 msgid "Transcription"
 msgstr "Transcription"
 
 #: src/settings/general/account.tsx:525
 #: src/settings/general/account.tsx:584
-msgid "Trial"
-msgstr "Trial"
+#~ msgid "Trial"
+#~ msgstr "Trial"
 
 #: src/onboarding/account/after-login.tsx:48
-msgid "Trial activated - 14 days of Pro"
-msgstr "Trial activated - 14 days of Pro"
+#~ msgid "Trial activated - 14 days of Pro"
+#~ msgstr "Trial activated - 14 days of Pro"
 
 #: src/session/components/note-input/transcript/renderer/speaker-assign.tsx:320
 msgid "Unknown"
@@ -1859,19 +1975,39 @@ msgstr "Upgrade to Pro for {0}"
 msgid "Upgrade to Pro to use this provider."
 msgstr "Upgrade to Pro to use this provider."
 
-#: src/settings/ai/stt/select.tsx:649
+#: src/settings/ai/stt/select.tsx:665
 msgid "Upgrade to use"
 msgstr "Upgrade to use"
 
 #: src/session/components/floating/options-menu.tsx:134
-#: src/session/components/outer-header/overflow/index.tsx:127
+#: src/session/components/outer-header/overflow/index.tsx:145
 msgid "Upload audio"
 msgstr "Upload audio"
 
 #: src/session/components/floating/options-menu.tsx:143
-#: src/session/components/outer-header/overflow/index.tsx:136
+#: src/session/components/outer-header/overflow/index.tsx:154
 msgid "Upload transcript"
 msgstr "Upload transcript"
+
+#: src/settings/general/account.tsx:12
+msgid "Velo"
+msgstr "Velo"
+
+#: src/onboarding/permissions.tsx:153
+msgid "Velo can hear others"
+msgstr "Velo can hear others"
+
+#: src/onboarding/permissions.tsx:141
+msgid "Velo can hear your voice"
+msgstr "Velo can hear your voice"
+
+#: src/onboarding/index.tsx:198
+msgid "Velo needs access to your microphone and system audio to record and transcribe your meetings"
+msgstr "Velo needs access to your microphone and system audio to record and transcribe your meetings"
+
+#: src/onboarding/index.tsx:214
+msgid "Velo will sync your calendar to get meeting reminders"
+msgstr "Velo will sync your calendar to get meeting reminders"
 
 #: src/contacts/organization-details.tsx:153
 msgid "View LinkedIn profile"
@@ -1886,14 +2022,22 @@ msgid "Week starts on"
 msgstr "Week starts on"
 
 #: src/onboarding/index.tsx:197
-msgid "Welcome to Anarlog"
-msgstr "Welcome to Anarlog"
+#~ msgid "Welcome to Anarlog"
+#~ msgstr "Welcome to Anarlog"
+
+#: src/onboarding/index.tsx:188
+msgid "Welcome to Velo"
+msgstr "Welcome to Velo"
 
 #: src/changelog/index.tsx:165
-msgid "What's new in {version}?"
-msgstr "What's new in {version}?"
+#~ msgid "What's new in {version}?"
+#~ msgstr "What's new in {version}?"
 
-#: src/onboarding/index.tsx:274
+#: src/changelog/index.tsx:162
+msgid "What's new?"
+msgstr "What's new?"
+
+#: src/onboarding/index.tsx:229
 msgid "Where your notes and recordings are stored"
 msgstr "Where your notes and recordings are stored"
 
@@ -1907,8 +2051,8 @@ msgid "You can"
 msgstr "You can"
 
 #: src/onboarding/account/after-login.tsx:33
-msgid "You have an active plan"
-msgstr "You have an active plan"
+#~ msgid "You have an active plan"
+#~ msgstr "You have an active plan"
 
 #: src/session/components/note-input/enhanced/config-error.tsx:41
 #: src/session/components/note-input/enhanced/config-error.tsx:91
@@ -1932,24 +2076,32 @@ msgid "You need to select a model to summarize this meeting"
 msgstr "You need to select a model to summarize this meeting"
 
 #: src/session/components/note-input/enhanced/config-error.tsx:52
-msgid "You need to sign in to use Anarlog's language model"
-msgstr "You need to sign in to use Anarlog's language model"
+#~ msgid "You need to sign in to use Anarlog's language model"
+#~ msgstr "You need to sign in to use Anarlog's language model"
+
+#: src/session/components/note-input/enhanced/config-error.tsx:52
+msgid "You need to sign in to use Velo's language model"
+msgstr "You need to sign in to use Velo's language model"
 
 #: src/onboarding/account/after-login.tsx:37
-msgid "You're on a Pro trial"
-msgstr "You're on a Pro trial"
+#~ msgid "You're on a Pro trial"
+#~ msgstr "You're on a Pro trial"
 
 #: src/settings/general/account.tsx:231
-msgid "You're on the <0>{planLabel}</0> plan"
-msgstr "You're on the <0>{planLabel}</0> plan"
+#~ msgid "You're on the <0>{planLabel}</0> plan"
+#~ msgstr "You're on the <0>{planLabel}</0> plan"
 
 #: src/settings/general/account.tsx:141
-msgid "Your Account"
-msgstr "Your Account"
+#~ msgid "Your Account"
+#~ msgstr "Your Account"
 
 #: src/session/components/note-input/enhanced/config-error.tsx:57
-msgid "Your Anarlog plan has expired. Configure another language model or renew your plan"
-msgstr "Your Anarlog plan has expired. Configure another language model or renew your plan"
+#~ msgid "Your Anarlog plan has expired. Configure another language model or renew your plan"
+#~ msgstr "Your Anarlog plan has expired. Configure another language model or renew your plan"
+
+#: src/session/components/note-input/enhanced/config-error.tsx:57
+msgid "Your Velo plan has expired. Configure another language model or renew your plan"
+msgstr "Your Velo plan has expired. Configure another language model or renew your plan"
 
 #: src/templates/template-sidebar.tsx:320
 msgid "Z to A"

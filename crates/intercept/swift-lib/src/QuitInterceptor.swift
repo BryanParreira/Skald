@@ -40,7 +40,13 @@ final class QuitInterceptor {
   // MARK: - Actions
 
   func performQuit() {
-    rustSetForceQuit()
+    // Deliberately does NOT call rustSetForceQuit() — that flag makes the
+    // Rust-side RunEvent::ExitRequested handler skip closing windows
+    // entirely, which is what runs each window's flush-pending-edits-then-
+    // save logic before the app actually terminates. This confirmed
+    // "second Cmd+Q" press should quit exactly like a normal quit would —
+    // gracefully, not by skipping the save path — it's only special in
+    // that the *first* press is swallowed to require confirmation.
     hidePanel()
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
       NSApplication.shared.terminate(nil)
