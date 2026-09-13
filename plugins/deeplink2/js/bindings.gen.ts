@@ -41,9 +41,10 @@ deepLinkEvent: "plugin:deeplink2:deep-link-event"
 
 export type AuthCallbackSearch = { access_token: string; refresh_token: string }
 export type BillingRefreshSearch = Record<string, never>
-export type DeepLink = { to: "/auth/callback"; search: AuthCallbackSearch } | { to: "/billing/refresh"; search: BillingRefreshSearch } | { to: "/integration/callback"; search: IntegrationCallbackSearch }
+export type DeepLink = { to: "/auth/callback"; search: AuthCallbackSearch } | { to: "/billing/refresh"; search: BillingRefreshSearch } | { to: "/integration/callback"; search: IntegrationCallbackSearch } | { to: "/notes/open"; search: NotesOpenSearch }
 export type DeepLinkEvent = DeepLink
 export type IntegrationCallbackSearch = { integration_id: string; status: string; return_to: string | null }
+export type NotesOpenSearch = { session_id: string }
 
 /** tauri-specta globals **/
 

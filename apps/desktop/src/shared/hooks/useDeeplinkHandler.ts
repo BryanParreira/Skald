@@ -44,6 +44,8 @@ export function useDeeplinkHandler() {
           void auth.refreshSession();
         }
         void dismissInstruction();
+      } else if (payload.to === "/notes/open") {
+        openNew({ type: "sessions", id: payload.search.session_id });
       } else if (payload.to === "/integration/callback") {
         const { integration_id, status, return_to } = payload.search;
         if (status === "success") {

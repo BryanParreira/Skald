@@ -122,6 +122,11 @@ fn ui_content(deep_link: &DeepLink) -> (bool, &'static str, &'static str) {
             "Connection failed",
             "Something went wrong. Please close this window and try again.",
         ),
+        DeepLink::NotesOpen(_) => (
+            true,
+            "Opening your note",
+            "Click the button below to return to the app.",
+        ),
     }
 }
 
