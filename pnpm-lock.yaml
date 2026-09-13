@@ -159,6 +159,9 @@ importers:
       '@hypr/plugin-sfx':
         specifier: workspace:*
         version: link:../../plugins/sfx
+      '@hypr/plugin-shortcut':
+        specifier: workspace:*
+        version: link:../../plugins/shortcut
       '@hypr/plugin-store2':
         specifier: workspace:*
         version: link:../../plugins/store2

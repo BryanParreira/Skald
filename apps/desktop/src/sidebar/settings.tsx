@@ -4,6 +4,7 @@ import {
   AudioLinesIcon,
   ArrowUpRightIcon,
   BellIcon,
+  MicIcon,
   CalendarIcon,
   DatabaseIcon,
   LockIcon,
@@ -81,6 +82,11 @@ export function SettingsNav() {
       id: "permissions" as const,
       label: t`Permissions`,
       icon: LockIcon,
+    });
+    groups[1].items.push({
+      id: "dictation" as const,
+      label: t`Dictation`,
+      icon: MicIcon,
     });
   }
 

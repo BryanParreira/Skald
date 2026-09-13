@@ -1,3 +1,4 @@
+mod cleanup;
 mod commands;
 mod error;
 mod events;
@@ -100,6 +101,7 @@ fn stop_dictation_and_inject(app: tauri::AppHandle) {
 
         match active.stop().await {
             Ok(text) => {
+                let text = cleanup::polish(&app, &text).await;
                 if let Err(e) = inject::inject_text(&app, &text).await {
                     tracing::warn!(error = %e, "dictation_inject_failed");
                 }

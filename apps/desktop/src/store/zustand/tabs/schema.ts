@@ -39,6 +39,7 @@ export type SettingsTab =
   | "personalization"
   | "transcription"
   | "intelligence"
+  | "dictation"
   | "todo";
 
 const isSettingsTab = (tab: string | null | undefined): tab is SettingsTab => {
@@ -51,6 +52,7 @@ const isSettingsTab = (tab: string | null | undefined): tab is SettingsTab => {
     case "personalization":
     case "transcription":
     case "intelligence":
+    case "dictation":
     case "todo":
       return true;
     default:

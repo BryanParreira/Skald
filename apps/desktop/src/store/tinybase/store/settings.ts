@@ -13,6 +13,7 @@ import {
 import { commands as detectCommands } from "@hypr/plugin-detect";
 import { commands as localLlmCommands } from "@hypr/plugin-local-llm";
 import { commands as localSttCommands } from "@hypr/plugin-local-stt";
+import { commands as shortcutCommands } from "@hypr/plugin-shortcut";
 import { commands as trayCommands } from "@hypr/plugin-tray";
 import {
   commands as windowsCommands,
@@ -21,6 +22,7 @@ import {
 
 import { registerSaveHandler } from "./save";
 
+import { hotkeyFor } from "~/dictation/hotkey";
 import { useSettingsPersister } from "~/store/tinybase/persister/settings";
 import {
   isConfiguredSttModel,
@@ -126,6 +128,23 @@ export const SETTINGS_MAPPING = {
       type: "boolean",
       path: ["notification", "respect_dnd"],
       default: false as boolean,
+    },
+    dictation_enabled: {
+      type: "boolean",
+      path: ["dictation", "enabled"],
+      default: false as boolean,
+    },
+    dictation_hotkey: {
+      type: "string",
+      path: ["dictation", "hotkey"],
+      default: "fn" as string,
+    },
+    // Read from Rust as well; keep the default in sync with
+    // plugins/dictation/src/cleanup.rs.
+    dictation_cleanup: {
+      type: "boolean",
+      path: ["dictation", "cleanup"],
+      default: true as boolean,
     },
     // Actual values populated via persister load; defaults here are for type inference.
     ai_language: {
@@ -383,12 +402,29 @@ function syncLocalLlmServer(store: Store) {
   const model = store.getValue("current_llm_model") as string | undefined;
 
   if (provider === "velo_local" && model) {
-    localLlmCommands.startServer(model as Parameters<typeof localLlmCommands.startServer>[0]).catch(
-      console.error,
-    );
+    localLlmCommands
+      .startServer(model as Parameters<typeof localLlmCommands.startServer>[0])
+      .catch(console.error);
   } else {
     localLlmCommands.stopServer().catch(console.error);
   }
+}
+
+export function syncDictationHotkey(store: Pick<Store, "getValue">) {
+  if (store.getValue("dictation_enabled") !== true) {
+    shortcutCommands.unregisterHotkey().catch(console.error);
+    return;
+  }
+
+  const hotkeyId = store.getValue("dictation_hotkey") as string | undefined;
+  shortcutCommands
+    .registerHotkey(hotkeyFor(hotkeyId), {})
+    .then((result) => {
+      if (result.status === "error") {
+        console.error("[dictation] hotkey registration failed", result.error);
+      }
+    })
+    .catch(console.error);
 }
 
 const SETTINGS_LISTENERS: SettingsListeners = {
@@ -421,6 +457,8 @@ const SETTINGS_LISTENERS: SettingsListeners = {
   current_stt_model: (store) => syncLocalSttServer(store),
   current_llm_provider: (store) => syncLocalLlmServer(store),
   current_llm_model: (store) => syncLocalLlmServer(store),
+  dictation_enabled: (store) => syncDictationHotkey(store),
+  dictation_hotkey: (store) => syncDictationHotkey(store),
   show_app_in_dock: (_store, newValue) => {
     windowsCommands.setShowAppInDock(newValue).catch(console.error);
   },
@@ -444,6 +482,7 @@ function registerSettingsListeners(store: Store): () => void {
   }
 
   clearInvalidSttModel(store);
+  syncDictationHotkey(store);
 
   return () => {
     for (const id of cleanups) {

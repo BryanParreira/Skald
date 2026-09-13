@@ -32,7 +32,7 @@ function ActionLink({
   );
 }
 
-function PermissionRow({
+export function PermissionRow({
   title,
   description,
   status,

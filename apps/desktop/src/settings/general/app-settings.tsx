@@ -84,7 +84,7 @@ export function AppSettingsView({
   );
 }
 
-function SettingRow({
+export function SettingRow({
   title,
   description,
   checked,

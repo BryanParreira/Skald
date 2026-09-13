@@ -14,7 +14,9 @@ specta-typescript = { workspace = true }
 [dependencies]
 bytes = { workspace = true }
 futures-util = { workspace = true }
+reqwest = { workspace = true, features = ["json"] }
 serde = { workspace = true }
+serde_json = { workspace = true }
 specta = { workspace = true }
 thiserror = { workspace = true }
 tokio = { workspace = true, features = ["sync", "rt", "macros"] }
@@ -25,6 +27,8 @@ tauri = { workspace = true, features = ["test"] }
 tauri-specta = { workspace = true, features = ["derive", "typescript"] }
 
 tauri-plugin-clipboard-manager = { workspace = true }
+tauri-plugin-local-llm = { workspace = true }
+tauri-plugin-settings = { workspace = true }
 tauri-plugin-shortcut = { workspace = true }
 
 owhisper-client = { workspace = true }
