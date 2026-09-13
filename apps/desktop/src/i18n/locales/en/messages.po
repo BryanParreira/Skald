@@ -69,7 +69,7 @@ msgid "Add"
 msgstr "Add"
 
 #. placeholder {0}: option.name
-#: src/session/components/note-input/transcript/renderer/speaker-assign.tsx:645
+#: src/session/components/note-input/transcript/renderer/speaker-assign.tsx:666
 msgid "Add \"{0}\""
 msgstr "Add \"{0}\""
 
@@ -174,7 +174,7 @@ msgstr "Appearance"
 msgid "Apply and Restart"
 msgstr "Apply and Restart"
 
-#: src/session/components/note-input/transcript/renderer/speaker-assign.tsx:552
+#: src/session/components/note-input/transcript/renderer/speaker-assign.tsx:573
 msgid "Apply to all"
 msgstr "Apply to all"
 
@@ -363,7 +363,7 @@ msgid "Configure this provider to use it."
 msgstr "Configure this provider to use it."
 
 #: src/onboarding/folder-location.tsx:136
-#: src/session/components/note-input/transcript/renderer/speaker-assign.tsx:565
+#: src/session/components/note-input/transcript/renderer/speaker-assign.tsx:586
 msgid "Confirm"
 msgstr "Confirm"
 
@@ -1049,7 +1049,7 @@ msgstr "No items today"
 msgid "No matching languages found"
 msgstr "No matching languages found"
 
-#: src/session/components/note-input/transcript/renderer/speaker-assign.tsx:537
+#: src/session/components/note-input/transcript/renderer/speaker-assign.tsx:558
 msgid "No matching people"
 msgstr "No matching people"
 
@@ -1065,7 +1065,7 @@ msgstr "No models ready to use."
 msgid "No notes found."
 msgstr "No notes found."
 
-#: src/session/components/note-input/transcript/renderer/speaker-assign.tsx:539
+#: src/session/components/note-input/transcript/renderer/speaker-assign.tsx:560
 msgid "No people"
 msgstr "No people"
 
@@ -1198,7 +1198,7 @@ msgstr "Others"
 msgid "Override the timezone used for the sidebar timeline"
 msgstr "Override the timezone used for the sidebar timeline"
 
-#: src/session/components/note-input/transcript/renderer/speaker-assign.tsx:503
+#: src/session/components/note-input/transcript/renderer/speaker-assign.tsx:524
 #: src/session/components/outer-header/overflow/export-modal.tsx:215
 #: src/session/components/outer-header/overflow/export-modal.tsx:263
 #: src/session/components/outer-header/overflow/export-modal.tsx:320
@@ -1210,8 +1210,8 @@ msgid "Paste the browser URL here if the browser button did not reopen Velo."
 msgstr "Paste the browser URL here if the browser button did not reopen Velo."
 
 #: src/contacts/organization-details.tsx:65
-#: src/session/components/note-input/transcript/renderer/speaker-assign.tsx:505
-#: src/session/components/note-input/transcript/renderer/speaker-assign.tsx:523
+#: src/session/components/note-input/transcript/renderer/speaker-assign.tsx:526
+#: src/session/components/note-input/transcript/renderer/speaker-assign.tsx:544
 msgid "People"
 msgstr "People"
 
@@ -1431,7 +1431,7 @@ msgstr "Search or create new"
 msgid "Search or type owner/repo"
 msgstr "Search or type owner/repo"
 
-#: src/session/components/note-input/transcript/renderer/speaker-assign.tsx:489
+#: src/session/components/note-input/transcript/renderer/speaker-assign.tsx:510
 msgid "Search people"
 msgstr "Search people"
 
@@ -1574,6 +1574,10 @@ msgstr "Something went wrong while generating the summary."
 msgid "Sort options"
 msgstr "Sort options"
 
+#: src/session/components/note-input/transcript/renderer/speaker-assign.tsx:109
+msgid "Sounds like"
+msgstr "Sounds like"
+
 #: src/onboarding/final.tsx:26
 msgid "Star us on GitHub:"
 msgstr "Star us on GitHub:"
@@ -1703,7 +1707,7 @@ msgstr "Transcript"
 msgid "Transcription"
 msgstr "Transcription"
 
-#: src/session/components/note-input/transcript/renderer/speaker-assign.tsx:320
+#: src/session/components/note-input/transcript/renderer/speaker-assign.tsx:341
 msgid "Unknown"
 msgstr "Unknown"
 
