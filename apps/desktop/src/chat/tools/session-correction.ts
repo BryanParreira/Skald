@@ -321,7 +321,11 @@ function shouldEditTranscript(target: CorrectionTarget): boolean {
 export const buildApplySessionCorrectionTool = (
   deps: Pick<
     ToolDependencies,
-    "getStore" | "getIndexes" | "getSessionId" | "getEnhancedNoteId"
+    | "getStore"
+    | "getIndexes"
+    | "getSessionId"
+    | "getEnhancedNoteId"
+    | "learnDictionaryTerm"
   >,
 ) =>
   tool({
@@ -430,11 +434,20 @@ export const buildApplySessionCorrectionTool = (
         };
       }
 
+      // A transcript correction is almost always speech recognition mishearing
+      // a name or term, so teach the dictionary the corrected spelling. Summary
+      // mistakes come from the model and teach speech recognition nothing.
+      const learnedTerm =
+        transcriptChanges.length > 0 && deps.learnDictionaryTerm?.(newText)
+          ? newText
+          : undefined;
+
       return {
         status: "applied",
         sessionId,
         summaryChanges,
         transcriptChanges,
+        ...(learnedTerm ? { learnedTerm } : {}),
       };
     },
   });

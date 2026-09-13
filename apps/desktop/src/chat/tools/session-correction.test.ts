@@ -436,3 +436,83 @@ describe("session correction chat tool internals", () => {
     expect(tables.enhanced_notes["note-2"].content).toContain("Y roadmap");
   });
 });
+
+describe("session correction dictionary learning", () => {
+  function transcriptTables() {
+    return {
+      enhanced_notes: {
+        "note-1": {
+          session_id: "session-1",
+          title: "Summary",
+          content: summaryContent("Met with anna log."),
+        },
+      },
+      transcripts: {
+        "transcript-1": {
+          session_id: "session-1",
+          words: JSON.stringify([
+            { id: "w1", text: "anna", start_ms: 0, end_ms: 100, channel: 0 },
+            { id: "w2", text: "log", start_ms: 100, end_ms: 200, channel: 0 },
+          ]),
+          memo_md: "Speaker 1: anna log",
+        },
+      },
+    };
+  }
+
+  function buildTool(
+    tables: Record<string, Record<string, any>>,
+    learnDictionaryTerm: (term: string) => boolean,
+  ) {
+    return buildApplySessionCorrectionTool({
+      getStore: () => createStore(tables),
+      getIndexes: () => createIndexes(tables),
+      getSessionId: () => "session-1",
+      getEnhancedNoteId: () => undefined,
+      learnDictionaryTerm,
+    });
+  }
+
+  it("learns the corrected spelling from a transcript correction", async () => {
+    const learn = vi.fn(() => true);
+    const tool = buildTool(transcriptTables(), learn);
+
+    const result = await (tool as any).execute({
+      target: "transcript",
+      oldText: "anna log",
+      newText: "Anarlog",
+    });
+
+    expect(learn).toHaveBeenCalledWith("Anarlog");
+    expect(result).toMatchObject({ status: "applied", learnedTerm: "Anarlog" });
+  });
+
+  it("does not learn from a summary-only correction", async () => {
+    const learn = vi.fn(() => true);
+    const tool = buildTool(transcriptTables(), learn);
+
+    const result = await (tool as any).execute({
+      target: "summary",
+      oldText: "anna log",
+      newText: "Anarlog",
+    });
+
+    expect(learn).not.toHaveBeenCalled();
+    expect(result).toMatchObject({ status: "applied" });
+    expect(result).not.toHaveProperty("learnedTerm");
+  });
+
+  it("does not report a term that was already in the dictionary", async () => {
+    const learn = vi.fn(() => false);
+    const tool = buildTool(transcriptTables(), learn);
+
+    const result = await (tool as any).execute({
+      target: "transcript",
+      oldText: "anna log",
+      newText: "Anarlog",
+    });
+
+    expect(learn).toHaveBeenCalledWith("Anarlog");
+    expect(result).not.toHaveProperty("learnedTerm");
+  });
+});

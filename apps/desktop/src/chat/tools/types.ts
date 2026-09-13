@@ -58,6 +58,7 @@ export interface ToolDependencies {
   getIndexes: () => Indexes | undefined;
   getSessionId: () => string | undefined;
   getEnhancedNoteId: () => string | undefined;
+  learnDictionaryTerm?: (term: string) => boolean;
   openEditTab: (requestId: string) => void;
   getAuthHeaders: () => Record<string, string> | null | undefined;
   fetch?: typeof fetch;

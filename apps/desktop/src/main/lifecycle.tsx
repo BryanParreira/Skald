@@ -17,6 +17,7 @@ import { useDesktopTabLifecycle } from "~/shared/desktop-tab-lifecycle";
 import * as main from "~/store/tinybase/store/main";
 import * as settings from "~/store/tinybase/store/settings";
 import { useTabs } from "~/store/zustand/tabs";
+import { mergeLearnedTerm } from "~/stt/keywords";
 
 export function useClassicMainLifecycle() {
   const openNew = useTabs((state) => state.openNew);
@@ -298,6 +299,24 @@ function ToolRegistration() {
   const openEditTab = useCallback((requestId: string) => {
     useTabs.getState().openNew({ type: "edit", requestId });
   }, []);
+  const settingsStore = settings.UI.useStore(settings.STORE_ID);
+  const learnDictionaryTerm = useCallback(
+    (term: string) => {
+      if (!settingsStore) {
+        return false;
+      }
+      const next = mergeLearnedTerm(
+        settingsStore.getValue("personalization_dictionary_terms"),
+        term,
+      );
+      if (!next) {
+        return false;
+      }
+      settingsStore.setValue("personalization_dictionary_terms", next);
+      return true;
+    },
+    [settingsStore],
+  );
 
   useRegisterTools(
     "chat-general",
@@ -312,6 +331,7 @@ function ToolRegistration() {
         getEnhancedNoteId,
         openEditTab,
         getAuthHeaders,
+        learnDictionaryTerm,
       }),
     [
       search,
@@ -321,6 +341,7 @@ function ToolRegistration() {
       getEnhancedNoteId,
       openEditTab,
       getAuthHeaders,
+      learnDictionaryTerm,
     ],
   );
 
