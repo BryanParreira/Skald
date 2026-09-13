@@ -50,6 +50,7 @@ msgstr ""
 msgid "A to Z"
 msgstr ""
 
+#: src/settings/dictation/index.tsx:109
 #: src/settings/general/permissions.tsx:180
 msgid "Accessibility"
 msgstr ""
@@ -161,7 +162,7 @@ msgid "API Key"
 msgstr ""
 
 #: src/settings/general/index.tsx:149
-#: src/sidebar/settings.tsx:60
+#: src/sidebar/settings.tsx:61
 msgid "App"
 msgstr "ایپ"
 
@@ -237,7 +238,7 @@ msgstr ""
 #: src/calendar/components/sidebar.tsx:328
 #: src/settings/general/permissions.tsx:191
 #: src/sidebar/calendar.tsx:10
-#: src/sidebar/settings.tsx:89
+#: src/sidebar/settings.tsx:95
 msgid "Calendar"
 msgstr ""
 
@@ -288,6 +289,10 @@ msgstr ""
 
 #: src/settings/general/storage/index.tsx:294
 msgid "Choose where Velo should store data. (notes, settings, etc)"
+msgstr ""
+
+#: src/settings/dictation/index.tsx:99
+msgid "Clean up text"
 msgstr ""
 
 #: src/contacts/shared.tsx:173
@@ -402,6 +407,10 @@ msgstr ""
 msgid "Continue"
 msgstr ""
 
+#: src/settings/dictation/index.tsx:93
+msgid "Control + Option"
+msgstr ""
+
 #: src/session/components/outer-header/overflow/follow-up-modal.tsx:102
 msgid "Copied!"
 msgstr ""
@@ -440,7 +449,7 @@ msgid "Dark"
 msgstr ""
 
 #: src/settings/general/index.tsx:291
-#: src/sidebar/settings.tsx:61
+#: src/sidebar/settings.tsx:62
 msgid "Data"
 msgstr "ڈیٹا"
 
@@ -492,6 +501,11 @@ msgstr ""
 
 #: src/settings/general/notification.tsx:257
 msgid "Detection delay"
+msgstr ""
+
+#: src/settings/dictation/index.tsx:67
+#: src/sidebar/settings.tsx:88
+msgid "Dictation"
 msgstr ""
 
 #: src/settings/personalization/index.tsx:61
@@ -558,6 +572,10 @@ msgstr ""
 #. placeholder {0}: permissionName.toLowerCase()
 #: src/onboarding/permissions.tsx:64
 msgid "Enable {0}"
+msgstr ""
+
+#: src/settings/dictation/index.tsx:71
+msgid "Enable dictation"
 msgstr ""
 
 #: src/session/components/outer-header/metadata/participants/chip.tsx:136
@@ -688,6 +706,10 @@ msgstr ""
 msgid "Float chat"
 msgstr ""
 
+#: src/settings/dictation/index.tsx:91
+msgid "Fn"
+msgstr ""
+
 #: src/settings/general/storage/index.tsx:318
 msgid "Folder is not empty. Uncheck Move to use it as-is, or pick a dedicated empty folder (for example \"meetings\") for a full migration."
 msgstr ""
@@ -704,7 +726,7 @@ msgstr ""
 msgid "From past meetings"
 msgstr ""
 
-#: src/sidebar/settings.tsx:58
+#: src/sidebar/settings.tsx:59
 msgid "General"
 msgstr ""
 
@@ -753,6 +775,18 @@ msgstr ""
 msgid "Hide Deleted Events"
 msgstr ""
 
+#: src/settings/dictation/index.tsx:72
+msgid "Hold the hotkey, speak, and release to type into any app."
+msgstr ""
+
+#: src/settings/dictation/index.tsx:83
+msgid "Hold to record. Release to paste."
+msgstr ""
+
+#: src/settings/dictation/index.tsx:80
+msgid "Hotkey"
+msgstr ""
+
 #: src/settings/general/notification.tsx:260
 msgid "How long the mic must be active before triggering"
 msgstr ""
@@ -781,6 +815,10 @@ msgstr ""
 msgid "Include"
 msgstr ""
 
+#: src/settings/dictation/index.tsx:118
+msgid "Input Monitoring"
+msgstr ""
+
 #: src/templates/sections-editor.tsx:254
 msgid "Insert above"
 msgstr ""
@@ -794,7 +832,7 @@ msgid "Insights"
 msgstr ""
 
 #: src/settings/ai/llm/index.tsx:13
-#: src/sidebar/settings.tsx:69
+#: src/sidebar/settings.tsx:70
 msgid "Intelligence"
 msgstr ""
 
@@ -1061,7 +1099,7 @@ msgid "Notes"
 msgstr ""
 
 #: src/settings/general/index.tsx:301
-#: src/sidebar/settings.tsx:62
+#: src/sidebar/settings.tsx:63
 msgid "Notifications"
 msgstr "اطلاعات"
 
@@ -1133,6 +1171,10 @@ msgstr ""
 msgid "Open Velo"
 msgstr ""
 
+#: src/settings/dictation/index.tsx:92
+msgid "Option"
+msgstr ""
+
 #: src/calendar/components/apple/permission.tsx:154
 #: src/settings/general/permissions.tsx:98
 #: src/settings/todo/provider-content.tsx:182
@@ -1179,7 +1221,7 @@ msgid "permission panel."
 msgstr ""
 
 #: src/settings/general/index.tsx:310
-#: src/sidebar/settings.tsx:82
+#: src/sidebar/settings.tsx:83
 msgid "Permissions"
 msgstr ""
 
@@ -1188,7 +1230,7 @@ msgid "Permissions granted"
 msgstr ""
 
 #: src/settings/personalization/index.tsx:27
-#: src/sidebar/settings.tsx:72
+#: src/sidebar/settings.tsx:73
 msgid "Personalization"
 msgstr ""
 
@@ -1250,6 +1292,10 @@ msgstr ""
 msgid "Reminders"
 msgstr ""
 
+#: src/settings/dictation/index.tsx:100
+msgid "Remove filler words, fix punctuation, and keep your self-corrections. Uses the on-device model when it is running, and pastes your exact words otherwise."
+msgstr ""
+
 #: src/settings/todo/github.tsx:170
 msgid "Remove repository"
 msgstr ""
@@ -1303,6 +1349,14 @@ msgstr ""
 
 #: src/settings/general/permissions.tsx:181
 msgid "Required to detect meeting apps and sync mute status"
+msgstr ""
+
+#: src/settings/dictation/index.tsx:110
+msgid "Required to detect the hotkey and paste text into other apps"
+msgstr ""
+
+#: src/settings/dictation/index.tsx:119
+msgid "Required to notice when you press and release the hotkey"
 msgstr ""
 
 #: src/settings/general/permissions.tsx:161
@@ -1466,7 +1520,7 @@ msgid "Set as default"
 msgstr ""
 
 #: src/main/empty.tsx:52
-#: src/sidebar/settings.tsx:95
+#: src/sidebar/settings.tsx:101
 msgid "Settings"
 msgstr ""
 
@@ -1645,7 +1699,7 @@ msgid "Transcript"
 msgstr ""
 
 #: src/settings/ai/stt/index.tsx:17
-#: src/sidebar/settings.tsx:68
+#: src/sidebar/settings.tsx:69
 msgid "Transcription"
 msgstr ""
 
