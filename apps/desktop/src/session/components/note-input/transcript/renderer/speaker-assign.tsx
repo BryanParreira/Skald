@@ -24,6 +24,7 @@ export function SpeakerAssignPopover({
   color,
   label,
   className,
+  quotes,
   onAssigned,
 }: {
   segment: Segment;
@@ -31,6 +32,7 @@ export function SpeakerAssignPopover({
   color: string;
   label: string;
   className?: string;
+  quotes?: string[];
   onAssigned?: (humanId: string) => void;
 }) {
   const [open, setOpen] = useState(false);
@@ -93,9 +95,28 @@ export function SpeakerAssignPopover({
         collisionPadding={16}
         className="max-h-[min(var(--radix-popover-content-available-height),28rem)] w-80"
       >
+        {quotes && quotes.length > 0 && <SpeakerQuotes quotes={quotes} />}
         <ParticipantList sessionId={sessionId} onSelect={handleAssign} />
       </PopoverContent>
     </Popover>
+  );
+}
+
+function SpeakerQuotes({ quotes }: { quotes: string[] }) {
+  return (
+    <div className="border-border/60 mb-2 flex flex-col gap-1 border-b px-2 pt-1 pb-2">
+      <span className="text-muted-foreground text-[11px] font-medium tracking-wider uppercase">
+        <Trans>Sounds like</Trans>
+      </span>
+      {quotes.map((quote) => (
+        <p
+          key={quote}
+          className="text-muted-foreground text-xs leading-5 italic"
+        >
+          “{quote}”
+        </p>
+      ))}
+    </div>
   );
 }
 

@@ -14,6 +14,7 @@ import {
   segmentsShallowEqual,
   useStableSegments,
 } from "./segment-hooks";
+import { buildSpeakerQuotes } from "./utils";
 
 import * as main from "~/store/tinybase/store/main";
 import {
@@ -110,6 +111,10 @@ const SegmentsList = memo(
       const ctx = defaultRenderLabelContext(store);
       return SpeakerLabelManager.fromSegments(segments, ctx, maxSpeakerNumber);
     }, [maxSpeakerNumber, segments, store]);
+    const speakerQuotes = useMemo(
+      () => buildSpeakerQuotes(segments),
+      [segments],
+    );
     const transcriptSearch = useMemo<TranscriptSearchRenderState>(() => {
       const query = search?.query.trim() ?? "";
       if (!search?.isVisible || !query) {
@@ -165,6 +170,7 @@ const SegmentsList = memo(
               offsetMs={offsetMs}
               transcriptId={transcriptId}
               speakerLabelManager={speakerLabelManager}
+              speakerQuotes={speakerQuotes}
               currentMs={currentMs}
               seekAndPlay={seekAndPlay}
               audioExists={audioExists}

@@ -1,7 +1,8 @@
 import chroma from "chroma-js";
 import { type CSSProperties, useMemo } from "react";
 
-import type { SegmentKey, SegmentWord } from "~/stt/live-segment";
+import type { Segment, SegmentKey, SegmentWord } from "~/stt/live-segment";
+import { SegmentKeyUtils } from "~/stt/live-segment";
 
 export type HighlightSegment = { text: string; isMatch: boolean };
 
@@ -113,4 +114,51 @@ export function useSegmentColor(key: SegmentKey): string {
 
 export function useSegmentColorVars(key: SegmentKey): SegmentColorVars {
   return useMemo(() => getSegmentColorVars(key), [key]);
+}
+
+const MIN_QUOTE_WORDS = 3;
+
+// A short line from each speaker makes "who is Speaker 2?" answerable at a
+// glance. Prefer lines long enough to recognise someone by, but fall back to
+// shorter ones so every speaker still gets a sample.
+export function buildSpeakerQuotes(
+  segments: Segment[],
+  maxQuotes = 2,
+  maxChars = 90,
+): Map<string, string[]> {
+  const candidates = new Map<string, { long: string[]; short: string[] }>();
+
+  for (const segment of segments) {
+    const text = segment.text.trim().replace(/\s+/g, " ");
+    if (!text) {
+      continue;
+    }
+
+    const key = SegmentKeyUtils.serialize(segment.key);
+    const bucket = candidates.get(key) ?? { long: [], short: [] };
+    if (!bucket.long.includes(text) && !bucket.short.includes(text)) {
+      const isLong = text.split(" ").length >= MIN_QUOTE_WORDS;
+      (isLong ? bucket.long : bucket.short).push(text);
+    }
+    candidates.set(key, bucket);
+  }
+
+  const quotes = new Map<string, string[]>();
+  for (const [key, { long, short }] of candidates) {
+    const picked = [...long, ...short]
+      .slice(0, maxQuotes)
+      .map((text) => truncateQuote(text, maxChars));
+    if (picked.length > 0) {
+      quotes.set(key, picked);
+    }
+  }
+
+  return quotes;
+}
+
+function truncateQuote(text: string, maxChars: number): string {
+  if (text.length <= maxChars) {
+    return text;
+  }
+  return `${text.slice(0, maxChars).trimEnd()}…`;
 }

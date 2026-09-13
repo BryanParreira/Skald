@@ -14,10 +14,12 @@ export function SegmentHeader({
   segment,
   transcriptId,
   speakerLabelManager,
+  speakerQuotes,
 }: {
   segment: Segment;
   transcriptId: string;
   speakerLabelManager?: SpeakerLabelManager;
+  speakerQuotes?: Map<string, string[]>;
 }) {
   const colorVars = useSegmentColorVars(segment.key);
   const label = useSpeakerLabel(segment.key, speakerLabelManager);
@@ -37,6 +39,7 @@ export function SegmentHeader({
         transcriptId={transcriptId}
         color="var(--segment-color)"
         label={label}
+        quotes={speakerQuotes?.get(SegmentKeyUtils.serialize(segment.key))}
       />
     </div>
   );

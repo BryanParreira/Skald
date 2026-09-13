@@ -2,12 +2,14 @@ import chroma from "chroma-js";
 import { describe, expect, it } from "vitest";
 
 import {
+  buildSpeakerQuotes,
   getActiveLineIndex,
   getSegmentColor,
   getSegmentColorVars,
 } from "./utils";
 
-import type { SegmentKey, SegmentWord } from "~/stt/live-segment";
+import type { Segment, SegmentKey, SegmentWord } from "~/stt/live-segment";
+import { SegmentKeyUtils } from "~/stt/live-segment";
 
 describe("transcript renderer utils", () => {
   it("uses a brighter speaker color for dark mode", () => {
@@ -69,3 +71,68 @@ function createWord(
     is_final: true,
   };
 }
+
+describe("buildSpeakerQuotes", () => {
+  const remote = (speaker_index: number): SegmentKey => ({
+    channel: "RemoteParty",
+    speaker_index,
+    speaker_human_id: null,
+  });
+  const segment = (key: SegmentKey, text: string) =>
+    ({
+      id: text,
+      key,
+      text,
+      words: [],
+      start_ms: 0,
+      end_ms: 0,
+    }) as unknown as Segment;
+  const quotesFor = (quotes: Map<string, string[]>, key: SegmentKey) =>
+    quotes.get(SegmentKeyUtils.serialize(key));
+
+  it("keeps up to two quotes per speaker, preferring longer lines", () => {
+    const quotes = buildSpeakerQuotes([
+      segment(remote(1), "okay"),
+      segment(remote(1), "the math assignment is due friday"),
+      segment(remote(2), "I will send the deck tonight"),
+      segment(remote(1), "and the quiz covers chapters seven and eight"),
+      segment(remote(1), "one more long line that is not needed"),
+    ]);
+
+    expect(quotesFor(quotes, remote(1))).toEqual([
+      "the math assignment is due friday",
+      "and the quiz covers chapters seven and eight",
+    ]);
+    expect(quotesFor(quotes, remote(2))).toEqual([
+      "I will send the deck tonight",
+    ]);
+  });
+
+  it("falls back to short lines when a speaker has nothing longer", () => {
+    const quotes = buildSpeakerQuotes([
+      segment(remote(3), "yes"),
+      segment(remote(3), "sure"),
+    ]);
+
+    expect(quotesFor(quotes, remote(3))).toEqual(["yes", "sure"]);
+  });
+
+  it("skips blank and duplicate lines and truncates long ones", () => {
+    const long = "word ".repeat(40).trim();
+    const quotes = buildSpeakerQuotes(
+      [
+        segment(remote(4), "   "),
+        segment(remote(4), "same thing again"),
+        segment(remote(4), "same   thing again"),
+        segment(remote(4), long),
+      ],
+      2,
+      20,
+    );
+    const result = quotesFor(quotes, remote(4)) ?? [];
+
+    expect(result[0]).toBe("same thing again");
+    expect(result[1]?.endsWith("…")).toBe(true);
+    expect(result[1]?.length).toBeLessThanOrEqual(21);
+  });
+});

@@ -46,6 +46,7 @@ export const SegmentRenderer = memo(
     offsetMs,
     transcriptId,
     speakerLabelManager,
+    speakerQuotes,
     currentMs,
     seekAndPlay,
     audioExists,
@@ -55,6 +56,7 @@ export const SegmentRenderer = memo(
     offsetMs: number;
     transcriptId: string;
     speakerLabelManager?: SpeakerLabelManager;
+    speakerQuotes?: Map<string, string[]>;
     currentMs: number;
     seekAndPlay: (word: SegmentWord) => void;
     audioExists: boolean;
@@ -90,6 +92,7 @@ export const SegmentRenderer = memo(
           segment={segment}
           transcriptId={transcriptId}
           speakerLabelManager={speakerLabelManager}
+          speakerQuotes={speakerQuotes}
         />
 
         <div

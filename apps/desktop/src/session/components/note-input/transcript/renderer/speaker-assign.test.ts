@@ -555,3 +555,68 @@ describe("getAssignmentWordIds", () => {
     expect(getAssignmentWordIds(segment)).toEqual(["word-1", "word-2"]);
   });
 });
+
+describe("SpeakerAssignPopover quotes", () => {
+  function renderPopover(quotes?: string[]) {
+    useCellMock.mockReturnValue("session-1");
+    useQueriesMock.mockReturnValue({ getResultRow: vi.fn() });
+    useRowIdsMock.mockReturnValue([]);
+    useSliceRowIdsMock.mockReturnValue([]);
+    useStoreMock.mockReturnValue({
+      getCell: vi.fn(),
+      setCell: vi.fn(),
+      getRow: vi.fn(),
+      setRow: vi.fn(),
+    });
+    useTableMock.mockReturnValue({});
+    useValueMock.mockReturnValue("user-1");
+
+    render(
+      createElement(SpeakerAssignPopover, {
+        segment: {
+          id: "segment-1",
+          key: {
+            channel: "RemoteParty",
+            speaker_index: 2,
+            speaker_human_id: null,
+          },
+          start_ms: 0,
+          end_ms: 100,
+          text: "hello",
+          words: [
+            {
+              id: "word-1",
+              text: "hello",
+              start_ms: 0,
+              end_ms: 100,
+              channel: "RemoteParty",
+              is_final: true,
+            },
+          ],
+        } as Segment,
+        transcriptId: "transcript-1",
+        color: "red",
+        label: "Speaker 2",
+        quotes,
+      }),
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: "Speaker 2" }));
+  }
+
+  it("shows sample lines for the speaker when the popover opens", () => {
+    renderPopover(["the math assignment is due friday", "see you thursday"]);
+
+    expect(screen.getByText("Sounds like")).toBeTruthy();
+    expect(
+      screen.getByText("“the math assignment is due friday”"),
+    ).toBeTruthy();
+    expect(screen.getByText("“see you thursday”")).toBeTruthy();
+  });
+
+  it("omits the sample block when there are no quotes", () => {
+    renderPopover(undefined);
+
+    expect(screen.queryByText("Sounds like")).toBeNull();
+  });
+});
