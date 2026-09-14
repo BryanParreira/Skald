@@ -305,7 +305,7 @@ msgid "Clone"
 msgstr "Clone"
 
 #: src/changelog/index.tsx:176
-#: src/session/components/note-input/search/bar.tsx:280
+#: src/session/components/note-input/search/bar.tsx:284
 #: src/shared/open-note-dialog.tsx:223
 msgid "Close"
 msgstr "Close"
@@ -461,7 +461,6 @@ msgid "Dark"
 msgstr "Dark"
 
 #: src/settings/general/index.tsx:291
-#: src/sidebar/settings.tsx:62
 msgid "Data"
 msgstr "Data"
 
@@ -475,11 +474,11 @@ msgstr "Date and time are required"
 msgid "Delete"
 msgstr "Delete"
 
-#: src/sidebar/timeline/item.tsx:419
+#: src/sidebar/timeline/item.tsx:445
 msgid "Delete All Recurring Events"
 msgstr "Delete All Recurring Events"
 
-#: src/sidebar/timeline/item.tsx:412
+#: src/sidebar/timeline/item.tsx:438
 msgid "Delete Event"
 msgstr "Delete Event"
 
@@ -487,7 +486,7 @@ msgstr "Delete Event"
 msgid "Delete model"
 msgstr "Delete model"
 
-#: src/sidebar/timeline/item.tsx:611
+#: src/sidebar/timeline/item.tsx:652
 msgid "Delete Note"
 msgstr "Delete Note"
 
@@ -495,11 +494,11 @@ msgstr "Delete Note"
 msgid "Delete recording"
 msgstr "Delete recording"
 
-#: src/sidebar/timeline/index.tsx:401
+#: src/sidebar/timeline/index.tsx:454
 msgid "Delete Selected ({sessionCount})"
 msgstr "Delete Selected ({sessionCount})"
 
-#: src/sidebar/timeline/item.tsx:412
+#: src/sidebar/timeline/item.tsx:438
 msgid "Delete This Event"
 msgstr "Delete This Event"
 
@@ -750,7 +749,7 @@ msgstr "Generating title..."
 msgid "Get notified 5 minutes before calendar events start"
 msgstr "Get notified 5 minutes before calendar events start"
 
-#: src/sidebar/timeline/index.tsx:798
+#: src/sidebar/timeline/index.tsx:851
 msgid "Go back to now"
 msgstr "Go back to now"
 
@@ -783,7 +782,7 @@ msgstr "Help Velo listen to others"
 msgid "Help Velo listen to you"
 msgstr "Help Velo listen to you"
 
-#: src/sidebar/timeline/index.tsx:410
+#: src/sidebar/timeline/index.tsx:463
 msgid "Hide Deleted Events"
 msgstr "Hide Deleted Events"
 
@@ -806,6 +805,10 @@ msgstr "How long the mic must be active before triggering"
 #: src/contacts/humans.tsx:14
 msgid "Human"
 msgstr "Human"
+
+#: src/sidebar/settings.tsx:62
+msgid "Import"
+msgstr "Import"
 
 #: src/sidebar/timeline/upcoming-meeting.ts:127
 msgid "In {minutes} minute"
@@ -913,15 +916,15 @@ msgstr "Main language"
 msgid "Manage"
 msgstr "Manage"
 
-#: src/session/components/note-input/search/bar.tsx:216
+#: src/session/components/note-input/search/bar.tsx:218
 msgid "Match case"
 msgstr "Match case"
 
-#: src/session/components/note-input/search/bar.tsx:223
+#: src/session/components/note-input/search/bar.tsx:225
 msgid "Match whole word"
 msgstr "Match whole word"
 
-#: src/sidebar/timeline/index.tsx:634
+#: src/sidebar/timeline/index.tsx:687
 msgid "Meeting"
 msgstr "Meeting"
 
@@ -1020,7 +1023,7 @@ msgstr "New Note"
 msgid "Newest"
 msgstr "Newest"
 
-#: src/session/components/note-input/search/bar.tsx:266
+#: src/session/components/note-input/search/bar.tsx:270
 msgid "Next match"
 msgstr "Next match"
 
@@ -1056,7 +1059,7 @@ msgstr "No description provided."
 msgid "No draft yet."
 msgstr "No draft yet."
 
-#: src/sidebar/timeline/index.tsx:899
+#: src/sidebar/timeline/index.tsx:952
 msgid "No items today"
 msgstr "No items today"
 
@@ -1119,7 +1122,7 @@ msgstr "Notes"
 msgid "Notifications"
 msgstr "Notifications"
 
-#: src/sidebar/timeline/index.tsx:810
+#: src/sidebar/timeline/index.tsx:863
 msgid "Now"
 msgstr "Now"
 
@@ -1145,8 +1148,8 @@ msgstr "Open"
 msgid "Open {0} settings"
 msgstr "Open {0} settings"
 
-#: src/sidebar/timeline/index.tsx:587
-#: src/sidebar/timeline/index.tsx:591
+#: src/sidebar/timeline/index.tsx:640
+#: src/sidebar/timeline/index.tsx:644
 msgid "Open calendar"
 msgstr "Open calendar"
 
@@ -1158,12 +1161,12 @@ msgstr "Open calendar account actions"
 msgid "Open floating panel"
 msgstr "Open floating panel"
 
-#: src/sidebar/timeline/item.tsx:406
+#: src/sidebar/timeline/item.tsx:432
 msgid "Open in New Tab"
 msgstr "Open in New Tab"
 
 #: src/session/components/outer-header/overflow/index.tsx:178
-#: src/sidebar/timeline/item.tsx:600
+#: src/sidebar/timeline/item.tsx:641
 msgid "Open in New Window"
 msgstr "Open in New Window"
 
@@ -1258,7 +1261,7 @@ msgstr "Phone"
 msgid "Preparing transcript..."
 msgstr "Preparing transcript..."
 
-#: src/session/components/note-input/search/bar.tsx:252
+#: src/session/components/note-input/search/bar.tsx:256
 msgid "Previous match"
 msgstr "Previous match"
 
@@ -1274,6 +1277,10 @@ msgstr "Recent"
 #: src/settings/todo/provider-content.tsx:179
 msgid "Reconnect required"
 msgstr "Reconnect required"
+
+#: src/settings/general/app-settings.tsx:57
+msgid "Recording"
+msgstr "Recording"
 
 #: src/calendar/components/calendar-selection.tsx:91
 msgid "Refresh calendars"
@@ -1324,12 +1331,12 @@ msgstr "Reopen checkout page"
 msgid "Reopen in browser"
 msgstr "Reopen in browser"
 
-#: src/session/components/note-input/search/bar.tsx:233
-#: src/session/components/note-input/search/bar.tsx:307
+#: src/session/components/note-input/search/bar.tsx:236
+#: src/session/components/note-input/search/bar.tsx:311
 msgid "Replace"
 msgstr "Replace"
 
-#: src/session/components/note-input/search/bar.tsx:320
+#: src/session/components/note-input/search/bar.tsx:324
 msgid "Replace all"
 msgstr "Replace all"
 
@@ -1337,7 +1344,7 @@ msgstr "Replace all"
 msgid "Replace repository"
 msgstr "Replace repository"
 
-#: src/session/components/note-input/search/bar.tsx:298
+#: src/session/components/note-input/search/bar.tsx:302
 msgid "Replace with..."
 msgstr "Replace with..."
 
@@ -1460,7 +1467,7 @@ msgstr "Search templates..."
 msgid "Search timezone..."
 msgstr "Search timezone..."
 
-#: src/session/components/note-input/search/bar.tsx:209
+#: src/session/components/note-input/search/bar.tsx:211
 #: src/settings/general/searchable-select.tsx:116
 msgid "Search..."
 msgstr "Search..."
@@ -1540,24 +1547,28 @@ msgstr "Set as default"
 msgid "Settings"
 msgstr "Settings"
 
-#: src/sidebar/timeline/item.tsx:394
+#: src/session/components/note-input/enhanced/index.tsx:147
+msgid "Short recording, so the summary is brief. The transcript has everything that was said."
+msgstr "Short recording, so the summary is brief. The transcript has everything that was said."
+
+#: src/sidebar/timeline/item.tsx:420
 msgid "Show All Recurring Events"
 msgstr "Show All Recurring Events"
 
-#: src/sidebar/timeline/index.tsx:411
+#: src/sidebar/timeline/index.tsx:464
 msgid "Show Deleted Events"
 msgstr "Show Deleted Events"
 
-#: src/sidebar/timeline/item.tsx:400
+#: src/sidebar/timeline/item.tsx:426
 msgid "Show Event"
 msgstr "Show Event"
 
 #: src/settings/ai/stt/select.tsx:750
-#: src/sidebar/timeline/item.tsx:605
+#: src/sidebar/timeline/item.tsx:646
 msgid "Show in Finder"
 msgstr "Show in Finder"
 
-#: src/sidebar/timeline/item.tsx:389
+#: src/sidebar/timeline/item.tsx:415
 msgid "Show This Event"
 msgstr "Show This Event"
 
@@ -1615,7 +1626,7 @@ msgid "Stop"
 msgstr "Stop"
 
 #: src/session/components/outer-header/index.tsx:342
-#: src/sidebar/timeline/item.tsx:244
+#: src/sidebar/timeline/item.tsx:270
 msgid "Stop listening"
 msgstr "Stop listening"
 
@@ -1746,9 +1757,9 @@ msgstr "Unnamed"
 #: src/session/components/title-input.tsx:385
 #: src/shared/open-note-dialog.tsx:107
 #: src/shared/ui/resource-list/preview-header.tsx:73
-#: src/sidebar/timeline/item.tsx:205
-#: src/sidebar/timeline/item.tsx:312
-#: src/sidebar/timeline/item.tsx:552
+#: src/sidebar/timeline/item.tsx:224
+#: src/sidebar/timeline/item.tsx:338
+#: src/sidebar/timeline/item.tsx:593
 #: src/templates/details.tsx:122
 #: src/templates/sections-editor.tsx:293
 msgid "Untitled"

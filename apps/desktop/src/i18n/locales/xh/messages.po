@@ -305,7 +305,7 @@ msgid "Clone"
 msgstr ""
 
 #: src/changelog/index.tsx:176
-#: src/session/components/note-input/search/bar.tsx:280
+#: src/session/components/note-input/search/bar.tsx:284
 #: src/shared/open-note-dialog.tsx:223
 msgid "Close"
 msgstr ""
@@ -461,7 +461,6 @@ msgid "Dark"
 msgstr ""
 
 #: src/settings/general/index.tsx:291
-#: src/sidebar/settings.tsx:62
 msgid "Data"
 msgstr "Idatha"
 
@@ -475,11 +474,11 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: src/sidebar/timeline/item.tsx:419
+#: src/sidebar/timeline/item.tsx:445
 msgid "Delete All Recurring Events"
 msgstr ""
 
-#: src/sidebar/timeline/item.tsx:412
+#: src/sidebar/timeline/item.tsx:438
 msgid "Delete Event"
 msgstr ""
 
@@ -487,7 +486,7 @@ msgstr ""
 msgid "Delete model"
 msgstr ""
 
-#: src/sidebar/timeline/item.tsx:611
+#: src/sidebar/timeline/item.tsx:652
 msgid "Delete Note"
 msgstr ""
 
@@ -495,11 +494,11 @@ msgstr ""
 msgid "Delete recording"
 msgstr ""
 
-#: src/sidebar/timeline/index.tsx:401
+#: src/sidebar/timeline/index.tsx:454
 msgid "Delete Selected ({sessionCount})"
 msgstr ""
 
-#: src/sidebar/timeline/item.tsx:412
+#: src/sidebar/timeline/item.tsx:438
 msgid "Delete This Event"
 msgstr ""
 
@@ -750,7 +749,7 @@ msgstr ""
 msgid "Get notified 5 minutes before calendar events start"
 msgstr ""
 
-#: src/sidebar/timeline/index.tsx:798
+#: src/sidebar/timeline/index.tsx:851
 msgid "Go back to now"
 msgstr ""
 
@@ -783,7 +782,7 @@ msgstr ""
 msgid "Help Velo listen to you"
 msgstr ""
 
-#: src/sidebar/timeline/index.tsx:410
+#: src/sidebar/timeline/index.tsx:463
 msgid "Hide Deleted Events"
 msgstr ""
 
@@ -805,6 +804,10 @@ msgstr ""
 
 #: src/contacts/humans.tsx:14
 msgid "Human"
+msgstr ""
+
+#: src/sidebar/settings.tsx:62
+msgid "Import"
 msgstr ""
 
 #: src/sidebar/timeline/upcoming-meeting.ts:127
@@ -913,15 +916,15 @@ msgstr "Ulwimi oluphambili"
 msgid "Manage"
 msgstr ""
 
-#: src/session/components/note-input/search/bar.tsx:216
+#: src/session/components/note-input/search/bar.tsx:218
 msgid "Match case"
 msgstr ""
 
-#: src/session/components/note-input/search/bar.tsx:223
+#: src/session/components/note-input/search/bar.tsx:225
 msgid "Match whole word"
 msgstr ""
 
-#: src/sidebar/timeline/index.tsx:634
+#: src/sidebar/timeline/index.tsx:687
 msgid "Meeting"
 msgstr ""
 
@@ -1020,7 +1023,7 @@ msgstr ""
 msgid "Newest"
 msgstr ""
 
-#: src/session/components/note-input/search/bar.tsx:266
+#: src/session/components/note-input/search/bar.tsx:270
 msgid "Next match"
 msgstr ""
 
@@ -1056,7 +1059,7 @@ msgstr ""
 msgid "No draft yet."
 msgstr ""
 
-#: src/sidebar/timeline/index.tsx:899
+#: src/sidebar/timeline/index.tsx:952
 msgid "No items today"
 msgstr ""
 
@@ -1119,7 +1122,7 @@ msgstr ""
 msgid "Notifications"
 msgstr "Izaziso"
 
-#: src/sidebar/timeline/index.tsx:810
+#: src/sidebar/timeline/index.tsx:863
 msgid "Now"
 msgstr ""
 
@@ -1145,8 +1148,8 @@ msgstr ""
 msgid "Open {0} settings"
 msgstr ""
 
-#: src/sidebar/timeline/index.tsx:587
-#: src/sidebar/timeline/index.tsx:591
+#: src/sidebar/timeline/index.tsx:640
+#: src/sidebar/timeline/index.tsx:644
 msgid "Open calendar"
 msgstr ""
 
@@ -1158,12 +1161,12 @@ msgstr ""
 msgid "Open floating panel"
 msgstr ""
 
-#: src/sidebar/timeline/item.tsx:406
+#: src/sidebar/timeline/item.tsx:432
 msgid "Open in New Tab"
 msgstr ""
 
 #: src/session/components/outer-header/overflow/index.tsx:178
-#: src/sidebar/timeline/item.tsx:600
+#: src/sidebar/timeline/item.tsx:641
 msgid "Open in New Window"
 msgstr ""
 
@@ -1258,7 +1261,7 @@ msgstr ""
 msgid "Preparing transcript..."
 msgstr ""
 
-#: src/session/components/note-input/search/bar.tsx:252
+#: src/session/components/note-input/search/bar.tsx:256
 msgid "Previous match"
 msgstr ""
 
@@ -1273,6 +1276,10 @@ msgstr ""
 #: src/calendar/components/oauth/status.tsx:16
 #: src/settings/todo/provider-content.tsx:179
 msgid "Reconnect required"
+msgstr ""
+
+#: src/settings/general/app-settings.tsx:57
+msgid "Recording"
 msgstr ""
 
 #: src/calendar/components/calendar-selection.tsx:91
@@ -1324,12 +1331,12 @@ msgstr ""
 msgid "Reopen in browser"
 msgstr ""
 
-#: src/session/components/note-input/search/bar.tsx:233
-#: src/session/components/note-input/search/bar.tsx:307
+#: src/session/components/note-input/search/bar.tsx:236
+#: src/session/components/note-input/search/bar.tsx:311
 msgid "Replace"
 msgstr ""
 
-#: src/session/components/note-input/search/bar.tsx:320
+#: src/session/components/note-input/search/bar.tsx:324
 msgid "Replace all"
 msgstr ""
 
@@ -1337,7 +1344,7 @@ msgstr ""
 msgid "Replace repository"
 msgstr ""
 
-#: src/session/components/note-input/search/bar.tsx:298
+#: src/session/components/note-input/search/bar.tsx:302
 msgid "Replace with..."
 msgstr ""
 
@@ -1460,7 +1467,7 @@ msgstr ""
 msgid "Search timezone..."
 msgstr ""
 
-#: src/session/components/note-input/search/bar.tsx:209
+#: src/session/components/note-input/search/bar.tsx:211
 #: src/settings/general/searchable-select.tsx:116
 msgid "Search..."
 msgstr ""
@@ -1540,24 +1547,28 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: src/sidebar/timeline/item.tsx:394
+#: src/session/components/note-input/enhanced/index.tsx:147
+msgid "Short recording, so the summary is brief. The transcript has everything that was said."
+msgstr ""
+
+#: src/sidebar/timeline/item.tsx:420
 msgid "Show All Recurring Events"
 msgstr ""
 
-#: src/sidebar/timeline/index.tsx:411
+#: src/sidebar/timeline/index.tsx:464
 msgid "Show Deleted Events"
 msgstr ""
 
-#: src/sidebar/timeline/item.tsx:400
+#: src/sidebar/timeline/item.tsx:426
 msgid "Show Event"
 msgstr ""
 
 #: src/settings/ai/stt/select.tsx:750
-#: src/sidebar/timeline/item.tsx:605
+#: src/sidebar/timeline/item.tsx:646
 msgid "Show in Finder"
 msgstr ""
 
-#: src/sidebar/timeline/item.tsx:389
+#: src/sidebar/timeline/item.tsx:415
 msgid "Show This Event"
 msgstr ""
 
@@ -1615,7 +1626,7 @@ msgid "Stop"
 msgstr ""
 
 #: src/session/components/outer-header/index.tsx:342
-#: src/sidebar/timeline/item.tsx:244
+#: src/sidebar/timeline/item.tsx:270
 msgid "Stop listening"
 msgstr ""
 
@@ -1746,9 +1757,9 @@ msgstr ""
 #: src/session/components/title-input.tsx:385
 #: src/shared/open-note-dialog.tsx:107
 #: src/shared/ui/resource-list/preview-header.tsx:73
-#: src/sidebar/timeline/item.tsx:205
-#: src/sidebar/timeline/item.tsx:312
-#: src/sidebar/timeline/item.tsx:552
+#: src/sidebar/timeline/item.tsx:224
+#: src/sidebar/timeline/item.tsx:338
+#: src/sidebar/timeline/item.tsx:593
 #: src/templates/details.tsx:122
 #: src/templates/sections-editor.tsx:293
 msgid "Untitled"
