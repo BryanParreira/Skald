@@ -1,11 +1,21 @@
 import { useLingui } from "@lingui/react/macro";
-import { CalendarIcon, LinkIcon, MapPinIcon, UsersIcon } from "lucide-react";
+import {
+  CalendarIcon,
+  HistoryIcon,
+  LinkIcon,
+  MapPinIcon,
+  UsersIcon,
+} from "lucide-react";
 import { useMemo } from "react";
 
 import { getCompiledInsightFacts } from "./insights";
 
 import { useSessionBrief } from "~/session/insights/brief";
-import { usePastSessionNotes } from "~/session/insights/past-notes";
+import {
+  useLastMeetings,
+  usePastSessionNotes,
+} from "~/session/insights/past-notes";
+import { useTabs } from "~/store/zustand/tabs";
 
 export function Brief({ sessionId }: { sessionId: string }) {
   const { t } = useLingui();
@@ -15,6 +25,8 @@ export function Brief({ sessionId }: { sessionId: string }) {
     () => getCompiledInsightFacts(pastNotes.notes),
     [pastNotes.notes],
   );
+  const lastMeetings = useLastMeetings(sessionId);
+  const openNew = useTabs((state) => state.openNew);
 
   if (!brief) {
     return null;
@@ -66,6 +78,38 @@ export function Brief({ sessionId }: { sessionId: string }) {
             </div>
           ) : null}
         </div>
+
+        {lastMeetings.length > 0 ? (
+          <div className="flex flex-col gap-2">
+            <h3 className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
+              {t`Last met`}
+            </h3>
+            <ul className="flex min-w-0 flex-col gap-1.5">
+              {lastMeetings.map((meeting) => (
+                <li key={meeting.humanId} className="min-w-0">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      openNew({ type: "sessions", id: meeting.sessionId })
+                    }
+                    className="text-muted-foreground hover:text-foreground flex w-full min-w-0 items-start gap-1.5 text-left text-xs leading-5"
+                  >
+                    <HistoryIcon size={12} className="mt-1 shrink-0" />
+                    <span className="min-w-0 break-words">
+                      <span className="text-foreground font-medium">
+                        {meeting.name}
+                      </span>
+                      {" · "}
+                      {[meeting.dateLabel, meeting.title]
+                        .filter(Boolean)
+                        .join(" · ")}
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
 
         {insightFacts.length > 0 ? (
           <div className="flex flex-col gap-2">

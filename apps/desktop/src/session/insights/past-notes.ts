@@ -146,8 +146,11 @@ export function usePastSessionNotes(
     },
   });
 
-  const { mutate, isPending: mutationIsPending, variables: mutationVariables } =
-    mutation;
+  const {
+    mutate,
+    isPending: mutationIsPending,
+    variables: mutationVariables,
+  } = mutation;
 
   const generatingIds = useMemo(
     () =>
@@ -202,6 +205,105 @@ export function usePastSessionNotes(
     regenerate,
     regenerateAll,
   };
+}
+
+export type LastMeeting = {
+  humanId: string;
+  name: string;
+  sessionId: string;
+  title: string;
+  dateLabel: string;
+};
+
+export function useLastMeetings(sessionId: string): LastMeeting[] {
+  const store = main.UI.useStore(main.STORE_ID);
+  const sessionsTable = main.UI.useTable("sessions", main.STORE_ID);
+  const participantsTable = main.UI.useTable(
+    "mapping_session_participant",
+    main.STORE_ID,
+  );
+  const humansTable = main.UI.useTable("humans", main.STORE_ID);
+  const userId = main.UI.useValue("user_id", main.STORE_ID);
+
+  return useMemo(
+    () =>
+      store
+        ? buildLastMeetings(
+            store,
+            sessionId,
+            typeof userId === "string" ? userId : null,
+          )
+        : [],
+    [store, sessionId, userId, sessionsTable, participantsTable, humansTable],
+  );
+}
+
+// "When did I last meet this person, and about what" is the single most useful
+// line of history before a meeting. Only sessions before this one count.
+export function buildLastMeetings(
+  store: MainStore,
+  sessionId: string,
+  userId: string | null,
+): LastMeeting[] {
+  const currentSession = store.getRow("sessions", sessionId);
+  if (!currentSession || Object.keys(currentSession).length === 0) {
+    return [];
+  }
+
+  const participantIds = getSessionParticipantIds(store, sessionId, userId);
+  if (participantIds.size === 0) {
+    return [];
+  }
+
+  const currentTimestamp = getSessionTimestamp(currentSession);
+  const latest = new Map<string, { sessionId: string; timestamp: number }>();
+
+  store.forEachRow("mapping_session_participant", (mappingId, _forEachCell) => {
+    const mapping = store.getRow("mapping_session_participant", mappingId);
+    const humanId = mapping.human_id;
+    const candidateSessionId = mapping.session_id;
+    if (
+      !humanId ||
+      !candidateSessionId ||
+      candidateSessionId === sessionId ||
+      mapping.source === "excluded" ||
+      !participantIds.has(humanId)
+    ) {
+      return;
+    }
+
+    const candidate = store.getRow("sessions", candidateSessionId);
+    if (!candidate || Object.keys(candidate).length === 0) {
+      return;
+    }
+
+    const timestamp = getSessionTimestamp(candidate);
+    if (currentTimestamp > 0 && timestamp >= currentTimestamp) {
+      return;
+    }
+
+    const existing = latest.get(humanId);
+    if (!existing || timestamp > existing.timestamp) {
+      latest.set(humanId, { sessionId: candidateSessionId, timestamp });
+    }
+  });
+
+  return [...latest.entries()]
+    .map(([humanId, { sessionId: pastSessionId }]) => {
+      const human = store.getRow("humans", humanId);
+      const session = store.getRow("sessions", pastSessionId);
+      return {
+        humanId,
+        name:
+          typeof human.name === "string" && human.name.trim()
+            ? human.name.trim()
+            : humanId,
+        sessionId: pastSessionId,
+        title: getSessionTitle(session),
+        dateLabel: formatSessionDate(session),
+      };
+    })
+    .sort((a, b) => a.name.localeCompare(b.name));
 }
 
 export function useCanShowInsights(sessionId: string): boolean {
@@ -680,4 +782,3 @@ function formatSessionDate(session: {
   const parsed = safeParseDate(event?.started_at || session.created_at);
   return parsed ? format(parsed, "MMM d, yyyy") : "";
 }
-

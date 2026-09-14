@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { buildPastSessionNotes } from "./past-notes";
+import { buildLastMeetings, buildPastSessionNotes } from "./past-notes";
 
 describe("buildPastSessionNotes", () => {
   it("builds descending past notes from recurring and same-title sessions", () => {
@@ -230,3 +230,74 @@ function makeStore(
     },
   } as any;
 }
+
+describe("buildLastMeetings", () => {
+  function mapping(session_id: string, human_id: string, source = "auto") {
+    return { session_id, human_id, user_id: "self", source };
+  }
+
+  it("finds the most recent earlier meeting with each attendee", () => {
+    const store = makeStore({
+      sessions: {
+        current: { title: "Planning", created_at: "2026-06-10T10:00:00.000Z" },
+        alex_old: { title: "Kickoff", created_at: "2026-05-01T10:00:00.000Z" },
+        alex_recent: {
+          title: "Pricing review",
+          created_at: "2026-06-01T10:00:00.000Z",
+        },
+        alex_excluded: {
+          title: "Excluded call",
+          created_at: "2026-06-05T10:00:00.000Z",
+        },
+        alex_future: {
+          title: "Future sync",
+          created_at: "2026-06-20T10:00:00.000Z",
+        },
+        jamie_crit: {
+          title: "Design crit",
+          created_at: "2026-05-15T10:00:00.000Z",
+        },
+      },
+      mapping_session_participant: {
+        current_self: mapping("current", "self", "manual"),
+        current_alex: mapping("current", "alex"),
+        current_jamie: mapping("current", "jamie"),
+        current_sam: mapping("current", "sam"),
+        alex_old: mapping("alex_old", "alex"),
+        alex_recent: mapping("alex_recent", "alex"),
+        alex_excluded: mapping("alex_excluded", "alex", "excluded"),
+        alex_future: mapping("alex_future", "alex"),
+        jamie_crit: mapping("jamie_crit", "jamie"),
+      },
+      humans: {
+        alex: { name: "Alex" },
+        jamie: { name: "Jamie" },
+        sam: { name: "Sam" },
+      },
+    });
+
+    const meetings = buildLastMeetings(store, "current", "self");
+
+    expect(meetings).toMatchObject([
+      { humanId: "alex", sessionId: "alex_recent", title: "Pricing review" },
+      { humanId: "jamie", sessionId: "jamie_crit", title: "Design crit" },
+    ]);
+    expect(meetings.every((meeting) => meeting.dateLabel.length > 0)).toBe(
+      true,
+    );
+  });
+
+  it("returns nothing when the session has no other attendees", () => {
+    const store = makeStore({
+      sessions: {
+        current: { title: "Solo", created_at: "2026-06-10T10:00:00.000Z" },
+      },
+      mapping_session_participant: {
+        current_self: mapping("current", "self", "manual"),
+      },
+      humans: {},
+    });
+
+    expect(buildLastMeetings(store, "current", "self")).toEqual([]);
+  });
+});
