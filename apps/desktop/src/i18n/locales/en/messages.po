@@ -108,11 +108,11 @@ msgstr "Add repository"
 msgid "Add spoken language"
 msgstr "Add spoken language"
 
-#: src/session/components/note-input/action-items.tsx:204
+#: src/session/components/note-input/action-items.tsx:208
 msgid "Add to Reminders"
 msgstr "Add to Reminders"
 
-#: src/session/components/note-input/action-items.tsx:159
+#: src/session/components/note-input/action-items.tsx:158
 msgid "Added {count} to Reminders."
 msgstr "Added {count} to Reminders."
 
@@ -144,7 +144,7 @@ msgstr "Allow access"
 msgid "Allow microphone access"
 msgstr "Allow microphone access"
 
-#: src/session/components/note-input/action-items.tsx:187
+#: src/session/components/note-input/action-items.tsx:191
 msgid "Allow Reminders access, then try again."
 msgstr "Allow Reminders access, then try again."
 
@@ -431,7 +431,7 @@ msgstr "Copy message"
 msgid "Copy to clipboard"
 msgstr "Copy to clipboard"
 
-#: src/session/components/note-input/action-items.tsx:166
+#: src/session/components/note-input/action-items.tsx:165
 msgid "Could not add to Reminders. Try again."
 msgstr "Could not add to Reminders. Try again."
 
@@ -656,7 +656,7 @@ msgstr "Export"
 msgid "Exporting..."
 msgstr "Exporting..."
 
-#: src/session/components/note-input/action-items.tsx:248
+#: src/session/components/note-input/action-items.tsx:252
 msgid "Extract action items"
 msgstr "Extract action items"
 
@@ -1283,7 +1283,7 @@ msgstr "Refresh calendars"
 msgid "Regenerate"
 msgstr "Regenerate"
 
-#: src/session/components/note-input/action-items.tsx:248
+#: src/session/components/note-input/action-items.tsx:252
 msgid "Regenerate action items"
 msgstr "Regenerate action items"
 
@@ -1694,7 +1694,7 @@ msgstr "The app will restart after onboarding to apply your storage changes"
 msgid "The main language is always included for transcription"
 msgstr "The main language is always included for transcription"
 
-#: src/session/components/note-input/action-items.tsx:158
+#: src/session/components/note-input/action-items.tsx:157
 msgid "These action items are already in Reminders."
 msgstr "These action items are already in Reminders."
 
