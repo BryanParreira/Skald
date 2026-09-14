@@ -59,7 +59,7 @@ msgstr ""
 msgid "Account"
 msgstr ""
 
-#: src/session/components/note-input/header.tsx:779
+#: src/session/components/note-input/header.tsx:740
 msgid "Actions"
 msgstr ""
 
@@ -223,7 +223,7 @@ msgstr ""
 msgid "Base URL"
 msgstr ""
 
-#: src/session/components/note-input/header.tsx:760
+#: src/session/components/note-input/header.tsx:721
 msgid "Brief"
 msgstr ""
 
@@ -275,7 +275,7 @@ msgstr ""
 msgid "Checking folder..."
 msgstr ""
 
-#: src/session/components/outer-header/overflow/export-modal.tsx:463
+#: src/session/components/outer-header/overflow/export-modal.tsx:477
 msgid "Choose a file format and what to include."
 msgstr ""
 
@@ -411,8 +411,16 @@ msgstr ""
 msgid "Control + Option"
 msgstr ""
 
+#: src/session/components/outer-header/overflow/export-modal.tsx:439
+msgid "Copied as Markdown"
+msgstr ""
+
 #: src/session/components/outer-header/overflow/follow-up-modal.tsx:102
 msgid "Copied!"
+msgstr ""
+
+#: src/session/components/outer-header/overflow/export-modal.tsx:558
+msgid "Copy as Markdown"
 msgstr ""
 
 #: src/chat/components/message/normal.tsx:83
@@ -427,6 +435,10 @@ msgstr ""
 msgid "Could not add to Reminders. Try again."
 msgstr ""
 
+#: src/session/components/outer-header/overflow/export-modal.tsx:440
+msgid "Could not copy. Try again."
+msgstr ""
+
 #: src/session/components/outer-header/overflow/follow-up-modal.tsx:74
 msgid "Could not draft a follow-up. Try again."
 msgstr ""
@@ -435,8 +447,8 @@ msgstr ""
 msgid "Create template"
 msgstr ""
 
-#: src/session/components/outer-header/overflow/export-modal.tsx:211
-#: src/session/components/outer-header/overflow/export-modal.tsx:316
+#: src/session/components/outer-header/overflow/export-modal.tsx:212
+#: src/session/components/outer-header/overflow/export-modal.tsx:317
 msgid "Created"
 msgstr ""
 
@@ -555,9 +567,9 @@ msgstr ""
 msgid "Duplicate"
 msgstr ""
 
-#: src/session/components/outer-header/overflow/export-modal.tsx:219
-#: src/session/components/outer-header/overflow/export-modal.tsx:267
-#: src/session/components/outer-header/overflow/export-modal.tsx:324
+#: src/session/components/outer-header/overflow/export-modal.tsx:220
+#: src/session/components/outer-header/overflow/export-modal.tsx:268
+#: src/session/components/outer-header/overflow/export-modal.tsx:325
 msgid "Duration"
 msgstr ""
 
@@ -634,13 +646,13 @@ msgstr ""
 msgid "Expire recordings after three days"
 msgstr ""
 
-#: src/session/components/outer-header/overflow/export-modal.tsx:460
-#: src/session/components/outer-header/overflow/export-modal.tsx:545
+#: src/session/components/outer-header/overflow/export-modal.tsx:474
+#: src/session/components/outer-header/overflow/export-modal.tsx:571
 #: src/session/components/outer-header/overflow/index.tsx:119
 msgid "Export"
 msgstr ""
 
-#: src/session/components/outer-header/overflow/export-modal.tsx:542
+#: src/session/components/outer-header/overflow/export-modal.tsx:568
 msgid "Exporting..."
 msgstr ""
 
@@ -677,7 +689,7 @@ msgstr ""
 msgid "Favorite template"
 msgstr ""
 
-#: src/session/components/outer-header/overflow/export-modal.tsx:470
+#: src/session/components/outer-header/overflow/export-modal.tsx:484
 msgid "File format"
 msgstr ""
 
@@ -811,7 +823,7 @@ msgstr ""
 msgid "In {totalSeconds} seconds"
 msgstr ""
 
-#: src/session/components/outer-header/overflow/export-modal.tsx:497
+#: src/session/components/outer-header/overflow/export-modal.tsx:511
 msgid "Include"
 msgstr ""
 
@@ -827,7 +839,7 @@ msgstr ""
 msgid "Insert below"
 msgstr ""
 
-#: src/session/components/note-input/header.tsx:741
+#: src/session/components/note-input/header.tsx:702
 msgid "Insights"
 msgstr ""
 
@@ -917,14 +929,14 @@ msgstr ""
 msgid "members"
 msgstr ""
 
-#: src/session/components/outer-header/overflow/export-modal.tsx:226
-#: src/session/components/outer-header/overflow/export-modal.tsx:274
-#: src/session/components/outer-header/overflow/export-modal.tsx:331
-#: src/session/components/outer-header/overflow/export-modal.tsx:502
+#: src/session/components/outer-header/overflow/export-modal.tsx:227
+#: src/session/components/outer-header/overflow/export-modal.tsx:275
+#: src/session/components/outer-header/overflow/export-modal.tsx:332
+#: src/session/components/outer-header/overflow/export-modal.tsx:516
 msgid "Memo"
 msgstr ""
 
-#: src/session/components/note-input/header.tsx:270
+#: src/session/components/note-input/header.tsx:231
 msgid "Memos"
 msgstr ""
 
@@ -932,7 +944,7 @@ msgstr ""
 msgid "Merged"
 msgstr ""
 
-#: src/session/components/outer-header/overflow/export-modal.tsx:313
+#: src/session/components/outer-header/overflow/export-modal.tsx:314
 msgid "Metadata"
 msgstr ""
 
@@ -1199,9 +1211,9 @@ msgid "Override the timezone used for the sidebar timeline"
 msgstr ""
 
 #: src/session/components/note-input/transcript/renderer/speaker-assign.tsx:524
-#: src/session/components/outer-header/overflow/export-modal.tsx:215
-#: src/session/components/outer-header/overflow/export-modal.tsx:263
-#: src/session/components/outer-header/overflow/export-modal.tsx:320
+#: src/session/components/outer-header/overflow/export-modal.tsx:216
+#: src/session/components/outer-header/overflow/export-modal.tsx:264
+#: src/session/components/outer-header/overflow/export-modal.tsx:321
 msgid "Participants"
 msgstr ""
 
@@ -1238,7 +1250,7 @@ msgstr ""
 msgid "Phone"
 msgstr ""
 
-#: src/session/components/outer-header/overflow/export-modal.tsx:544
+#: src/session/components/outer-header/overflow/export-modal.tsx:570
 msgid "Preparing transcript..."
 msgstr ""
 
@@ -1435,7 +1447,7 @@ msgstr ""
 msgid "Search people"
 msgstr ""
 
-#: src/session/components/note-input/header.tsx:1132
+#: src/session/components/note-input/header.tsx:1093
 #: src/templates/template-sidebar.tsx:354
 msgid "Search templates..."
 msgstr ""
@@ -1453,7 +1465,7 @@ msgstr ""
 msgid "Section actions"
 msgstr ""
 
-#: src/session/components/note-input/header.tsx:1198
+#: src/session/components/note-input/header.tsx:1159
 msgid "See all templates"
 msgstr ""
 
@@ -1507,7 +1519,7 @@ msgstr ""
 msgid "Send message"
 msgstr ""
 
-#: src/session/components/note-input/header.tsx:1237
+#: src/session/components/note-input/header.tsx:1198
 msgid "Session note tabs"
 msgstr ""
 
@@ -1633,10 +1645,10 @@ msgid "Submit callback URL"
 msgstr ""
 
 #: src/contacts/details.tsx:318
-#: src/session/components/outer-header/overflow/export-modal.tsx:235
-#: src/session/components/outer-header/overflow/export-modal.tsx:284
-#: src/session/components/outer-header/overflow/export-modal.tsx:340
-#: src/session/components/outer-header/overflow/export-modal.tsx:505
+#: src/session/components/outer-header/overflow/export-modal.tsx:236
+#: src/session/components/outer-header/overflow/export-modal.tsx:285
+#: src/session/components/outer-header/overflow/export-modal.tsx:341
+#: src/session/components/outer-header/overflow/export-modal.tsx:519
 msgid "Summary"
 msgstr ""
 
@@ -1694,11 +1706,11 @@ msgstr ""
 msgid "Timezone"
 msgstr ""
 
-#: src/session/components/note-input/header.tsx:622
-#: src/session/components/outer-header/overflow/export-modal.tsx:244
-#: src/session/components/outer-header/overflow/export-modal.tsx:294
-#: src/session/components/outer-header/overflow/export-modal.tsx:349
-#: src/session/components/outer-header/overflow/export-modal.tsx:511
+#: src/session/components/note-input/header.tsx:583
+#: src/session/components/outer-header/overflow/export-modal.tsx:245
+#: src/session/components/outer-header/overflow/export-modal.tsx:295
+#: src/session/components/outer-header/overflow/export-modal.tsx:350
+#: src/session/components/outer-header/overflow/export-modal.tsx:525
 msgid "Transcript"
 msgstr ""
 
@@ -1719,12 +1731,12 @@ msgstr ""
 msgid "Unnamed"
 msgstr ""
 
-#: src/session/components/outer-header/overflow/export-modal.tsx:207
-#: src/session/components/outer-header/overflow/export-modal.tsx:254
-#: src/session/components/outer-header/overflow/export-modal.tsx:305
-#: src/session/components/outer-header/overflow/export-modal.tsx:364
-#: src/session/components/outer-header/overflow/export-modal.tsx:399
-#: src/session/components/outer-header/overflow/export-modal.tsx:399
+#: src/session/components/outer-header/overflow/export-modal.tsx:208
+#: src/session/components/outer-header/overflow/export-modal.tsx:255
+#: src/session/components/outer-header/overflow/export-modal.tsx:306
+#: src/session/components/outer-header/overflow/export-modal.tsx:365
+#: src/session/components/outer-header/overflow/export-modal.tsx:400
+#: src/session/components/outer-header/overflow/export-modal.tsx:400
 #: src/session/components/title-input.tsx:250
 #: src/session/components/title-input.tsx:251
 #: src/session/components/title-input.tsx:385
