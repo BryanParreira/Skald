@@ -27,7 +27,10 @@ if [ "$(uname -s)" != "Darwin" ] || [ "$(uname -m)" != "arm64" ]; then
   exit 0
 fi
 
-if [ -x "$DEST_DIR/llama-server" ]; then
+STAMP_FILE="$SRC_TAURI_DIR/resources/.llama-server-bin.stamp"
+STAMP="${LLAMA_CPP_TAG}-deps-only"
+
+if [ -x "$DEST_DIR/llama-server" ] && [ "$(cat "$STAMP_FILE" 2>/dev/null)" = "$STAMP" ]; then
   echo "[fetch-llama-server] Already staged, skipping."
   exit 0
 fi
@@ -55,14 +58,42 @@ if [ ! -x "$EXTRACTED_DIR/llama-server" ]; then
   exit 1
 fi
 
+rm -rf "$DEST_DIR"
 mkdir -p "$DEST_DIR"
-rm -f "$DEST_DIR"/*
 
-# `-a` preserves the versioned-symlink chain (e.g. libggml.dylib ->
-# libggml.0.dylib -> libggml.0.22.0.dylib) that @rpath lookups walk through —
-# copying only the real files and dropping the symlinks would break loading.
-cp -a "$EXTRACTED_DIR"/llama-server "$DEST_DIR"/
-cp -a "$EXTRACTED_DIR"/*.dylib "$DEST_DIR"/
+# Tauri bundles resources by following symlinks, so the archive's versioned
+# chain (libfoo.dylib -> libfoo.0.dylib -> libfoo.0.x.y.dylib) landed in the
+# app as three full copies of every library. Ship each library once, under the
+# exact @rpath name the loader asks for, and only the libraries llama-server
+# actually loads: the archive's bench, perplexity and quantize tool libraries
+# are never loaded by it.
+cp "$EXTRACTED_DIR/llama-server" "$DEST_DIR/llama-server"
 chmod +x "$DEST_DIR/llama-server"
+
+queue=("llama-server")
+seen=" llama-server "
+while [ ${#queue[@]} -gt 0 ]; do
+  current="${queue[0]}"
+  queue=("${queue[@]:1}")
+  while IFS= read -r dep; do
+    [ -n "$dep" ] || continue
+    case "$seen" in *" $dep "*) continue ;; esac
+    seen="$seen$dep "
+    if [ ! -e "$EXTRACTED_DIR/$dep" ]; then
+      echo "[fetch-llama-server] Missing dependency in archive: $dep" >&2
+      exit 1
+    fi
+    cp -L "$EXTRACTED_DIR/$dep" "$DEST_DIR/$dep"
+    queue+=("$dep")
+  done < <(otool -L "$DEST_DIR/$current" | awk 'NR>1 {print $1}' | sed -n 's|^@rpath/||p')
+done
+
+# Fail the build rather than ship an engine that cannot load its libraries.
+if ! "$DEST_DIR/llama-server" --version >/dev/null 2>&1; then
+  echo "[fetch-llama-server] Staged llama-server failed to start." >&2
+  exit 1
+fi
+
+echo "$STAMP" > "$STAMP_FILE"
 
 echo "[fetch-llama-server] Staged: $DEST_DIR ($(du -sh "$DEST_DIR" | cut -f1))"
