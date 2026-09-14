@@ -734,7 +734,7 @@ msgstr "For enabled notifications"
 msgid "Forever"
 msgstr "Forever"
 
-#: src/session/components/note-input/brief.tsx:73
+#: src/session/components/note-input/brief.tsx:117
 msgid "From past meetings"
 msgstr "From past meetings"
 
@@ -871,6 +871,10 @@ msgstr "Language & Region"
 #: src/settings/general/main-language.tsx:53
 msgid "Language for summaries, chats, and AI-generated responses"
 msgstr "Language for summaries, chats, and AI-generated responses"
+
+#: src/session/components/note-input/brief.tsx:85
+msgid "Last met"
+msgstr "Last met"
 
 #: src/chat/components/message/error.tsx:49
 msgid "Learn how to fix this"

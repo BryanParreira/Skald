@@ -734,7 +734,7 @@ msgstr ""
 msgid "Forever"
 msgstr ""
 
-#: src/session/components/note-input/brief.tsx:73
+#: src/session/components/note-input/brief.tsx:117
 msgid "From past meetings"
 msgstr ""
 
@@ -871,6 +871,10 @@ msgstr "भाषा एवं क्षेत्र"
 #: src/settings/general/main-language.tsx:53
 msgid "Language for summaries, chats, and AI-generated responses"
 msgstr "सारांशानां, गपशपानां, एआइ-जनितप्रतिसादानां च भाषा"
+
+#: src/session/components/note-input/brief.tsx:85
+msgid "Last met"
+msgstr ""
 
 #: src/chat/components/message/error.tsx:49
 msgid "Learn how to fix this"
