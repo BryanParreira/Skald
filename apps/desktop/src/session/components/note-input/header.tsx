@@ -106,7 +106,7 @@ function IconHeaderTab({
       aria-current={isActive ? "page" : undefined}
       onClick={onClick}
       onContextMenu={onContextMenu}
-      title={title}
+      title={title ?? label}
       className={iconHeaderTabClassName(
         isActive,
         size,
