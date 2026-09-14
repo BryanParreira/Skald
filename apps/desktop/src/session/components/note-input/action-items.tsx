@@ -3,6 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { BellPlusIcon, Loader2Icon, RefreshCwIcon } from "lucide-react";
 
 import { useTaskRecords, useTaskStorage } from "@hypr/editor/task-storage";
+import { commands as permissionsCommands } from "@hypr/plugin-permissions";
 import { commands as todoCommands } from "@hypr/plugin-todo";
 import { Button } from "@hypr/ui/components/ui/button";
 import {
@@ -17,7 +18,6 @@ import {
   buildTaskReminderUrl,
   selectUnsentTasks,
 } from "~/session/insights/reminder-links";
-import { usePermission } from "~/shared/hooks/usePermissions";
 import { showTransientToast } from "~/sidebar/toast/transient";
 import * as main from "~/store/tinybase/store/main";
 
@@ -109,7 +109,6 @@ function useSendToReminders(
   tasks: { taskId: string; status: string; textPreview: string }[],
 ) {
   const { t } = useLingui();
-  const reminders = usePermission("reminders");
   const sessionTitle = main.UI.useCell(
     "sessions",
     sessionId,
@@ -169,18 +168,23 @@ function useSendToReminders(
     },
   });
 
-  const send = () => {
-    if (reminders.status === "authorized") {
+  // Ask macOS only when the button is pressed. A polling permission hook
+  // re-queried the OS every second for as long as the view stayed open.
+  const send = async () => {
+    const check = await permissionsCommands.checkPermission("reminders");
+    const status = check.status === "ok" ? check.data : "denied";
+
+    if (status === "authorized") {
       mutation.mutate();
       return;
     }
 
     // A denied permission can no longer be re-prompted; only System Settings
     // can grant it, so send the user there instead of a request that does nothing.
-    if (reminders.status === "denied") {
-      void reminders.open();
+    if (status === "denied") {
+      void permissionsCommands.openPermission("reminders");
     } else {
-      reminders.request();
+      void permissionsCommands.requestPermission("reminders");
     }
     showTransientToast({
       id: "action-items-reminders",

@@ -75,7 +75,9 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   const localSttQuery = useQuery({
     enabled: isLocalSttModel,
     queryKey: ["local-stt-status", sttModel],
-    refetchInterval: 1000,
+    // Mounted for the whole app. Poll quickly until the server is ready, then
+    // back off; a crash is still noticed within ten seconds.
+    refetchInterval: (query) => (query.state.data === "ready" ? 10_000 : 1000),
     queryFn: async () => {
       if (!sttModel) return null;
 

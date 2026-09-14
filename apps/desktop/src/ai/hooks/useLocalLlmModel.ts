@@ -28,7 +28,13 @@ export const localLlmKeys = {
 export const localLlmQueries = {
   isDownloaded: (model: GgufLlmModel) =>
     queryOptions({
-      refetchInterval: 1000,
+      // This check runs app-wide, so stop once the model is present instead of
+      // stat-ing a multi-gigabyte file every second for the life of the app.
+      // Download completion invalidates this query, so no update is missed.
+      refetchInterval: (query) =>
+        query.state.data?.status === "ok" && query.state.data.data === true
+          ? false
+          : 1000,
       queryKey: localLlmKeys.downloaded(model),
       queryFn: () => localLlmCommands.isModelDownloaded(model),
       select: (result) => {
@@ -68,7 +74,13 @@ export const localLlmQueries = {
       // the pre-`select` raw Result object, always truthy, so a
       // stop-when-truthy condition here would (and did) kill polling after
       // the very first fetch regardless of the actual URL.
-      refetchInterval: 2000,
+      // Poll quickly while waiting for the server, then back off once its URL
+      // is known; a crash is still noticed within ten seconds. The check reads
+      // the raw Result's `data`, not its truthiness, for the reason above.
+      refetchInterval: (query) =>
+        query.state.data?.status === "ok" && query.state.data.data
+          ? 10_000
+          : 2000,
       staleTime: Infinity,
     }),
 };

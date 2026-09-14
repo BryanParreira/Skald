@@ -37,9 +37,7 @@ export const useSTTConnection = () => {
     queryKey: ["stt-default-local-model-downloaded"],
     queryFn: () => localSttCommands.isModelDownloaded(defaultLocalModel),
     refetchInterval: (query) =>
-      query.state.data?.status === "ok" && query.state.data.data
-        ? false
-        : 2000,
+      query.state.data?.status === "ok" && query.state.data.data ? false : 2000,
     select: (result) => result.status === "ok" && result.data,
   }).data;
   const setSttProvider = settings.UI.useSetValueCallback(
@@ -82,7 +80,10 @@ export const useSTTConnection = () => {
   const local = useQuery({
     enabled: current_stt_provider === "velo",
     queryKey: ["stt-connection", current_stt_provider, localModel],
-    refetchInterval: 1000,
+    // Every open note mounts this. Poll quickly until the speech server is
+    // ready, then back off; a crash is still noticed within ten seconds.
+    refetchInterval: (query) =>
+      query.state.data?.status === "ready" ? 10_000 : 1000,
     queryFn: async () => {
       if (!localModel) {
         return null;
