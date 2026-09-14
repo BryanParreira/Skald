@@ -11,6 +11,7 @@ import {
   persistGeneratedTitle,
 } from "./title-success";
 
+import { showSummaryReadyNotification } from "~/session/summary-ready-notification";
 import { ensureMarkdownFirstLineTitle } from "~/session/title-content";
 import { createSourceHash } from "~/shared/hash";
 import { hasLiveSessionTitleDraft } from "~/store/zustand/live-title";
@@ -92,6 +93,10 @@ const onSuccess: NonNullable<TaskConfig<"enhance">["onSuccess"]> = async ({
       args: { sessionId: args.sessionId },
       store,
     });
+  }
+
+  if (didPersist) {
+    void showSummaryReadyNotification(args.sessionId, trimmedTitle);
   }
 };
 
