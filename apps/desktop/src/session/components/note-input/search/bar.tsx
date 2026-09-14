@@ -94,8 +94,10 @@ function IconButton({
 
 export function SearchBar({
   editorRef,
+  readOnly = false,
 }: {
   editorRef: React.RefObject<NoteEditorRef | null>;
+  readOnly?: boolean;
 }) {
   const { t } = useLingui();
   const search = useSearch();
@@ -224,20 +226,22 @@ export function SearchBar({
           >
             <WholeWordIcon className="size-3.5" />
           </ToggleButton>
-          <ToggleButton
-            active={showReplace}
-            onClick={toggleReplace}
-            tooltip={
-              <>
-                <span>
-                  <Trans>Replace</Trans>
-                </span>
-                <Kbd className="animate-kbd-press">⌘ H</Kbd>
-              </>
-            }
-          >
-            <ReplaceIcon className="size-3.5" />
-          </ToggleButton>
+          {!readOnly && (
+            <ToggleButton
+              active={showReplace}
+              onClick={toggleReplace}
+              tooltip={
+                <>
+                  <span>
+                    <Trans>Replace</Trans>
+                  </span>
+                  <Kbd className="animate-kbd-press">⌘ H</Kbd>
+                </>
+              }
+            >
+              <ReplaceIcon className="size-3.5" />
+            </ToggleButton>
+          )}
         </div>
         <span className="text-muted-foreground text-[10px] whitespace-nowrap tabular-nums">
           {displayCount}
@@ -287,7 +291,7 @@ export function SearchBar({
         </IconButton>
       </div>
 
-      {showReplace && (
+      {showReplace && !readOnly && (
         <div className="bg-muted flex h-7 items-center gap-1.5 rounded-lg px-2">
           <input
             ref={replaceInputRef}

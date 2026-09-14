@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from "motion/react";
 import type { EditorView } from "prosemirror-view";
 import {
   forwardRef,
@@ -9,7 +10,6 @@ import {
   useRef,
   useState,
 } from "react";
-import { AnimatePresence, motion } from "motion/react";
 import { useHotkeys } from "react-hotkeys-hook";
 
 import type { NoteEditorRef } from "@hypr/editor/note";
@@ -186,6 +186,8 @@ export const NoteInput = forwardRef<
     const isEditableTab =
       renderedCurrentTab.type === "enhanced" ||
       renderedCurrentTab.type === "raw";
+    const isSearchableTab =
+      isEditableTab || renderedCurrentTab.type === "transcript";
 
     useEffect(() => {
       search?.close();
@@ -213,9 +215,12 @@ export const NoteInput = forwardRef<
           </div>
         )}
 
-        {showSearchBar && isEditableTab && (
+        {showSearchBar && isSearchableTab && (
           <div className="px-3 pt-1">
-            <SearchBar editorRef={internalEditorRef} />
+            <SearchBar
+              editorRef={internalEditorRef}
+              readOnly={!isEditableTab}
+            />
           </div>
         )}
 
