@@ -15,10 +15,10 @@ mod macos {
 
     use crate::error::Error;
 
-    // Reuses whatever local STT model the user already has downloaded for
-    // meeting transcription (e.g. Parakeet V2 via the "am" sidecar), so
-    // dictation doesn't require downloading or licensing a second model.
-    // Falls back to the bundled whisper.cpp model if no "am" model/key is set.
+    // Prefers the Parakeet streaming model the app downloads for meeting
+    // transcription, run in-process through the Soniqo bridge, so dictation
+    // needs no second model. Falls back to the "am" sidecar when an API key is
+    // set, and to the whisper.cpp model otherwise.
     const FALLBACK_WHISPER_MODEL: hypr_whisper_local_model::WhisperModel =
         hypr_whisper_local_model::WhisperModel::QuantizedSmallEn;
 
@@ -36,6 +36,21 @@ mod macos {
     impl ActiveSession {
         pub async fn start<R: Runtime>(app: AppHandle<R>) -> Result<Self, Error> {
             use tauri_plugin_local_stt::{LocalModel, LocalSttPluginExt, SharedState};
+
+            let soniqo_model = hypr_transcribe_soniqo::SoniqoModel::ParakeetStreaming;
+            let soniqo_ready = tokio::task::spawn_blocking(move || {
+                hypr_transcribe_soniqo::is_model_downloaded(soniqo_model).unwrap_or(false)
+            })
+            .await
+            .unwrap_or(false);
+
+            // The Soniqo bridge runs one live session for the whole app, so
+            // starting dictation now would cut off a meeting being transcribed.
+            if soniqo_ready && hypr_transcribe_soniqo::is_live_session_active() {
+                return Err(Error::Stt(
+                    "a recording is already being transcribed live".to_string(),
+                ));
+            }
 
             let am_api_key = {
                 let state = app.state::<SharedState>();
@@ -63,6 +78,19 @@ mod macos {
             };
 
             let (stop_tx, stop_rx) = oneshot::channel::<()>();
+
+            if soniqo_ready {
+                let session = tokio::task::spawn_blocking(move || {
+                    hypr_transcribe_soniqo::LiveTranscriptionSession::start(soniqo_model)
+                })
+                .await
+                .map_err(|e| Error::Stt(format!("soniqo start task failed: {e}")))?
+                .map_err(|e| Error::Stt(e.to_string()))?;
+
+                let join = tokio::spawn(run_soniqo(session, resampled, stop_rx));
+                return Ok(Self { stop_tx, join });
+            }
+
             let (audio_tx, audio_rx) =
                 tokio::sync::mpsc::channel::<MixedMessage<Bytes, ControlMessage>>(64);
             tokio::spawn(forward_mic_to_channel(resampled, audio_tx, stop_rx));
@@ -151,6 +179,121 @@ mod macos {
                     }
                 }
             }
+        }
+    }
+
+    // After release the resampler may still hold the tail of the last word, so
+    // keep reading briefly before finalizing instead of cutting it off.
+    const SONIQO_TAIL: std::time::Duration = std::time::Duration::from_millis(250);
+
+    type SoniqoSession = hypr_transcribe_soniqo::LiveTranscriptionSession;
+
+    async fn run_soniqo(
+        session: SoniqoSession,
+        mut resampled: impl futures_util::Stream<Item = Result<Vec<f32>, hypr_resampler::Error>> + Unpin,
+        mut stop_rx: oneshot::Receiver<()>,
+    ) -> String {
+        let mut session = Some(session);
+        let mut transcript = String::new();
+
+        loop {
+            tokio::select! {
+                biased;
+
+                _ = &mut stop_rx => break,
+                chunk = resampled.next() => {
+                    let Some(Ok(samples)) = chunk else {
+                        break;
+                    };
+                    let Some(current) = session.take() else {
+                        break;
+                    };
+                    match append_samples(current, samples).await {
+                        Ok((next, partials)) => {
+                            push_final_texts(&mut transcript, partials);
+                            session = Some(next);
+                        }
+                        Err(error) => {
+                            tracing::warn!(%error, "dictation_soniqo_append_failed");
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        let deadline = tokio::time::Instant::now() + SONIQO_TAIL;
+        while let Some(current) = session.take() {
+            let Ok(Some(Ok(samples))) = tokio::time::timeout_at(deadline, resampled.next()).await
+            else {
+                session = Some(current);
+                break;
+            };
+            match append_samples(current, samples).await {
+                Ok((next, partials)) => {
+                    push_final_texts(&mut transcript, partials);
+                    session = Some(next);
+                }
+                Err(error) => tracing::warn!(%error, "dictation_soniqo_tail_append_failed"),
+            }
+        }
+
+        if let Some(current) = session {
+            let finished = tokio::task::spawn_blocking(move || {
+                let mut current = current;
+                let result = current.finalize(hypr_transcribe_soniqo::TranscriptSource::Microphone);
+                let _ = current.stop();
+                result
+            })
+            .await;
+
+            match finished {
+                Ok(Ok(partials)) => push_final_texts(&mut transcript, partials),
+                Ok(Err(error)) => tracing::warn!(%error, "dictation_soniqo_finalize_failed"),
+                Err(error) => tracing::warn!(%error, "dictation_soniqo_finalize_join_failed"),
+            }
+        }
+
+        transcript
+    }
+
+    // The bridge call blocks on Core ML, so it runs off the async runtime. The
+    // session moves into the blocking task and back out with the result.
+    async fn append_samples(
+        session: SoniqoSession,
+        samples: Vec<f32>,
+    ) -> Result<(SoniqoSession, Vec<hypr_transcribe_soniqo::LivePartial>), String> {
+        let (session, result) = tokio::task::spawn_blocking(move || {
+            let mut session = session;
+            let result = session.append(
+                hypr_transcribe_soniqo::TranscriptSource::Microphone,
+                &samples,
+            );
+            (session, result)
+        })
+        .await
+        .map_err(|e| format!("append task failed: {e}"))?;
+
+        result
+            .map(|partials| (session, partials))
+            .map_err(|e| e.to_string())
+    }
+
+    // Non-final partials are hypotheses the model will still revise, so only
+    // committed segments become text.
+    fn push_final_texts(
+        transcript: &mut String,
+        partials: Vec<hypr_transcribe_soniqo::LivePartial>,
+    ) {
+        for partial in partials {
+            let text = partial.text.trim();
+            if !partial.is_final || text.is_empty() {
+                continue;
+            }
+            if !transcript.is_empty() {
+                transcript.push(' ');
+            }
+            transcript.push_str(text);
         }
     }
 
@@ -243,6 +386,29 @@ mod macos {
             ];
             let transcript = collect_transcript(futures_util::stream::iter(items)).await;
             assert_eq!(transcript, "hi");
+        }
+
+        fn partial(text: &str, is_final: bool) -> hypr_transcribe_soniqo::LivePartial {
+            hypr_transcribe_soniqo::LivePartial {
+                source: "microphone".to_string(),
+                text: text.to_string(),
+                is_final,
+            }
+        }
+
+        #[test]
+        fn soniqo_keeps_only_committed_segments() {
+            let mut transcript = String::new();
+            push_final_texts(
+                &mut transcript,
+                vec![
+                    partial("hel", false),
+                    partial("hello", true),
+                    partial("  ", true),
+                ],
+            );
+            push_final_texts(&mut transcript, vec![partial(" world ", true)]);
+            assert_eq!(transcript, "hello world");
         }
 
         #[tokio::test]

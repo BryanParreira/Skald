@@ -18175,6 +18175,7 @@ dependencies = [
  "tokio",
  "tokio-stream",
  "tracing",
+ "transcribe-soniqo",
  "whisper-local-model",
 ]
 

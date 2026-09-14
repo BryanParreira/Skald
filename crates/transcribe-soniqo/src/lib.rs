@@ -434,6 +434,18 @@ pub fn transcribe_file(
 pub struct LiveTranscriptionSession {
     model: SoniqoModel,
     stopped: bool,
+    id: u64,
+}
+
+// The Swift bridge keeps a single live session for the whole process, and
+// starting one replaces whatever was running. Each session records the id it
+// was started with so an older one can neither feed audio into, nor stop, a
+// newer session that has since taken over the bridge.
+static NEXT_LIVE_SESSION_ID: std::sync::atomic::AtomicU64 = std::sync::atomic::AtomicU64::new(1);
+static ACTIVE_LIVE_SESSION_ID: std::sync::atomic::AtomicU64 = std::sync::atomic::AtomicU64::new(0);
+
+pub fn is_live_session_active() -> bool {
+    ACTIVE_LIVE_SESSION_ID.load(std::sync::atomic::Ordering::SeqCst) != 0
 }
 
 impl LiveTranscriptionSession {
@@ -448,10 +460,23 @@ impl LiveTranscriptionSession {
         }
 
         platform::live_start(model)?;
+        let id = NEXT_LIVE_SESSION_ID.fetch_add(1, std::sync::atomic::Ordering::SeqCst);
+        ACTIVE_LIVE_SESSION_ID.store(id, std::sync::atomic::Ordering::SeqCst);
         Ok(Self {
             model,
             stopped: false,
+            id,
         })
+    }
+
+    fn ensure_current(&self) -> Result<()> {
+        if ACTIVE_LIVE_SESSION_ID.load(std::sync::atomic::Ordering::SeqCst) == self.id {
+            Ok(())
+        } else {
+            Err(Error::Bridge(
+                "live session was replaced by a newer one".to_string(),
+            ))
+        }
     }
 
     pub fn append(
@@ -459,10 +484,12 @@ impl LiveTranscriptionSession {
         source: TranscriptSource,
         samples: &[f32],
     ) -> Result<Vec<LivePartial>> {
+        self.ensure_current()?;
         platform::live_append(source, samples)
     }
 
     pub fn finalize(&mut self, source: TranscriptSource) -> Result<Vec<LivePartial>> {
+        self.ensure_current()?;
         platform::live_finalize(source)
     }
 
@@ -472,13 +499,28 @@ impl LiveTranscriptionSession {
 
     pub fn stop(mut self) -> Result<()> {
         self.stopped = true;
-        platform::live_stop()
+        if self.release() {
+            platform::live_stop()
+        } else {
+            Ok(())
+        }
+    }
+
+    fn release(&self) -> bool {
+        ACTIVE_LIVE_SESSION_ID
+            .compare_exchange(
+                self.id,
+                0,
+                std::sync::atomic::Ordering::SeqCst,
+                std::sync::atomic::Ordering::SeqCst,
+            )
+            .is_ok()
     }
 }
 
 impl Drop for LiveTranscriptionSession {
     fn drop(&mut self) {
-        if !self.stopped {
+        if !self.stopped && self.release() {
             let _ = platform::live_stop();
         }
     }

@@ -42,5 +42,6 @@ hypr-dictation-ui-macos = { workspace = true }
 hypr-language = { workspace = true }
 hypr-resampler = { workspace = true }
 hypr-text-inject-macos = { workspace = true }
+hypr-transcribe-soniqo = { workspace = true }
 hypr-whisper-local-model = { workspace = true }
 tauri-plugin-local-stt = { workspace = true, features = ["whisper-cpp"] }

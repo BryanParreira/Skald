@@ -82,7 +82,13 @@ fn start_dictation(app: tauri::AppHandle) {
 
         match stt::ActiveSession::start(app.clone()).await {
             Ok(active) => *slot = Some(active),
-            Err(e) => tracing::warn!(error = %e, "dictation_start_failed"),
+            Err(e) => {
+                tracing::warn!(error = %e, "dictation_start_failed");
+                // The overlay is shown before the model starts; leaving it up
+                // would look like dictation is listening when nothing will type.
+                use ext::DictationPluginExt;
+                let _ = app.dictation().hide();
+            }
         }
     });
 }
