@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/react/macro";
 import { type ReactNode, useId } from "react";
 
 import { Switch } from "@hypr/ui/components/ui/switch";
@@ -52,7 +53,9 @@ export function AppSettingsView({
       </section>
 
       <section>
-        <h2 className="mb-4 font-sans text-lg font-semibold">Meetings</h2>
+        <h2 className="mb-4 font-sans text-lg font-semibold">
+          <Trans>Recording</Trans>
+        </h2>
         <div className="flex flex-col gap-4">
           <SettingRow
             title="Start when meeting begins"

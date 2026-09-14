@@ -6,7 +6,7 @@ import {
   BellIcon,
   MicIcon,
   CalendarIcon,
-  DatabaseIcon,
+  ImportIcon,
   LockIcon,
   SlidersHorizontalIcon,
   SmartphoneIcon,
@@ -59,7 +59,7 @@ export function SettingsNav() {
       label: t`General`,
       items: [
         { id: "app", label: t`App`, icon: SmartphoneIcon },
-        { id: "data", label: t`Data`, icon: DatabaseIcon },
+        { id: "data", label: t`Import`, icon: ImportIcon },
         { id: "notifications", label: t`Notifications`, icon: BellIcon },
       ],
     },
