@@ -15,6 +15,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 
 import { Button } from "@hypr/ui/components/ui/button";
 import { cn } from "@hypr/utils";
@@ -87,6 +88,7 @@ export function TimelineView({
     timezone,
   });
   const openNew = useTabs((state) => state.openNew);
+  const openCurrent = useTabs((state) => state.openCurrent);
 
   const showOpenCalendarChip =
     showOpenCalendarButton && isScrolledToTop && hasMoreFutureItems;
@@ -161,6 +163,57 @@ export function TimelineView({
   const flatSessionItemKeys = useMemo(
     () => flatItemKeys.filter(isSessionItemKey),
     [flatItemKeys],
+  );
+
+  // Walks the notes in the order the sidebar shows them, so Down always opens
+  // the row below the current one, whichever day it falls under.
+  const openAdjacentNote = useCallback(
+    (step: 1 | -1) => {
+      const currentIndex = selectedSessionId
+        ? flatSessionItemKeys.indexOf(`session-${selectedSessionId}`)
+        : -1;
+      const nextKey =
+        currentIndex === -1
+          ? step === 1
+            ? flatSessionItemKeys[0]
+            : undefined
+          : flatSessionItemKeys[currentIndex + step];
+      if (!nextKey) {
+        return;
+      }
+
+      useTimelineSelection.getState().setAnchor(nextKey);
+      openCurrent({ type: "sessions", id: nextKey.slice("session-".length) });
+    },
+    [flatSessionItemKeys, selectedSessionId, openCurrent],
+  );
+
+  useHotkeys(
+    "mod+alt+down",
+    (event) => {
+      event.preventDefault();
+      openAdjacentNote(1);
+    },
+    {
+      preventDefault: true,
+      enableOnFormTags: true,
+      enableOnContentEditable: true,
+    },
+    [openAdjacentNote],
+  );
+
+  useHotkeys(
+    "mod+alt+up",
+    (event) => {
+      event.preventDefault();
+      openAdjacentNote(-1);
+    },
+    {
+      preventDefault: true,
+      enableOnFormTags: true,
+      enableOnContentEditable: true,
+    },
+    [openAdjacentNote],
   );
   const selectAllShortcutStateRef = useRef({
     anchorId,
