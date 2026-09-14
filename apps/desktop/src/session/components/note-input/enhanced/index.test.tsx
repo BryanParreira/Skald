@@ -22,6 +22,7 @@ const hoisted = vi.hoisted(() => ({
   } as LLMConnectionStatus,
   content: "",
   sessionMode: "inactive" as string,
+  transcriptWords: undefined as Array<{ text: string }> | undefined,
 }));
 
 vi.mock("~/stt/contexts", () => ({
@@ -51,8 +52,13 @@ vi.mock("~/ai/hooks", () => ({
 
 vi.mock("~/store/tinybase/store/main", () => ({
   STORE_ID: "main",
+  INDEXES: { transcriptBySession: "transcriptBySession" },
   UI: {
     useCell: () => hoisted.content,
+    useSliceRowIds: () => (hoisted.transcriptWords ? ["transcript-1"] : []),
+    useStore: () => ({
+      getCell: () => JSON.stringify(hoisted.transcriptWords ?? []),
+    }),
   },
 }));
 
@@ -109,6 +115,30 @@ describe("Enhanced", () => {
     };
     hoisted.content = "";
     hoisted.sessionMode = "inactive";
+    hoisted.transcriptWords = undefined;
+  });
+
+  it("explains a brief summary when the recording was short", () => {
+    hoisted.content = "summary";
+    hoisted.transcriptWords = Array.from({ length: 46 }, () => ({
+      text: "word",
+    }));
+
+    render(<Enhanced sessionId="session-1" enhancedNoteId="note-1" />);
+
+    expect(screen.getByText("Enhanced editor")).not.toBeNull();
+    expect(screen.getByText(/Short recording/)).not.toBeNull();
+  });
+
+  it("does not show the short recording hint for a normal recording", () => {
+    hoisted.content = "summary";
+    hoisted.transcriptWords = Array.from({ length: 400 }, () => ({
+      text: "word",
+    }));
+
+    render(<Enhanced sessionId="session-1" enhancedNoteId="note-1" />);
+
+    expect(screen.queryByText(/Short recording/)).toBeNull();
   });
 
   it("renders an empty editor before the auto-enhance task is visible", () => {
