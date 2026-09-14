@@ -23,6 +23,7 @@ import {
 } from "./utils";
 
 import { writeSessionContextDragData } from "~/chat/context/session-drag";
+import { extractPlainText } from "~/search/contexts/engine/utils";
 import { useIsSessionEnhancing } from "~/session/hooks/useEnhancedNotes";
 import { getSessionEvent } from "~/session/utils";
 import { openStandaloneNoteWindow } from "~/session/window";
@@ -41,6 +42,22 @@ import { type TabInput, useTabs } from "~/store/zustand/tabs";
 import { useTimelineSelection } from "~/store/zustand/timeline-selection";
 import { useUndoDelete } from "~/store/zustand/undo-delete";
 import { useListener } from "~/stt/contexts";
+
+const PREVIEW_MAX_LENGTH = 120;
+
+// Many notes share generic titles, so the opening of the summary is what tells
+// them apart. The summary can repeat the title as its first line; skip it.
+function getSummaryPreview(
+  content: unknown,
+  title: string | undefined,
+): string {
+  let text = extractPlainText(content);
+  const trimmedTitle = title?.trim();
+  if (trimmedTitle && text.startsWith(trimmedTitle)) {
+    text = text.slice(trimmedTitle.length).trim();
+  }
+  return text.slice(0, PREVIEW_MAX_LENGTH);
+}
 
 export const TimelineItemComponent = memo(
   ({
@@ -102,6 +119,7 @@ export const TimelineItemComponent = memo(
 function ItemBase({
   title,
   displayTime,
+  preview,
   isLive,
   amplitude,
   showSpinner,
@@ -125,6 +143,7 @@ function ItemBase({
 }: {
   title: string;
   displayTime: string;
+  preview?: string;
   isLive?: boolean;
   amplitude?: number;
   showSpinner?: boolean;
@@ -204,16 +223,23 @@ function ItemBase({
             >
               {title || t`Untitled`}
             </div>
-            {displayTime && (
+            {(displayTime || preview) && (
               <div
                 className={cn([
-                  "font-mono text-xs",
+                  "flex min-w-0 items-baseline gap-1.5 text-xs",
                   isLive
                     ? "text-destructive-foreground/65"
                     : "text-muted-foreground",
                 ])}
               >
-                {displayTime}
+                {displayTime && (
+                  <span className="shrink-0 font-mono">{displayTime}</span>
+                )}
+                {preview && (
+                  <span className="pointer-events-none min-w-0 truncate">
+                    {preview}
+                  </span>
+                )}
               </div>
             )}
           </div>
@@ -493,6 +519,21 @@ const SessionItem = memo(
       main.STORE_ID,
     ) as string | undefined;
     const title = useSessionTitle(sessionId, storeTitle);
+    const enhancedNoteIds = main.UI.useSliceRowIds(
+      main.INDEXES.enhancedNotesBySession,
+      sessionId,
+      main.STORE_ID,
+    );
+    const summaryContent = main.UI.useCell(
+      "enhanced_notes",
+      enhancedNoteIds?.[0] ?? "",
+      "content",
+      main.STORE_ID,
+    );
+    const preview = useMemo(
+      () => getSummaryPreview(summaryContent, title),
+      [summaryContent, title],
+    );
 
     const { sessionMode, stop, amplitude } = useListener((state) => {
       const sessionMode = state.getSessionMode(sessionId);
@@ -619,6 +660,7 @@ const SessionItem = memo(
       <ItemBase
         title={title}
         displayTime={displayTime}
+        preview={isLive ? undefined : preview}
         isLive={isLive}
         amplitude={Math.max(
           0.25,

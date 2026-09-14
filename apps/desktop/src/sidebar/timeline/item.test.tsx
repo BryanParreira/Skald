@@ -13,6 +13,7 @@ const mocks = vi.hoisted(() => ({
   sessionMode: "inactive",
   stop: vi.fn(),
   storeTitle: "Live Note",
+  summaryContent: undefined as string | undefined,
   nativeContextMenus: [] as Array<
     Array<{
       id?: string;
@@ -100,10 +101,13 @@ vi.mock("~/store/tinybase/store/deleteSession", () => ({
 
 vi.mock("~/store/tinybase/store/main", () => ({
   STORE_ID: "main",
+  INDEXES: { enhancedNotesBySession: "enhancedNotesBySession" },
   UI: {
-    useCell: () => mocks.storeTitle,
+    useCell: (tableId: string) =>
+      tableId === "enhanced_notes" ? mocks.summaryContent : mocks.storeTitle,
     useIndexes: () => ({}),
     useRow: () => null,
+    useSliceRowIds: () => (mocks.summaryContent ? ["note-1"] : []),
     useStore: () => ({}),
   },
 }));
@@ -172,6 +176,7 @@ describe("TimelineItemComponent", () => {
     mocks.openNew.mockClear();
     mocks.windowShow.mockClear();
     mocks.nativeContextMenus = [];
+    mocks.summaryContent = undefined;
     mocks.timelineSelection.selectedIds = [];
     mocks.timelineSelection.setAnchor.mockClear();
     mocks.timelineSelection.selectRange.mockClear();
@@ -214,6 +219,56 @@ describe("TimelineItemComponent", () => {
 
     expect(mocks.stop).toHaveBeenCalledOnce();
     expect(mocks.openCurrent).not.toHaveBeenCalled();
+  });
+
+  it("previews the start of the summary next to the time", () => {
+    mocks.sessionMode = "inactive";
+    mocks.summaryContent = "Live Note Math assignment is due Friday";
+
+    render(
+      <TimelineItemComponent
+        item={{
+          type: "session",
+          id: "session-1",
+          data: {
+            title: "Live Note",
+            created_at: "2024-01-15T10:30:00.000Z",
+          },
+        }}
+        precision="time"
+        selected={false}
+        timezone="UTC"
+        multiSelected={false}
+        flatItemKeys={["session-session-1"]}
+      />,
+    );
+
+    expect(screen.getByText("Math assignment is due Friday")).toBeTruthy();
+  });
+
+  it("does not preview a summary on a live note", () => {
+    mocks.sessionMode = "active";
+    mocks.summaryContent = "Earlier summary text";
+
+    render(
+      <TimelineItemComponent
+        item={{
+          type: "session",
+          id: "session-live",
+          data: {
+            title: "Live Note",
+            created_at: "2024-01-15T10:30:00.000Z",
+          },
+        }}
+        precision="time"
+        selected
+        timezone="UTC"
+        multiSelected={false}
+        flatItemKeys={["session-session-live"]}
+      />,
+    );
+
+    expect(screen.queryByText("Earlier summary text")).toBeNull();
   });
 
   it("exposes the selected session row for sidebar scroll anchoring", () => {
