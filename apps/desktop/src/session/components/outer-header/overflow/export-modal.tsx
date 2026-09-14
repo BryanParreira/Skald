@@ -17,6 +17,7 @@ import { cn } from "@hypr/utils";
 import { formatDate, formatDuration } from "./export-utils";
 
 import { useTranscriptExportSegments } from "~/session/components/note-input/transcript/export-data";
+import { copyTextToClipboard } from "~/shared/clipboard";
 import { useSessionEvent } from "~/store/tinybase/hooks";
 import * as main from "~/store/tinybase/store/main";
 import type { EditorView } from "~/store/zustand/tabs/schema";
@@ -432,6 +433,19 @@ export function ExportModal({
     onError: console.error,
   });
 
+  const copyMutation = useMutation({
+    mutationFn: () =>
+      copyTextToClipboard(buildMdContent(), {
+        success: t`Copied as Markdown`,
+        error: t`Could not copy. Try again.`,
+      }),
+    onSuccess: (copied) => {
+      if (copied) {
+        onOpenChange(false);
+      }
+    },
+  });
+
   const hasAnyContentSelected =
     includeMemo || includeSummary || includeTranscript;
   const isTranscriptPending = includeTranscript && isTranscriptLoading;
@@ -531,19 +545,32 @@ export function ExportModal({
             </div>
           </div>
 
-          <button
-            onClick={() => mutate(null)}
-            disabled={
-              isPending || isTranscriptPending || !hasAnyContentSelected
-            }
-            className="border-primary bg-primary text-primary-foreground hover:bg-primary/90 h-10 w-full rounded-full border-2 text-sm font-medium shadow-[0_4px_14px_rgba(87,83,78,0.4)] transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            {isPending
-              ? t`Exporting...`
-              : isTranscriptPending
-                ? t`Preparing transcript...`
-                : t`Export`}
-          </button>
+          <div className="flex flex-col gap-2">
+            <button
+              onClick={() => copyMutation.mutate()}
+              disabled={
+                copyMutation.isPending ||
+                isTranscriptPending ||
+                !hasAnyContentSelected
+              }
+              className="border-border/80 hover:bg-accent h-10 w-full rounded-full border text-sm font-medium transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              <Trans>Copy as Markdown</Trans>
+            </button>
+            <button
+              onClick={() => mutate(null)}
+              disabled={
+                isPending || isTranscriptPending || !hasAnyContentSelected
+              }
+              className="border-primary bg-primary text-primary-foreground hover:bg-primary/90 h-10 w-full rounded-full border-2 text-sm font-medium shadow-[0_4px_14px_rgba(87,83,78,0.4)] transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {isPending
+                ? t`Exporting...`
+                : isTranscriptPending
+                  ? t`Preparing transcript...`
+                  : t`Export`}
+            </button>
+          </div>
         </div>
       </div>
     </div>,

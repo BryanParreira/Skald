@@ -41,6 +41,7 @@ import { shouldShowEmptySummaryConfigError } from "~/session/enhance-config";
 import { useEnsureDefaultSummary } from "~/session/hooks/useEnhancedNotes";
 import { useCanShowBrief } from "~/session/insights/brief";
 import { useCanShowInsights } from "~/session/insights/past-notes";
+import { copyTextToClipboard } from "~/shared/clipboard";
 import {
   type MenuItemDef,
   useNativeContextMenu,
@@ -173,46 +174,6 @@ function getEnhancedNoteTitle({
   }
 
   return title;
-}
-
-async function copyTextToClipboard(
-  text: string,
-  messages?: {
-    success: string;
-    error: string;
-  },
-) {
-  try {
-    try {
-      await navigator.clipboard.write([
-        new ClipboardItem({
-          "text/plain": new Blob([text], {
-            type: "text/plain",
-          }),
-          "text/markdown": new Blob([text], {
-            type: "text/markdown",
-          }),
-        }),
-      ]);
-    } catch {
-      // Fallback for environments that do not support text/markdown
-      await navigator.clipboard.writeText(text);
-    }
-
-    if (messages) {
-      sonnerToast.success(messages.success);
-    }
-
-    return true;
-  } catch (error) {
-    console.error("Failed to copy note tab content", error);
-
-    if (messages) {
-      sonnerToast.error(messages.error);
-    }
-
-    return false;
-  }
 }
 
 type TemplateSelection = {
@@ -1420,7 +1381,6 @@ function useEnhanceLogic(sessionId: string, enhancedNoteId: string) {
       }
 
       setMissingModelError(null);
-
 
       await enhanceTask.start({
         model,
