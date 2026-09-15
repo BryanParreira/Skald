@@ -113,7 +113,6 @@
       "Bash(rm -rf ~/Library/Caches/org.swift.swiftpm/repositories/swift-rs-16819c90)",
       "Bash(rm -rf /Volumes/Davoid/Coding/Projects/Velo/apps/desktop/src-tauri/target/aarch64-apple-darwin/release/build/tauri-plugin-windows-*/out/swift-rs)",
       "Bash(cd /Volumes/Davoid/Coding/Projects/Velo/apps/desktop)",
-      "Bash(export APPLE_PASSWORD=\"dqlm-whqr-xbca-vxre\")",
       "Bash(export APPLE_TEAM_ID=\"5PNLAR99PK\")",
       "Bash(export APPLE_SIGNING_IDENTITY=\"Developer ID Application: Bryan Bernardo Parreira \\(5PNLAR99PK\\)\")",
       "Bash(export GIT_CONFIG_VALUE_0=all)",
