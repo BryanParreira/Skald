@@ -1,6 +1,6 @@
 [package]
 name = "desktop"
-version = "1.0.18"
+version = "1.0.25"
 authors = ["you"]
 edition = "2024"
 description = "Velo Desktop App"

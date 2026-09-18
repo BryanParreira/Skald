@@ -39,6 +39,7 @@ class NotificationManager {
   }
 
   func removeNotification(_ notification: NotificationInstance) {
+    guard activeNotifications[notification.key] === notification else { return }
     activeNotifications.removeValue(forKey: notification.key)
     hoverStates.removeValue(forKey: notification.key)
     repositionNotifications()

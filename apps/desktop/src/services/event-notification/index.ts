@@ -61,6 +61,14 @@ export function checkEventNotifications(
     const startTime = new Date(String(event.started_at));
     const timeUntilStart = startTime.getTime() - now;
     const notificationKey = `event-${eventId}-${startTime.getTime()}`;
+    const title = String(event.title || "Upcoming Event");
+    // The same meeting can be synced from several calendars as separate rows.
+    const normalizedTitle = String(event.title ?? "")
+      .trim()
+      .toLowerCase();
+    const dedupeKey = normalizedTitle
+      ? `meeting-${startTime.getTime()}-${normalizedTitle}`
+      : notificationKey;
 
     const trackingId = event.tracking_id_event as string | undefined;
     const recurrenceSeriesId = event.recurrence_series_id as string | undefined;
@@ -72,13 +80,12 @@ export function checkEventNotifications(
     }
 
     if (timeUntilStart > 0 && timeUntilStart <= NOTIFY_WINDOW_MS) {
-      if (notifiedEvents.has(notificationKey)) {
+      if (notifiedEvents.has(dedupeKey)) {
         return;
       }
 
-      notifiedEvents.set(notificationKey, now);
+      notifiedEvents.set(dedupeKey, now);
 
-      const title = String(event.title || "Upcoming Event");
       const minutesUntil = Math.ceil(timeUntilStart / 60000);
 
       void notificationCommands.showNotification({
@@ -97,7 +104,7 @@ export function checkEventNotifications(
         icon: null,
       });
     } else if (timeUntilStart <= 0) {
-      notifiedEvents.delete(notificationKey);
+      notifiedEvents.delete(dedupeKey);
     }
   });
 }

@@ -20,6 +20,8 @@ class NotificationInstance {
 
   var countdownTimer: Timer?
   var dismissTimer: Timer?
+  var startedDismissTimer: Timer?
+  private var isDismissing = false
   var meetingStartTime: Date?
   weak var timerLabel: NSTextField?
   weak var compactMessageLabel: NSTextField?
@@ -82,6 +84,8 @@ class NotificationInstance {
   func stopScheduleUpdates() {
     countdownTimer?.invalidate()
     countdownTimer = nil
+    startedDismissTimer?.invalidate()
+    startedDismissTimer = nil
     stopCountdownTimer?.invalidate()
     stopCountdownTimer = nil
     timerLabel = nil
@@ -98,9 +102,26 @@ class NotificationInstance {
       timerLabel?.stringValue = "Started"
       countdownTimer?.invalidate()
       countdownTimer = nil
+      scheduleStartedDismiss()
     } else {
       compactMessageLabel?.stringValue = compactScheduleText(remaining)
       timerLabel?.stringValue = expandedScheduleText(remaining)
+    }
+  }
+
+  // Upcoming-meeting notifications have no timeout, so without this they linger forever after start.
+  private func scheduleStartedDismiss() {
+    guard payload.isPersistent, startedDismissTimer == nil else { return }
+    startedDismissTimer = Timer.scheduledTimer(
+      withTimeInterval: Timing.startedDismissDelay, repeats: false
+    ) { [weak self] _ in
+      guard let self else { return }
+      self.startedDismissTimer = nil
+      if self.clickableView.isHovering || self.isExpanded {
+        self.scheduleStartedDismiss()
+      } else {
+        self.dismissWithTimeout()
+      }
     }
   }
 
@@ -171,6 +192,8 @@ class NotificationInstance {
   }
 
   func dismiss() {
+    guard !isDismissing else { return }
+    isDismissing = true
     dismissTimer?.invalidate()
     dismissTimer = nil
     stopCountdownTimer?.invalidate()
@@ -179,6 +202,7 @@ class NotificationInstance {
     remainingDismissSeconds = 0
     compactActionButton?.resetProgress()
     stopScheduleUpdates()
+    NotificationManager.shared.removeNotification(self)
 
     NSAnimationContext.runAnimationGroup({ context in
       context.duration = Timing.dismiss
@@ -186,7 +210,6 @@ class NotificationInstance {
       self.panel.animator().alphaValue = 0
     }) {
       self.panel.close()
-      NotificationManager.shared.removeNotification(self)
     }
   }
 
@@ -242,6 +265,7 @@ class NotificationInstance {
 
   deinit {
     countdownTimer?.invalidate()
+    startedDismissTimer?.invalidate()
     dismissTimer?.invalidate()
     stopCountdownTimer?.invalidate()
   }

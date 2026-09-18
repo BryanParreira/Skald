@@ -2,6 +2,7 @@ import Cocoa
 
 extension NotificationManager {
   func createAndShowNotification(payload: NotificationPayload) {
+    guard activeNotifications[payload.key] == nil else { return }
     guard let screen = getTargetScreen() else { return }
     let hasFooter = payload.footer != nil
 

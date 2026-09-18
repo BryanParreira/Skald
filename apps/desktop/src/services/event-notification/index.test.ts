@@ -66,4 +66,41 @@ describe("checkEventNotifications", () => {
       }),
     );
   });
+
+  test("same meeting synced from multiple calendars notifies once", () => {
+    const rows: Record<string, Record<string, string>> = {
+      "event-1": {
+        started_at: "2026-05-15T12:02:00.000Z",
+        tracking_id_event: "tracking-1",
+        title: "Design Review",
+      },
+      "event-2": {
+        started_at: "2026-05-15T12:02:00.000Z",
+        tracking_id_event: "tracking-2",
+        title: " design review ",
+      },
+    };
+    const store = {
+      getValue: vi.fn(() => undefined),
+      forEachRow: vi.fn((table: string, callback: (rowId: string) => void) => {
+        if (table === "events") {
+          Object.keys(rows).forEach((id) => callback(id));
+        }
+      }),
+      getRow: vi.fn((table: string, rowId: string) =>
+        table === "events" ? rows[rowId] : undefined,
+      ),
+    } as unknown as main.Store;
+    const settingsStore = {
+      getValue: vi.fn((key: string) =>
+        key === "notification_event" ? true : undefined,
+      ),
+    } as unknown as settings.Store;
+    const notifiedEvents = new Map();
+
+    checkEventNotifications(store, settingsStore, notifiedEvents);
+    checkEventNotifications(store, settingsStore, notifiedEvents);
+
+    expect(showNotificationMock).toHaveBeenCalledTimes(1);
+  });
 });

@@ -29,6 +29,7 @@ enum Timing {
   static let dismiss: TimeInterval = 0.2
   static let buttonPress: TimeInterval = 0.08
   static let hoverFade: TimeInterval = 0.15
+  static let startedDismissDelay: TimeInterval = 60
 }
 
 enum Fonts {

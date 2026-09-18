@@ -7,11 +7,13 @@ use crate::{DetectEvent, ProcessorState, env::Env, timer_registry::TimerRegistry
 
 pub(crate) const DEFAULT_MIC_ACTIVE_THRESHOLD_SECS: u64 = 15;
 pub(crate) const COOLDOWN_DURATION: Duration = Duration::from_mins(10);
+pub(crate) const PROMPT_COALESCE_WINDOW: Duration = Duration::from_secs(30);
 
 #[derive(Default)]
 pub struct MicUsageTracker {
     timers: TimerRegistry,
     cooldowns: HashMap<String, tokio::time::Instant>,
+    last_prompted_at: Option<tokio::time::Instant>,
 }
 
 impl MicUsageTracker {
@@ -41,6 +43,19 @@ impl MicUsageTracker {
         if self.timers.cancel(app_id) {
             tracing::info!(app_id = %app_id, "cancelled_mic_active_timer");
         }
+    }
+
+    /// Apps that join the same call start the mic within seconds of each other;
+    /// only the first one should prompt.
+    pub fn try_mark_prompted(&mut self) -> bool {
+        let now = tokio::time::Instant::now();
+        if let Some(last) = self.last_prompted_at
+            && now.duration_since(last) < PROMPT_COALESCE_WINDOW
+        {
+            return false;
+        }
+        self.last_prompted_at = Some(now);
+        true
     }
 
     /// Removes the timer entry only if the generation matches,
@@ -83,6 +98,9 @@ pub(crate) fn spawn_timer<E: Env>(
                 None
             } else if guard.policy.respect_dnd && env.is_do_not_disturb() {
                 tracing::info!(app_id = %app_id, "skip_mic_detected: DoNotDisturb");
+                None
+            } else if !guard.mic_usage_tracker.try_mark_prompted() {
+                tracing::info!(app_id = %app_id, "skip_mic_detected: recently_prompted");
                 None
             } else {
                 let key = uuid::Uuid::new_v4().to_string();
@@ -132,6 +150,18 @@ mod tests {
         tracker.start_tracking("app.x".to_string(), CancellationToken::new());
         tracker.cancel_app("app.x");
         assert!(!tracker.is_in_cooldown("app.x"));
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn test_prompts_coalesce_within_window() {
+        let mut tracker = MicUsageTracker::default();
+
+        assert!(tracker.try_mark_prompted());
+        tokio::time::advance(Duration::from_millis(300)).await;
+        assert!(!tracker.try_mark_prompted(), "second app in same call");
+
+        tokio::time::advance(PROMPT_COALESCE_WINDOW).await;
+        assert!(tracker.try_mark_prompted(), "window elapsed");
     }
 
     #[test]

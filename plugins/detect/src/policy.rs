@@ -98,6 +98,14 @@ pub fn default_ignored_bundle_ids() -> Vec<String> {
         .collect()
 }
 
+// Daemons like corespeechd open the mic alongside the app that asked for it,
+// which would otherwise produce a second "Are you in a meeting?" prompt.
+fn is_system_process(app_id: &str) -> bool {
+    ["/System/", "/usr/", "/Library/Apple/"]
+        .iter()
+        .any(|prefix| app_id.starts_with(prefix))
+}
+
 pub struct PolicyContext<'a> {
     pub apps: &'a [hypr_detect::InstalledApp],
     pub is_dnd: bool,
@@ -123,8 +131,11 @@ impl MicNotificationPolicy {
             return false;
         }
 
-        self.user_included_bundle_ids.contains(app_id)
-            || AppCategory::find_category(app_id).is_none()
+        if self.user_included_bundle_ids.contains(app_id) {
+            return true;
+        }
+
+        !is_system_process(app_id) && AppCategory::find_category(app_id).is_none()
     }
 
     fn filter_apps(
@@ -299,6 +310,25 @@ mod tests {
         assert!(!policy.should_track_app("com.hyprnote.dev"));
         assert!(!policy.should_track_app("com.electron.aqua-voice"));
         assert!(!policy.should_track_app("com.microsoft.VSCode"));
+    }
+
+    #[test]
+    fn test_should_not_track_system_process() {
+        let policy = MicNotificationPolicy::default();
+        assert!(!policy.should_track_app(
+            "/System/Library/PrivateFrameworks/CoreSpeech.framework/corespeechd"
+        ));
+        assert!(!policy.should_track_app("/usr/libexec/avconferenced"));
+    }
+
+    #[test]
+    fn test_should_track_user_included_system_process() {
+        let id = "/System/Library/PrivateFrameworks/CoreSpeech.framework/corespeechd";
+        let policy = MicNotificationPolicy {
+            user_included_bundle_ids: HashSet::from([id.to_string()]),
+            ..Default::default()
+        };
+        assert!(policy.should_track_app(id));
     }
 
     #[test]

@@ -54,6 +54,11 @@ fn setup_shortcut_bridge(app: &tauri::AppHandle) {
         let d = handle.dictation();
         match event.payload {
             ShortcutEvent::Pressed => {
+                // Dictation belongs to the open app; with the window closed to the
+                // tray, an overlay appearing out of nowhere reads as a glitch.
+                if !main_window_open(&handle) {
+                    return;
+                }
                 let _ = d.set_phase(Phase::Recording);
                 let _ = d.show();
                 start_dictation(handle.clone());
@@ -69,6 +74,12 @@ fn setup_shortcut_bridge(app: &tauri::AppHandle) {
             }
         }
     });
+}
+
+fn main_window_open(app: &tauri::AppHandle) -> bool {
+    app.get_webview_window("main").is_some_and(|window| {
+        window.is_visible().unwrap_or(false) && !window.is_minimized().unwrap_or(false)
+    })
 }
 
 fn start_dictation(app: tauri::AppHandle) {
