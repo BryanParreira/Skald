@@ -45,7 +45,7 @@ const { notifyListen, notifyUnlisten, settingsLoad, settingsSave, mockState } =
     };
   });
 
-vi.mock("@hypr/plugin-notify", () => ({
+vi.mock("@skald/plugin-notify", () => ({
   events: {
     fileChanged: {
       listen: notifyListen,
@@ -53,14 +53,14 @@ vi.mock("@hypr/plugin-notify", () => ({
   },
 }));
 
-vi.mock("@hypr/plugin-settings", () => ({
+vi.mock("@skald/plugin-settings", () => ({
   commands: {
     load: settingsLoad,
     save: settingsSave,
   },
 }));
 
-vi.mock("@hypr/plugin-detect", () => ({
+vi.mock("@skald/plugin-detect", () => ({
   commands: {
     getPreferredLanguages: vi
       .fn()
@@ -110,7 +110,7 @@ describe("settingsPersister roundtrip", () => {
         spoken_languages: ["en", "ko"],
       },
       personalization: {
-        dictionary_terms: ["Anarlog", "Parakeet TDT"],
+        dictionary_terms: ["Skald", "Parakeet TDT"],
       },
     };
 
@@ -194,7 +194,7 @@ describe("settingsPersister roundtrip", () => {
       audio_retention: "none",
       ai_language: "en",
       spoken_languages: '["en","ko"]',
-      personalization_dictionary_terms: '["Anarlog","Parakeet TDT"]',
+      personalization_dictionary_terms: '["Skald","Parakeet TDT"]',
       mic_active_threshold: 15,
     });
 

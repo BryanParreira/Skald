@@ -1,5 +1,5 @@
 {
-  "name": "@hypr/plugin-fs-sync",
+  "name": "@skald/plugin-fs-sync",
   "version": "0.0.0",
   "private": true,
   "main": "./js/index.ts",

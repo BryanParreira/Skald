@@ -1,6 +1,6 @@
 import { sep } from "@tauri-apps/api/path";
 
-import type { ChatMessageStatus } from "@hypr/store";
+import type { ChatMessageStatus } from "@skald/store";
 
 import type { ChatGroupData, ChatJson, ChatMessageWithId } from "./types";
 

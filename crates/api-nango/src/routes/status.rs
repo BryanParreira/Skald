@@ -1,6 +1,6 @@
 use axum::{Extension, Json, extract::State};
-use hypr_api_auth::AuthContext;
 use serde::Serialize;
+use skald_api_auth::AuthContext;
 use utoipa::ToSchema;
 
 use crate::error::Result;

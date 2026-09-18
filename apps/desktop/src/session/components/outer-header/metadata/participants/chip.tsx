@@ -2,14 +2,14 @@ import { Trans, useLingui } from "@lingui/react/macro";
 import { Loader2Icon, SparklesIcon, X } from "lucide-react";
 import { useCallback } from "react";
 
-import { Badge } from "@hypr/ui/components/ui/badge";
-import { Button } from "@hypr/ui/components/ui/button";
+import { Badge } from "@skald/ui/components/ui/badge";
+import { Button } from "@skald/ui/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@hypr/ui/components/ui/tooltip";
-import { cn } from "@hypr/utils";
+} from "@skald/ui/components/ui/tooltip";
+import { cn } from "@skald/utils";
 
 import * as main from "~/store/tinybase/store/main";
 import { useTabs } from "~/store/zustand/tabs/index";

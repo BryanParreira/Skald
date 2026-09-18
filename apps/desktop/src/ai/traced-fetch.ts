@@ -1,7 +1,7 @@
 import { fetch as tauriFetch } from "@tauri-apps/plugin-http";
 
-import type { CharTask } from "@hypr/api-client";
-import { commands as miscCommands } from "@hypr/plugin-misc";
+import type { SkaldTask } from "@skald/api-client";
+import { commands as miscCommands } from "@skald/plugin-misc";
 
 import {
   CHAR_TASK_HEADER,
@@ -37,7 +37,7 @@ export const tracedFetch: typeof fetch = async (input, init) => {
   return tauriFetch(input, { ...init, headers });
 };
 
-export function createTracedFetch(task: CharTask): typeof fetch {
+export function createTracedFetch(task: SkaldTask): typeof fetch {
   return async (input, init) => {
     const headers = new Headers(init?.headers);
     headers.set(CHAR_TASK_HEADER, task);

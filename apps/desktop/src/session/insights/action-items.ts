@@ -3,11 +3,14 @@ import { generateText, Output } from "ai";
 import { useCallback, useMemo } from "react";
 import { z } from "zod";
 
-import { createTaskId, type TaskRecord } from "@hypr/editor/tasks";
+import { createTaskId, type TaskRecord } from "@skald/editor/tasks";
 import {
   commands as templateCommands,
   type JsonValue,
-} from "@hypr/plugin-template";
+} from "@skald/plugin-template";
+
+import systemPromptTemplate from "./action-items.system.md.jinja?raw";
+import userPromptTemplate from "./action-items.user.md.jinja?raw";
 
 import { useLanguageModel } from "~/ai/hooks";
 import { deterministicGenerationSettings } from "~/ai/model-settings";
@@ -15,9 +18,6 @@ import { useStoreBackedTaskStorage } from "~/editor-bridge/task-storage";
 import { getSessionNoteMarkdown } from "~/session/insights/session-note-markdown";
 import { showTransientToast } from "~/sidebar/toast/transient";
 import * as main from "~/store/tinybase/store/main";
-
-import systemPromptTemplate from "./action-items.system.md.jinja?raw";
-import userPromptTemplate from "./action-items.user.md.jinja?raw";
 
 const ACTION_ITEMS_SOURCE_TYPE = "session_action_items";
 const GENERATION_TIMEOUT_MS = 30_000;
@@ -112,7 +112,9 @@ export function useActionItemExtraction(sessionId: string) {
 
       const items = result.output?.items ?? [];
       const records: TaskRecord[] = items.map((item, index) => {
-        const text = item.assignee ? `${item.text} (${item.assignee})` : item.text;
+        const text = item.assignee
+          ? `${item.text} (${item.assignee})`
+          : item.text;
         return {
           taskId: createTaskId(),
           sourceId: sessionId,

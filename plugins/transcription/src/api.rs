@@ -1,5 +1,5 @@
-use hypr_transcription_core::{listener, listener2};
 use owhisper_client::AdapterKind;
+use skald_transcription_core::{listener, listener2};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize, serde::Deserialize, specta::Type)]
 #[serde(rename_all = "camelCase")]
@@ -12,7 +12,7 @@ pub enum CaptureState {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize, specta::Type)]
 pub struct CaptureParams {
     pub session_id: String,
-    pub languages: Vec<hypr_language::Language>,
+    pub languages: Vec<skald_language::Language>,
     pub onboarding: bool,
     pub model: String,
     pub base_url: String,
@@ -29,7 +29,7 @@ pub struct CaptureParams {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize, specta::Type)]
 pub struct CaptureConfigUpdate {
     pub session_id: String,
-    pub languages: Vec<hypr_language::Language>,
+    pub languages: Vec<skald_language::Language>,
     #[serde(default)]
     pub participant_human_ids: Vec<String>,
     #[serde(default)]
@@ -43,7 +43,7 @@ impl CaptureParams {
         }
 
         if let Some(model) =
-            hypr_transcribe_soniqo::local_model_from_request(&self.base_url, &self.model)
+            skald_transcribe_soniqo::local_model_from_request(&self.base_url, &self.model)
         {
             return if model.supports_live_on_current_platform()
                 && model.supports_languages(&self.languages)
@@ -54,7 +54,7 @@ impl CaptureParams {
             };
         }
 
-        if hypr_transcribe_soniqo::is_local_base_url(&self.base_url) {
+        if skald_transcribe_soniqo::is_local_base_url(&self.base_url) {
             return listener::TranscriptionMode::Batch;
         }
 
@@ -158,7 +158,7 @@ pub struct TranscriptionParams {
     pub base_url: String,
     pub api_key: String,
     #[serde(default)]
-    pub languages: Vec<hypr_language::Language>,
+    pub languages: Vec<skald_language::Language>,
     #[serde(default)]
     pub keywords: Vec<String>,
     #[serde(default)]
@@ -332,8 +332,8 @@ impl From<TranscriptionParams> for listener2::BatchParams {
 #[cfg(test)]
 mod tests {
     use super::CaptureParams;
-    use hypr_language::ISO639;
-    use hypr_transcription_core::listener::TranscriptionMode;
+    use skald_language::ISO639;
+    use skald_transcription_core::listener::TranscriptionMode;
 
     fn capture_params(base_url: &str, model: &str) -> CaptureParams {
         capture_params_with_languages(base_url, model, vec![])
@@ -342,7 +342,7 @@ mod tests {
     fn capture_params_with_languages(
         base_url: &str,
         model: &str,
-        languages: Vec<hypr_language::Language>,
+        languages: Vec<skald_language::Language>,
     ) -> CaptureParams {
         CaptureParams {
             session_id: "session-1".to_string(),
@@ -391,9 +391,9 @@ mod tests {
     }
 
     #[test]
-    fn defaults_anarlog_cloud_en_ko_capture_to_live_mode() {
+    fn defaults_skald_cloud_en_ko_capture_to_live_mode() {
         let params = capture_params_with_languages(
-            "https://api.anarlog.so/stt",
+            "https://api.skald.so/stt",
             "cloud",
             vec![ISO639::En.into(), ISO639::Ko.into()],
         );

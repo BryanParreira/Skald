@@ -4,8 +4,8 @@ use std::time::Duration;
 
 use common::{TestEvent, TestSink, next_event};
 use db_reactive::LiveQueryRuntime;
-use hypr_db_core::Db;
 use serde_json::json;
+use skald_db_core::Db;
 
 fn connection_string() -> String {
     std::env::var("SQLITECLOUD_URL").expect("SQLITECLOUD_URL must be set")
@@ -66,7 +66,7 @@ async fn cloudsync_pull_refreshes_live_query_subscriptions() {
     db_a.cloudsync_network_sync(Some(5000), Some(3))
         .await
         .unwrap();
-    hypr_cloudsync::network_sync(&pool_b, Some(5000), Some(3))
+    skald_cloudsync::network_sync(&pool_b, Some(5000), Some(3))
         .await
         .unwrap();
 

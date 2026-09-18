@@ -1,7 +1,7 @@
-import { json2md, parseJsonContent } from "@hypr/editor/markdown";
-import { commands as fsSyncCommands } from "@hypr/plugin-fs-sync";
-import type { SessionContentData } from "@hypr/plugin-fs-sync";
-import type { SessionContext, Transcript } from "@hypr/plugin-template";
+import { json2md, parseJsonContent } from "@skald/editor/markdown";
+import { commands as fsSyncCommands } from "@skald/plugin-fs-sync";
+import type { SessionContentData } from "@skald/plugin-fs-sync";
+import type { SessionContext, Transcript } from "@skald/plugin-template";
 
 import type * as main from "~/store/tinybase/store/main";
 import {

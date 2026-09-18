@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 
-import { commands as fsSyncCommands } from "@hypr/plugin-fs-sync";
+import { commands as fsSyncCommands } from "@skald/plugin-fs-sync";
 
 import { getEnhancerService } from "~/services/enhancer";
 import { showTransientToast } from "~/sidebar/toast/transient";

@@ -1,13 +1,16 @@
 {
-  "name": "@hypr/changelog",
+  "name": "@skald/changelog",
   "version": "0.0.0",
   "private": true,
   "type": "module",
   "exports": {
     ".": "./src/index.ts"
   },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
   "dependencies": {
-    "@hypr/utils": "workspace:^",
+    "@skald/utils": "workspace:^",
     "streamdown": "^2.5.0"
   },
   "devDependencies": {
@@ -15,8 +18,5 @@
   },
   "peerDependencies": {
     "react": "^19.2.3"
-  },
-  "scripts": {
-    "typecheck": "tsc --noEmit"
   }
 }

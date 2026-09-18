@@ -6,7 +6,7 @@ export function SiteFooter() {
       <p className="text-sm text-[#756b5d]">Fastrepl © 2026</p>
       <nav className="flex flex-wrap gap-x-5 gap-y-2">
         <a
-          href="https://github.com/fastrepl/anarlog"
+          href="https://github.com/BryanParreira/Velo"
           className="hover:text-[#181613]"
         >
           GitHub

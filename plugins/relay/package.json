@@ -1,5 +1,5 @@
 {
-  "name": "@hypr/plugin-relay",
+  "name": "@skald/plugin-relay",
   "private": true,
   "type": "module",
   "exports": {

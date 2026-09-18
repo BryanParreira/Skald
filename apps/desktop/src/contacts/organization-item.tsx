@@ -1,7 +1,7 @@
 import { Building2, Pin } from "lucide-react";
 import React, { useCallback } from "react";
 
-import { cn } from "@hypr/utils";
+import { cn } from "@skald/utils";
 
 import { useNativeContextMenu } from "~/shared/hooks/useNativeContextMenu";
 import * as main from "~/store/tinybase/store/main";

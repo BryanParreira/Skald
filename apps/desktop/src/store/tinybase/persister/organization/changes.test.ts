@@ -52,9 +52,7 @@ describe("parseOrganizationIdFromPath", () => {
   describe("absolute paths (defensive handling)", () => {
     test("parses id from absolute path", () => {
       expect(
-        parseOrganizationIdFromPath(
-          "/data/hyprnote/organizations/acme-corp.md",
-        ),
+        parseOrganizationIdFromPath("/data/skald/organizations/acme-corp.md"),
       ).toBe("acme-corp");
     });
   });

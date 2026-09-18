@@ -8,8 +8,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@hypr/ui/components/ui/select";
-import { cn } from "@hypr/utils";
+} from "@skald/ui/components/ui/select";
+import { cn } from "@skald/utils";
 
 import { useLlmSettings } from "./context";
 import { HealthStatusIndicator, useConnectionHealth } from "./health";
@@ -176,7 +176,7 @@ export function SelectProviderAndModel() {
         <SettingsAlert>
           <Trans>
             <strong className="font-medium">Language model</strong> is needed to
-            make Velo summarize and chat about your conversations.
+            make Skald summarize and chat about your conversations.
           </Trans>
         </SettingsAlert>
       )}
@@ -287,7 +287,7 @@ export function getLlmProviderStatus({
     return { configured: false };
   }
 
-  if (provider.id === "velo") {
+  if (provider.id === "skald") {
     const result: ListModelsResult = {
       models: ["Auto"],
       ignored: [],

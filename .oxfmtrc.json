@@ -7,40 +7,25 @@
     "newlinesBetween": true,
     "groups": [
       "side_effect",
-      [
-        "builtin",
-        "external"
-      ],
-      "hypr-internal",
+      ["builtin", "external"],
+      "skald-internal",
       "app-internal",
-      [
-        "parent",
-        "sibling",
-        "index"
-      ],
+      ["parent", "sibling", "index"],
       "unknown"
     ],
     "customGroups": [
       {
-        "groupName": "hypr-internal",
-        "elementNamePattern": [
-          "@hypr/**"
-        ]
+        "groupName": "skald-internal",
+        "elementNamePattern": ["@skald/**"]
       },
       {
         "groupName": "app-internal",
-        "elementNamePattern": [
-          "@/**"
-        ]
+        "elementNamePattern": ["@/**"]
       }
     ]
   },
   "sortTailwindcss": {
-    "functions": [
-      "cn",
-      "clsx",
-      "cva"
-    ]
+    "functions": ["cn", "clsx", "cva"]
   },
   "ignorePatterns": [
     "**/.venv",

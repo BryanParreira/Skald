@@ -1,5 +1,5 @@
-import type { DegradedError } from "@hypr/plugin-transcription";
-import { DancingSticks } from "@hypr/ui/components/ui/dancing-sticks";
+import type { DegradedError } from "@skald/plugin-transcription";
+import { DancingSticks } from "@skald/ui/components/ui/dancing-sticks";
 
 import { useListener } from "~/stt/contexts";
 

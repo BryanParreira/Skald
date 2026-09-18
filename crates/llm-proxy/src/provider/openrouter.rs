@@ -1,9 +1,9 @@
-use hypr_openrouter::{
+use reqwest::Client;
+use serde::Deserialize;
+use skald_openrouter::{
     Client as OpenRouterClient, Error as OpenRouterError, ProviderPreferences, ProviderSort,
     ProviderSortUnion,
 };
-use reqwest::Client;
-use serde::Deserialize;
 
 use crate::types::{ChatCompletionRequest, UsageInfo};
 

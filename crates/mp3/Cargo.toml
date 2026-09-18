@@ -5,8 +5,8 @@ edition = "2024"
 
 [dependencies]
 hound = { workspace = true }
-hypr-audio-utils = { workspace = true }
 mp3lame-encoder = { workspace = true }
+skald-audio-utils = { workspace = true }
 thiserror = { workspace = true }
 
 [dev-dependencies]

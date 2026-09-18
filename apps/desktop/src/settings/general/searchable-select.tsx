@@ -2,7 +2,7 @@ import { useLingui } from "@lingui/react/macro";
 import { Check, ChevronDown } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 
-import { Button } from "@hypr/ui/components/ui/button";
+import { Button } from "@skald/ui/components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -10,14 +10,14 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@hypr/ui/components/ui/command";
+} from "@skald/ui/components/ui/command";
 import {
   AppFloatingPanel,
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@hypr/ui/components/ui/popover";
-import { cn } from "@hypr/utils";
+} from "@skald/ui/components/ui/popover";
+import { cn } from "@skald/utils";
 
 export interface SearchableSelectOption {
   value: string;

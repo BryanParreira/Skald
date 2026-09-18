@@ -9,9 +9,9 @@ pub use error::{Error, Result};
 pub use ext::*;
 use store::*;
 
-pub use hypr_analytics::*;
+pub use skald_analytics::*;
 
-pub type ManagedState = hypr_analytics::AnalyticsClient;
+pub type ManagedState = skald_analytics::AnalyticsClient;
 
 const PLUGIN_NAME: &str = "analytics";
 
@@ -34,13 +34,13 @@ pub fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
     tauri::plugin::Builder::new(PLUGIN_NAME)
         .invoke_handler(specta_builder.invoke_handler())
         .setup(|app, _api| {
-            // Velo collects no usage analytics. The client is built with no
+            // Skald collects no usage analytics. The client is built with no
             // PostHog key, which leaves its `posthog` field `None` and makes
             // every event a no-op, so nothing leaves the device no matter
             // what any caller does. The plugin itself stays because
-            // `plugins/flag` reuses `hypr_analytics::AnalyticsClient` as the
+            // `plugins/flag` reuses `skald_analytics::AnalyticsClient` as the
             // type of its managed state for feature flags.
-            let client = hypr_analytics::AnalyticsClientBuilder::default().build();
+            let client = skald_analytics::AnalyticsClientBuilder::default().build();
 
             assert!(app.manage(client));
             Ok(())
@@ -71,7 +71,7 @@ mod test {
 
     fn create_app<R: tauri::Runtime>(builder: tauri::Builder<R>) -> tauri::App<R> {
         let mut ctx = tauri::test::mock_context(tauri::test::noop_assets());
-        ctx.config_mut().identifier = "com.hyprnote.dev".to_string();
+        ctx.config_mut().identifier = "com.skald.dev".to_string();
         ctx.config_mut().version = Some("0.0.1".to_string());
 
         builder.plugin(init()).build(ctx).unwrap()
@@ -82,7 +82,7 @@ mod test {
         let app = create_app(tauri::test::mock_builder());
         let result = app
             .analytics()
-            .event(hypr_analytics::AnalyticsPayload::builder("test_event").build())
+            .event(skald_analytics::AnalyticsPayload::builder("test_event").build())
             .await;
         assert!(result.is_ok());
 

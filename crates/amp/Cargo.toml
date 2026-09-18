@@ -6,9 +6,9 @@ edition = "2024"
 [dependencies]
 dirs = { workspace = true }
 futures-util = { workspace = true }
-hypr-cli-process = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true }
+skald-cli-process = { workspace = true }
 tempfile = { workspace = true }
 thiserror = { workspace = true }
 tokio = { workspace = true, features = ["io-util", "macros", "process", "rt", "sync"] }

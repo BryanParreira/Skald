@@ -1,4 +1,4 @@
-import type { TemplateSection } from "@hypr/store";
+import type { TemplateSection } from "@skald/store";
 
 export type WebTemplate = {
   slug: string;

@@ -13,12 +13,12 @@ import {
   useCreateManager,
 } from "tinytick/ui-react";
 
-import "@hypr/ui/globals.css";
+import "@skald/ui/globals.css";
 import {
   getCurrentWebviewWindowLabel,
   init as initWindowsPlugin,
-} from "@hypr/plugin-windows";
-import { Toaster } from "@hypr/ui/components/ui/toast";
+} from "@skald/plugin-windows";
+import { Toaster } from "@skald/ui/components/ui/toast";
 
 import { createToolRegistry } from "./contexts/tool-registry/core";
 import { env } from "./env";
@@ -99,7 +99,7 @@ function App() {
 if (env.VITE_SENTRY_DSN) {
   Sentry.init({
     dsn: env.VITE_SENTRY_DSN,
-    release: env.VITE_APP_VERSION ? `velo@${env.VITE_APP_VERSION}` : undefined,
+    release: env.VITE_APP_VERSION ? `skald@${env.VITE_APP_VERSION}` : undefined,
     environment: import.meta.env.MODE,
     tracePropagationTargets: [],
     integrations: [Sentry.replayIntegration()],

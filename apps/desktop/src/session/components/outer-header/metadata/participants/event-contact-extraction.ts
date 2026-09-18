@@ -4,14 +4,14 @@ import { z } from "zod";
 import {
   commands as templateCommands,
   type EventContactCandidate as TemplateEventContactCandidate,
-} from "@hypr/plugin-template";
+} from "@skald/plugin-template";
 import type {
   EventParticipant,
   HumanStorage,
   MappingSessionParticipantStorage,
   OrganizationStorage,
   SessionEvent,
-} from "@hypr/store";
+} from "@skald/store";
 
 import { deterministicGenerationSettings } from "~/ai/model-settings";
 import { DEFAULT_USER_ID, id } from "~/shared/utils";

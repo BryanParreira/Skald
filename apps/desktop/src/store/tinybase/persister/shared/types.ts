@@ -1,5 +1,5 @@
-import type { ParsedDocument } from "@hypr/plugin-fs-sync";
-import { SCHEMA } from "@hypr/store";
+import type { ParsedDocument } from "@skald/plugin-fs-sync";
+import { SCHEMA } from "@skald/store";
 
 import type { Store } from "~/store/tinybase/store/main";
 

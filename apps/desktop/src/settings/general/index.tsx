@@ -2,9 +2,9 @@ import { Trans } from "@lingui/react/macro";
 import { useForm } from "@tanstack/react-form";
 import { disable, enable } from "@tauri-apps/plugin-autostart";
 
-import { commands as trayCommands } from "@hypr/plugin-tray";
-import { commands as windowsCommands } from "@hypr/plugin-windows";
-import type { General, GeneralStorage } from "@hypr/store";
+import { commands as trayCommands } from "@skald/plugin-tray";
+import { commands as windowsCommands } from "@skald/plugin-windows";
+import type { General, GeneralStorage } from "@skald/store";
 
 import { AppSettingsView } from "./app-settings";
 import {
@@ -134,7 +134,6 @@ function useSettingsForm() {
           })
           .catch(console.error);
       }
-
     },
   });
 
@@ -163,64 +162,56 @@ export function SettingsApp() {
                               {(showAppInDockField) => (
                                 <form.Field name="show_tray_icon">
                                   {(showTrayIconField) => (
-                                        <AppSettingsView
-                                          autostart={{
-                                            value: autostartField.state.value,
-                                            onChange: (val) =>
-                                              autostartField.handleChange(val),
-                                          }}
-                                          autoStartScheduledMeetings={{
-                                            value:
-                                              autoStartScheduledMeetingsField
-                                                .state.value,
-                                            onChange: (val) =>
-                                              autoStartScheduledMeetingsField.handleChange(
-                                                val,
-                                              ),
-                                          }}
-                                          autoStopMeetings={{
-                                            value:
-                                              autoStopMeetingsField.state.value,
-                                            onChange: (val) =>
-                                              autoStopMeetingsField.handleChange(
-                                                val,
-                                              ),
-                                          }}
-                                          floatingBar={{
-                                            value:
-                                              floatingBarEnabledField.state
-                                                .value,
-                                            onChange: (val) =>
-                                              floatingBarEnabledField.handleChange(
-                                                val,
-                                              ),
-                                          }}
-                                          liveCaption={{
-                                            value:
-                                              liveCaptionEnabledField.state
-                                                .value,
-                                            onChange: (val) =>
-                                              liveCaptionEnabledField.handleChange(
-                                                val,
-                                              ),
-                                          }}
-                                          showAppInDock={{
-                                            value:
-                                              showAppInDockField.state.value,
-                                            onChange: (val) =>
-                                              showAppInDockField.handleChange(
-                                                val,
-                                              ),
-                                          }}
-                                          showTrayIcon={{
-                                            value:
-                                              showTrayIconField.state.value,
-                                            onChange: (val) =>
-                                              showTrayIconField.handleChange(
-                                                val,
-                                              ),
-                                          }}
-                                        />
+                                    <AppSettingsView
+                                      autostart={{
+                                        value: autostartField.state.value,
+                                        onChange: (val) =>
+                                          autostartField.handleChange(val),
+                                      }}
+                                      autoStartScheduledMeetings={{
+                                        value:
+                                          autoStartScheduledMeetingsField.state
+                                            .value,
+                                        onChange: (val) =>
+                                          autoStartScheduledMeetingsField.handleChange(
+                                            val,
+                                          ),
+                                      }}
+                                      autoStopMeetings={{
+                                        value:
+                                          autoStopMeetingsField.state.value,
+                                        onChange: (val) =>
+                                          autoStopMeetingsField.handleChange(
+                                            val,
+                                          ),
+                                      }}
+                                      floatingBar={{
+                                        value:
+                                          floatingBarEnabledField.state.value,
+                                        onChange: (val) =>
+                                          floatingBarEnabledField.handleChange(
+                                            val,
+                                          ),
+                                      }}
+                                      liveCaption={{
+                                        value:
+                                          liveCaptionEnabledField.state.value,
+                                        onChange: (val) =>
+                                          liveCaptionEnabledField.handleChange(
+                                            val,
+                                          ),
+                                      }}
+                                      showAppInDock={{
+                                        value: showAppInDockField.state.value,
+                                        onChange: (val) =>
+                                          showAppInDockField.handleChange(val),
+                                      }}
+                                      showTrayIcon={{
+                                        value: showTrayIconField.state.value,
+                                        onChange: (val) =>
+                                          showTrayIconField.handleChange(val),
+                                      }}
+                                    />
                                   )}
                                 </form.Field>
                               )}

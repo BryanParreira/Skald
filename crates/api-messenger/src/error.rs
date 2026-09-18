@@ -9,10 +9,10 @@ pub type Result<T> = std::result::Result<T, MessengerError>;
 #[derive(Debug, Error)]
 pub enum MessengerError {
     #[error("Slack error: {0}")]
-    Slack(#[from] hypr_slack_web::Error),
+    Slack(#[from] skald_slack_web::Error),
 
     #[error("Teams error: {0}")]
-    Teams(#[from] hypr_teems::Error),
+    Teams(#[from] skald_teems::Error),
 
     #[error("Bad request: {0}")]
     BadRequest(String),
@@ -42,6 +42,6 @@ impl IntoResponse for MessengerError {
             ),
         };
 
-        hypr_api_error::error_response(status, code, &message)
+        skald_api_error::error_response(status, code, &message)
     }
 }

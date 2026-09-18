@@ -13,13 +13,13 @@ import {
   readSessionContextDragData,
 } from "~/chat/context/session-drag";
 import type { DisplayEntity } from "~/chat/context/use-chat-context-pipeline";
-import type { HyprUIMessage } from "~/chat/types";
+import type { SkaldUIMessage } from "~/chat/types";
 import { id } from "~/shared/utils";
 
 type QueuedChatMessage = {
   id: string;
   content: string;
-  parts: HyprUIMessage["parts"];
+  parts: SkaldUIMessage["parts"];
   contextRefs: ContextRef[];
 };
 
@@ -45,9 +45,9 @@ export function ChatContent({
 }: {
   layout?: "floating" | "right-panel";
   sessionId: string;
-  messages: HyprUIMessage[];
+  messages: SkaldUIMessage[];
   sendMessage: (
-    message: HyprUIMessage,
+    message: SkaldUIMessage,
     options?: { chatGroupId?: string },
   ) => void;
   regenerate: () => void;
@@ -57,9 +57,9 @@ export function ChatContent({
   model: ReturnType<typeof useLanguageModel>;
   handleSendMessage: (
     content: string,
-    parts: HyprUIMessage["parts"],
+    parts: SkaldUIMessage["parts"],
     sendMessage: (
-      message: HyprUIMessage,
+      message: SkaldUIMessage,
       options?: { chatGroupId?: string },
     ) => void,
     contextRefs?: ContextRef[],
@@ -109,7 +109,7 @@ export function ChatContent({
   const submitOrQueueMessage = useCallback(
     (
       content: string,
-      parts: HyprUIMessage["parts"],
+      parts: SkaldUIMessage["parts"],
       contextRefs?: ContextRef[],
     ) => {
       const mergedContextRefs = mergeContextRefs(contextRefs);

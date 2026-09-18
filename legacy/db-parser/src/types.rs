@@ -1,1 +1,1 @@
-pub use hypr_importer_core::ir::*;
+pub use skald_importer_core::ir::*;

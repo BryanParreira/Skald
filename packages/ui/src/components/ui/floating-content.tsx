@@ -1,4 +1,4 @@
-import { cn } from "@hypr/utils";
+import { cn } from "@skald/utils";
 
 export const appFloatingContentClassName =
   "bg-app-floating-chrome text-popover-foreground border-app-floating-border overflow-hidden rounded-[18px] border p-1 shadow-lg";

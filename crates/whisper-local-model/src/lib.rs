@@ -112,15 +112,15 @@ impl WhisperModel {
         }
     }
 
-    pub fn supported_languages(&self) -> Vec<hypr_language::Language> {
+    pub fn supported_languages(&self) -> Vec<skald_language::Language> {
         match self {
             WhisperModel::QuantizedTinyEn
             | WhisperModel::QuantizedBaseEn
-            | WhisperModel::QuantizedSmallEn => vec![hypr_language::ISO639::En.into()],
+            | WhisperModel::QuantizedSmallEn => vec![skald_language::ISO639::En.into()],
             WhisperModel::QuantizedTiny
             | WhisperModel::QuantizedBase
             | WhisperModel::QuantizedSmall
-            | WhisperModel::QuantizedLargeTurbo => hypr_language::whisper_multilingual(),
+            | WhisperModel::QuantizedLargeTurbo => skald_language::whisper_multilingual(),
         }
     }
 }

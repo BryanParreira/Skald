@@ -9,7 +9,7 @@ export function SettingsAccount() {
       <section className="pb-4">
         <div className="flex flex-col gap-2">
           <h3 className="text-sm font-medium">
-            <Trans>Velo</Trans>
+            <Trans>Skald</Trans>
           </h3>
           <p className="text-muted-foreground text-sm">
             <Trans>Running locally. No account required.</Trans>

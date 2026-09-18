@@ -21,7 +21,7 @@ use owhisper_client::AdapterKind;
 pub fn is_supported_languages_live(
     provider: &str,
     model: Option<&str>,
-    languages: &[hypr_language::Language],
+    languages: &[skald_language::Language],
 ) -> std::result::Result<bool, String> {
     if provider == "custom" || provider == "ollama" {
         return Ok(false);
@@ -30,17 +30,17 @@ pub fn is_supported_languages_live(
     if provider == "soniqo" {
         let model = model
             .ok_or_else(|| "missing_model: soniqo".to_string())?
-            .parse::<hypr_transcribe_soniqo::SoniqoModel>()
+            .parse::<skald_transcribe_soniqo::SoniqoModel>()
             .map_err(|e| e.to_string())?;
 
         return Ok(model.supports_live_on_current_platform() && model.supports_languages(languages));
     }
 
-    if provider == "hyprnote"
+    if provider == "skald"
         && let Some(model) = model
         && model != "cloud"
     {
-        if let Ok(model) = model.parse::<hypr_transcribe_soniqo::SoniqoModel>() {
+        if let Ok(model) = model.parse::<skald_transcribe_soniqo::SoniqoModel>() {
             return Ok(
                 model.supports_live_on_current_platform() && model.supports_languages(languages)
             );
@@ -60,7 +60,7 @@ pub fn is_supported_languages_live(
 pub fn is_supported_languages_batch(
     provider: &str,
     model: Option<&str>,
-    languages: &[hypr_language::Language],
+    languages: &[skald_language::Language],
 ) -> std::result::Result<bool, String> {
     if provider == "custom" || provider == "ollama" {
         return Ok(true);
@@ -69,15 +69,15 @@ pub fn is_supported_languages_batch(
     if provider == "soniqo" {
         let model = model
             .ok_or_else(|| "missing_model: soniqo".to_string())?
-            .parse::<hypr_transcribe_soniqo::SoniqoModel>()
+            .parse::<skald_transcribe_soniqo::SoniqoModel>()
             .map_err(|e| e.to_string())?;
 
         return Ok(model.supports_languages(languages));
     }
 
-    if provider == "hyprnote" {
+    if provider == "skald" {
         if let Some(model) =
-            model.and_then(|model| model.parse::<hypr_transcribe_soniqo::SoniqoModel>().ok())
+            model.and_then(|model| model.parse::<skald_transcribe_soniqo::SoniqoModel>().ok())
         {
             return Ok(model.supports_languages(languages));
         }
@@ -91,7 +91,9 @@ pub fn is_supported_languages_batch(
     Ok(adapter_kind.is_supported_languages_batch(languages, model))
 }
 
-pub fn suggest_providers_for_languages_batch(languages: &[hypr_language::Language]) -> Vec<String> {
+pub fn suggest_providers_for_languages_batch(
+    languages: &[skald_language::Language],
+) -> Vec<String> {
     let all_providers = [
         AdapterKind::Argmax,
         AdapterKind::Soniox,
@@ -142,11 +144,11 @@ mod tests {
     }
 
     #[test]
-    fn hyprnote_soniqo_batch_rejects_unsupported_parakeet_languages() {
+    fn skald_soniqo_batch_rejects_unsupported_parakeet_languages() {
         let languages = vec!["ko".parse().unwrap()];
 
         assert_eq!(
-            is_supported_languages_batch("hyprnote", Some("soniqo-parakeet-batch"), &languages)
+            is_supported_languages_batch("skald", Some("soniqo-parakeet-batch"), &languages)
                 .unwrap(),
             false
         );
@@ -162,39 +164,39 @@ mod tests {
     }
 
     #[test]
-    fn hyprnote_non_soniqo_batch_keeps_existing_language_support() {
+    fn skald_non_soniqo_batch_keeps_existing_language_support() {
         let languages = vec!["fr".parse().unwrap()];
 
-        assert!(is_supported_languages_batch("hyprnote", Some("cloud"), &languages).unwrap());
+        assert!(is_supported_languages_batch("skald", Some("cloud"), &languages).unwrap());
     }
 
     #[test]
-    fn hyprnote_soniqo_live_rejects_unsupported_parakeet_languages() {
+    fn skald_soniqo_live_rejects_unsupported_parakeet_languages() {
         let languages = vec!["ko".parse().unwrap()];
 
         assert_eq!(
-            is_supported_languages_live("hyprnote", Some("soniqo-parakeet-streaming"), &languages)
+            is_supported_languages_live("skald", Some("soniqo-parakeet-streaming"), &languages)
                 .unwrap(),
             false
         );
     }
 
     #[test]
-    fn hyprnote_soniqo_live_respects_platform_support() {
+    fn skald_soniqo_live_respects_platform_support() {
         let languages = vec!["fr".parse().unwrap()];
         let expected = cfg!(all(target_os = "macos", target_arch = "aarch64"));
 
         assert_eq!(
-            is_supported_languages_live("hyprnote", Some("soniqo-parakeet-streaming"), &languages)
+            is_supported_languages_live("skald", Some("soniqo-parakeet-streaming"), &languages)
                 .unwrap(),
             expected
         );
     }
 
     #[test]
-    fn hyprnote_cloud_live_keeps_existing_language_support() {
+    fn skald_cloud_live_keeps_existing_language_support() {
         let languages = vec!["ko".parse().unwrap()];
 
-        assert!(is_supported_languages_live("hyprnote", Some("cloud"), &languages).unwrap());
+        assert!(is_supported_languages_live("skald", Some("cloud"), &languages).unwrap());
     }
 }

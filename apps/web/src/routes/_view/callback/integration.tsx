@@ -4,7 +4,7 @@ import { CheckIcon, CopyIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 
-import { cn } from "@hypr/utils";
+import { cn } from "@skald/utils";
 
 import { flowSearchSchema } from "@/functions/desktop-flow";
 
@@ -48,7 +48,7 @@ function buildDeeplinkUrl(
 
 function Component() {
   const search = Route.useSearch();
-  const scheme = search.scheme ?? "hyprnote";
+  const scheme = search.scheme ?? "skald";
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [copied, setCopied] = useState(false);
@@ -128,7 +128,7 @@ function Component() {
                   "rounded-full bg-linear-to-t from-stone-600 to-stone-500 text-white shadow-md hover:scale-[102%] hover:shadow-lg active:scale-[98%]",
                 ])}
               >
-                Open Anarlog
+                Open Skald
               </button>
 
               <button

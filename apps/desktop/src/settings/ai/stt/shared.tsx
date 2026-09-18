@@ -10,7 +10,7 @@ import {
 } from "@lobehub/icons";
 import type { ReactNode } from "react";
 
-import type { LocalModel } from "@hypr/plugin-local-stt";
+import type { LocalModel } from "@skald/plugin-local-stt";
 
 import { env } from "~/env";
 import { VeloProviderIcon, ProviderBrandImage } from "~/settings/ai/shared";
@@ -171,8 +171,8 @@ export function formatModelSize(sizeBytes?: number | null) {
 const _PROVIDERS = [
   {
     disabled: false,
-    id: "velo",
-    displayName: "Velo",
+    id: "skald",
+    displayName: "Skald",
     badge: null,
     icon: <VeloProviderIcon />,
     baseUrl: new URL("/stt", env.VITE_API_URL).toString(),

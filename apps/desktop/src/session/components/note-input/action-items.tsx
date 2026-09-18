@@ -2,16 +2,16 @@ import { useLingui } from "@lingui/react/macro";
 import { useMutation } from "@tanstack/react-query";
 import { BellPlusIcon, Loader2Icon, RefreshCwIcon } from "lucide-react";
 
-import { useTaskRecords, useTaskStorage } from "@hypr/editor/task-storage";
-import { commands as permissionsCommands } from "@hypr/plugin-permissions";
-import { commands as todoCommands } from "@hypr/plugin-todo";
-import { Button } from "@hypr/ui/components/ui/button";
+import { useTaskRecords, useTaskStorage } from "@skald/editor/task-storage";
+import { commands as permissionsCommands } from "@skald/plugin-permissions";
+import { commands as todoCommands } from "@skald/plugin-todo";
+import { Button } from "@skald/ui/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@hypr/ui/components/ui/tooltip";
-import { cn } from "@hypr/utils";
+} from "@skald/ui/components/ui/tooltip";
+import { cn } from "@skald/utils";
 
 import { useActionItemExtraction } from "~/session/insights/action-items";
 import {
@@ -136,7 +136,7 @@ function useSendToReminders(
         const result = await todoCommands.createTodo({
           title: task.textPreview,
           list_id: null,
-          notes: sessionTitle ? `From Velo: ${sessionTitle}` : "From Velo",
+          notes: sessionTitle ? `From Skald: ${sessionTitle}` : "From Skald",
           url: buildTaskReminderUrl(sessionId, task.taskId),
           priority: null,
           due_date: null,

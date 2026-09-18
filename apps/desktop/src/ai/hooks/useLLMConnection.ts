@@ -9,8 +9,8 @@ import { fetch as tauriFetch } from "@tauri-apps/plugin-http";
 import { extractReasoningMiddleware, wrapLanguageModel } from "ai";
 import { useEffect, useMemo, useRef } from "react";
 
-import type { CharTask } from "@hypr/api-client";
-import type { AIProviderStorage } from "@hypr/store";
+import type { SkaldTask } from "@skald/api-client";
+import type { AIProviderStorage } from "@skald/store";
 
 import { createAuthFetch } from "../auth-fetch";
 import { createTracedFetch, tracedFetch } from "../traced-fetch";
@@ -49,8 +49,8 @@ export type LLMConnectionStatus =
       providerId: "velo_local";
     }
   | { status: "error"; reason: "provider_not_found"; providerId: string }
-  | { status: "error"; reason: "unauthenticated"; providerId: "velo" }
-  | { status: "error"; reason: "not_pro"; providerId: "velo" }
+  | { status: "error"; reason: "unauthenticated"; providerId: "skald" }
+  | { status: "error"; reason: "not_pro"; providerId: "skald" }
   | {
       status: "error";
       reason: "missing_config";
@@ -64,7 +64,7 @@ type LLMConnectionResult = {
   status: LLMConnectionStatus;
 };
 
-export const useLanguageModel = (task?: CharTask): LanguageModelV3 | null => {
+export const useLanguageModel = (task?: SkaldTask): LanguageModelV3 | null => {
   const { conn } = useLLMConnection();
   const accessTokenRef = useRef<string | undefined>(undefined);
 
@@ -72,7 +72,7 @@ export const useLanguageModel = (task?: CharTask): LanguageModelV3 | null => {
     if (!conn) return null;
 
     const hostedFetch =
-      conn.providerId === "velo"
+      conn.providerId === "skald"
         ? createAuthFetch(
             task ? createTracedFetch(task) : tracedFetch,
             () => accessTokenRef.current,
@@ -243,13 +243,13 @@ const resolveLLMConnection = (params: {
 
   if (blockers.length > 0) {
     const blocker = blockers[0];
-    if (blocker.code === "requires_auth" && providerId === "velo") {
+    if (blocker.code === "requires_auth" && providerId === "skald") {
       return {
         conn: null,
         status: { status: "error", reason: "unauthenticated", providerId },
       };
     }
-    if (blocker.code === "requires_entitlement" && providerId === "velo") {
+    if (blocker.code === "requires_entitlement" && providerId === "skald") {
       return {
         conn: null,
         status: { status: "error", reason: "not_pro", providerId },
@@ -268,7 +268,7 @@ const resolveLLMConnection = (params: {
     }
   }
 
-  if (providerId === "velo" && session) {
+  if (providerId === "skald" && session) {
     return {
       conn: {
         providerId,
@@ -300,11 +300,11 @@ const wrapWithThinkingMiddleware = (
 
 const createLanguageModel = (
   conn: LLMConnectionInfo,
-  task?: CharTask,
+  task?: SkaldTask,
   hostedFetch?: typeof fetch,
 ): LanguageModelV3 => {
   switch (conn.providerId) {
-    case "velo": {
+    case "skald": {
       const provider = createOpenRouter({
         fetch: hostedFetch ?? (task ? createTracedFetch(task) : tracedFetch),
         baseURL: conn.baseUrl,

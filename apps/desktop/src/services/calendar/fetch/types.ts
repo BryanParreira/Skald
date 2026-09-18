@@ -1,4 +1,4 @@
-import type { EventParticipant, EventStorage } from "@hypr/store";
+import type { EventParticipant, EventStorage } from "@skald/store";
 
 export type { EventParticipant };
 

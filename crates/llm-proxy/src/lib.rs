@@ -13,9 +13,9 @@ pub use analytics::{AnalyticsReporter, GenerationEvent};
 pub use config::*;
 pub use env::{ApiKey, Env};
 pub use handler::{chat_completions_router, router};
-pub use hypr_analytics::{AuthenticatedUserId, DeviceFingerprint};
 pub use model::{
-    CharTask, MODEL_KEY_AUDIO, MODEL_KEY_DEFAULT, MODEL_KEY_TOOL_CALLING, ModelContext,
-    ModelResolver, StaticModelResolver,
+    MODEL_KEY_AUDIO, MODEL_KEY_DEFAULT, MODEL_KEY_TOOL_CALLING, ModelContext, ModelResolver,
+    SkaldTask, StaticModelResolver,
 };
 pub use openapi::openapi;
+pub use skald_analytics::{AuthenticatedUserId, DeviceFingerprint};

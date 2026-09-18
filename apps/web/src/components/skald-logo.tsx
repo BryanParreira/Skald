@@ -1,4 +1,4 @@
-export function AnarlogLogo({
+export function SkaldLogo({
   className,
   compact,
 }: {
@@ -8,7 +8,7 @@ export function AnarlogLogo({
   return (
     <img
       src="/logo.svg"
-      alt="Anarlog"
+      alt="Skald"
       className={className}
       data-compact={compact ? "true" : undefined}
     />

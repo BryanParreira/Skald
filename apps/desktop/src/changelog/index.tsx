@@ -1,10 +1,10 @@
 import { Trans, useLingui } from "@lingui/react/macro";
 import { XIcon } from "lucide-react";
 
-import { ChangelogContent } from "@hypr/changelog";
-import { commands as openerCommands } from "@hypr/plugin-opener2";
-import { Button } from "@hypr/ui/components/ui/button";
-import { cn } from "@hypr/utils";
+import { ChangelogContent } from "@skald/changelog";
+import { commands as openerCommands } from "@skald/plugin-opener2";
+import { Button } from "@skald/ui/components/ui/button";
+import { cn } from "@skald/utils";
 
 import { useChangelogContent } from "./data";
 

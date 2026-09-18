@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 
-pub use hypr_importer_core::ir::{
+pub use skald_importer_core::ir::{
     Collection, CollectionStats, EnhancedNote, Human, Organization, Session, SessionParticipant,
     Tag, TagMapping, Template, TemplateSection, Transcript, Word,
 };
@@ -9,7 +9,7 @@ pub use hypr_importer_core::ir::{
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, specta::Type, PartialEq, Eq, Hash)]
 #[serde(rename_all = "snake_case")]
 pub enum TransformKind {
-    HyprnoteV0,
+    SkaldV0,
     Granola,
     AsIs,
 }
@@ -18,8 +18,8 @@ pub enum TransformKind {
 #[serde(rename_all = "snake_case")]
 pub enum ImportSourceKind {
     Granola,
-    HyprnoteV0Stable,
-    HyprnoteV0Nightly,
+    SkaldV0Stable,
+    SkaldV0Nightly,
     AsIs,
 }
 
@@ -41,32 +41,30 @@ impl ImportSource {
         }
     }
 
-    pub fn hyprnote_stable() -> Option<Self> {
-        let path = dirs::data_dir()?
-            .join("com.hyprnote.stable")
-            .join("db.sqlite");
+    pub fn skald_stable() -> Option<Self> {
+        let path = dirs::data_dir()?.join("com.skald.stable").join("db.sqlite");
         Some(Self {
-            kind: Some(ImportSourceKind::HyprnoteV0Stable),
-            transform: TransformKind::HyprnoteV0,
+            kind: Some(ImportSourceKind::SkaldV0Stable),
+            transform: TransformKind::SkaldV0,
             path,
-            name: "Hyprnote v0 - Stable".to_string(),
+            name: "Skald v0 - Stable".to_string(),
         })
     }
 
-    pub fn hyprnote_nightly() -> Option<Self> {
+    pub fn skald_nightly() -> Option<Self> {
         let path = dirs::data_dir()?
-            .join("com.hyprnote.nightly")
+            .join("com.skald.nightly")
             .join("db.sqlite");
         Some(Self {
-            kind: Some(ImportSourceKind::HyprnoteV0Nightly),
-            transform: TransformKind::HyprnoteV0,
+            kind: Some(ImportSourceKind::SkaldV0Nightly),
+            transform: TransformKind::SkaldV0,
             path,
-            name: "Hyprnote v0 - Nightly".to_string(),
+            name: "Skald v0 - Nightly".to_string(),
         })
     }
 
     pub fn granola() -> Option<Self> {
-        let path = hypr_granola::default_supabase_path();
+        let path = skald_granola::default_supabase_path();
         Some(Self {
             kind: Some(ImportSourceKind::Granola),
             transform: TransformKind::Granola,
@@ -81,8 +79,7 @@ impl ImportSource {
 
     pub fn info(&self) -> ImportSourceInfo {
         let (display_path, reveal_path) = match self.kind {
-            Some(ImportSourceKind::HyprnoteV0Stable)
-            | Some(ImportSourceKind::HyprnoteV0Nightly) => {
+            Some(ImportSourceKind::SkaldV0Stable) | Some(ImportSourceKind::SkaldV0Nightly) => {
                 let parent = self.path.parent().unwrap_or(&self.path);
                 let display = parent
                     .file_name()
@@ -110,8 +107,8 @@ impl ImportSource {
 impl From<ImportSourceKind> for ImportSource {
     fn from(kind: ImportSourceKind) -> Self {
         match kind {
-            ImportSourceKind::HyprnoteV0Stable => Self::hyprnote_stable().unwrap(),
-            ImportSourceKind::HyprnoteV0Nightly => Self::hyprnote_nightly().unwrap(),
+            ImportSourceKind::SkaldV0Stable => Self::skald_stable().unwrap(),
+            ImportSourceKind::SkaldV0Nightly => Self::skald_nightly().unwrap(),
             ImportSourceKind::Granola => Self::granola().unwrap(),
             ImportSourceKind::AsIs => Self {
                 kind: Some(ImportSourceKind::AsIs),

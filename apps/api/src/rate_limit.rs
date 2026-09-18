@@ -11,7 +11,7 @@ use governor::{
     clock::{Clock, DefaultClock},
     state::keyed::DefaultKeyedStateStore,
 };
-use hypr_api_auth::AuthContext;
+use skald_api_auth::AuthContext;
 
 type KeyedLimiter = RateLimiter<String, DefaultKeyedStateStore<String>, DefaultClock>;
 

@@ -1,7 +1,7 @@
 import { createMergeableStore } from "tinybase/with-schemas";
 
-import { isValidContent, md2json } from "@hypr/editor/markdown";
-import { SCHEMA } from "@hypr/store";
+import { isValidContent, md2json } from "@skald/editor/markdown";
+import { SCHEMA } from "@skald/store";
 
 import type { Store } from "./main";
 

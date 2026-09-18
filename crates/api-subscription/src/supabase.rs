@@ -32,7 +32,7 @@ impl SupabaseClient {
     }
 
     fn with_trace_context(&self, builder: reqwest::RequestBuilder) -> reqwest::RequestBuilder {
-        hypr_observability::with_current_trace_context(builder)
+        skald_observability::with_current_trace_context(builder)
     }
 
     pub async fn rpc<T: for<'de> Deserialize<'de>>(
@@ -58,10 +58,10 @@ impl SupabaseClient {
             .map_err(|e| SubscriptionError::SupabaseRequest(e.to_string()))?;
         tracing::info!(
             service.peer.name = "supabase",
-            hyprnote.supabase.operation = "rpc",
-            hyprnote.supabase.function = %function_name,
+            skald.supabase.operation = "rpc",
+            skald.supabase.function = %function_name,
             http.response.status_code = response.status().as_u16(),
-            hyprnote.duration_ms = start.elapsed().as_millis() as u64,
+            skald.duration_ms = start.elapsed().as_millis() as u64,
             "supabase_request_finished"
         );
 
@@ -113,10 +113,10 @@ impl SupabaseClient {
             .map_err(|e| SubscriptionError::SupabaseRequest(e.to_string()))?;
         tracing::info!(
             service.peer.name = "supabase",
-            hyprnote.supabase.operation = "select",
-            hyprnote.supabase.table = %table,
+            skald.supabase.operation = "select",
+            skald.supabase.table = %table,
             http.response.status_code = response.status().as_u16(),
-            hyprnote.duration_ms = start.elapsed().as_millis() as u64,
+            skald.duration_ms = start.elapsed().as_millis() as u64,
             "supabase_request_finished"
         );
 
@@ -171,10 +171,10 @@ impl SupabaseClient {
             .map_err(|e| SubscriptionError::SupabaseRequest(e.to_string()))?;
         tracing::info!(
             service.peer.name = "supabase",
-            hyprnote.supabase.operation = "update",
-            hyprnote.supabase.table = %table,
+            skald.supabase.operation = "update",
+            skald.supabase.table = %table,
             http.response.status_code = response.status().as_u16(),
-            hyprnote.duration_ms = start.elapsed().as_millis() as u64,
+            skald.duration_ms = start.elapsed().as_millis() as u64,
             "supabase_request_finished"
         );
 
@@ -213,9 +213,9 @@ impl SupabaseClient {
             .map_err(|e| SubscriptionError::SupabaseRequest(e.to_string()))?;
         tracing::info!(
             service.peer.name = "supabase",
-            hyprnote.supabase.operation = "admin_get_stripe_customer_id",
+            skald.supabase.operation = "admin_get_stripe_customer_id",
             http.response.status_code = response.status().as_u16(),
-            hyprnote.duration_ms = start.elapsed().as_millis() as u64,
+            skald.duration_ms = start.elapsed().as_millis() as u64,
             "supabase_request_finished"
         );
 
@@ -265,9 +265,9 @@ impl SupabaseClient {
             .map_err(|e| SubscriptionError::SupabaseRequest(e.to_string()))?;
         tracing::info!(
             service.peer.name = "supabase",
-            hyprnote.supabase.operation = "admin_delete_storage_objects.list",
+            skald.supabase.operation = "admin_delete_storage_objects.list",
             http.response.status_code = response.status().as_u16(),
-            hyprnote.duration_ms = start.elapsed().as_millis() as u64,
+            skald.duration_ms = start.elapsed().as_millis() as u64,
             "supabase_request_finished"
         );
 
@@ -312,9 +312,9 @@ impl SupabaseClient {
             .map_err(|e| SubscriptionError::SupabaseRequest(e.to_string()))?;
         tracing::info!(
             service.peer.name = "supabase",
-            hyprnote.supabase.operation = "admin_delete_storage_objects.delete",
+            skald.supabase.operation = "admin_delete_storage_objects.delete",
             http.response.status_code = response.status().as_u16(),
-            hyprnote.duration_ms = start.elapsed().as_millis() as u64,
+            skald.duration_ms = start.elapsed().as_millis() as u64,
             "supabase_request_finished"
         );
 
@@ -341,9 +341,9 @@ impl SupabaseClient {
             .map_err(|e| SubscriptionError::SupabaseRequest(e.to_string()))?;
         tracing::info!(
             service.peer.name = "supabase",
-            hyprnote.supabase.operation = "admin_delete_user",
+            skald.supabase.operation = "admin_delete_user",
             http.response.status_code = response.status().as_u16(),
-            hyprnote.duration_ms = start.elapsed().as_millis() as u64,
+            skald.duration_ms = start.elapsed().as_millis() as u64,
             "supabase_request_finished"
         );
 

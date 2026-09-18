@@ -1,9 +1,9 @@
 {
-  "name": "@hypr/plugin-tray",
+  "name": "@skald/plugin-tray",
   "private": true,
   "main": "./js/index.ts",
   "scripts": {
-    "codegen": "cargo test -p tauri-plugin-hypr-tray",
+    "codegen": "cargo test -p tauri-plugin-skald-tray",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

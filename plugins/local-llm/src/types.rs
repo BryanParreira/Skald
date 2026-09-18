@@ -2,5 +2,5 @@
 #[serde(rename_all = "camelCase")]
 pub struct DownloadProgressPayload {
     pub model: crate::SupportedModel,
-    pub status: hypr_model_downloader::DownloadStatus,
+    pub status: skald_model_downloader::DownloadStatus,
 }

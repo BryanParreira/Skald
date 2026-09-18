@@ -8,7 +8,7 @@ import {
   shouldPersistFinishedMessage,
 } from "./persisted-messages";
 
-import type { HyprUIMessage } from "~/chat/types";
+import type { SkaldUIMessage } from "~/chat/types";
 
 describe("persisted chat messages", () => {
   test("defaults unknown status to ready", () => {
@@ -17,7 +17,7 @@ describe("persisted chat messages", () => {
   });
 
   test("builds a persisted row from a UI message", () => {
-    const message: HyprUIMessage = {
+    const message: SkaldUIMessage = {
       id: "assistant-1",
       role: "assistant",
       parts: [{ type: "text", text: "Hello" }],

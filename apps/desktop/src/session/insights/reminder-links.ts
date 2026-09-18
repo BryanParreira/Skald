@@ -3,7 +3,7 @@ export function buildTaskReminderUrl(sessionId: string, taskId: string) {
     session_id: sessionId,
     task_id: taskId,
   });
-  return `velo://notes/open?${params.toString()}`;
+  return `skald://notes/open?${params.toString()}`;
 }
 
 // The tasks table has nowhere to record that a task was sent, so the reminder's

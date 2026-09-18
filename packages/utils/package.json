@@ -1,13 +1,16 @@
 {
-  "name": "@hypr/utils",
+  "name": "@skald/utils",
   "exports": {
     ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@ai-sdk/openai-compatible": "^2.0.41",
     "@date-fns/tz": "^1.4.1",
-    "@hypr/plugin-transcription": "workspace:^",
-    "@hypr/plugin-windows": "workspace:^",
+    "@skald/plugin-transcription": "workspace:^",
+    "@skald/plugin-windows": "workspace:^",
     "@tauri-apps/api": "^2.10.1",
     "@tauri-apps/plugin-http": "^2.5.8",
     "ai": "^6.0.158",
@@ -26,8 +29,5 @@
   },
   "peerDependencies": {
     "react": "^19.2.3"
-  },
-  "scripts": {
-    "typecheck": "tsc --noEmit"
   }
 }

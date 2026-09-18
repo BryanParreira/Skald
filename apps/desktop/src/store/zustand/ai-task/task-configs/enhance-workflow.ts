@@ -12,8 +12,8 @@ import { z } from "zod";
 import {
   commands as templateCommands,
   type TemplateSection,
-} from "@hypr/plugin-template";
-import { templateSectionSchema } from "@hypr/store";
+} from "@skald/plugin-template";
+import { templateSectionSchema } from "@skald/store";
 
 import type { TaskArgsMapTransformed, TaskConfig } from ".";
 import type { EnhanceImageContext } from "./enhance-images";

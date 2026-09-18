@@ -79,7 +79,7 @@ fn build_initial_message_with_adapter(
     };
 
     msg.and_then(|m| match m {
-        owhisper_client::hypr_ws_client::client::Message::Text(t) => Some(t.to_string()),
+        owhisper_client::skald_ws_client::client::Message::Text(t) => Some(t.to_string()),
         _ => None,
     })
 }
@@ -110,9 +110,9 @@ fn build_response_transformer(
             let normalized = serde_json::to_string(&responses)
                 .unwrap_or_else(|error| format!("serialize_error:{error}"));
             tracing::info!(
-                hyprnote.stt.provider.name = ?provider,
-                hyprnote.payload.size_bytes = raw.len(),
-                hyprnote.normalized.response_count = responses.len(),
+                skald.stt.provider.name = ?provider,
+                skald.payload.size_bytes = raw.len(),
+                skald.normalized.response_count = responses.len(),
                 raw = %raw,
                 normalized = %normalized,
                 "proxy_normalized_upstream_text"
@@ -297,7 +297,7 @@ pub async fn build_proxy(
 mod tests {
     use super::*;
     use crate::query_params::QueryValue;
-    use hypr_language::ISO639;
+    use skald_language::ISO639;
 
     #[test]
     fn test_build_listen_params_basic() {
@@ -350,13 +350,13 @@ mod tests {
         let mut params = QueryParams::default();
         params.insert(
             "keyword".to_string(),
-            QueryValue::Multi(vec!["Hyprnote".to_string(), "transcription".to_string()]),
+            QueryValue::Multi(vec!["Skald".to_string(), "transcription".to_string()]),
         );
 
         let listen_params = build_listen_params(&params);
 
         assert_eq!(listen_params.keywords.len(), 2);
-        assert!(listen_params.keywords.contains(&"Hyprnote".to_string()));
+        assert!(listen_params.keywords.contains(&"Skald".to_string()));
         assert!(
             listen_params
                 .keywords

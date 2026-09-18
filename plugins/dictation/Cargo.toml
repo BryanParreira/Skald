@@ -35,13 +35,13 @@ owhisper-client = { workspace = true }
 owhisper-interface = { workspace = true }
 
 [target.'cfg(target_os = "macos")'.dependencies]
-hypr-am = { workspace = true }
-hypr-audio-actual = { workspace = true }
-hypr-audio-utils = { workspace = true }
-hypr-dictation-ui-macos = { workspace = true }
-hypr-language = { workspace = true }
-hypr-resampler = { workspace = true }
-hypr-text-inject-macos = { workspace = true }
-hypr-transcribe-soniqo = { workspace = true }
-hypr-whisper-local-model = { workspace = true }
+skald-am = { workspace = true }
+skald-audio-actual = { workspace = true }
+skald-audio-utils = { workspace = true }
+skald-dictation-ui-macos = { workspace = true }
+skald-language = { workspace = true }
+skald-resampler = { workspace = true }
+skald-text-inject-macos = { workspace = true }
+skald-transcribe-soniqo = { workspace = true }
+skald-whisper-local-model = { workspace = true }
 tauri-plugin-local-stt = { workspace = true, features = ["whisper-cpp"] }

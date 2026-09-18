@@ -2,8 +2,8 @@ import { Trans } from "@lingui/react/macro";
 import { Loader2Icon, TrashIcon } from "lucide-react";
 import { useCallback } from "react";
 
-import { DropdownMenuItem } from "@hypr/ui/components/ui/dropdown-menu";
-import { cn } from "@hypr/utils";
+import { DropdownMenuItem } from "@skald/ui/components/ui/dropdown-menu";
+import { cn } from "@skald/utils";
 
 import { useAudioPlayer } from "~/audio-player";
 import {
@@ -77,7 +77,6 @@ export function DeleteNote({ sessionId }: { sessionId: string }) {
         void finalizeSessionDeletion(sessionId);
       });
     }
-
   }, [store, indexes, sessionId, invalidateResource, addDeletion]);
 
   return (

@@ -1,8 +1,8 @@
 use axum::{Extension, Json};
-use hypr_api_auth::AuthContext;
-use hypr_api_nango::{NangoConnectionState, NangoIntegrationId, Outlook};
-use hypr_outlook_calendar::{ListCalendarsResponse, ListEventsResponse, OutlookCalendarClient};
 use serde::Deserialize;
+use skald_api_auth::AuthContext;
+use skald_api_nango::{NangoConnectionState, NangoIntegrationId, Outlook};
+use skald_outlook_calendar::{ListCalendarsResponse, ListEventsResponse, OutlookCalendarClient};
 use utoipa::ToSchema;
 
 use crate::error::{CalendarError, Result};
@@ -118,7 +118,7 @@ pub async fn list_events(
         other => other.to_string(),
     });
 
-    let outlook_req = hypr_outlook_calendar::ListEventsRequest {
+    let outlook_req = skald_outlook_calendar::ListEventsRequest {
         calendar_id: req.calendar_id,
         start_date_time,
         end_date_time,

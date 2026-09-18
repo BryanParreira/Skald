@@ -50,7 +50,7 @@ vi.mock("@tauri-apps/api/path", () => ({
   sep: vi.fn().mockReturnValue("/"),
 }));
 
-vi.mock("@hypr/plugin-db", () => ({
+vi.mock("@skald/plugin-db", () => ({
   execute: vi.fn().mockResolvedValue([]),
   executeProxy: vi.fn().mockResolvedValue({ rows: [] }),
   subscribe: vi.fn().mockResolvedValue(() => {}),
@@ -130,7 +130,7 @@ vi.mock("@lingui/react", () => ({
   }),
 }));
 
-vi.mock("@hypr/plugin-analytics", () => ({
+vi.mock("@skald/plugin-analytics", () => ({
   commands: {
     event: vi.fn().mockResolvedValue({ status: "ok", data: null }),
     setProperties: vi.fn().mockResolvedValue({ status: "ok", data: null }),

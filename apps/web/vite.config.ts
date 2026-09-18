@@ -14,7 +14,7 @@ const config = defineConfig(() => ({
     tailwindcss(),
     tanstackStart({
       sitemap: {
-        host: "https://anarlog.so",
+        host: process.env.VITE_APP_URL ?? "http://localhost:3000",
       },
       prerender: {
         enabled: true,
@@ -22,13 +22,7 @@ const config = defineConfig(() => ({
         crawlLinks: true,
         autoStaticPathsDiscovery: true,
         filter: ({ path }) => {
-          return [
-            "/",
-            "/blog",
-            "/blog/",
-            "/blog/char-is-now-anarlog",
-            "/blog/char-is-now-anarlog/",
-          ].includes(path);
+          return ["/", "/blog", "/blog/"].includes(path);
         },
       },
     }),

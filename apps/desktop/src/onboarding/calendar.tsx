@@ -2,8 +2,8 @@ import { Trans } from "@lingui/react/macro";
 import { platform } from "@tauri-apps/plugin-os";
 import { useCallback, useMemo, useState } from "react";
 
-import type { ConnectionItem } from "@hypr/api-client";
-import { commands as openerCommands } from "@hypr/plugin-opener2";
+import type { ConnectionItem } from "@skald/api-client";
+import { commands as openerCommands } from "@skald/plugin-opener2";
 
 import { OnboardingButton } from "./shared";
 

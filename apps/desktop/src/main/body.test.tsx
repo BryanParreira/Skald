@@ -30,7 +30,7 @@ const mocks = vi.hoisted(() => ({
   },
 }));
 
-vi.mock("@hypr/ui/components/ui/resizable", () => ({
+vi.mock("@skald/ui/components/ui/resizable", () => ({
   ResizablePanelGroup: ({
     autoSaveId,
     children,
@@ -114,7 +114,7 @@ vi.mock("~/contexts/shell", () => ({
   }),
 }));
 
-vi.mock("@hypr/plugin-windows", () => ({
+vi.mock("@skald/plugin-windows", () => ({
   commands: mocks.windowsCommands,
   events: {
     devtoolsPanelAction: {

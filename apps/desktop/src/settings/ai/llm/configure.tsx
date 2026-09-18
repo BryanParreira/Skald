@@ -1,13 +1,13 @@
 import { Trans } from "@lingui/react/macro";
 import { Loader2 } from "lucide-react";
 
-import { Accordion } from "@hypr/ui/components/ui/accordion";
+import { Accordion } from "@skald/ui/components/ui/accordion";
 
 import { useLlmSettings } from "./context";
 import { ProviderId, PROVIDERS } from "./shared";
 
 import { useLocalLlmModelDownload } from "~/ai/hooks/useLocalLlmModel";
-import { NonHyprProviderCard, StyledStreamdown } from "~/settings/ai/shared";
+import { NonSkaldProviderCard, StyledStreamdown } from "~/settings/ai/shared";
 
 export function ConfigureProviders() {
   const { accordionValue, setAccordionValue } = useLlmSettings();
@@ -24,9 +24,9 @@ export function ConfigureProviders() {
         value={accordionValue}
         onValueChange={setAccordionValue}
       >
-        {PROVIDERS.filter((provider) => provider.id !== "velo").map(
+        {PROVIDERS.filter((provider) => provider.id !== "skald").map(
           (provider) => (
-            <NonHyprProviderCard
+            <NonSkaldProviderCard
               key={provider.id}
               config={provider}
               providerType="llm"

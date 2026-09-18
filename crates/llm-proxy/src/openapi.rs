@@ -1,13 +1,13 @@
 use utoipa::OpenApi;
 
-use crate::model::CharTask;
+use crate::model::SkaldTask;
 
 #[utoipa::path(
     post,
     path = "/llm/chat/completions",
     operation_id = "llm_chat_completions",
     params(
-        ("x-char-task" = Option<CharTask>, Header, description = "Task type for model selection"),
+        ("x-char-task" = Option<SkaldTask>, Header, description = "Task type for model selection"),
     ),
     responses(
         (status = 200, description = "Chat completion response (streaming or non-streaming)"),
@@ -23,7 +23,7 @@ async fn _chat_completions_spec() {}
 #[derive(OpenApi)]
 #[openapi(
     paths(_chat_completions_spec),
-    components(schemas(CharTask)),
+    components(schemas(SkaldTask)),
     tags((name = "llm", description = "LLM chat completions proxy"))
 )]
 pub struct ApiDoc;

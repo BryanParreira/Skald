@@ -7,7 +7,7 @@ import {
   useState,
 } from "react";
 
-import { commands as tantivy } from "@hypr/plugin-tantivy";
+import { commands as tantivy } from "@skald/plugin-tantivy";
 
 import { buildTantivyFilters } from "./filters";
 import { indexHumans, indexOrganizations, indexSessions } from "./indexing";

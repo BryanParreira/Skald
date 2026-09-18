@@ -1,4 +1,4 @@
-import type { EventStorage, SessionEvent } from "@hypr/store";
+import type { EventStorage, SessionEvent } from "@skald/store";
 
 import type { Ctx } from "../../ctx";
 import type { IncomingEvent } from "../../fetch/types";

@@ -7,7 +7,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@hypr/ui/components/ui/select";
+} from "@skald/ui/components/ui/select";
 
 import { useConfigValue } from "~/shared/config";
 import * as settings from "~/store/tinybase/store/settings";

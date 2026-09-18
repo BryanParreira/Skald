@@ -25,7 +25,7 @@ const {
   useSettingsStoreMock: vi.fn(() => null),
 }));
 
-vi.mock("@hypr/plugin-detect", () => ({
+vi.mock("@skald/plugin-detect", () => ({
   commands: {
     listMicUsingApplications: listMicUsingApplicationsMock,
   },
@@ -36,7 +36,7 @@ vi.mock("@hypr/plugin-detect", () => ({
   },
 }));
 
-vi.mock("@hypr/plugin-notification", () => ({
+vi.mock("@skald/plugin-notification", () => ({
   commands: {
     showNotification: showNotificationMock,
   },
@@ -1469,7 +1469,7 @@ describe("ListenerProvider detect events", () => {
       expect(notification).toEqual({
         key: expect.stringContaining("auto-stop-ended:session-1"),
         title: "Did your meeting end?",
-        message: "Velo will stop listening in 30 seconds.",
+        message: "Skald will stop listening in 30 seconds.",
         timeout: { secs: 30, nanos: 0 },
         source: null,
         start_time: null,

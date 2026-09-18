@@ -32,8 +32,8 @@ export type Provider = {
 
 const _PROVIDERS = [
   {
-    id: "velo",
-    displayName: "Velo",
+    id: "skald",
+    displayName: "Skald",
     badge: "Recommended",
     icon: <VeloProviderIcon />,
     baseUrl: new URL("/llm", env.VITE_API_URL).toString(),
@@ -41,7 +41,7 @@ const _PROVIDERS = [
   },
   {
     id: "velo_local",
-    displayName: "Velo (Local)",
+    displayName: "Skald (Local)",
     badge: "On-device",
     icon: <VeloProviderIcon />,
     baseUrl: undefined,
@@ -62,7 +62,7 @@ const _PROVIDERS = [
       models: { label: "Available models", url: "https://lmstudio.ai/models" },
       setup: {
         label: "Setup guide",
-        url: "https://char.com/docs/faq/local-llm-setup/#lm-studio-setup",
+        url: "https://github.com/BryanParreira/Velo",
       },
     },
   },
@@ -81,7 +81,7 @@ const _PROVIDERS = [
       models: { label: "Available models", url: "https://ollama.com/library" },
       setup: {
         label: "Setup guide",
-        url: "https://char.com/docs/faq/local-llm-setup/#ollama-setup",
+        url: "https://github.com/BryanParreira/Velo",
       },
     },
   },

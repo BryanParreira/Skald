@@ -32,7 +32,7 @@ import {
   useState,
 } from "react";
 
-import { cn } from "@hypr/utils";
+import { cn } from "@skald/utils";
 
 import { EditorErrorBoundary } from "../editor-error-boundary";
 import {
@@ -726,7 +726,10 @@ export const NoteEditor = forwardRef<NoteEditorRef, NoteEditorProps>(
       // so this effect re-fires and remounts the editor every single
       // time, cascading into React's "Maximum update depth exceeded"
       // loop guard instead of converging.
-      if (stableStringify(renderedContent) === stableStringify(reconciledInitialContent)) {
+      if (
+        stableStringify(renderedContent) ===
+        stableStringify(reconciledInitialContent)
+      ) {
         return;
       }
 

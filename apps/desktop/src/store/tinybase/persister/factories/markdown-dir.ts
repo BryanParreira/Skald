@@ -4,9 +4,9 @@ import {
   commands as fsSyncCommands,
   type JsonValue,
   type ParsedDocument,
-} from "@hypr/plugin-fs-sync";
-import { commands as fs2Commands } from "@hypr/plugin-fs2";
-import { toContent, toPersistedChanges } from "@hypr/tinybase-utils";
+} from "@skald/plugin-fs-sync";
+import { commands as fs2Commands } from "@skald/plugin-fs2";
+import { toContent, toPersistedChanges } from "@skald/tinybase-utils";
 
 import { createCollectorPersister } from "./collector";
 

@@ -6,13 +6,13 @@ const { executeMock, executeProxyMock, subscribeMock } = vi.hoisted(() => ({
   subscribeMock: vi.fn(),
 }));
 
-vi.mock("@hypr/plugin-db", () => ({
+vi.mock("@skald/plugin-db", () => ({
   execute: executeMock,
   executeProxy: executeProxyMock,
   subscribe: subscribeMock,
 }));
 
-describe("@hypr/db-tauri", () => {
+describe("@skald/db-tauri", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });

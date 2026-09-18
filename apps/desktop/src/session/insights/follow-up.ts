@@ -5,15 +5,15 @@ import { useMemo } from "react";
 import {
   commands as templateCommands,
   type JsonValue,
-} from "@hypr/plugin-template";
+} from "@skald/plugin-template";
+
+import systemPromptTemplate from "./follow-up.system.md.jinja?raw";
+import userPromptTemplate from "./follow-up.user.md.jinja?raw";
 
 import { useLanguageModel } from "~/ai/hooks";
 import { deterministicGenerationSettings } from "~/ai/model-settings";
 import { getSessionNoteMarkdown } from "~/session/insights/session-note-markdown";
 import * as main from "~/store/tinybase/store/main";
-
-import systemPromptTemplate from "./follow-up.system.md.jinja?raw";
-import userPromptTemplate from "./follow-up.user.md.jinja?raw";
 
 const GENERATION_TIMEOUT_MS = 30_000;
 

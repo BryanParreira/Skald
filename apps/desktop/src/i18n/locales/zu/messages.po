@@ -23,11 +23,11 @@ msgid "{0} opened on"
 msgstr ""
 
 #: src/settings/ai/llm/select.tsx:177
-msgid "<0>Language model</0> is needed to make Velo summarize and chat about your conversations."
+msgid "<0>Language model</0> is needed to make Skald summarize and chat about your conversations."
 msgstr ""
 
 #: src/settings/ai/stt/select.tsx:150
-msgid "<0>Transcription model</0> is needed to make Velo listen to your conversations."
+msgid "<0>Transcription model</0> is needed to make Skald listen to your conversations."
 msgstr ""
 
 #: src/settings/general/storage/index.tsx:167
@@ -192,7 +192,7 @@ msgid "Ask anything"
 msgstr ""
 
 #: src/shared/chat-cta.tsx:32
-msgid "Ask Velo anything"
+msgid "Ask Skald anything"
 msgstr ""
 
 #: src/task/resource-view.tsx:156
@@ -205,7 +205,7 @@ msgid "Audio"
 msgstr ""
 
 #: src/instruction/index.tsx:188
-msgid "Authorize access in your browser, then return to Velo."
+msgid "Authorize access in your browser, then return to Skald."
 msgstr ""
 
 #: src/settings/general/notification.tsx:238
@@ -288,7 +288,7 @@ msgid "Choose storage location"
 msgstr ""
 
 #: src/settings/general/storage/index.tsx:294
-msgid "Choose where Velo should store data. (notes, settings, etc)"
+msgid "Choose where Skald should store data. (notes, settings, etc)"
 msgstr ""
 
 #: src/settings/dictation/index.tsx:99
@@ -341,7 +341,7 @@ msgid "Company"
 msgstr ""
 
 #: src/instruction/index.tsx:241
-msgid "Complete sign-in in your browser, then return to Velo."
+msgid "Complete sign-in in your browser, then return to Skald."
 msgstr ""
 
 #: src/instruction/index.tsx:170
@@ -706,7 +706,7 @@ msgid "Find a note..."
 msgstr ""
 
 #: src/instruction/index.tsx:171
-msgid "Finish checkout in your browser, then return to Velo."
+msgid "Finish checkout in your browser, then return to Skald."
 msgstr ""
 
 #: src/settings/general/week-start.tsx:58
@@ -775,11 +775,11 @@ msgid "Having trouble?"
 msgstr ""
 
 #: src/onboarding/permissions.tsx:156
-msgid "Help Velo listen to others"
+msgid "Help Skald listen to others"
 msgstr ""
 
 #: src/onboarding/permissions.tsx:144
-msgid "Help Velo listen to you"
+msgid "Help Skald listen to you"
 msgstr ""
 
 #: src/sidebar/timeline/index.tsx:463
@@ -1187,7 +1187,7 @@ msgid "Open settings"
 msgstr ""
 
 #: src/onboarding/final.tsx:54
-msgid "Open Velo"
+msgid "Open Skald"
 msgstr ""
 
 #: src/settings/dictation/index.tsx:92
@@ -1225,7 +1225,7 @@ msgid "Participants"
 msgstr ""
 
 #: src/instruction/index.tsx:263
-msgid "Paste the browser URL here if the browser button did not reopen Velo."
+msgid "Paste the browser URL here if the browser button did not reopen Skald."
 msgstr ""
 
 #: src/contacts/organization-details.tsx:65
@@ -1387,7 +1387,7 @@ msgid "Required to record your voice during meetings and calls"
 msgstr ""
 
 #: src/settings/general/permissions.tsx:192
-msgid "Required to sync Apple Calendar events into Velo"
+msgid "Required to sync Apple Calendar events into Skald"
 msgstr ""
 
 #: src/calendar/components/apple/permission.tsx:152
@@ -1801,23 +1801,23 @@ msgid "Upload transcript"
 msgstr ""
 
 #: src/settings/general/account.tsx:12
-msgid "Velo"
+msgid "Skald"
 msgstr ""
 
 #: src/onboarding/permissions.tsx:153
-msgid "Velo can hear others"
+msgid "Skald can hear others"
 msgstr ""
 
 #: src/onboarding/permissions.tsx:141
-msgid "Velo can hear your voice"
+msgid "Skald can hear your voice"
 msgstr ""
 
 #: src/onboarding/index.tsx:192
-msgid "Velo needs access to your microphone and system audio to record and transcribe your meetings"
+msgid "Skald needs access to your microphone and system audio to record and transcribe your meetings"
 msgstr ""
 
 #: src/onboarding/index.tsx:208
-msgid "Velo will sync your calendar to get meeting reminders"
+msgid "Skald will sync your calendar to get meeting reminders"
 msgstr ""
 
 #: src/contacts/organization-details.tsx:153
@@ -1833,7 +1833,7 @@ msgid "Week starts on"
 msgstr ""
 
 #: src/onboarding/index.tsx:182
-msgid "Welcome to Velo"
+msgid "Welcome to Skald"
 msgstr ""
 
 #: src/changelog/index.tsx:165
@@ -1875,11 +1875,11 @@ msgid "You need to select a model to summarize this meeting"
 msgstr ""
 
 #: src/session/components/note-input/enhanced/config-error.tsx:52
-msgid "You need to sign in to use Velo's language model"
+msgid "You need to sign in to use Skald's language model"
 msgstr ""
 
 #: src/session/components/note-input/enhanced/config-error.tsx:57
-msgid "Your Velo plan has expired. Configure another language model or renew your plan"
+msgid "Your Skald plan has expired. Configure another language model or renew your plan"
 msgstr ""
 
 #: src/templates/template-sidebar.tsx:320

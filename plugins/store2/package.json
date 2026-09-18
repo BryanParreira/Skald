@@ -1,5 +1,5 @@
 {
-  "name": "@hypr/plugin-store2",
+  "name": "@skald/plugin-store2",
   "private": true,
   "main": "./js/index.ts",
   "scripts": {

@@ -1,6 +1,6 @@
 ---
 meta_title: "Best Self-Hosted AI Notetakers in 2026"
-meta_description: "Six open-source AI meeting notetakers you can self-host — from full meeting workspaces to raw transcription pipelines. Covers Anarlog, Meetily, Scriberr, Vibe, Whishper, and WhisperX."
+meta_description: "Six open-source AI meeting notetakers you can self-host — from full meeting workspaces to raw transcription pipelines. Covers Skald, Meetily, Scriberr, Vibe, Whishper, and WhisperX."
 author:
   - "Harshika"
 featured: false
@@ -12,33 +12,31 @@ If you don't want your meeting audio on someone else's servers, these are your o
 
 ## Self-Hosted AI Notetaker Comparison
 
-
-|              |             |                 |                                               |                    |                                |
-| ------------ | ----------- | --------------- | --------------------------------------------- | ------------------ | ------------------------------ |
-| **Tool**     | **License** | **Platform**    | **Local STT**                                 | **Local LLM**      | **Pricing**                    |
-| **Anarlog**     | MIT         | macOS           | Parakeet V3, Parakeet Batch + 7 cloud         | Ollama / LM Studio | Free (local) · $8–$25/mo cloud |
-| **Meetily**  | MIT         | Windows, macOS  | Whisper, Parakeet                             | Ollama             | Free · $10/mo Pro              |
-| **Scriberr** | MIT         | Docker (web)    | Whisper.cpp                                   | Ollama             | Free                           |
-| **Vibe**     | MIT         | Win, Mac, Linux | Whisper.cpp                                   | No built-in        | Free                           |
-| **Whishper** | MIT         | Docker (web)    | Whisper                                       | No                 | Free                           |
-| **WhisperX** | BSD-4       | CLI / Docker    | Whisper-based                                 | No                 | Free                           |
-
+|              |             |                 |                                       |                    |                                |
+| ------------ | ----------- | --------------- | ------------------------------------- | ------------------ | ------------------------------ |
+| **Tool**     | **License** | **Platform**    | **Local STT**                         | **Local LLM**      | **Pricing**                    |
+| **Skald**    | MIT         | macOS           | Parakeet V3, Parakeet Batch + 7 cloud | Ollama / LM Studio | Free (local) · $8–$25/mo cloud |
+| **Meetily**  | MIT         | Windows, macOS  | Whisper, Parakeet                     | Ollama             | Free · $10/mo Pro              |
+| **Scriberr** | MIT         | Docker (web)    | Whisper.cpp                           | Ollama             | Free                           |
+| **Vibe**     | MIT         | Win, Mac, Linux | Whisper.cpp                           | No built-in        | Free                           |
+| **Whishper** | MIT         | Docker (web)    | Whisper                               | No                 | Free                           |
+| **WhisperX** | BSD-4       | CLI / Docker    | Whisper-based                         | No                 | Free                           |
 
 ### 6 Best Self-Hosted AI Notetakers
 
-### 1. Anarlog
+### 1. Skald
 
-![Anarlog review](/api/assets/blog/blog/char-summary.png "char-editor-width=80")
+![Skald review](/api/assets/blog/blog/char-summary.png "char-editor-width=80")
 
-[Anarlog](https://anarlog.so/) is the only tool on this list that handles the full meeting workflow in one app — capture, transcription, note-taking, summarization, and structured export. 
+[Skald](/) is the only tool on this list that handles the full meeting workflow in one app — capture, transcription, note-taking, summarization, and structured export.
 
 It ships with a built-in notepad where you write during the meeting, and the AI merges your manual notes with the transcript into structured output using your template. Notes are plain Markdown files on disk. Open them in Obsidian, VS Code, whatever.
 
 #### Setup
 
-**Install:** brew install anarlog, or clone the [MIT-licensed repo](https://github.com/fastrepl/anarlog) and build from source.
+**Install:** brew install skald, or clone the [MIT-licensed repo](https://github.com/BryanParreira/Velo) and build from source.
 
-**Transcription:** Pick from 9 STT providers in Preferences. Local Parakeet models run fully on-device, and the other providers are cloud BYOK: paste your API key, audio goes to that provider, Anarlog never touches it.
+**Transcription:** Pick from 9 STT providers in Preferences. Local Parakeet models run fully on-device, and the other providers are cloud BYOK: paste your API key, audio goes to that provider, Skald never touches it.
 
 **Summarization:** Configured separately. Point it at Ollama or LM Studio for offline, or add a key for OpenAI, Anthropic, or Gemini.
 
@@ -46,7 +44,7 @@ It ships with a built-in notepad where you write during the meeting, and the AI 
 
 #### What else
 
-Calendar integration (Apple, Google, Outlook) with auto-record on event start. AI chat over your transcripts. Code blocks, @mentions with backlinks. Export to Markdown, PDF, JSON, VTT, Org mode. 45+ languages. 
+Calendar integration (Apple, Google, Outlook) with auto-record on event start. AI chat over your transcripts. Code blocks, @mentions with backlinks. Export to Markdown, PDF, JSON, VTT, Org mode. 45+ languages.
 
 #### Limitations
 
@@ -61,7 +59,7 @@ Free for fully local use (on-device STT + local LLM). Cloud features available a
 
 ![Meetily review](https://github.com/Zackriya-Solutions/meetily/raw/main/docs/home.png "char-editor-width=80")
 
-[Meetily](https://meetily.ai/) captures system audio and mic input in real time, transcribes locally using Whisper or Parakeet, and summarizes through your choice of AI provider. 
+[Meetily](https://meetily.ai/) captures system audio and mic input in real time, transcribes locally using Whisper or Parakeet, and summarizes through your choice of AI provider.
 
 It covers the full record → transcribe → summarize pipeline without leaving the app, and works with any conferencing platform that produces audio on your machine.
 
@@ -90,7 +88,7 @@ Free and open source (MIT) for the Community Edition. Pro is $120/year ($10/mont
 
 ![scribber review](/api/assets/blog/blog/telegram-cloud-photo-size-5-6282995305728905641-w.jpg "char-editor-width=80")
 
-[Scriberr](https://github.com/rishikanthc/Scriberr) is a team transcription service you deploy with Docker. Upload recordings through the browser, get transcripts back from Whisper.cpp on your server. Optional Ollama sidecar for summarization. 
+[Scriberr](https://github.com/rishikanthc/Scriberr) is a team transcription service you deploy with Docker. Upload recordings through the browser, get transcripts back from Whisper.cpp on your server. Optional Ollama sidecar for summarization.
 
 Useful when you want one shared interface and don't need anything installed on individual machines.
 
@@ -100,7 +98,7 @@ Useful when you want one shared interface and don't need anything installed on i
 
 **GPU:** CUDA acceleration supported for Whisper.cpp.
 
-**Storage:** Host filesystem + SQLite. 
+**Storage:** Host filesystem + SQLite.
 
 **Access control:** Basic auth or reverse proxy. Share the URL with your team.
 
@@ -117,7 +115,7 @@ Free and open-source (MIT). Self-host only.
 
 ![vibe review](/api/assets/blog/blog/telegram-cloud-photo-size-5-6282995305728905642-y.jpg "char-editor-width=80")
 
-[Vibe](https://thewh1teagle.github.io/vibe/) does one thing: transcribe audio and video files using Whisper.cpp. Cross-platform desktop app with a clean UI. It also exposes a local API, which makes it useful as a transcription backend you can wire into other tools. 
+[Vibe](https://thewh1teagle.github.io/vibe/) does one thing: transcribe audio and video files using Whisper.cpp. Cross-platform desktop app with a clean UI. It also exposes a local API, which makes it useful as a transcription backend you can wire into other tools.
 
 If you don't need summarization, note-taking, or real-time capture, this is the simplest path.
 
@@ -142,9 +140,9 @@ Free and open-source (MIT).
 
 ![](/api/assets/blog/blog/Screenshot-2026-04-20-at-1.55.51-PM.png "char-editor-width=80")
 
-[Whishper](https://github.com/pluja/whishper) is another Docker-deployed web UI for Whisper with drag-and-drop upload and subtitle generation (SRT, VTT). 
+[Whishper](https://github.com/pluja/whishper) is another Docker-deployed web UI for Whisper with drag-and-drop upload and subtitle generation (SRT, VTT).
 
-It's built for teams that need a transcription service without any setup complexity. Automatic language detection across 90+ languages. 
+It's built for teams that need a transcription service without any setup complexity. Automatic language detection across 90+ languages.
 
 No summarization, no post-processing — you get the transcript and take it elsewhere.
 
@@ -169,7 +167,7 @@ Free and open-source (MIT). Self-host only.
 
 ![whisperx review](/api/assets/blog/blog/Screenshot-2026-04-20-at-12.53.00-PM-1.png "char-editor-width=80")
 
-[WhisperX](https://github.com/m-bain/whisperX) is a research-grade transcription pipeline. It extends Whisper with forced alignment (word-level timestamps via wav2vec2) and speaker diarization (pyannote.audio). 
+[WhisperX](https://github.com/m-bain/whisperX) is a research-grade transcription pipeline. It extends Whisper with forced alignment (word-level timestamps via wav2vec2) and speaker diarization (pyannote.audio).
 
 It's the only tool on this list that tells you exactly who said what and when, down to the word. If you're building a custom meeting intelligence stack, this is the engine.
 
@@ -195,10 +193,10 @@ Free and open-source (BSD-4-Clause).
 
 It depends on what you're optimizing for.
 
-- If you want a full meeting workspace, Anarlog is the most complete option on this list. 
+- If you want a full meeting workspace, Skald is the most complete option on this list.
 - If you're on Windows and need real-time capture with local transcription and summarization, go for Meetily.
 - If you need a shared transcription service for a team, deploy Scriberr or Whishper via Docker and give everyone a browser-based upload interface.
 - If you just need fast, reliable file transcription on your desktop, Vibe is the simplest path.
 - If you're building a custom pipeline and need word-level timestamps with speaker diarization, WhisperX gives you the research-grade engine to wire into your own stack.
 
-For most users who want privacy-first meeting notes that just work, start with [Anarlog](https://anarlog.so/download/apple-silicon). Free for fully local use, no account required.
+For most users who want privacy-first meeting notes that just work, start with [Skald](/download/apple-silicon). Free for fully local use, no account required.

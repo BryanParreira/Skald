@@ -1,11 +1,11 @@
 import { useCallback, useMemo } from "react";
 
-import type { ConnectionItem } from "@hypr/api-client";
+import type { ConnectionItem } from "@skald/api-client";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@hypr/ui/components/ui/tooltip";
+} from "@skald/ui/components/ui/tooltip";
 
 import {
   OAuthCalendarSelection,

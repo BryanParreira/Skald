@@ -234,7 +234,7 @@ class NotificationInstance {
 
   func stopCountdownText(_ remainingSeconds: Double) -> String {
     let seconds = max(0, Int(ceil(remainingSeconds)))
-    return "Velo will stop listening in \(seconds) seconds."
+    return "Skald will stop listening in \(seconds) seconds."
   }
 
   private func startStopCountdownUpdates() {

@@ -8,13 +8,13 @@ links = "tauri-plugin-db"
 description = ""
 
 [dependencies]
-hypr-db-app = { workspace = true }
-hypr-db-core = { workspace = true }
-hypr-db-execute = { workspace = true }
-hypr-db-migrate = { workspace = true }
-hypr-db-reactive = { workspace = true, features = ["specta"] }
-hypr-storage = { workspace = true }
-hypr-tauri-utils = { workspace = true }
+skald-db-app = { workspace = true }
+skald-db-core = { workspace = true }
+skald-db-execute = { workspace = true }
+skald-db-migrate = { workspace = true }
+skald-db-reactive = { workspace = true, features = ["specta"] }
+skald-storage = { workspace = true }
+skald-tauri-utils = { workspace = true }
 
 serde = { workspace = true }
 serde_json = { workspace = true }

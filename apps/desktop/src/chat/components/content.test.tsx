@@ -121,7 +121,7 @@ describe("ChatContent", () => {
     const dataTransfer = new FakeDataTransfer();
 
     dataTransfer.setData(
-      "application/x-velo-session-context",
+      "application/x-skald-session-context",
       JSON.stringify({ sessionId: "session-1" }),
     );
 

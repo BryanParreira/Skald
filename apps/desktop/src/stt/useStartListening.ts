@@ -1,7 +1,7 @@
 import { useCallback, useRef } from "react";
 
-import { commands as fsSyncCommands } from "@hypr/plugin-fs-sync";
-import type { TranscriptStorage } from "@hypr/store";
+import { commands as fsSyncCommands } from "@skald/plugin-fs-sync";
+import type { TranscriptStorage } from "@skald/store";
 
 import { useListener } from "./contexts";
 import { useKeywords } from "./useKeywords";
@@ -343,7 +343,6 @@ export function useStartListening(sessionId: string) {
     }
 
     setLeftSidebarExpanded(false);
-
   }, [
     aiLanguage,
     conn,

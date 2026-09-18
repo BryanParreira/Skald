@@ -5,20 +5,20 @@ edition = "2024"
 
 [features]
 earshot = ["dep:earshot"]
-silero-onnx = ["dep:hypr-onnx"]
+silero-onnx = ["dep:skald-onnx"]
 
 [dependencies]
 earshot = { workspace = true, optional = true }
-hypr-onnx = { workspace = true, optional = true }
+skald-onnx = { workspace = true, optional = true }
 thiserror = { workspace = true }
 
 [dev-dependencies]
 approx = { workspace = true }
 criterion = { workspace = true }
-hypr-data = { workspace = true }
-hypr-onnx = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true }
+skald-data = { workspace = true }
+skald-onnx = { workspace = true }
 
 [[bench]]
 name = "vad"

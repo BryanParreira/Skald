@@ -2,15 +2,15 @@ import { Trans, useLingui } from "@lingui/react/macro";
 import { HeartIcon, MoreHorizontalIcon, PlusIcon } from "lucide-react";
 import { useState } from "react";
 
-import { Button } from "@hypr/ui/components/ui/button";
+import { Button } from "@skald/ui/components/ui/button";
 import {
   AppFloatingPanel,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@hypr/ui/components/ui/dropdown-menu";
-import { cn } from "@hypr/utils";
+} from "@skald/ui/components/ui/dropdown-menu";
+import { cn } from "@skald/utils";
 
 import { type WebTemplate } from "./codec";
 import { type UserTemplate, type UserTemplateDraft } from "./queries";

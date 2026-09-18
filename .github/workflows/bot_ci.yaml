@@ -14,5 +14,5 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm -F @hypr/bot typecheck
-      - run: pnpm -F @hypr/bot test
+      - run: pnpm -F @skald/bot typecheck
+      - run: pnpm -F @skald/bot test

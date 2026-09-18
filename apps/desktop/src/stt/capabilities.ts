@@ -1,8 +1,8 @@
-import type { LocalModel } from "@hypr/plugin-local-stt";
+import type { LocalModel } from "@skald/plugin-local-stt";
 import {
   commands as listenerCommands,
   type TranscriptionMode,
-} from "@hypr/plugin-transcription";
+} from "@skald/plugin-transcription";
 
 type LiveTranscriptionConfig = {
   languages: string[];
@@ -49,18 +49,18 @@ export function isSupportedLocalSttModel(
   );
 }
 
-export function isHyprnoteCloudSttModel(
+export function isSkaldCloudSttModel(
   provider?: string | null,
   model?: string | null,
 ) {
-  return provider === "velo" && model === "cloud";
+  return provider === "skald" && model === "cloud";
 }
 
-export function isHyprnoteLocalSttModel(
+export function isSkaldLocalSttModel(
   provider?: string | null,
   model?: string | null,
 ): model is LocalModel {
-  return provider === "velo" && isSupportedLocalSttModel(model);
+  return provider === "skald" && isSupportedLocalSttModel(model);
 }
 
 export function isConfiguredSttModel(
@@ -71,7 +71,7 @@ export function isConfiguredSttModel(
     return false;
   }
 
-  if (provider === "velo") {
+  if (provider === "skald") {
     return model === "cloud" || isSupportedLocalSttModel(model);
   }
 
@@ -191,7 +191,7 @@ export async function getLiveTranscriptionConfig({
   model?: string | null;
   languages: readonly string[];
 }): Promise<LiveTranscriptionConfig> {
-  if (isHyprnoteLocalSttModel(provider, model)) {
+  if (isSkaldLocalSttModel(provider, model)) {
     return getOnDeviceTranscriptionConfig(model, languages);
   }
 

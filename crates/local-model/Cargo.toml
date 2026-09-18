@@ -4,11 +4,11 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-hypr-am = { workspace = true }
-hypr-file = { workspace = true }
-hypr-model-downloader = { workspace = true }
-hypr-transcribe-soniqo = { workspace = true }
-hypr-whisper-local-model = { workspace = true }
+skald-am = { workspace = true }
+skald-file = { workspace = true }
+skald-model-downloader = { workspace = true }
+skald-transcribe-soniqo = { workspace = true }
+skald-whisper-local-model = { workspace = true }
 
 serde = { workspace = true }
 specta = { workspace = true }

@@ -4,8 +4,8 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-hypr-cloudsync = { workspace = true }
-hypr-db-change = { workspace = true }
+skald-cloudsync = { workspace = true }
+skald-db-change = { workspace = true }
 
 backon = { workspace = true }
 libsqlite3-sys = "0.35"

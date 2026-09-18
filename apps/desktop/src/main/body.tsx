@@ -22,8 +22,8 @@ import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-} from "@hypr/ui/components/ui/resizable";
-import { cn } from "@hypr/utils";
+} from "@skald/ui/components/ui/resizable";
+import { cn } from "@skald/utils";
 
 import { ClassicMainSidebar } from "./shell-sidebar";
 import { ClassicMainTabContent } from "./tab-content";

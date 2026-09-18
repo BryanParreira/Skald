@@ -1,9 +1,9 @@
 use std::collections::HashMap;
 
-pub use hypr_fs_format::{
+use serde::{Deserialize, Serialize};
+pub use skald_fs_format::{
     TranscriptJson, TranscriptSpeakerHint, TranscriptWithData, TranscriptWord,
 };
-use serde::{Deserialize, Serialize};
 use specta::Type;
 
 #[derive(Debug, Clone, Serialize, Deserialize, Type)]

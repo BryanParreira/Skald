@@ -1,7 +1,7 @@
 import { tool } from "ai";
 import { z } from "zod";
 
-import { json2md, md2json, parseJsonContent } from "@hypr/editor/markdown";
+import { json2md, md2json, parseJsonContent } from "@skald/editor/markdown";
 
 import type { ToolDependencies } from "./types";
 

@@ -3,11 +3,11 @@ use std::io::BufWriter;
 use std::path::{Path, PathBuf};
 use std::time::Instant;
 
-use hypr_audio_utils::{
+use ractor::ActorProcessingErr;
+use skald_audio_utils::{
     decode_vorbis_to_mono_wav_file, decode_vorbis_to_wav_file, mix_audio_f32,
     ogg_has_identical_channels,
 };
-use ractor::ActorProcessingErr;
 
 use super::into_actor_err;
 
@@ -142,7 +142,7 @@ pub(super) async fn finalize_disk_sink(sink: &mut DiskSink) -> Result<(), ActorP
         let encode_result = {
             let wav_path = wav_path.clone();
             let encoded_path = encoded_path.clone();
-            tokio::task::spawn_blocking(move || hypr_mp3::encode_wav(&wav_path, &encoded_path))
+            tokio::task::spawn_blocking(move || skald_mp3::encode_wav(&wav_path, &encoded_path))
                 .await
         };
 
@@ -204,7 +204,7 @@ fn decode_mp3_to_wav(encoded_path: &Path, wav_path: &Path) -> Result<(), ActorPr
         std::fs::remove_file(&tmp_path)?;
     }
 
-    hypr_mp3::decode_to_wav(encoded_path, &tmp_path).map_err(into_actor_err)?;
+    skald_mp3::decode_to_wav(encoded_path, &tmp_path).map_err(into_actor_err)?;
 
     if wav_path.exists() {
         std::fs::remove_file(wav_path)?;
@@ -324,7 +324,7 @@ mod tests {
         let session_dir = dir.path().join("session");
         std::fs::create_dir_all(&session_dir).unwrap();
         std::fs::copy(
-            hypr_data::english_1::AUDIO_MP3_PATH,
+            skald_data::english_1::AUDIO_MP3_PATH,
             session_dir.join(FINAL_AUDIO_FILE),
         )
         .unwrap();
@@ -342,7 +342,7 @@ mod tests {
         std::fs::create_dir_all(&session_dir).unwrap();
         let encoded_path = session_dir.join(FINAL_AUDIO_FILE);
         let wav_path = session_dir.join(WAV_FILE);
-        std::fs::copy(hypr_data::english_1::AUDIO_MP3_PATH, &encoded_path).unwrap();
+        std::fs::copy(skald_data::english_1::AUDIO_MP3_PATH, &encoded_path).unwrap();
         write_test_wav(&wav_path, 128);
         let original_frames = decoded_frame_count(&encoded_path);
 
@@ -360,7 +360,11 @@ mod tests {
         let dir = tempdir().unwrap();
         let session_dir = dir.path().join("session");
         std::fs::create_dir_all(&session_dir).unwrap();
-        std::fs::copy(hypr_data::english_1::AUDIO_PATH, session_dir.join(WAV_FILE)).unwrap();
+        std::fs::copy(
+            skald_data::english_1::AUDIO_PATH,
+            session_dir.join(WAV_FILE),
+        )
+        .unwrap();
 
         let _sink = create_disk_sink(&session_dir).unwrap();
 
@@ -369,9 +373,9 @@ mod tests {
     }
 
     fn decoded_frame_count(path: &Path) -> usize {
-        use hypr_audio_utils::Source;
+        use skald_audio_utils::Source;
 
-        let source = hypr_audio_utils::source_from_path(path).unwrap();
+        let source = skald_audio_utils::source_from_path(path).unwrap();
         let channels = u16::from(source.channels()).max(1) as usize;
         source.count() / channels
     }

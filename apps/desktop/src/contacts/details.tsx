@@ -8,16 +8,16 @@ import {
 } from "lucide-react";
 import React, { useCallback, useState } from "react";
 
-import { Button } from "@hypr/ui/components/ui/button";
-import { Input } from "@hypr/ui/components/ui/input";
+import { Button } from "@skald/ui/components/ui/button";
+import { Input } from "@skald/ui/components/ui/input";
 import {
   AppFloatingPanel,
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@hypr/ui/components/ui/popover";
-import { Textarea } from "@hypr/ui/components/ui/textarea";
-import { cn } from "@hypr/utils";
+} from "@skald/ui/components/ui/popover";
+import { Textarea } from "@skald/ui/components/ui/textarea";
+import { cn } from "@skald/utils";
 
 import { ContactFacehash, getContactBgClass } from "./shared";
 

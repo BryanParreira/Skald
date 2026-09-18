@@ -5,7 +5,7 @@ use std::sync::Mutex;
 use tauri::Wry;
 use tokio::sync::Mutex as TokioMutex;
 
-use hypr_model_downloader::ModelDownloadManager;
+use skald_model_downloader::ModelDownloadManager;
 
 mod commands;
 mod error;
@@ -15,7 +15,7 @@ mod types;
 
 pub use error::*;
 pub use ext::*;
-pub use hypr_local_llm_core::{
+pub use skald_local_llm_core::{
     CustomModelInfo, ModelIdentifier, ModelInfo, SUPPORTED_MODELS, SupportedModel,
 };
 pub use types::*;
@@ -37,7 +37,7 @@ pub struct State {
 // lock acquisition. Checking under a lock that gets dropped before the
 // spawn completes lets every concurrent caller see `None` and spawn its
 // own server (this happened: 14 llama-server processes at once).
-pub type ServerState = std::sync::Arc<TokioMutex<Option<hypr_local_llm_core::LlmServer>>>;
+pub type ServerState = std::sync::Arc<TokioMutex<Option<skald_local_llm_core::LlmServer>>>;
 
 fn make_specta_builder<R: tauri::Runtime>() -> tauri_specta::Builder<R> {
     tauri_specta::Builder::<R>::new()

@@ -1,9 +1,9 @@
 import { z } from "zod";
 
 export const DESKTOP_SCHEMES = [
-  "hypr",
-  "hyprnote",
-  "hyprnote-staging",
+  "skald",
+  "skald",
+  "skald-staging",
   "char",
   "char-staging",
 ] as const;

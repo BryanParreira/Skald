@@ -5,8 +5,8 @@ import { Volume2Icon, VolumeXIcon } from "lucide-react";
 import { motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import { commands as sfxCommands } from "@hypr/plugin-sfx";
-import { cn } from "@hypr/utils";
+import { commands as sfxCommands } from "@skald/plugin-sfx";
+import { cn } from "@skald/utils";
 
 import { CalendarSection } from "./calendar";
 import {
@@ -91,8 +91,7 @@ function OnboardingScreenContent({
     if (prev) setCurrentStep(prev);
   }, [currentStep]);
 
-  useEffect(() => {
-  }, [currentPlatform, currentStep]);
+  useEffect(() => {}, [currentPlatform, currentStep]);
 
   useEffect(() => {
     sfxCommands
@@ -179,7 +178,7 @@ function OnboardingScreenContent({
         ])}
       >
         <h1 className="font-hand text-foreground text-4xl leading-none font-semibold tracking-normal">
-          <Trans>Welcome to Velo</Trans>
+          <Trans>Welcome to Skald</Trans>
         </h1>
       </div>
 
@@ -190,7 +189,7 @@ function OnboardingScreenContent({
             completedTitle={<Trans>Permissions granted</Trans>}
             description={
               <Trans>
-                Velo needs access to your microphone and system audio to record
+                Skald needs access to your microphone and system audio to record
                 and transcribe your meetings
               </Trans>
             }
@@ -206,7 +205,7 @@ function OnboardingScreenContent({
             title={<Trans>Connect calendar</Trans>}
             description={
               <Trans>
-                Velo will sync your calendar to get meeting reminders
+                Skald will sync your calendar to get meeting reminders
               </Trans>
             }
             completedTitle={<Trans>Calendar connected</Trans>}

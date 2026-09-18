@@ -1,6 +1,6 @@
-use hypr_supervisor::{RestartBudget, RetryStrategy, spawn_with_retry};
 use ractor::concurrency::Duration;
 use ractor::{Actor, ActorCell, ActorRef};
+use skald_supervisor::{RestartBudget, RetryStrategy, spawn_with_retry};
 
 use crate::actors::session::types::SessionContext;
 use crate::actors::{

@@ -1,4 +1,4 @@
-import { env } from "@hypr/agent-core";
+import { env } from "@skald/agent-core";
 
 import { graph } from "./graph";
 

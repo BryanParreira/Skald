@@ -1,13 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetch as tauriFetch } from "@tauri-apps/plugin-http";
 
-import { Spinner } from "@hypr/ui/components/ui/spinner";
+import { Spinner } from "@skald/ui/components/ui/spinner";
 
 import { useConfigValues } from "~/shared/config";
-import {
-  isHyprnoteCloudSttModel,
-  isHyprnoteLocalSttModel,
-} from "~/stt/capabilities";
+import { isSkaldCloudSttModel, isSkaldLocalSttModel } from "~/stt/capabilities";
 import { useSTTConnection } from "~/stt/useSTTConnection";
 
 export type HealthStatus = {
@@ -56,19 +53,19 @@ export function useConnectionHealth(): HealthStatus {
     "current_stt_model",
   ] as const);
 
-  const isLocalModel = isHyprnoteLocalSttModel(
+  const isLocalModel = isSkaldLocalSttModel(
     current_stt_provider,
     current_stt_model,
   );
   const isCloud =
-    isHyprnoteCloudSttModel(current_stt_provider, current_stt_model) ||
-    current_stt_provider !== "velo";
+    isSkaldCloudSttModel(current_stt_provider, current_stt_model) ||
+    current_stt_provider !== "skald";
   const isDeepgram = current_stt_provider === "deepgram";
 
   const deepgramHealth = useDeepgramHealth(isDeepgram && !!conn, conn?.apiKey);
 
   if (
-    current_stt_provider === "velo" &&
+    current_stt_provider === "skald" &&
     current_stt_model &&
     !isCloud &&
     !isLocalModel

@@ -5,22 +5,22 @@ pub struct Agent<'a, R: tauri::Runtime, M: tauri::Manager<R>> {
 }
 
 impl<R: tauri::Runtime, M: tauri::Manager<R>> Agent<'_, R, M> {
-    pub fn health_check(&self) -> hypr_agent_core::HealthCheckResponse {
-        hypr_agent_core::health_check()
+    pub fn health_check(&self) -> skald_agent_core::HealthCheckResponse {
+        skald_agent_core::health_check()
     }
 
     pub fn install_cli(
         &self,
-        payload: hypr_agent_core::InstallCliRequest,
-    ) -> Result<hypr_agent_core::InstallCliResponse, String> {
-        hypr_agent_core::install_cli(payload)
+        payload: skald_agent_core::InstallCliRequest,
+    ) -> Result<skald_agent_core::InstallCliResponse, String> {
+        skald_agent_core::install_cli(payload)
     }
 
     pub fn uninstall_cli(
         &self,
-        payload: hypr_agent_core::UninstallCliRequest,
-    ) -> Result<hypr_agent_core::UninstallCliResponse, String> {
-        hypr_agent_core::uninstall_cli(payload)
+        payload: skald_agent_core::UninstallCliRequest,
+    ) -> Result<skald_agent_core::UninstallCliResponse, String> {
+        skald_agent_core::uninstall_cli(payload)
     }
 }
 

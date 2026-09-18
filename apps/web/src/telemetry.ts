@@ -5,7 +5,7 @@ import { env } from "./env";
 
 declare global {
   interface Window {
-    __hyprWebOtelSdk?: HoneycombWebSDK;
+    __skaldWebOtelSdk?: HoneycombWebSDK;
   }
 }
 
@@ -81,7 +81,7 @@ export function bootstrapBrowserTelemetry() {
     return;
   }
 
-  if (window.__hyprWebOtelSdk) {
+  if (window.__skaldWebOtelSdk) {
     return;
   }
 
@@ -106,7 +106,7 @@ export function bootstrapBrowserTelemetry() {
       "deployment.environment": import.meta.env.DEV
         ? "development"
         : "production",
-      "service.namespace": "hyprnote",
+      "service.namespace": "skald",
     },
     sampleRate: env.VITE_OTEL_SAMPLE_RATE,
     serviceName: "web",
@@ -115,5 +115,5 @@ export function bootstrapBrowserTelemetry() {
   });
 
   sdk.start();
-  window.__hyprWebOtelSdk = sdk;
+  window.__skaldWebOtelSdk = sdk;
 }

@@ -1,4 +1,4 @@
-pub use hypr_notification_interface::*;
+pub use skald_notification_interface::*;
 
 #[cfg(target_os = "linux")]
 mod r#impl;

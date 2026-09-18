@@ -112,20 +112,20 @@ Next steps: testing and validation of the algorithms
 describe("dictionary term helpers", () => {
   it("parses newline and comma separated terms", () => {
     expect(
-      parseDictionaryTermsText("Anarlog\nFastConformer, Parakeet TDT"),
-    ).toEqual(["Anarlog", "FastConformer", "Parakeet TDT"]);
+      parseDictionaryTermsText("Skald\nFastConformer, Parakeet TDT"),
+    ).toEqual(["Skald", "FastConformer", "Parakeet TDT"]);
   });
 
   it("normalizes duplicate terms while preserving first spelling", () => {
-    expect(normalizeKeywordList(["Anarlog", " anarlog ", "Parakeet"])).toEqual([
-      "Anarlog",
+    expect(normalizeKeywordList(["Skald", " skald ", "Parakeet"])).toEqual([
+      "Skald",
       "Parakeet",
     ]);
   });
 
   it("formats stored terms one per line", () => {
-    expect(formatDictionaryTerms(["Anarlog", "Parakeet TDT"])).toBe(
-      "Anarlog\nParakeet TDT",
+    expect(formatDictionaryTerms(["Skald", "Parakeet TDT"])).toBe(
+      "Skald\nParakeet TDT",
     );
   });
 });

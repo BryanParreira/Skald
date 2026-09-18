@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 
-import { cn } from "@hypr/utils";
+import { cn } from "@skald/utils";
 
 const SIDEBAR_ROWS = [
   { width: "85%", delay: 0 },
@@ -43,7 +43,12 @@ export function SplashScreen() {
     <div className="bg-background flex h-screen w-screen">
       <div className="border-border/70 flex w-[240px] shrink-0 flex-col gap-2 border-r px-3 pt-12">
         {SIDEBAR_ROWS.map((row, i) => (
-          <PulseBar key={i} width={row.width} delay={row.delay} className="h-7" />
+          <PulseBar
+            key={i}
+            width={row.width}
+            delay={row.delay}
+            className="h-7"
+          />
         ))}
       </div>
       <div className="flex flex-1 flex-col gap-3 px-10 pt-14">

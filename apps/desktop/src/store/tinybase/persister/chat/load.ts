@@ -1,8 +1,8 @@
 import { sep } from "@tauri-apps/api/path";
 
-import { commands as fsSyncCommands } from "@hypr/plugin-fs-sync";
-import { commands as fs2Commands } from "@hypr/plugin-fs2";
-import type { ChatMessageStatus } from "@hypr/store";
+import { commands as fsSyncCommands } from "@skald/plugin-fs-sync";
+import { commands as fs2Commands } from "@skald/plugin-fs2";
+import type { ChatMessageStatus } from "@skald/store";
 
 import type { ChatJson, LoadedChatData } from "./types";
 

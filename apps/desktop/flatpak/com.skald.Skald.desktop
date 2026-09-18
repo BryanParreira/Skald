@@ -1,13 +1,13 @@
 [Desktop Entry]
-Name=Anarlog
+Name=Skald
 GenericName=AI Meeting Notes
 Comment=The AI notepad for private meetings
-Exec=hyprnote %U
-Icon=com.hyprnote.Hyprnote
+Exec=skald %U
+Icon=com.skald.Skald
 Terminal=false
 Type=Application
 Categories=Office;AudioVideo;Recorder;
 Keywords=notes;meeting;transcription;ai;audio;recording;
 StartupNotify=true
-StartupWMClass=hyprnote
-MimeType=x-scheme-handler/hypr;
+StartupWMClass=skald
+MimeType=x-scheme-handler/skald;

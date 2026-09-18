@@ -18,7 +18,7 @@ use crate::menu_items::{
     TrayQuit, TraySettings, TrayStart, TrayVersion,
 };
 
-const TRAY_ID: &str = "hypr-tray";
+const TRAY_ID: &str = "skald-tray";
 
 static IS_RECORDING: AtomicBool = AtomicBool::new(false);
 static IS_DEGRADED: AtomicBool = AtomicBool::new(false);

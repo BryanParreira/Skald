@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use hypr_openrouter::{
+use skald_openrouter::{
     ChatCompletionRequest, ChatMessage, Client as OpenRouterClient, ResponseFormat, Role,
 };
 

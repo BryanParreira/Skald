@@ -1,11 +1,11 @@
 use std::collections::BTreeMap;
 
-use hypr_transcript::{
+use owhisper_interface::stream::{Alternatives, StreamResponse, Word};
+use skald_transcript::{
     FinalizedWord, IdentityAssignment, PartialWord, SegmentBuilderOptions, SegmentKey, SegmentWord,
     TranscriptDelta, TranscriptProcessor, build_segments, channel_assignments_for_participants,
     normalize_rendered_segment_words, segment_options_for_participants, stable_segment_id,
 };
-use owhisper_interface::stream::{Alternatives, StreamResponse, Word};
 
 const SONIQO_CUMULATIVE_PREFIX_MIN_TOKENS: usize = 4;
 const SONIQO_HISTORY_TOKEN_LIMIT: usize = 160;
@@ -1307,7 +1307,7 @@ mod tests {
                 start_ms: 0,
                 end_ms: 100,
                 channel: 0,
-                state: hypr_transcript::WordState::Final,
+                state: skald_transcript::WordState::Final,
                 speaker_index: Some(1),
             }],
             replaced_ids: vec!["replaced".to_string()],

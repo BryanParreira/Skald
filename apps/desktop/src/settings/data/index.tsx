@@ -7,7 +7,7 @@ import {
   type ImportSourceInfo,
   type ImportSourceKind,
   type ImportStats,
-} from "@hypr/plugin-importer";
+} from "@skald/plugin-importer";
 
 import { ImportPreview } from "./import-preview";
 import { SourceItem } from "./source-item";
@@ -96,9 +96,7 @@ export function Data() {
   return (
     <div>
       <StyledStreamdown className="text-muted-foreground">
-        {
-          "Import data from other apps. Read more about [import](https://char.com/docs/data/#import) and [export](https://char.com/docs/data/#export)."
-        }
+        {"Import data from other apps."}
       </StyledStreamdown>
 
       <div className="mt-4 flex flex-col gap-3">

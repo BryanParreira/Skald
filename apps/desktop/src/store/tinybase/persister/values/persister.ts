@@ -1,7 +1,7 @@
 import { createCustomPersister } from "tinybase/persisters/with-schemas";
 import type { Content } from "tinybase/with-schemas";
 
-import type { Schemas } from "@hypr/store";
+import type { Schemas } from "@skald/store";
 
 import type { Store } from "~/store/tinybase/store/main";
 import { StoreOrMergeableStore } from "~/store/tinybase/store/shared";

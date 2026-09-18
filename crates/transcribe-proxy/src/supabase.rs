@@ -1,5 +1,5 @@
-use hypr_supabase_storage::SupabaseStorage;
 use serde::{Deserialize, Serialize};
+use skald_supabase_storage::SupabaseStorage;
 use std::time::Instant;
 
 #[derive(Debug, thiserror::Error)]
@@ -67,7 +67,7 @@ impl SupabaseClient {
     }
 
     fn auth_headers(&self, builder: reqwest::RequestBuilder) -> reqwest::RequestBuilder {
-        hypr_observability::with_current_trace_context(
+        skald_observability::with_current_trace_context(
             builder
                 .header("Authorization", format!("Bearer {}", self.service_role_key))
                 .header("apikey", &self.service_role_key),
@@ -84,9 +84,9 @@ impl SupabaseClient {
             .await?;
         tracing::info!(
             service.peer.name = "supabase",
-            hyprnote.supabase.operation = "insert_job",
+            skald.supabase.operation = "insert_job",
             http.response.status_code = response.status().as_u16(),
-            hyprnote.duration_ms = start.elapsed().as_millis() as u64,
+            skald.duration_ms = start.elapsed().as_millis() as u64,
             "supabase_request_finished"
         );
 
@@ -95,7 +95,7 @@ impl SupabaseClient {
             let body = response.text().await.unwrap_or_default();
             tracing::error!(
                 service.peer.name = "supabase",
-                hyprnote.supabase.operation = "insert_job",
+                skald.supabase.operation = "insert_job",
                 http.response.status_code = status.as_u16(),
                 error.type = "supabase_api_error",
                 "supabase_request_failed"
@@ -119,9 +119,9 @@ impl SupabaseClient {
             .await?;
         tracing::info!(
             service.peer.name = "supabase",
-            hyprnote.supabase.operation = "update_job",
+            skald.supabase.operation = "update_job",
             http.response.status_code = response.status().as_u16(),
-            hyprnote.duration_ms = start.elapsed().as_millis() as u64,
+            skald.duration_ms = start.elapsed().as_millis() as u64,
             "supabase_request_finished"
         );
 
@@ -130,7 +130,7 @@ impl SupabaseClient {
             let body = response.text().await.unwrap_or_default();
             tracing::error!(
                 service.peer.name = "supabase",
-                hyprnote.supabase.operation = "update_job",
+                skald.supabase.operation = "update_job",
                 http.response.status_code = status.as_u16(),
                 error.type = "supabase_api_error",
                 "supabase_request_failed"
@@ -153,9 +153,9 @@ impl SupabaseClient {
             .await?;
         tracing::info!(
             service.peer.name = "supabase",
-            hyprnote.supabase.operation = "get_job",
+            skald.supabase.operation = "get_job",
             http.response.status_code = response.status().as_u16(),
-            hyprnote.duration_ms = start.elapsed().as_millis() as u64,
+            skald.duration_ms = start.elapsed().as_millis() as u64,
             "supabase_request_finished"
         );
 
@@ -164,7 +164,7 @@ impl SupabaseClient {
             let body = response.text().await.unwrap_or_default();
             tracing::error!(
                 service.peer.name = "supabase",
-                hyprnote.supabase.operation = "get_job",
+                skald.supabase.operation = "get_job",
                 http.response.status_code = status.as_u16(),
                 error.type = "supabase_api_error",
                 "supabase_request_failed"

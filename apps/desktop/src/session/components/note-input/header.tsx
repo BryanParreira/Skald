@@ -15,16 +15,16 @@ import {
 import { LightbulbIcon } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import { json2md, parseJsonContent } from "@hypr/editor/markdown";
+import { json2md, parseJsonContent } from "@skald/editor/markdown";
 import {
   AppFloatingPanel,
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@hypr/ui/components/ui/popover";
-import { Spinner } from "@hypr/ui/components/ui/spinner";
-import { sonnerToast } from "@hypr/ui/components/ui/toast";
-import { cn } from "@hypr/utils";
+} from "@skald/ui/components/ui/popover";
+import { Spinner } from "@skald/ui/components/ui/spinner";
+import { sonnerToast } from "@skald/ui/components/ui/toast";
+import { cn } from "@skald/utils";
 
 import { useAITaskTask } from "~/ai/hooks";
 import { useLanguageModel, useLLMConnectionStatus } from "~/ai/hooks";

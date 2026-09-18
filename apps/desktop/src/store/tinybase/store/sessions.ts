@@ -1,11 +1,11 @@
-import { json2md } from "@hypr/editor/markdown";
+import { json2md } from "@skald/editor/markdown";
 import type {
   Event,
   EventParticipant,
   HumanStorage,
   MappingSessionParticipantStorage,
   SessionEvent,
-} from "@hypr/store";
+} from "@skald/store";
 
 import * as main from "./main";
 

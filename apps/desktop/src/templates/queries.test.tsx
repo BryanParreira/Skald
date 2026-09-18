@@ -3,7 +3,7 @@ import { act, renderHook, waitFor } from "@testing-library/react";
 import type { ReactNode } from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { executeProxy, subscribe } from "@hypr/plugin-db";
+import { executeProxy, subscribe } from "@skald/plugin-db";
 
 import {
   getTemplateById,

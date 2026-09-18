@@ -23,7 +23,7 @@ const awaitTauriCommands = {
         const source = node.source.value;
 
         const isTauriCommands =
-          source.startsWith("@hypr/plugin-") || source.endsWith("/tauri.gen");
+          source.startsWith("@skald/plugin-") || source.endsWith("/tauri.gen");
 
         if (isTauriCommands) {
           for (const specifier of node.specifiers) {
@@ -168,7 +168,7 @@ const noRawTinybase = {
 
 const plugin = {
   meta: {
-    name: "hypr",
+    name: "skald",
     version: "1.0.0",
   },
   rules: {

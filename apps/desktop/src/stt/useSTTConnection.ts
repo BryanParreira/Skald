@@ -1,17 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo } from "react";
 
-import { commands as localSttCommands } from "@hypr/plugin-local-stt";
-import type { AIProviderStorage } from "@hypr/store";
+import { commands as localSttCommands } from "@skald/plugin-local-stt";
+import type { AIProviderStorage } from "@skald/store";
 
 import { useBillingAccess } from "~/auth/billing";
 import { providerRowId } from "~/settings/ai/shared";
 import { type ProviderId } from "~/settings/ai/stt/shared";
 import * as settings from "~/store/tinybase/store/settings";
-import {
-  isHyprnoteCloudSttModel,
-  isHyprnoteLocalSttModel,
-} from "~/stt/capabilities";
+import { isSkaldCloudSttModel, isSkaldLocalSttModel } from "~/stt/capabilities";
 
 export const useSTTConnection = () => {
   const billing = useBillingAccess();
@@ -54,7 +51,7 @@ export const useSTTConnection = () => {
   );
   useEffect(() => {
     if (!current_stt_provider && isDefaultLocalModelDownloaded) {
-      setSttProvider("velo");
+      setSttProvider("skald");
       setSttModel(defaultLocalModel);
     }
   }, [
@@ -64,7 +61,7 @@ export const useSTTConnection = () => {
     setSttModel,
   ]);
 
-  const localModel = isHyprnoteLocalSttModel(
+  const localModel = isSkaldLocalSttModel(
     current_stt_provider,
     current_stt_model,
   )
@@ -72,13 +69,13 @@ export const useSTTConnection = () => {
     : null;
   const isLocalModel = !!localModel;
 
-  const isCloudModel = isHyprnoteCloudSttModel(
+  const isCloudModel = isSkaldCloudSttModel(
     current_stt_provider,
     current_stt_model,
   );
 
   const local = useQuery({
-    enabled: current_stt_provider === "velo",
+    enabled: current_stt_provider === "skald",
     queryKey: ["stt-connection", current_stt_provider, localModel],
     // Every open note mounts this. Poll quickly until the speech server is
     // ready, then back off; a crash is still noticed within ten seconds.

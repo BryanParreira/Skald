@@ -2,15 +2,15 @@ import { Trans, useLingui } from "@lingui/react/macro";
 import { SearchIcon } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 
-import type { EventParticipant, SessionEvent } from "@hypr/store";
-import { Checkbox } from "@hypr/ui/components/ui/checkbox";
+import type { EventParticipant, SessionEvent } from "@skald/store";
+import { Checkbox } from "@skald/ui/components/ui/checkbox";
 import {
   AppFloatingPanel,
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@hypr/ui/components/ui/popover";
-import { cn } from "@hypr/utils";
+} from "@skald/ui/components/ui/popover";
+import { cn } from "@skald/utils";
 
 import * as main from "~/store/tinybase/store/main";
 import type { Segment } from "~/stt/live-segment";

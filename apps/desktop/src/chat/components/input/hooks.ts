@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import type { ChatEditorHandle, JSONContent } from "@hypr/editor/chat";
-import { EMPTY_DOC } from "@hypr/editor/markdown";
+import type { ChatEditorHandle, JSONContent } from "@skald/editor/chat";
+import { EMPTY_DOC } from "@skald/editor/markdown";
 
 import type { ContextRef } from "~/chat/context/entities";
 

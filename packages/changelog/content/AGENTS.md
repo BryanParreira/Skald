@@ -60,11 +60,11 @@ Attributes:
 - `variant` (optional): `"warning"` for amber/yellow style, `"info"` for blue style. Defaults to amber/info style.
 
 ```mdx
-<banner title="Hyprnote is now Char!">
-We've renamed the app. All your data is safe and nothing changes on your end.
+<banner title="Skald is now Char!">
+  We've renamed the app. All your data is safe and nothing changes on your end.
 </banner>
 
 <banner title="Breaking Change" variant="warning">
-The old plugin format is no longer supported. Please update your plugins.
+  The old plugin format is no longer supported. Please update your plugins.
 </banner>
 ```

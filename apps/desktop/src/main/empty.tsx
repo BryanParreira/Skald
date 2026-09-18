@@ -1,8 +1,8 @@
 import { Trans } from "@lingui/react/macro";
 import { useCallback } from "react";
 
-import { Kbd } from "@hypr/ui/components/ui/kbd";
-import { cn } from "@hypr/utils";
+import { Kbd } from "@skald/ui/components/ui/kbd";
+import { cn } from "@skald/utils";
 
 import { FloatingChatCTA } from "~/shared/chat-cta";
 import { StandardTabWrapper } from "~/shared/main";

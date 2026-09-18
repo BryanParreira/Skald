@@ -7,7 +7,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@hypr/ui/components/ui/accordion";
+} from "@skald/ui/components/ui/accordion";
 
 import { deleteAccount } from "@/functions/account";
 import { signOutFn } from "@/functions/auth";
@@ -92,7 +92,7 @@ export function AccountAccessSection() {
             <AccordionContent className="pb-4">
               <div className="rounded-md border border-red-200 bg-red-50 p-4">
                 <p className="text-sm text-red-900">
-                  Anarlog is a local-first app. Your notes, transcripts, and
+                  Skald is a local-first app. Your notes, transcripts, and
                   meeting data stay on your device. Deleting your account only
                   removes cloud-stored data.
                 </p>

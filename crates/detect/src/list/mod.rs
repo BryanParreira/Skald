@@ -16,37 +16,37 @@ pub fn list_installed_apps() -> Vec<InstalledApp> {
 }
 
 const SELF_BUNDLE_IDS: &[&str] = &[
-    "com.hyprnote.dev",
-    "com.hyprnote.stable",
-    "com.hyprnote.staging",
-    "com.hyprnote.nightly",
+    "com.skald.dev",
+    "com.skald.stable",
+    "com.skald.staging",
+    "com.skald.nightly",
 ];
 
 const SELF_APP_NAMES: &[&str] = &[
-    "velo",
-    "velo staging",
-    "velo nightly",
-    "anarlog",
-    "anarlog staging",
-    "anarlog nightly",
-    "hyprnote",
-    "hyprnote staging",
-    "hyprnote nightly",
+    "skald",
+    "skald staging",
+    "skald nightly",
+    "skald",
+    "skald staging",
+    "skald nightly",
+    "skald",
+    "skald staging",
+    "skald nightly",
     "char",
     "char staging",
     "char nightly",
 ];
 
 const SELF_APP_PATH_SEGMENTS: &[&str] = &[
-    "/velo.app/",
-    "/velo staging.app/",
-    "/velo nightly.app/",
-    "/anarlog.app/",
-    "/anarlog staging.app/",
-    "/anarlog nightly.app/",
-    "/hyprnote.app/",
-    "/hyprnote staging.app/",
-    "/hyprnote nightly.app/",
+    "/skald.app/",
+    "/skald staging.app/",
+    "/skald nightly.app/",
+    "/skald.app/",
+    "/skald staging.app/",
+    "/skald nightly.app/",
+    "/skald.app/",
+    "/skald staging.app/",
+    "/skald nightly.app/",
     "/char.app/",
     "/char staging.app/",
     "/char nightly.app/",
@@ -102,25 +102,25 @@ mod tests {
 
     #[test]
     fn test_is_self_app_matches_known_bundle_ids() {
-        assert!(is_self_app(&app("com.hyprnote.stable", "Anarlog")));
-        assert!(is_self_app(&app("com.hyprnote.Hyprnote", "Hyprnote")));
+        assert!(is_self_app(&app("com.skald.stable", "Skald")));
+        assert!(is_self_app(&app("com.skald.Skald", "Skald")));
     }
 
     #[test]
     fn test_is_self_app_matches_renamed_app_names() {
-        assert!(is_self_app(&app("pid:42", "Anarlog")));
+        assert!(is_self_app(&app("pid:42", "Skald")));
         assert!(is_self_app(&app("pid:43", "Char Nightly")));
-        assert!(is_self_app(&app("pid:44", "Hyprnote Staging")));
+        assert!(is_self_app(&app("pid:44", "Skald Staging")));
     }
 
     #[test]
     fn test_is_self_app_matches_path_fallbacks() {
         assert!(is_self_app(&app(
-            "/Applications/Anarlog.app/Contents/MacOS/anarlog",
+            "/Applications/Skald.app/Contents/MacOS/skald",
             "Unknown",
         )));
         assert!(is_self_app(&app(
-            "/Applications/Hyprnote Nightly.app/Contents/MacOS/Hyprnote Nightly",
+            "/Applications/Skald Nightly.app/Contents/MacOS/Skald Nightly",
             "Unknown",
         )));
     }

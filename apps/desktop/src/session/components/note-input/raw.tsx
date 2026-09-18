@@ -1,13 +1,13 @@
 import type { EditorView } from "prosemirror-view";
 import { forwardRef, useCallback, useEffect, useMemo, useRef } from "react";
 
-import { parseJsonContent } from "@hypr/editor/markdown";
+import { parseJsonContent } from "@skald/editor/markdown";
 import {
   NoteEditor,
   type JSONContent,
   type NoteEditorRef,
-} from "@hypr/editor/note";
-import { cn } from "@hypr/utils";
+} from "@skald/editor/note";
+import { cn } from "@skald/utils";
 
 import { AudioDropTarget } from "./audio-drop-target";
 import { useNoteFileHandlerConfig } from "./file-handler";

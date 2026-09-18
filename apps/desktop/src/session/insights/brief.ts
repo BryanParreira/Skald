@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { format, safeParseDate } from "@hypr/utils";
+import { format, safeParseDate } from "@skald/utils";
 
 import { useSessionEvent } from "~/store/tinybase/hooks";
 import * as main from "~/store/tinybase/store/main";

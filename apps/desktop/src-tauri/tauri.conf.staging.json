@@ -1,11 +1,11 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "Velo Staging",
-  "mainBinaryName": "velo-staging",
-  "identifier": "com.velo.staging",
+  "productName": "Skald Staging",
+  "mainBinaryName": "skald-staging",
+  "identifier": "com.skald.staging",
   "plugins": {
     "deep-link": {
-      "desktop": { "schemes": ["velo-staging"] }
+      "desktop": { "schemes": ["skald-staging"] }
     },
     "updater": {
       "active": false

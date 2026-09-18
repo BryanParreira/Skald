@@ -2,13 +2,13 @@
 pub enum Error {
     #[cfg(feature = "onnx")]
     #[error(transparent)]
-    Onnx(#[from] hypr_onnx::Error),
+    Onnx(#[from] skald_onnx::Error),
     #[cfg(feature = "onnx")]
     #[error(transparent)]
-    Ort(#[from] hypr_onnx::ort::Error),
+    Ort(#[from] skald_onnx::ort::Error),
     #[cfg(feature = "onnx")]
     #[error(transparent)]
-    Shape(#[from] hypr_onnx::ndarray::ShapeError),
+    Shape(#[from] skald_onnx::ndarray::ShapeError),
     #[error("sample rate mismatch: expected {expected}Hz, got {actual}Hz")]
     SampleRateMismatch { expected: u32, actual: u32 },
     #[error("invalid segmenter config `{field}`: {reason}")]

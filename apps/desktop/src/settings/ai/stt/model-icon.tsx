@@ -1,4 +1,4 @@
-import { cn } from "@hypr/utils";
+import { cn } from "@skald/utils";
 
 type ModelIconSpec = {
   label: string;
@@ -9,7 +9,7 @@ type ModelIconSpec = {
 };
 
 const MODEL_ICON_ASSET_BASE = "/assets/model-icons";
-const VELO_ICON_SRC = "/assets/anarlog-icon.png";
+const VELO_ICON_SRC = "/assets/skald-icon.png";
 
 export function getLocalModelIcon(model: string): ModelIconSpec | null {
   const value = model.toLowerCase();
@@ -17,7 +17,7 @@ export function getLocalModelIcon(model: string): ModelIconSpec | null {
   if (value === "cloud") {
     return {
       label: "A",
-      title: "Velo Pro",
+      title: "Skald Pro",
       className: "border-border bg-card text-muted-foreground",
       imageSrc: VELO_ICON_SRC,
       imageClassName: "size-4 object-contain",

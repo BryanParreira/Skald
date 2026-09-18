@@ -1,7 +1,7 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Char AI API",
+    "title": "Skald AI API",
     "description": "AI services API for speech-to-text transcription, LLM chat completions, and subscription management",
     "license": {
       "name": ""
@@ -11,9 +11,7 @@
   "paths": {
     "/calendar/google/list-calendars": {
       "post": {
-        "tags": [
-          "calendar"
-        ],
+        "tags": ["calendar"],
         "operationId": "google_list_calendars",
         "requestBody": {
           "content": {
@@ -52,9 +50,7 @@
     },
     "/calendar/google/list-events": {
       "post": {
-        "tags": [
-          "calendar"
-        ],
+        "tags": ["calendar"],
         "operationId": "google_list_events",
         "requestBody": {
           "content": {
@@ -93,9 +89,7 @@
     },
     "/calendar/outlook/list-calendars": {
       "post": {
-        "tags": [
-          "calendar"
-        ],
+        "tags": ["calendar"],
         "operationId": "outlook_list_calendars",
         "requestBody": {
           "content": {
@@ -134,9 +128,7 @@
     },
     "/calendar/outlook/list-events": {
       "post": {
-        "tags": [
-          "calendar"
-        ],
+        "tags": ["calendar"],
         "operationId": "outlook_list_events",
         "requestBody": {
           "content": {
@@ -175,9 +167,7 @@
     },
     "/feedback/submit": {
       "post": {
-        "tags": [
-          "feedback"
-        ],
+        "tags": ["feedback"],
         "operationId": "submit",
         "requestBody": {
           "content": {
@@ -225,9 +215,7 @@
     },
     "/llm/chat/completions": {
       "post": {
-        "tags": [
-          "llm"
-        ],
+        "tags": ["llm"],
         "operationId": "llm_chat_completions",
         "parameters": [
           {
@@ -241,7 +229,7 @@
                   "type": "null"
                 },
                 {
-                  "$ref": "#/components/schemas/CharTask"
+                  "$ref": "#/components/schemas/SkaldTask"
                 }
               ]
             }
@@ -268,9 +256,7 @@
     },
     "/mail/google/get-attachment": {
       "post": {
-        "tags": [
-          "mail"
-        ],
+        "tags": ["mail"],
         "operationId": "google_get_attachment",
         "requestBody": {
           "content": {
@@ -309,9 +295,7 @@
     },
     "/mail/google/get-message": {
       "post": {
-        "tags": [
-          "mail"
-        ],
+        "tags": ["mail"],
         "operationId": "google_get_message",
         "requestBody": {
           "content": {
@@ -350,9 +334,7 @@
     },
     "/mail/google/get-profile": {
       "post": {
-        "tags": [
-          "mail"
-        ],
+        "tags": ["mail"],
         "operationId": "google_get_profile",
         "requestBody": {
           "content": {
@@ -391,9 +373,7 @@
     },
     "/mail/google/get-thread": {
       "post": {
-        "tags": [
-          "mail"
-        ],
+        "tags": ["mail"],
         "operationId": "google_get_thread",
         "requestBody": {
           "content": {
@@ -432,9 +412,7 @@
     },
     "/mail/google/list-history": {
       "post": {
-        "tags": [
-          "mail"
-        ],
+        "tags": ["mail"],
         "operationId": "google_list_history",
         "requestBody": {
           "content": {
@@ -473,9 +451,7 @@
     },
     "/mail/google/list-labels": {
       "post": {
-        "tags": [
-          "mail"
-        ],
+        "tags": ["mail"],
         "operationId": "google_list_labels",
         "requestBody": {
           "content": {
@@ -514,9 +490,7 @@
     },
     "/mail/google/list-messages": {
       "post": {
-        "tags": [
-          "mail"
-        ],
+        "tags": ["mail"],
         "operationId": "google_list_messages",
         "requestBody": {
           "content": {
@@ -555,9 +529,7 @@
     },
     "/mail/google/list-threads": {
       "post": {
-        "tags": [
-          "mail"
-        ],
+        "tags": ["mail"],
         "operationId": "google_list_threads",
         "requestBody": {
           "content": {
@@ -596,9 +568,7 @@
     },
     "/nango/connections": {
       "get": {
-        "tags": [
-          "nango"
-        ],
+        "tags": ["nango"],
         "operationId": "list_connections",
         "responses": {
           "200": {
@@ -625,9 +595,7 @@
         ]
       },
       "delete": {
-        "tags": [
-          "nango"
-        ],
+        "tags": ["nango"],
         "operationId": "delete_connection",
         "requestBody": {
           "content": {
@@ -669,9 +637,7 @@
     },
     "/nango/session": {
       "post": {
-        "tags": [
-          "nango"
-        ],
+        "tags": ["nango"],
         "operationId": "create_session",
         "requestBody": {
           "content": {
@@ -710,9 +676,7 @@
     },
     "/nango/webhook": {
       "post": {
-        "tags": [
-          "nango"
-        ],
+        "tags": ["nango"],
         "operationId": "nango_webhook",
         "responses": {
           "200": {
@@ -736,9 +700,7 @@
     },
     "/nango/whoami": {
       "get": {
-        "tags": [
-          "nango"
-        ],
+        "tags": ["nango"],
         "operationId": "whoami",
         "responses": {
           "200": {
@@ -767,9 +729,7 @@
     },
     "/pyannote/v1/diarize": {
       "post": {
-        "tags": [
-          "pyannote"
-        ],
+        "tags": ["pyannote"],
         "summary": "Diarize audio",
         "operationId": "diarize",
         "parameters": [],
@@ -809,16 +769,12 @@
             "bearer_auth": []
           }
         ],
-        "x-api-key-permissions": [
-          "jobs:write"
-        ]
+        "x-api-key-permissions": ["jobs:write"]
       }
     },
     "/pyannote/v1/identify": {
       "post": {
-        "tags": [
-          "pyannote"
-        ],
+        "tags": ["pyannote"],
         "summary": "Identify speaker with diarization",
         "operationId": "identify",
         "parameters": [],
@@ -858,16 +814,12 @@
             "bearer_auth": []
           }
         ],
-        "x-api-key-permissions": [
-          "jobs:write"
-        ]
+        "x-api-key-permissions": ["jobs:write"]
       }
     },
     "/pyannote/v1/voiceprint": {
       "post": {
-        "tags": [
-          "pyannote"
-        ],
+        "tags": ["pyannote"],
         "summary": "Extract voiceprint",
         "operationId": "voiceprint",
         "parameters": [],
@@ -907,22 +859,18 @@
             "bearer_auth": []
           }
         ],
-        "x-api-key-permissions": [
-          "jobs:write"
-        ]
+        "x-api-key-permissions": ["jobs:write"]
       }
     },
     "/stt/listen": {
       "get": {
-        "tags": [
-          "stt"
-        ],
+        "tags": ["stt"],
         "operationId": "stt_listen_stream",
         "parameters": [
           {
             "name": "provider",
             "in": "query",
-            "description": "STT provider. Use 'hyprnote' for automatic routing (default), or specify:\ndeepgram, soniox, assemblyai, gladia, elevenlabs, fireworks, openai, dashscope, mistral",
+            "description": "STT provider. Use 'skald' for automatic routing (default), or specify:\ndeepgram, soniox, assemblyai, gladia, elevenlabs, fireworks, openai, dashscope, mistral",
             "required": false,
             "schema": {
               "type": "string"
@@ -1000,15 +948,13 @@
         }
       },
       "post": {
-        "tags": [
-          "stt"
-        ],
+        "tags": ["stt"],
         "operationId": "stt_listen_batch",
         "parameters": [
           {
             "name": "provider",
             "in": "query",
-            "description": "STT provider. Use 'hyprnote' for automatic routing (default), or specify:\ndeepgram, soniox, assemblyai, gladia, elevenlabs, fireworks, openai, dashscope, mistral",
+            "description": "STT provider. Use 'skald' for automatic routing (default), or specify:\ndeepgram, soniox, assemblyai, gladia, elevenlabs, fireworks, openai, dashscope, mistral",
             "required": false,
             "schema": {
               "type": "string"
@@ -1097,9 +1043,7 @@
     },
     "/stt/status/{pipeline_id}": {
       "get": {
-        "tags": [
-          "stt"
-        ],
+        "tags": ["stt"],
         "operationId": "stt_status",
         "parameters": [
           {
@@ -1134,9 +1078,7 @@
     },
     "/subscription/can-start-trial": {
       "get": {
-        "tags": [
-          "subscription"
-        ],
+        "tags": ["subscription"],
         "operationId": "can_start_trial",
         "responses": {
           "200": {
@@ -1165,9 +1107,7 @@
     },
     "/subscription/delete-account": {
       "delete": {
-        "tags": [
-          "subscription"
-        ],
+        "tags": ["subscription"],
         "operationId": "delete_account",
         "responses": {
           "200": {
@@ -1196,9 +1136,7 @@
     },
     "/subscription/start-trial": {
       "post": {
-        "tags": [
-          "subscription"
-        ],
+        "tags": ["subscription"],
         "operationId": "start_trial",
         "parameters": [
           {
@@ -1238,9 +1176,7 @@
     },
     "/support/chatwoot/contact": {
       "post": {
-        "tags": [
-          "chatwoot"
-        ],
+        "tags": ["chatwoot"],
         "operationId": "create_contact",
         "requestBody": {
           "content": {
@@ -1271,9 +1207,7 @@
     },
     "/support/chatwoot/conversations": {
       "get": {
-        "tags": [
-          "chatwoot"
-        ],
+        "tags": ["chatwoot"],
         "operationId": "list_conversations",
         "parameters": [
           {
@@ -1306,9 +1240,7 @@
         }
       },
       "post": {
-        "tags": [
-          "chatwoot"
-        ],
+        "tags": ["chatwoot"],
         "operationId": "create_conversation",
         "requestBody": {
           "content": {
@@ -1339,9 +1271,7 @@
     },
     "/support/chatwoot/conversations/{conversation_id}/messages": {
       "get": {
-        "tags": [
-          "chatwoot"
-        ],
+        "tags": ["chatwoot"],
         "operationId": "get_messages",
         "parameters": [
           {
@@ -1384,9 +1314,7 @@
         }
       },
       "post": {
-        "tags": [
-          "chatwoot"
-        ],
+        "tags": ["chatwoot"],
         "operationId": "send_message",
         "parameters": [
           {
@@ -1429,9 +1357,7 @@
     },
     "/ticket/github/list-repos": {
       "post": {
-        "tags": [
-          "ticket"
-        ],
+        "tags": ["ticket"],
         "operationId": "github_list_repos",
         "requestBody": {
           "content": {
@@ -1470,9 +1396,7 @@
     },
     "/ticket/github/list-tickets": {
       "post": {
-        "tags": [
-          "ticket"
-        ],
+        "tags": ["ticket"],
         "operationId": "github_list_tickets",
         "requestBody": {
           "content": {
@@ -1511,9 +1435,7 @@
     },
     "/ticket/linear/list-teams": {
       "post": {
-        "tags": [
-          "ticket"
-        ],
+        "tags": ["ticket"],
         "operationId": "linear_list_teams",
         "requestBody": {
           "content": {
@@ -1552,9 +1474,7 @@
     },
     "/ticket/linear/list-tickets": {
       "post": {
-        "tags": [
-          "ticket"
-        ],
+        "tags": ["ticket"],
         "operationId": "linear_list_tickets",
         "requestBody": {
           "content": {
@@ -1596,28 +1516,16 @@
     "schemas": {
       "AccessRole": {
         "type": "string",
-        "enum": [
-          "freeBusyReader",
-          "reader",
-          "writer",
-          "owner",
-          "unknown"
-        ]
+        "enum": ["freeBusyReader", "reader", "writer", "owner", "unknown"]
       },
       "Attachment": {
         "type": "object",
         "properties": {
           "data": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "size": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32",
             "minimum": 0
           }
@@ -1625,22 +1533,11 @@
       },
       "AttendeeResponseStatus": {
         "type": "string",
-        "enum": [
-          "needsAction",
-          "declined",
-          "tentative",
-          "accepted",
-          "unknown"
-        ]
+        "enum": ["needsAction", "declined", "tentative", "accepted", "unknown"]
       },
       "AttendeeType": {
         "type": "string",
-        "enum": [
-          "required",
-          "optional",
-          "resource",
-          "unknown"
-        ]
+        "enum": ["required", "optional", "resource", "unknown"]
       },
       "AutoDeclineMode": {
         "type": "string",
@@ -1653,10 +1550,7 @@
       },
       "BatchAlternatives": {
         "type": "object",
-        "required": [
-          "transcript",
-          "confidence"
-        ],
+        "required": ["transcript", "confidence"],
         "properties": {
           "confidence": {
             "type": "number",
@@ -1675,9 +1569,7 @@
       },
       "BatchChannel": {
         "type": "object",
-        "required": [
-          "alternatives"
-        ],
+        "required": ["alternatives"],
         "properties": {
           "alternatives": {
             "type": "array",
@@ -1691,9 +1583,7 @@
         "oneOf": [
           {
             "type": "object",
-            "required": [
-              "Sync"
-            ],
+            "required": ["Sync"],
             "properties": {
               "Sync": {
                 "$ref": "#/components/schemas/BatchResponse"
@@ -1702,9 +1592,7 @@
           },
           {
             "type": "object",
-            "required": [
-              "Callback"
-            ],
+            "required": ["Callback"],
             "properties": {
               "Callback": {
                 "$ref": "#/components/schemas/ListenCallbackResponse"
@@ -1715,10 +1603,7 @@
       },
       "BatchResponse": {
         "type": "object",
-        "required": [
-          "metadata",
-          "results"
-        ],
+        "required": ["metadata", "results"],
         "properties": {
           "metadata": {
             "type": "object"
@@ -1730,9 +1615,7 @@
       },
       "BatchResults": {
         "type": "object",
-        "required": [
-          "channels"
-        ],
+        "required": ["channels"],
         "properties": {
           "channels": {
             "type": "array",
@@ -1746,16 +1629,10 @@
         "oneOf": [
           {
             "type": "object",
-            "required": [
-              "percentage",
-              "type"
-            ],
+            "required": ["percentage", "type"],
             "properties": {
               "partial_text": {
-                "type": [
-                  "string",
-                  "null"
-                ]
+                "type": ["string", "null"]
               },
               "percentage": {
                 "type": "number",
@@ -1763,19 +1640,13 @@
               },
               "type": {
                 "type": "string",
-                "enum": [
-                  "progress"
-                ]
+                "enum": ["progress"]
               }
             }
           },
           {
             "type": "object",
-            "required": [
-              "response",
-              "percentage",
-              "type"
-            ],
+            "required": ["response", "percentage", "type"],
             "properties": {
               "percentage": {
                 "type": "number",
@@ -1786,9 +1657,7 @@
               },
               "type": {
                 "type": "string",
-                "enum": [
-                  "segment"
-                ]
+                "enum": ["segment"]
               }
             }
           },
@@ -1819,43 +1688,29 @@
               },
               "type": {
                 "type": "string",
-                "enum": [
-                  "terminal"
-                ]
+                "enum": ["terminal"]
               }
             }
           },
           {
             "type": "object",
-            "required": [
-              "response",
-              "type"
-            ],
+            "required": ["response", "type"],
             "properties": {
               "response": {
                 "$ref": "#/components/schemas/BatchResponse"
               },
               "type": {
                 "type": "string",
-                "enum": [
-                  "result"
-                ]
+                "enum": ["result"]
               }
             }
           },
           {
             "type": "object",
-            "required": [
-              "error_message",
-              "provider",
-              "type"
-            ],
+            "required": ["error_message", "provider", "type"],
             "properties": {
               "error_code": {
-                "type": [
-                  "integer",
-                  "null"
-                ],
+                "type": ["integer", "null"],
                 "format": "int32"
               },
               "error_message": {
@@ -1866,9 +1721,7 @@
               },
               "type": {
                 "type": "string",
-                "enum": [
-                  "error"
-                ]
+                "enum": ["error"]
               }
             }
           }
@@ -1876,12 +1729,7 @@
       },
       "BatchWord": {
         "type": "object",
-        "required": [
-          "word",
-          "start",
-          "end",
-          "confidence"
-        ],
+        "required": ["word", "start", "end", "confidence"],
         "properties": {
           "channel": {
             "type": "integer",
@@ -1896,16 +1744,10 @@
             "format": "double"
           },
           "punctuated_word": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "speaker": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "minimum": 0
           },
           "start": {
@@ -1921,16 +1763,10 @@
         "type": "object",
         "properties": {
           "contact": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "customTypeName": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "type": {
             "oneOf": [
@@ -1957,50 +1793,29 @@
       },
       "BodyType": {
         "type": "string",
-        "enum": [
-          "text",
-          "html",
-          "unknown"
-        ]
+        "enum": ["text", "html", "unknown"]
       },
       "Calendar": {
         "type": "object",
-        "required": [
-          "id"
-        ],
+        "required": ["id"],
         "properties": {
           "allowedOnlineMeetingProviders": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "$ref": "#/components/schemas/OnlineMeetingProviderType"
             }
           },
           "canEdit": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "canShare": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "canViewPrivateItems": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "changeKey": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "color": {
             "oneOf": [
@@ -2023,37 +1838,22 @@
             ]
           },
           "hexColor": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "id": {
             "type": "string"
           },
           "isDefaultCalendar": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "isRemovable": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "isTallyingResponses": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "name": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "owner": {
             "oneOf": [
@@ -2086,9 +1886,7 @@
       },
       "CalendarListEntry": {
         "type": "object",
-        "required": [
-          "id"
-        ],
+        "required": ["id"],
         "properties": {
           "accessRole": {
             "oneOf": [
@@ -2101,22 +1899,13 @@
             ]
           },
           "autoAcceptInvitations": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "backgroundColor": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "colorId": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "conferenceProperties": {
             "oneOf": [
@@ -2129,64 +1918,37 @@
             ]
           },
           "dataOwner": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "defaultReminders": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "$ref": "#/components/schemas/Reminder"
             }
           },
           "deleted": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "description": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "etag": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "foregroundColor": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "hidden": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "id": {
             "type": "string"
           },
           "kind": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "location": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "notificationSettings": {
             "oneOf": [
@@ -2199,43 +1961,25 @@
             ]
           },
           "primary": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "selected": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "summary": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "summaryOverride": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "timeZone": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
       "CalendarNotification": {
         "type": "object",
-        "required": [
-          "method",
-          "type"
-        ],
+        "required": ["method", "type"],
         "properties": {
           "method": {
             "$ref": "#/components/schemas/NotificationMethod"
@@ -2247,17 +1991,11 @@
       },
       "CanStartTrialReason": {
         "type": "string",
-        "enum": [
-          "eligible",
-          "not_eligible",
-          "error"
-        ]
+        "enum": ["eligible", "not_eligible", "error"]
       },
       "CanStartTrialResponse": {
         "type": "object",
-        "required": [
-          "canStartTrial"
-        ],
+        "required": ["canStartTrial"],
         "properties": {
           "canStartTrial": {
             "type": "boolean",
@@ -2275,27 +2013,17 @@
           }
         }
       },
-      "CharTask": {
+      "SkaldTask": {
         "type": "string",
-        "enum": [
-          "chat",
-          "enhance",
-          "title"
-        ]
+        "enum": ["chat", "enhance", "title"]
       },
       "ChatStatus": {
         "type": "string",
-        "enum": [
-          "available",
-          "doNotDisturb",
-          "unknown"
-        ]
+        "enum": ["available", "doNotDisturb", "unknown"]
       },
       "CollectionPage": {
         "type": "object",
-        "required": [
-          "items"
-        ],
+        "required": ["items"],
         "properties": {
           "items": {
             "type": "array",
@@ -2304,28 +2032,19 @@
             }
           },
           "next_cursor": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
       "CollectionRef": {
         "type": "object",
-        "required": [
-          "id",
-          "name"
-        ],
+        "required": ["id", "name"],
         "properties": {
           "id": {
             "type": "string"
           },
           "key": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "Short identifier. GitHub: \"owner/repo\", Linear: team key (e.g., \"ENG\")."
           },
           "name": {
@@ -2333,10 +2052,7 @@
             "description": "Display name. GitHub: \"owner/repo\", Linear: team name."
           },
           "url": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
@@ -2354,10 +2070,7 @@
             ]
           },
           "requestId": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "status": {
             "oneOf": [
@@ -2373,9 +2086,7 @@
       },
       "ConferenceCreateRequestStatus": {
         "type": "object",
-        "required": [
-          "statusCode"
-        ],
+        "required": ["statusCode"],
         "properties": {
           "statusCode": {
             "$ref": "#/components/schemas/ConferenceCreateStatusCode"
@@ -2384,21 +2095,13 @@
       },
       "ConferenceCreateStatusCode": {
         "type": "string",
-        "enum": [
-          "pending",
-          "success",
-          "failure",
-          "unknown"
-        ]
+        "enum": ["pending", "success", "failure", "unknown"]
       },
       "ConferenceData": {
         "type": "object",
         "properties": {
           "conferenceId": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "conferenceSolution": {
             "oneOf": [
@@ -2421,25 +2124,16 @@
             ]
           },
           "entryPoints": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "$ref": "#/components/schemas/EntryPoint"
             }
           },
           "notes": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "signature": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
@@ -2447,10 +2141,7 @@
         "type": "object",
         "properties": {
           "allowedConferenceSolutionTypes": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "$ref": "#/components/schemas/ConferenceSolutionType"
             }
@@ -2461,10 +2152,7 @@
         "type": "object",
         "properties": {
           "iconUri": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "key": {
             "oneOf": [
@@ -2477,18 +2165,13 @@
             ]
           },
           "name": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
       "ConferenceSolutionKey": {
         "type": "object",
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "properties": {
           "type": {
             "$ref": "#/components/schemas/ConferenceSolutionType"
@@ -2507,10 +2190,7 @@
       },
       "Confidence": {
         "type": "object",
-        "required": [
-          "score",
-          "resolution"
-        ],
+        "required": ["score", "resolution"],
         "properties": {
           "resolution": {
             "type": "number",
@@ -2523,27 +2203,13 @@
               "type": "number"
             },
             "description": "List of confidence scores for each sample. Values are between 0 and 100",
-            "example": [
-              95,
-              89,
-              78,
-              67,
-              56,
-              45,
-              34,
-              23,
-              12,
-              1
-            ]
+            "example": [95, 89, 78, 67, 56, 45, 34, 23, 12, 1]
           }
         }
       },
       "ConnectionItem": {
         "type": "object",
-        "required": [
-          "integration_id",
-          "connection_id"
-        ],
+        "required": ["integration_id", "connection_id"],
         "properties": {
           "connection_id": {
             "type": "string"
@@ -2552,85 +2218,54 @@
             "type": "string"
           },
           "last_error_at": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "last_error_description": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "last_error_type": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "status": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "updated_at": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
       "ConversationSummary": {
         "type": "object",
-        "required": [
-          "id"
-        ],
+        "required": ["id"],
         "properties": {
           "id": {
             "type": "integer",
             "format": "int64"
           },
           "inboxId": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
       "CreateContactRequest": {
         "type": "object",
-        "required": [
-          "identifier"
-        ],
+        "required": ["identifier"],
         "properties": {
           "customAttributes": {},
           "email": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "identifier": {
             "type": "string"
           },
           "name": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
       "CreateContactResponse": {
         "type": "object",
-        "required": [
-          "sourceId",
-          "pubsubToken"
-        ],
+        "required": ["sourceId", "pubsubToken"],
         "properties": {
           "pubsubToken": {
             "type": "string"
@@ -2642,9 +2277,7 @@
       },
       "CreateConversationRequest": {
         "type": "object",
-        "required": [
-          "sourceId"
-        ],
+        "required": ["sourceId"],
         "properties": {
           "customAttributes": {},
           "sourceId": {
@@ -2654,9 +2287,7 @@
       },
       "CreateConversationResponse": {
         "type": "object",
-        "required": [
-          "conversationId"
-        ],
+        "required": ["conversationId"],
         "properties": {
           "conversationId": {
             "type": "integer",
@@ -2666,10 +2297,7 @@
       },
       "CreateEventRequest": {
         "type": "object",
-        "required": [
-          "calendar_id",
-          "event"
-        ],
+        "required": ["calendar_id", "event"],
         "properties": {
           "calendar_id": {
             "type": "string"
@@ -2681,15 +2309,10 @@
       },
       "CreateSessionRequest": {
         "type": "object",
-        "required": [
-          "integration_id"
-        ],
+        "required": ["integration_id"],
         "properties": {
           "connection_id": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "integration_id": {
             "type": "string"
@@ -2703,27 +2326,19 @@
         "type": "object",
         "properties": {
           "label": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
       "DateTimeTimeZone": {
         "type": "object",
-        "required": [
-          "dateTime"
-        ],
+        "required": ["dateTime"],
         "properties": {
           "dateTime": {
             "type": "string"
           },
           "timeZone": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
@@ -2742,27 +2357,19 @@
       },
       "DeleteAccountResponse": {
         "type": "object",
-        "required": [
-          "deleted"
-        ],
+        "required": ["deleted"],
         "properties": {
           "deleted": {
             "type": "boolean"
           },
           "error": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
       "DeleteConnectionRequest": {
         "type": "object",
-        "required": [
-          "connection_id",
-          "integration_id"
-        ],
+        "required": ["connection_id", "integration_id"],
         "properties": {
           "connection_id": {
             "type": "string"
@@ -2774,9 +2381,7 @@
       },
       "DeleteConnectionResponse": {
         "type": "object",
-        "required": [
-          "status"
-        ],
+        "required": ["status"],
         "properties": {
           "status": {
             "type": "string"
@@ -2785,12 +2390,7 @@
       },
       "DeviceInfo": {
         "type": "object",
-        "required": [
-          "platform",
-          "arch",
-          "osVersion",
-          "appVersion"
-        ],
+        "required": ["platform", "arch", "osVersion", "appVersion"],
         "properties": {
           "appVersion": {
             "type": "string"
@@ -2799,16 +2399,10 @@
             "type": "string"
           },
           "buildHash": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "locale": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "osVersion": {
             "type": "string"
@@ -2848,9 +2442,7 @@
       },
       "DiarizationJobOutput": {
         "type": "object",
-        "required": [
-          "diarization"
-        ],
+        "required": ["diarization"],
         "properties": {
           "confidence": {
             "$ref": "#/components/schemas/Confidence"
@@ -2911,11 +2503,7 @@
       },
       "DiarizationSegment": {
         "type": "object",
-        "required": [
-          "speaker",
-          "start",
-          "end"
-        ],
+        "required": ["speaker", "start", "end"],
         "properties": {
           "confidence": {
             "type": "object",
@@ -2944,9 +2532,7 @@
       },
       "DiarizeRequest": {
         "type": "object",
-        "required": [
-          "url"
-        ],
+        "required": ["url"],
         "properties": {
           "confidence": {
             "type": "boolean"
@@ -2955,17 +2541,11 @@
             "type": "boolean"
           },
           "maxSpeakers": {
-            "type": [
-              "number",
-              "null"
-            ],
+            "type": ["number", "null"],
             "format": "double"
           },
           "minSpeakers": {
-            "type": [
-              "number",
-              "null"
-            ],
+            "type": ["number", "null"],
             "format": "double"
           },
           "model": {
@@ -2979,10 +2559,7 @@
             ]
           },
           "numSpeakers": {
-            "type": [
-              "number",
-              "null"
-            ],
+            "type": ["number", "null"],
             "format": "double"
           },
           "transcription": {
@@ -2999,10 +2576,7 @@
             ]
           },
           "turnLevelConfidence": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "url": {
             "type": "string"
@@ -3012,73 +2586,43 @@
       },
       "DiarizeRequestModel": {
         "type": "string",
-        "enum": [
-          "precision-2",
-          "community-1"
-        ]
+        "enum": ["precision-2", "community-1"]
       },
       "EmailAddress": {
         "type": "object",
         "properties": {
           "address": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "name": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
       "EntryPoint": {
         "type": "object",
-        "required": [
-          "entryPointType",
-          "uri"
-        ],
+        "required": ["entryPointType", "uri"],
         "properties": {
           "accessCode": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "entryPointType": {
             "$ref": "#/components/schemas/EntryPointType"
           },
           "label": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "meetingCode": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "passcode": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "password": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "pin": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "uri": {
             "type": "string"
@@ -3087,46 +2631,25 @@
       },
       "EntryPointType": {
         "type": "string",
-        "enum": [
-          "video",
-          "phone",
-          "sip",
-          "more",
-          "unknown"
-        ]
+        "enum": ["video", "phone", "sip", "more", "unknown"]
       },
       "EventAttachment": {
         "type": "object",
         "properties": {
           "fileId": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "fileUrl": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "iconLink": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "mimeType": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "title": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
@@ -3134,60 +2657,36 @@
         "type": "object",
         "properties": {
           "date": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "format": "date"
           },
           "dateTime": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "format": "date-time"
           },
           "timeZone": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
       "EventOrderBy": {
         "type": "string",
-        "enum": [
-          "startTime",
-          "updated"
-        ]
+        "enum": ["startTime", "updated"]
       },
       "EventPerson": {
         "type": "object",
         "properties": {
           "displayName": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "email": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "id": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "self": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           }
         }
       },
@@ -3205,10 +2704,7 @@
       },
       "EventSource": {
         "type": "object",
-        "required": [
-          "url",
-          "title"
-        ],
+        "required": ["url", "title"],
         "properties": {
           "title": {
             "type": "string"
@@ -3220,21 +2716,13 @@
       },
       "EventStatus": {
         "type": "string",
-        "enum": [
-          "confirmed",
-          "tentative",
-          "cancelled",
-          "unknown"
-        ]
+        "enum": ["confirmed", "tentative", "cancelled", "unknown"]
       },
       "ExtendedProperties": {
         "type": "object",
         "properties": {
           "private": {
-            "type": [
-              "object",
-              "null"
-            ],
+            "type": ["object", "null"],
             "additionalProperties": {
               "type": "string"
             },
@@ -3243,10 +2731,7 @@
             }
           },
           "shared": {
-            "type": [
-              "object",
-              "null"
-            ],
+            "type": ["object", "null"],
             "additionalProperties": {
               "type": "string"
             },
@@ -3258,10 +2743,7 @@
       },
       "FeedbackRequest": {
         "type": "object",
-        "required": [
-          "description",
-          "deviceInfo"
-        ],
+        "required": ["description", "deviceInfo"],
         "properties": {
           "description": {
             "type": "string"
@@ -3270,10 +2752,7 @@
             "$ref": "#/components/schemas/DeviceInfo"
           },
           "logs": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "type": {
             "$ref": "#/components/schemas/FeedbackType"
@@ -3282,21 +2761,13 @@
       },
       "FeedbackResponse": {
         "type": "object",
-        "required": [
-          "success"
-        ],
+        "required": ["success"],
         "properties": {
           "error": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "issueUrl": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "success": {
             "type": "boolean"
@@ -3305,10 +2776,7 @@
       },
       "FeedbackType": {
         "type": "string",
-        "enum": [
-          "bug",
-          "feature"
-        ]
+        "enum": ["bug", "feature"]
       },
       "FocusTimeProperties": {
         "type": "object",
@@ -3334,10 +2802,7 @@
             ]
           },
           "declineMessage": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
@@ -3355,29 +2820,17 @@
             ]
           },
           "height": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32"
           },
           "iconLink": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "link": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "preferences": {
-            "type": [
-              "object",
-              "null"
-            ],
+            "type": ["object", "null"],
             "additionalProperties": {
               "type": "string"
             },
@@ -3386,40 +2839,24 @@
             }
           },
           "title": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "type": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "width": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32"
           }
         }
       },
       "GadgetDisplay": {
         "type": "string",
-        "enum": [
-          "chip",
-          "icon",
-          "unknown"
-        ]
+        "enum": ["chip", "icon", "unknown"]
       },
       "GetJobsResponse": {
         "type": "object",
-        "required": [
-          "items",
-          "total"
-        ],
+        "required": ["items", "total"],
         "properties": {
           "items": {
             "type": "array",
@@ -3437,9 +2874,7 @@
       },
       "GetMediaUploadUrl": {
         "type": "object",
-        "required": [
-          "url"
-        ],
+        "required": ["url"],
         "properties": {
           "url": {
             "type": "string",
@@ -3451,9 +2886,7 @@
       },
       "GetMessageRequest": {
         "type": "object",
-        "required": [
-          "id"
-        ],
+        "required": ["id"],
         "properties": {
           "format": {
             "oneOf": [
@@ -3469,10 +2902,7 @@
             "type": "string"
           },
           "metadata_headers": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "type": "string"
             }
@@ -3481,9 +2911,7 @@
       },
       "GetThreadRequest": {
         "type": "object",
-        "required": [
-          "id"
-        ],
+        "required": ["id"],
         "properties": {
           "format": {
             "oneOf": [
@@ -3499,10 +2927,7 @@
             "type": "string"
           },
           "metadata_headers": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "type": "string"
             }
@@ -3511,24 +2936,16 @@
       },
       "GitHubListReposRequest": {
         "type": "object",
-        "required": [
-          "connection_id"
-        ],
+        "required": ["connection_id"],
         "properties": {
           "connection_id": {
             "type": "string"
           },
           "cursor": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "limit": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32",
             "minimum": 0
           }
@@ -3536,35 +2953,22 @@
       },
       "GitHubListTicketsRequest": {
         "type": "object",
-        "required": [
-          "connection_id",
-          "owner",
-          "repo"
-        ],
+        "required": ["connection_id", "owner", "repo"],
         "properties": {
           "connection_id": {
             "type": "string"
           },
           "cursor": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "labels": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "type": "string"
             }
           },
           "limit": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32",
             "minimum": 0
           },
@@ -3575,20 +2979,13 @@
             "type": "string"
           },
           "state": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
       "GoogleGetAttachmentRequest": {
         "type": "object",
-        "required": [
-          "connection_id",
-          "message_id",
-          "attachment_id"
-        ],
+        "required": ["connection_id", "message_id", "attachment_id"],
         "properties": {
           "attachment_id": {
             "type": "string"
@@ -3603,28 +3000,19 @@
       },
       "GoogleGetMessageRequest": {
         "type": "object",
-        "required": [
-          "connection_id",
-          "id"
-        ],
+        "required": ["connection_id", "id"],
         "properties": {
           "connection_id": {
             "type": "string"
           },
           "format": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "id": {
             "type": "string"
           },
           "metadata_headers": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "type": "string"
             }
@@ -3633,9 +3021,7 @@
       },
       "GoogleGetProfileRequest": {
         "type": "object",
-        "required": [
-          "connection_id"
-        ],
+        "required": ["connection_id"],
         "properties": {
           "connection_id": {
             "type": "string"
@@ -3644,28 +3030,19 @@
       },
       "GoogleGetThreadRequest": {
         "type": "object",
-        "required": [
-          "connection_id",
-          "id"
-        ],
+        "required": ["connection_id", "id"],
         "properties": {
           "connection_id": {
             "type": "string"
           },
           "format": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "id": {
             "type": "string"
           },
           "metadata_headers": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "type": "string"
             }
@@ -3674,9 +3051,7 @@
       },
       "GoogleListCalendarsRequest": {
         "type": "object",
-        "required": [
-          "connection_id"
-        ],
+        "required": ["connection_id"],
         "properties": {
           "connection_id": {
             "type": "string"
@@ -3685,10 +3060,7 @@
       },
       "GoogleListEventsRequest": {
         "type": "object",
-        "required": [
-          "connection_id",
-          "calendar_id"
-        ],
+        "required": ["connection_id", "calendar_id"],
         "properties": {
           "calendar_id": {
             "type": "string"
@@ -3697,83 +3069,50 @@
             "type": "string"
           },
           "max_results": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32",
             "minimum": 0
           },
           "order_by": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "page_token": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "single_events": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "time_max": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "time_min": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
       "GoogleListHistoryRequest": {
         "type": "object",
-        "required": [
-          "connection_id",
-          "start_history_id"
-        ],
+        "required": ["connection_id", "start_history_id"],
         "properties": {
           "connection_id": {
             "type": "string"
           },
           "history_types": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "type": "string"
             }
           },
           "label_id": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "max_results": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32",
             "minimum": 0
           },
           "page_token": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "start_history_id": {
             "type": "string"
@@ -3782,9 +3121,7 @@
       },
       "GoogleListLabelsRequest": {
         "type": "object",
-        "required": [
-          "connection_id"
-        ],
+        "required": ["connection_id"],
         "properties": {
           "connection_id": {
             "type": "string"
@@ -3793,101 +3130,65 @@
       },
       "GoogleListMessagesRequest": {
         "type": "object",
-        "required": [
-          "connection_id"
-        ],
+        "required": ["connection_id"],
         "properties": {
           "connection_id": {
             "type": "string"
           },
           "include_spam_trash": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "label_ids": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "type": "string"
             }
           },
           "max_results": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32",
             "minimum": 0
           },
           "page_token": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "q": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
       "GoogleListThreadsRequest": {
         "type": "object",
-        "required": [
-          "connection_id"
-        ],
+        "required": ["connection_id"],
         "properties": {
           "connection_id": {
             "type": "string"
           },
           "include_spam_trash": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "label_ids": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "type": "string"
             }
           },
           "max_results": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32",
             "minimum": 0
           },
           "page_token": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "q": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
       "History": {
         "type": "object",
-        "required": [
-          "id"
-        ],
+        "required": ["id"],
         "properties": {
           "id": {
             "type": "string"
@@ -3926,9 +3227,7 @@
       },
       "HistoryLabelAdded": {
         "type": "object",
-        "required": [
-          "message"
-        ],
+        "required": ["message"],
         "properties": {
           "labelIds": {
             "type": "array",
@@ -3943,9 +3242,7 @@
       },
       "HistoryLabelRemoved": {
         "type": "object",
-        "required": [
-          "message"
-        ],
+        "required": ["message"],
         "properties": {
           "labelIds": {
             "type": "array",
@@ -3960,9 +3257,7 @@
       },
       "HistoryMessageAdded": {
         "type": "object",
-        "required": [
-          "message"
-        ],
+        "required": ["message"],
         "properties": {
           "message": {
             "$ref": "#/components/schemas/Message"
@@ -3971,9 +3266,7 @@
       },
       "HistoryMessageDeleted": {
         "type": "object",
-        "required": [
-          "message"
-        ],
+        "required": ["message"],
         "properties": {
           "message": {
             "$ref": "#/components/schemas/Message"
@@ -3982,12 +3275,7 @@
       },
       "HistoryType": {
         "type": "string",
-        "enum": [
-          "messageAdded",
-          "messageDeleted",
-          "labelAdded",
-          "labelRemoved"
-        ]
+        "enum": ["messageAdded", "messageDeleted", "labelAdded", "labelRemoved"]
       },
       "IdentificationJobOutput": {
         "type": "object",
@@ -4034,10 +3322,7 @@
       },
       "IdentificationSegment": {
         "type": "object",
-        "required": [
-          "diarizationSpeaker",
-          "match"
-        ],
+        "required": ["diarizationSpeaker", "match"],
         "properties": {
           "confidence": {
             "type": "object",
@@ -4076,11 +3361,7 @@
       },
       "IdentificationVoiceprint": {
         "type": "object",
-        "required": [
-          "speaker",
-          "match",
-          "confidence"
-        ],
+        "required": ["speaker", "match", "confidence"],
         "properties": {
           "confidence": {
             "type": "object",
@@ -4132,10 +3413,7 @@
       },
       "IdentifyRequest": {
         "type": "object",
-        "required": [
-          "url",
-          "voiceprints"
-        ],
+        "required": ["url", "voiceprints"],
         "properties": {
           "confidence": {
             "type": "boolean"
@@ -4154,17 +3432,11 @@
             ]
           },
           "maxSpeakers": {
-            "type": [
-              "number",
-              "null"
-            ],
+            "type": ["number", "null"],
             "format": "double"
           },
           "minSpeakers": {
-            "type": [
-              "number",
-              "null"
-            ],
+            "type": ["number", "null"],
             "format": "double"
           },
           "model": {
@@ -4178,17 +3450,11 @@
             ]
           },
           "numSpeakers": {
-            "type": [
-              "number",
-              "null"
-            ],
+            "type": ["number", "null"],
             "format": "double"
           },
           "turnLevelConfidence": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "url": {
             "type": "string"
@@ -4204,34 +3470,21 @@
       },
       "IdentifyRequestModel": {
         "type": "string",
-        "enum": [
-          "precision-2"
-        ]
+        "enum": ["precision-2"]
       },
       "Importance": {
         "type": "string",
-        "enum": [
-          "low",
-          "normal",
-          "high",
-          "unknown"
-        ]
+        "enum": ["low", "normal", "high", "unknown"]
       },
       "Interval": {
         "type": "string",
-        "enum": [
-          "monthly",
-          "yearly"
-        ]
+        "enum": ["monthly", "yearly"]
       },
       "ItemBody": {
         "type": "object",
         "properties": {
           "content": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "contentType": {
             "oneOf": [
@@ -4247,10 +3500,7 @@
       },
       "JobCreated": {
         "type": "object",
-        "required": [
-          "jobId",
-          "status"
-        ],
+        "required": ["jobId", "status"],
         "properties": {
           "jobId": {
             "type": "string",
@@ -4278,11 +3528,7 @@
       },
       "JobListItem": {
         "type": "object",
-        "required": [
-          "id",
-          "status",
-          "createdAt"
-        ],
+        "required": ["id", "status", "createdAt"],
         "properties": {
           "createdAt": {
             "type": "string",
@@ -4310,10 +3556,7 @@
       },
       "Label": {
         "type": "object",
-        "required": [
-          "id",
-          "name"
-        ],
+        "required": ["id", "name"],
         "properties": {
           "color": {
             "oneOf": [
@@ -4349,18 +3592,12 @@
             ]
           },
           "messagesTotal": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32",
             "minimum": 0
           },
           "messagesUnread": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32",
             "minimum": 0
           },
@@ -4368,18 +3605,12 @@
             "type": "string"
           },
           "threadsTotal": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32",
             "minimum": 0
           },
           "threadsUnread": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32",
             "minimum": 0
           },
@@ -4399,40 +3630,23 @@
         "type": "object",
         "properties": {
           "backgroundColor": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "textColor": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
       "LabelListVisibility": {
         "type": "string",
-        "enum": [
-          "labelShow",
-          "labelShowIfUnread",
-          "labelHide",
-          "unknown"
-        ]
+        "enum": ["labelShow", "labelShowIfUnread", "labelHide", "unknown"]
       },
       "LabelRef": {
         "type": "object",
-        "required": [
-          "id",
-          "name"
-        ],
+        "required": ["id", "name"],
         "properties": {
           "color": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "id": {
             "type": "string"
@@ -4444,32 +3658,20 @@
       },
       "LabelType": {
         "type": "string",
-        "enum": [
-          "system",
-          "user",
-          "unknown"
-        ]
+        "enum": ["system", "user", "unknown"]
       },
       "LinearListTeamsRequest": {
         "type": "object",
-        "required": [
-          "connection_id"
-        ],
+        "required": ["connection_id"],
         "properties": {
           "connection_id": {
             "type": "string"
           },
           "cursor": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "limit": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32",
             "minimum": 0
           }
@@ -4477,33 +3679,21 @@
       },
       "LinearListTicketsRequest": {
         "type": "object",
-        "required": [
-          "connection_id",
-          "team_id"
-        ],
+        "required": ["connection_id", "team_id"],
         "properties": {
           "connection_id": {
             "type": "string"
           },
           "cursor": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "limit": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32",
             "minimum": 0
           },
           "query": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "team_id": {
             "type": "string"
@@ -4512,9 +3702,7 @@
       },
       "ListConnectionsResponse": {
         "type": "object",
-        "required": [
-          "connections"
-        ],
+        "required": ["connections"],
         "properties": {
           "connections": {
             "type": "array",
@@ -4526,9 +3714,7 @@
       },
       "ListConversationsQuery": {
         "type": "object",
-        "required": [
-          "sourceId"
-        ],
+        "required": ["sourceId"],
         "properties": {
           "sourceId": {
             "type": "string"
@@ -4537,33 +3723,22 @@
       },
       "ListEventsRequest": {
         "type": "object",
-        "required": [
-          "calendar_id"
-        ],
+        "required": ["calendar_id"],
         "properties": {
           "calendar_id": {
             "type": "string"
           },
           "event_types": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "$ref": "#/components/schemas/google.EventType"
             }
           },
           "i_cal_uid": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "max_results": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32",
             "minimum": 0
           },
@@ -4578,104 +3753,60 @@
             ]
           },
           "page_token": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "q": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "show_deleted": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "show_hidden_invitations": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "single_events": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "sync_token": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "time_max": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "format": "date-time"
           },
           "time_min": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "format": "date-time"
           },
           "time_zone": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "updated_min": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "format": "date-time"
           }
         }
       },
       "ListHistoryRequest": {
         "type": "object",
-        "required": [
-          "start_history_id"
-        ],
+        "required": ["start_history_id"],
         "properties": {
           "history_types": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "$ref": "#/components/schemas/HistoryType"
             }
           },
           "label_id": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "max_results": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32",
             "minimum": 0
           },
           "page_token": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "start_history_id": {
             "type": "string"
@@ -4692,16 +3823,10 @@
             }
           },
           "historyId": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "nextPageToken": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
@@ -4720,39 +3845,24 @@
         "type": "object",
         "properties": {
           "include_spam_trash": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "label_ids": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "type": "string"
             }
           },
           "max_results": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32",
             "minimum": 0
           },
           "page_token": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "q": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
@@ -4766,16 +3876,10 @@
             }
           },
           "nextPageToken": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "resultSizeEstimate": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32",
             "minimum": 0
           }
@@ -4785,39 +3889,24 @@
         "type": "object",
         "properties": {
           "include_spam_trash": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "label_ids": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "type": "string"
             }
           },
           "max_results": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32",
             "minimum": 0
           },
           "page_token": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "q": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
@@ -4825,16 +3914,10 @@
         "type": "object",
         "properties": {
           "nextPageToken": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "resultSizeEstimate": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32",
             "minimum": 0
           },
@@ -4848,9 +3931,7 @@
       },
       "ListenCallbackRequest": {
         "type": "object",
-        "required": [
-          "url"
-        ],
+        "required": ["url"],
         "properties": {
           "url": {
             "type": "string"
@@ -4859,9 +3940,7 @@
       },
       "ListenCallbackResponse": {
         "type": "object",
-        "required": [
-          "request_id"
-        ],
+        "required": ["request_id"],
         "properties": {
           "request_id": {
             "type": "string"
@@ -4892,10 +3971,7 @@
             ]
           },
           "displayName": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "locationType": {
             "oneOf": [
@@ -4908,16 +3984,10 @@
             ]
           },
           "uniqueId": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "uniqueIdType": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
@@ -4941,25 +4011,17 @@
         "type": "object",
         "properties": {
           "exclusive": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "threshold": {
-            "type": [
-              "number",
-              "null"
-            ],
+            "type": ["number", "null"],
             "format": "float"
           }
         }
       },
       "MediaResponse": {
         "type": "object",
-        "required": [
-          "url"
-        ],
+        "required": ["url"],
         "properties": {
           "url": {
             "type": "string"
@@ -4968,25 +4030,16 @@
       },
       "Message": {
         "type": "object",
-        "required": [
-          "id",
-          "threadId"
-        ],
+        "required": ["id", "threadId"],
         "properties": {
           "historyId": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "id": {
             "type": "string"
           },
           "internalDate": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "labelIds": {
             "type": "array",
@@ -5005,24 +4058,15 @@
             ]
           },
           "raw": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "sizeEstimate": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32",
             "minimum": 0
           },
           "snippet": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "threadId": {
             "type": "string"
@@ -5031,20 +4075,11 @@
       },
       "MessageFormat": {
         "type": "string",
-        "enum": [
-          "full",
-          "metadata",
-          "minimal",
-          "raw"
-        ]
+        "enum": ["full", "metadata", "minimal", "raw"]
       },
       "MessageListVisibility": {
         "type": "string",
-        "enum": [
-          "show",
-          "hide",
-          "unknown"
-        ]
+        "enum": ["show", "hide", "unknown"]
       },
       "MessagePart": {
         "type": "object",
@@ -5060,10 +4095,7 @@
             ]
           },
           "filename": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "headers": {
             "type": "array",
@@ -5072,16 +4104,10 @@
             }
           },
           "mimeType": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "partId": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "parts": {
             "type": "array",
@@ -5095,22 +4121,13 @@
         "type": "object",
         "properties": {
           "attachmentId": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "data": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "size": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32",
             "minimum": 0
           }
@@ -5118,10 +4135,7 @@
       },
       "MessagePartHeader": {
         "type": "object",
-        "required": [
-          "name",
-          "value"
-        ],
+        "required": ["name", "value"],
         "properties": {
           "name": {
             "type": "string"
@@ -5133,10 +4147,7 @@
       },
       "MessageRef": {
         "type": "object",
-        "required": [
-          "id",
-          "threadId"
-        ],
+        "required": ["id", "threadId"],
         "properties": {
           "id": {
             "type": "string"
@@ -5148,48 +4159,31 @@
       },
       "MessageResponse": {
         "type": "object",
-        "required": [
-          "id"
-        ],
+        "required": ["id"],
         "properties": {
           "content": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "createdAt": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "id": {
             "type": "string"
           },
           "messageType": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
       "NotificationMethod": {
         "type": "string",
-        "enum": [
-          "email",
-          "unknown"
-        ]
+        "enum": ["email", "unknown"]
       },
       "NotificationSettings": {
         "type": "object",
         "properties": {
           "notifications": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "$ref": "#/components/schemas/CalendarNotification"
             }
@@ -5211,34 +4205,19 @@
         "type": "object",
         "properties": {
           "buildingId": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "deskId": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "floorId": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "floorSectionId": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "label": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
@@ -5246,37 +4225,22 @@
         "type": "object",
         "properties": {
           "conferenceId": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "joinUrl": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "quickDial": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "tollFreeNumbers": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "type": "string"
             }
           },
           "tollNumber": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
@@ -5304,10 +4268,7 @@
             ]
           },
           "declineMessage": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
@@ -5315,47 +4276,30 @@
         "type": "object",
         "properties": {
           "accuracy": {
-            "type": [
-              "number",
-              "null"
-            ],
+            "type": ["number", "null"],
             "format": "double"
           },
           "altitude": {
-            "type": [
-              "number",
-              "null"
-            ],
+            "type": ["number", "null"],
             "format": "double"
           },
           "altitudeAccuracy": {
-            "type": [
-              "number",
-              "null"
-            ],
+            "type": ["number", "null"],
             "format": "double"
           },
           "latitude": {
-            "type": [
-              "number",
-              "null"
-            ],
+            "type": ["number", "null"],
             "format": "double"
           },
           "longitude": {
-            "type": [
-              "number",
-              "null"
-            ],
+            "type": ["number", "null"],
             "format": "double"
           }
         }
       },
       "OutlookListCalendarsRequest": {
         "type": "object",
-        "required": [
-          "connection_id"
-        ],
+        "required": ["connection_id"],
         "properties": {
           "connection_id": {
             "type": "string"
@@ -5364,10 +4308,7 @@
       },
       "OutlookListEventsRequest": {
         "type": "object",
-        "required": [
-          "connection_id",
-          "calendar_id"
-        ],
+        "required": ["connection_id", "calendar_id"],
         "properties": {
           "calendar_id": {
             "type": "string"
@@ -5376,30 +4317,18 @@
             "type": "string"
           },
           "max_results": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32",
             "minimum": 0
           },
           "order_by": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "time_max": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "time_min": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
@@ -5432,28 +4361,16 @@
         "type": "object",
         "properties": {
           "avatar_url": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "email": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "id": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "name": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
@@ -5461,73 +4378,43 @@
         "type": "object",
         "properties": {
           "city": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "countryOrRegion": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "postalCode": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "state": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "street": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
       "PipelineStatus": {
         "type": "string",
-        "enum": [
-          "processing",
-          "done",
-          "error"
-        ]
+        "enum": ["processing", "done", "error"]
       },
       "Profile": {
         "type": "object",
-        "required": [
-          "emailAddress"
-        ],
+        "required": ["emailAddress"],
         "properties": {
           "emailAddress": {
             "type": "string"
           },
           "historyId": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "messagesTotal": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32",
             "minimum": 0
           },
           "threadsTotal": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32",
             "minimum": 0
           }
@@ -5535,10 +4422,7 @@
       },
       "PullRequestDetail": {
         "type": "object",
-        "required": [
-          "is_draft",
-          "is_merged"
-        ],
+        "required": ["is_draft", "is_merged"],
         "properties": {
           "is_draft": {
             "type": "boolean"
@@ -5547,10 +4431,7 @@
             "type": "boolean"
           },
           "merged_at": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "merged_by": {
             "oneOf": [
@@ -5563,16 +4444,10 @@
             ]
           },
           "source_branch": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "target_branch": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
@@ -5595,17 +4470,11 @@
         "type": "object",
         "properties": {
           "dayOfMonth": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32"
           },
           "daysOfWeek": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "$ref": "#/components/schemas/DayOfWeek"
             }
@@ -5631,17 +4500,11 @@
             ]
           },
           "interval": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32"
           },
           "month": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32"
           },
           "type": {
@@ -5672,29 +4535,17 @@
         "type": "object",
         "properties": {
           "endDate": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "numberOfOccurrences": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32"
           },
           "recurrenceTimeZone": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "startDate": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "type": {
             "oneOf": [
@@ -5710,19 +4561,11 @@
       },
       "RecurrenceRangeType": {
         "type": "string",
-        "enum": [
-          "endDate",
-          "noEnd",
-          "numbered",
-          "unknown"
-        ]
+        "enum": ["endDate", "noEnd", "numbered", "unknown"]
       },
       "Reminder": {
         "type": "object",
-        "required": [
-          "method",
-          "minutes"
-        ],
+        "required": ["method", "minutes"],
         "properties": {
           "method": {
             "$ref": "#/components/schemas/ReminderMethod"
@@ -5735,29 +4578,19 @@
       },
       "ReminderMethod": {
         "type": "string",
-        "enum": [
-          "email",
-          "popup",
-          "unknown"
-        ]
+        "enum": ["email", "popup", "unknown"]
       },
       "Reminders": {
         "type": "object",
         "properties": {
           "overrides": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "$ref": "#/components/schemas/Reminder"
             }
           },
           "useDefault": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           }
         }
       },
@@ -5775,10 +4608,7 @@
             ]
           },
           "time": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "format": "date-time"
           }
         }
@@ -5797,9 +4627,7 @@
       },
       "SendMessageRequest": {
         "type": "object",
-        "required": [
-          "content"
-        ],
+        "required": ["content"],
         "properties": {
           "content": {
             "type": "string"
@@ -5808,44 +4636,24 @@
             "type": "string"
           },
           "sourceId": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
       "Sensitivity": {
         "type": "string",
-        "enum": [
-          "normal",
-          "personal",
-          "private",
-          "confidential",
-          "unknown"
-        ]
+        "enum": ["normal", "personal", "private", "confidential", "unknown"]
       },
       "SessionMode": {
         "type": "string",
-        "enum": [
-          "auto",
-          "connect",
-          "reconnect"
-        ]
+        "enum": ["auto", "connect", "reconnect"]
       },
       "SessionResponse": {
         "type": "object",
-        "required": [
-          "token",
-          "expires_at",
-          "mode"
-        ],
+        "required": ["token", "expires_at", "mode"],
         "properties": {
           "connection_id": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "expires_at": {
             "type": "string"
@@ -5860,16 +4668,11 @@
       },
       "StartTrialReason": {
         "type": "string",
-        "enum": [
-          "started",
-          "not_eligible"
-        ]
+        "enum": ["started", "not_eligible"]
       },
       "StartTrialResponse": {
         "type": "object",
-        "required": [
-          "started"
-        ],
+        "required": ["started"],
         "properties": {
           "reason": {
             "oneOf": [
@@ -5889,11 +4692,7 @@
       },
       "StreamAlternatives": {
         "type": "object",
-        "required": [
-          "transcript",
-          "words",
-          "confidence"
-        ],
+        "required": ["transcript", "words", "confidence"],
         "properties": {
           "confidence": {
             "type": "number",
@@ -5918,9 +4717,7 @@
       },
       "StreamChannel": {
         "type": "object",
-        "required": [
-          "alternatives"
-        ],
+        "required": ["alternatives"],
         "properties": {
           "alternatives": {
             "type": "array",
@@ -5932,17 +4729,10 @@
       },
       "StreamMetadata": {
         "type": "object",
-        "required": [
-          "request_id",
-          "model_info",
-          "model_uuid"
-        ],
+        "required": ["request_id", "model_info", "model_uuid"],
         "properties": {
           "extra": {
-            "type": [
-              "object",
-              "null"
-            ]
+            "type": ["object", "null"]
           },
           "model_info": {
             "$ref": "#/components/schemas/StreamModelInfo"
@@ -5957,11 +4747,7 @@
       },
       "StreamModelInfo": {
         "type": "object",
-        "required": [
-          "name",
-          "version",
-          "arch"
-        ],
+        "required": ["name", "version", "arch"],
         "properties": {
           "arch": {
             "type": "string"
@@ -6022,9 +4808,7 @@
               },
               "type": {
                 "type": "string",
-                "enum": [
-                  "Results"
-                ]
+                "enum": ["Results"]
               }
             }
           },
@@ -6055,19 +4839,13 @@
               },
               "type": {
                 "type": "string",
-                "enum": [
-                  "Metadata"
-                ]
+                "enum": ["Metadata"]
               }
             }
           },
           {
             "type": "object",
-            "required": [
-              "channel",
-              "timestamp",
-              "type"
-            ],
+            "required": ["channel", "timestamp", "type"],
             "properties": {
               "channel": {
                 "type": "array",
@@ -6083,19 +4861,13 @@
               },
               "type": {
                 "type": "string",
-                "enum": [
-                  "SpeechStarted"
-                ]
+                "enum": ["SpeechStarted"]
               }
             }
           },
           {
             "type": "object",
-            "required": [
-              "channel",
-              "last_word_end",
-              "type"
-            ],
+            "required": ["channel", "last_word_end", "type"],
             "properties": {
               "channel": {
                 "type": "array",
@@ -6111,25 +4883,16 @@
               },
               "type": {
                 "type": "string",
-                "enum": [
-                  "UtteranceEnd"
-                ]
+                "enum": ["UtteranceEnd"]
               }
             }
           },
           {
             "type": "object",
-            "required": [
-              "error_message",
-              "provider",
-              "type"
-            ],
+            "required": ["error_message", "provider", "type"],
             "properties": {
               "error_code": {
-                "type": [
-                  "integer",
-                  "null"
-                ],
+                "type": ["integer", "null"],
                 "format": "int32"
               },
               "error_message": {
@@ -6140,9 +4903,7 @@
               },
               "type": {
                 "type": "string",
-                "enum": [
-                  "Error"
-                ]
+                "enum": ["Error"]
               }
             }
           }
@@ -6150,12 +4911,7 @@
       },
       "StreamWord": {
         "type": "object",
-        "required": [
-          "word",
-          "start",
-          "end",
-          "confidence"
-        ],
+        "required": ["word", "start", "end", "confidence"],
         "properties": {
           "confidence": {
             "type": "number",
@@ -6166,22 +4922,13 @@
             "format": "double"
           },
           "language": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "punctuated_word": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "speaker": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32"
           },
           "start": {
@@ -6195,27 +4942,16 @@
       },
       "SttStatusResponse": {
         "type": "object",
-        "required": [
-          "status"
-        ],
+        "required": ["status"],
         "properties": {
           "error": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "provider": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "rawResult": {
-            "type": [
-              "object",
-              "null"
-            ]
+            "type": ["object", "null"]
           },
           "status": {
             "$ref": "#/components/schemas/PipelineStatus"
@@ -6224,10 +4960,7 @@
       },
       "TestResponse": {
         "type": "object",
-        "required": [
-          "status",
-          "message"
-        ],
+        "required": ["status", "message"],
         "properties": {
           "message": {
             "type": "string",
@@ -6243,15 +4976,10 @@
       },
       "Thread": {
         "type": "object",
-        "required": [
-          "id"
-        ],
+        "required": ["id"],
         "properties": {
           "historyId": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "id": {
             "type": "string"
@@ -6263,48 +4991,32 @@
             }
           },
           "snippet": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
       "ThreadRef": {
         "type": "object",
-        "required": [
-          "id"
-        ],
+        "required": ["id"],
         "properties": {
           "historyId": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "id": {
             "type": "string"
           },
           "snippet": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
       "TicketKind": {
         "type": "string",
-        "enum": [
-          "issue",
-          "pull_request"
-        ]
+        "enum": ["issue", "pull_request"]
       },
       "TicketPage": {
         "type": "object",
-        "required": [
-          "items"
-        ],
+        "required": ["items"],
         "properties": {
           "items": {
             "type": "array",
@@ -6313,39 +5025,21 @@
             }
           },
           "next_cursor": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
       "TicketPriority": {
         "type": "string",
-        "enum": [
-          "urgent",
-          "high",
-          "medium",
-          "low",
-          "none"
-        ]
+        "enum": ["urgent", "high", "medium", "low", "none"]
       },
       "TicketProviderType": {
         "type": "string",
-        "enum": [
-          "github",
-          "linear"
-        ]
+        "enum": ["github", "linear"]
       },
       "TicketState": {
         "type": "string",
-        "enum": [
-          "backlog",
-          "open",
-          "in_progress",
-          "done",
-          "closed"
-        ]
+        "enum": ["backlog", "open", "in_progress", "done", "closed"]
       },
       "TicketSummary": {
         "type": "object",
@@ -6381,10 +5075,7 @@
             ]
           },
           "closed_at": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "ISO 8601."
           },
           "collection": {
@@ -6408,10 +5099,7 @@
             }
           },
           "number": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int64",
             "description": "Numeric identifier (GitHub: number, Linear: number).",
             "minimum": 0
@@ -6448,10 +5136,7 @@
             "$ref": "#/components/schemas/TicketState"
           },
           "state_detail": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "Provider's original state string for display (e.g. \"In Review\", \"merged\")."
           },
           "title": {
@@ -6468,9 +5153,7 @@
       },
       "TranscriptionConfiguration": {
         "type": "object",
-        "required": [
-          "model"
-        ],
+        "required": ["model"],
         "properties": {
           "model": {
             "$ref": "#/components/schemas/TranscriptionConfigurationModel"
@@ -6479,19 +5162,11 @@
       },
       "TranscriptionConfigurationModel": {
         "type": "string",
-        "enum": [
-          "parakeet-tdt-0.6b-v3",
-          "faster-whisper-large-v3-turbo"
-        ]
+        "enum": ["parakeet-tdt-0.6b-v3", "faster-whisper-large-v3-turbo"]
       },
       "TranscriptionSegment": {
         "type": "object",
-        "required": [
-          "start",
-          "end",
-          "text",
-          "speaker"
-        ],
+        "required": ["start", "end", "text", "speaker"],
         "properties": {
           "end": {
             "type": "number",
@@ -6513,28 +5188,15 @@
       },
       "Transparency": {
         "type": "string",
-        "enum": [
-          "opaque",
-          "transparent",
-          "unknown"
-        ]
+        "enum": ["opaque", "transparent", "unknown"]
       },
       "Visibility": {
         "type": "string",
-        "enum": [
-          "default",
-          "public",
-          "private",
-          "confidential",
-          "unknown"
-        ]
+        "enum": ["default", "public", "private", "confidential", "unknown"]
       },
       "Voiceprint": {
         "type": "object",
-        "required": [
-          "label",
-          "voiceprint"
-        ],
+        "required": ["label", "voiceprint"],
         "properties": {
           "label": {
             "type": "string"
@@ -6574,9 +5236,7 @@
       },
       "VoiceprintJobResults": {
         "type": "object",
-        "required": [
-          "voiceprint"
-        ],
+        "required": ["voiceprint"],
         "properties": {
           "error": {
             "type": "string",
@@ -6595,9 +5255,7 @@
       },
       "VoiceprintRequest": {
         "type": "object",
-        "required": [
-          "url"
-        ],
+        "required": ["url"],
         "properties": {
           "model": {
             "oneOf": [
@@ -6617,15 +5275,11 @@
       },
       "VoiceprintRequestModel": {
         "type": "string",
-        "enum": [
-          "precision-2"
-        ]
+        "enum": ["precision-2"]
       },
       "WebhookResponse": {
         "type": "object",
-        "required": [
-          "status"
-        ],
+        "required": ["status"],
         "properties": {
           "status": {
             "type": "string"
@@ -6634,42 +5288,23 @@
       },
       "WeekIndex": {
         "type": "string",
-        "enum": [
-          "first",
-          "second",
-          "third",
-          "fourth",
-          "last",
-          "unknown"
-        ]
+        "enum": ["first", "second", "third", "fourth", "last", "unknown"]
       },
       "WhoAmIItem": {
         "type": "object",
-        "required": [
-          "integration_id",
-          "connection_id"
-        ],
+        "required": ["integration_id", "connection_id"],
         "properties": {
           "connection_id": {
             "type": "string"
           },
           "display_name": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "email": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "error": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "integration_id": {
             "type": "string"
@@ -6678,9 +5313,7 @@
       },
       "WhoAmIResponse": {
         "type": "object",
-        "required": [
-          "accounts"
-        ],
+        "required": ["accounts"],
         "properties": {
           "accounts": {
             "type": "array",
@@ -6728,64 +5361,35 @@
       },
       "WorkingLocationType": {
         "type": "string",
-        "enum": [
-          "homeOffice",
-          "officeLocation",
-          "customLocation",
-          "unknown"
-        ]
+        "enum": ["homeOffice", "officeLocation", "customLocation", "unknown"]
       },
       "google.Attendee": {
         "type": "object",
         "properties": {
           "additionalGuests": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32"
           },
           "comment": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "displayName": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "email": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "id": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "optional": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "organizer": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "resource": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "responseStatus": {
             "oneOf": [
@@ -6798,10 +5402,7 @@
             ]
           },
           "self": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           }
         }
       },
@@ -6809,19 +5410,13 @@
         "type": "object",
         "properties": {
           "attendees": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "$ref": "#/components/schemas/google.Attendee"
             }
           },
           "colorId": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "conferenceData": {
             "oneOf": [
@@ -6834,10 +5429,7 @@
             ]
           },
           "description": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "end": {
             "$ref": "#/components/schemas/EventDateTime"
@@ -6863,34 +5455,19 @@
             ]
           },
           "guestsCanInviteOthers": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "guestsCanModify": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "guestsCanSeeOtherGuests": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "location": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "recurrence": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "type": "string"
             }
@@ -6945,39 +5522,25 @@
       },
       "google.Event": {
         "type": "object",
-        "required": [
-          "id"
-        ],
+        "required": ["id"],
         "properties": {
           "anyoneCanAddSelf": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "attachments": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "$ref": "#/components/schemas/EventAttachment"
             }
           },
           "attendees": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "$ref": "#/components/schemas/google.Attendee"
             }
           },
           "attendeesOmitted": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "birthdayProperties": {
             "oneOf": [
@@ -6990,10 +5553,7 @@
             ]
           },
           "colorId": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "conferenceData": {
             "oneOf": [
@@ -7006,10 +5566,7 @@
             ]
           },
           "created": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "format": "date-time"
           },
           "creator": {
@@ -7023,10 +5580,7 @@
             ]
           },
           "description": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "end": {
             "oneOf": [
@@ -7039,16 +5593,10 @@
             ]
           },
           "endTimeUnspecified": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "etag": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "eventType": {
             "oneOf": [
@@ -7091,61 +5639,34 @@
             ]
           },
           "guestsCanInviteOthers": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "guestsCanModify": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "guestsCanSeeOtherGuests": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "hangoutLink": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "htmlLink": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "iCalUID": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "id": {
             "type": "string"
           },
           "kind": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "location": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "locked": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "organizer": {
             "oneOf": [
@@ -7178,25 +5699,16 @@
             ]
           },
           "privateCopy": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "recurrence": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "type": "string"
             }
           },
           "recurringEventId": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "reminders": {
             "oneOf": [
@@ -7209,10 +5721,7 @@
             ]
           },
           "sequence": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32"
           },
           "source": {
@@ -7246,10 +5755,7 @@
             ]
           },
           "summary": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "transparency": {
             "oneOf": [
@@ -7262,10 +5768,7 @@
             ]
           },
           "updated": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "format": "date-time"
           },
           "visibility": {
@@ -7306,10 +5809,7 @@
         "type": "object",
         "properties": {
           "etag": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "items": {
             "type": "array",
@@ -7318,22 +5818,13 @@
             }
           },
           "kind": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "nextPageToken": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "nextSyncToken": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
@@ -7351,25 +5842,16 @@
             ]
           },
           "defaultReminders": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "$ref": "#/components/schemas/Reminder"
             }
           },
           "description": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "etag": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "items": {
             "type": "array",
@@ -7378,40 +5860,22 @@
             }
           },
           "kind": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "nextPageToken": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "nextSyncToken": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "summary": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "timeZone": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "updated": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "format": "date-time"
           }
         }
@@ -7455,16 +5919,10 @@
         "type": "object",
         "properties": {
           "allowNewTimeProposals": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "attendees": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "$ref": "#/components/schemas/outlook.Attendee"
             }
@@ -7480,10 +5938,7 @@
             ]
           },
           "categories": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "type": "string"
             }
@@ -7492,10 +5947,7 @@
             "$ref": "#/components/schemas/DateTimeTimeZone"
           },
           "hideAttendees": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "importance": {
             "oneOf": [
@@ -7508,22 +5960,13 @@
             ]
           },
           "isAllDay": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "isOnlineMeeting": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "isReminderOn": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "location": {
             "oneOf": [
@@ -7556,17 +5999,11 @@
             ]
           },
           "reminderMinutesBeforeStart": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32"
           },
           "responseRequested": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "sensitivity": {
             "oneOf": [
@@ -7598,21 +6035,13 @@
       },
       "outlook.Event": {
         "type": "object",
-        "required": [
-          "id"
-        ],
+        "required": ["id"],
         "properties": {
           "allowNewTimeProposals": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "attendees": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "$ref": "#/components/schemas/outlook.Attendee"
             }
@@ -7628,31 +6057,19 @@
             ]
           },
           "bodyPreview": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "categories": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "type": "string"
             }
           },
           "changeKey": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "createdDateTime": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "format": "date-time"
           },
           "end": {
@@ -7666,22 +6083,13 @@
             ]
           },
           "hasAttachments": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "hideAttendees": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "iCalUId": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "id": {
             "type": "string"
@@ -7697,46 +6105,25 @@
             ]
           },
           "isAllDay": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "isCancelled": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "isDraft": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "isOnlineMeeting": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "isOrganizer": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "isReminderOn": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "lastModifiedDateTime": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "format": "date-time"
           },
           "location": {
@@ -7750,10 +6137,7 @@
             ]
           },
           "locations": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "$ref": "#/components/schemas/Location"
             }
@@ -7779,10 +6163,7 @@
             ]
           },
           "onlineMeetingUrl": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "organizer": {
             "oneOf": [
@@ -7795,16 +6176,10 @@
             ]
           },
           "originalEndTimeZone": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "originalStartTimeZone": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "recurrence": {
             "oneOf": [
@@ -7817,17 +6192,11 @@
             ]
           },
           "reminderMinutesBeforeStart": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "format": "int32"
           },
           "responseRequested": {
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": ["boolean", "null"]
           },
           "responseStatus": {
             "oneOf": [
@@ -7850,10 +6219,7 @@
             ]
           },
           "seriesMasterId": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "showAs": {
             "oneOf": [
@@ -7876,16 +6242,10 @@
             ]
           },
           "subject": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "transactionId": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "type": {
             "oneOf": [
@@ -7898,10 +6258,7 @@
             ]
           },
           "webLink": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         }
       },
@@ -7919,16 +6276,10 @@
         "type": "object",
         "properties": {
           "@odata.context": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "@odata.nextLink": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "value": {
             "type": "array",
@@ -7942,16 +6293,10 @@
         "type": "object",
         "properties": {
           "@odata.context": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "@odata.nextLink": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "value": {
             "type": "array",

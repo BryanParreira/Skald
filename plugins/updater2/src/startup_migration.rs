@@ -74,9 +74,9 @@ fn should_skip_startup_migration(args: &[OsString]) -> bool {
 
 fn legacy_target_app_path(current_app_path: &Path) -> Option<PathBuf> {
     let target_name = match current_app_path.file_name().and_then(|name| name.to_str()) {
-        Some("Hyprnote.app") | Some("Char.app") => "Velo.app",
-        Some("Hyprnote Nightly.app") | Some("Char Nightly.app") => "Velo Nightly.app",
-        Some("Hyprnote Staging.app") | Some("Char Staging.app") => "Velo Staging.app",
+        Some("Skald.app") | Some("Char.app") => "Skald.app",
+        Some("Skald Nightly.app") | Some("Char Nightly.app") => "Skald Nightly.app",
+        Some("Skald Staging.app") | Some("Char Staging.app") => "Skald Staging.app",
         _ => return None,
     };
 
@@ -204,23 +204,23 @@ mod tests {
     #[test]
     fn maps_legacy_bundle_names_to_velo_names() {
         let cases = [
-            ("/Applications/Hyprnote.app", "/Applications/Velo.app"),
-            ("/Applications/Char.app", "/Applications/Velo.app"),
+            ("/Applications/Skald.app", "/Applications/Skald.app"),
+            ("/Applications/Char.app", "/Applications/Skald.app"),
             (
-                "/Applications/Hyprnote Nightly.app",
-                "/Applications/Velo Nightly.app",
+                "/Applications/Skald Nightly.app",
+                "/Applications/Skald Nightly.app",
             ),
             (
                 "/Applications/Char Nightly.app",
-                "/Applications/Velo Nightly.app",
+                "/Applications/Skald Nightly.app",
             ),
             (
-                "/Applications/Hyprnote Staging.app",
-                "/Applications/Velo Staging.app",
+                "/Applications/Skald Staging.app",
+                "/Applications/Skald Staging.app",
             ),
             (
                 "/Applications/Char Staging.app",
-                "/Applications/Velo Staging.app",
+                "/Applications/Skald Staging.app",
             ),
         ];
 
@@ -235,9 +235,9 @@ mod tests {
     #[test]
     fn ignores_non_legacy_bundle_names() {
         for path in [
-            "/Applications/Velo.app",
-            "/Applications/Velo Nightly.app",
-            "/Applications/Velo Staging.app",
+            "/Applications/Skald.app",
+            "/Applications/Skald Nightly.app",
+            "/Applications/Skald Staging.app",
         ] {
             assert_eq!(legacy_target_app_path(Path::new(path)), None);
         }
@@ -246,7 +246,7 @@ mod tests {
     #[test]
     fn relaunch_args_append_skip_flag_and_preserve_other_flags() {
         let args = relaunch_args([
-            OsString::from("/Applications/Hyprnote Nightly.app/Contents/MacOS/char"),
+            OsString::from("/Applications/Skald Nightly.app/Contents/MacOS/char"),
             OsString::from("--onboarding=123"),
             OsString::from("--foo"),
         ]);
@@ -274,13 +274,13 @@ mod tests {
     #[test]
     fn rename_command_does_not_open_existing_target_bundle() {
         let relaunch_args = relaunch_args([
-            OsString::from("/Applications/Hyprnote Nightly.app/Contents/MacOS/char"),
+            OsString::from("/Applications/Skald Nightly.app/Contents/MacOS/char"),
             OsString::from("--onboarding=123"),
         ]);
         let command = build_bundle_rename_command(
             4242,
-            Path::new("/Applications/Hyprnote Nightly.app"),
-            Path::new("/Applications/Velo Nightly.app"),
+            Path::new("/Applications/Skald Nightly.app"),
+            Path::new("/Applications/Skald Nightly.app"),
             &relaunch_args,
         );
         let args = command
@@ -288,20 +288,20 @@ mod tests {
             .map(|arg| arg.to_string_lossy().to_string())
             .collect::<Vec<_>>();
 
-        assert!(args[1].contains("if [ -e '/Applications/Velo Nightly.app' ]; then"));
+        assert!(args[1].contains("if [ -e '/Applications/Skald Nightly.app' ]; then"));
         assert!(args[1].contains("return 1"));
     }
 
     #[test]
     fn rename_command_reopens_current_bundle_on_failure() {
         let relaunch_args = relaunch_args([
-            OsString::from("/Applications/Hyprnote Nightly.app/Contents/MacOS/char"),
+            OsString::from("/Applications/Skald Nightly.app/Contents/MacOS/char"),
             OsString::from("--onboarding=123"),
         ]);
         let command = build_bundle_rename_command(
             4242,
-            Path::new("/Applications/Hyprnote Nightly.app"),
-            Path::new("/Applications/Velo Nightly.app"),
+            Path::new("/Applications/Skald Nightly.app"),
+            Path::new("/Applications/Skald Nightly.app"),
             &relaunch_args,
         );
         let args = command
@@ -311,30 +311,30 @@ mod tests {
 
         assert!(args[1].contains("fallback_launch() {"));
         assert!(args[1].contains(
-            "open -n '/Applications/Hyprnote Nightly.app' --args '--onboarding=123' '--updater2-skip-startup-migration=1'"
+            "open -n '/Applications/Skald Nightly.app' --args '--onboarding=123' '--updater2-skip-startup-migration=1'"
         ));
         assert!(args[1].contains("if ! osascript -e"));
     }
 
     #[test]
     fn current_bundle_path_from_executable_uses_bundle_root() {
-        let executable = Path::new("/Applications/Velo.app/Contents/MacOS/anarlog");
+        let executable = Path::new("/Applications/Skald.app/Contents/MacOS/skald");
 
         let bundle = current_app_bundle_path_from_executable(executable).unwrap();
 
-        assert_eq!(bundle, PathBuf::from("/Applications/Velo.app"));
+        assert_eq!(bundle, PathBuf::from("/Applications/Skald.app"));
     }
 
     #[test]
     fn rename_command_relaunches_from_target_bundle() {
         let relaunch_args = relaunch_args([
-            OsString::from("/Applications/Hyprnote Nightly.app/Contents/MacOS/char"),
+            OsString::from("/Applications/Skald Nightly.app/Contents/MacOS/char"),
             OsString::from("--onboarding=123"),
         ]);
         let command = build_bundle_rename_command(
             4242,
-            Path::new("/Applications/Hyprnote Nightly.app"),
-            Path::new("/Applications/Velo Nightly.app"),
+            Path::new("/Applications/Skald Nightly.app"),
+            Path::new("/Applications/Skald Nightly.app"),
             &relaunch_args,
         );
         let args = command
@@ -345,11 +345,13 @@ mod tests {
         assert_eq!(command.get_program(), "/bin/sh");
         assert_eq!(args[0], "-c");
         assert!(args[1].contains(r#"while kill -0 "$1" 2>/dev/null; do sleep 0.1; done;"#));
+        assert!(
+            args[1].contains(
+                "mv -f '/Applications/Skald Nightly.app' '/Applications/Skald Nightly.app'"
+            )
+        );
         assert!(args[1].contains(
-            "mv -f '/Applications/Hyprnote Nightly.app' '/Applications/Velo Nightly.app'"
-        ));
-        assert!(args[1].contains(
-            "open -n '/Applications/Velo Nightly.app' --args '--onboarding=123' '--updater2-skip-startup-migration=1'"
+            "open -n '/Applications/Skald Nightly.app' --args '--onboarding=123' '--updater2-skip-startup-migration=1'"
         ));
         assert_eq!(&args[2..], ["sh", "4242"]);
     }
@@ -357,12 +359,12 @@ mod tests {
     #[test]
     fn rename_command_relaunches_stable_bundle_with_skip_flag() {
         let relaunch_args = relaunch_args([OsString::from(
-            "/Applications/Hyprnote.app/Contents/MacOS/char",
+            "/Applications/Skald.app/Contents/MacOS/char",
         )]);
         let command = build_bundle_rename_command(
             4242,
             Path::new("/Applications/Char.app"),
-            Path::new("/Applications/Velo.app"),
+            Path::new("/Applications/Skald.app"),
             &relaunch_args,
         );
         let args = command
@@ -370,9 +372,9 @@ mod tests {
             .map(|arg| arg.to_string_lossy().to_string())
             .collect::<Vec<_>>();
 
-        assert!(args[1].contains("mv -f '/Applications/Char.app' '/Applications/Velo.app'"));
+        assert!(args[1].contains("mv -f '/Applications/Char.app' '/Applications/Skald.app'"));
         assert!(args[1].contains(
-            "open -n '/Applications/Velo.app' --args '--updater2-skip-startup-migration=1'"
+            "open -n '/Applications/Skald.app' --args '--updater2-skip-startup-migration=1'"
         ));
     }
 }

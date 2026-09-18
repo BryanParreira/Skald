@@ -7,20 +7,20 @@ import {
   VideoIcon,
 } from "lucide-react";
 
-import { commands as openerCommands } from "@hypr/plugin-opener2";
-import { DancingSticks } from "@hypr/ui/components/ui/dancing-sticks";
-import { cn, safeParseDate } from "@hypr/utils";
+import { commands as openerCommands } from "@skald/plugin-opener2";
+import { DancingSticks } from "@skald/ui/components/ui/dancing-sticks";
+import { cn, safeParseDate } from "@skald/utils";
 
 import { MetadataButton } from "./metadata";
 import { OverflowButton } from "./overflow";
 
 import { useNow } from "~/calendar/hooks";
 import { useShell } from "~/contexts/shell";
+import { useListenButtonState } from "~/session/components/shared";
 import {
   getRemoteMeeting,
   type RemoteMeeting,
 } from "~/session/hooks/useRemoteMeeting";
-import { useListenButtonState } from "~/session/components/shared";
 import { useSessionEvent } from "~/store/tinybase/hooks";
 import type { EditorView } from "~/store/zustand/tabs/schema";
 import { useListener } from "~/stt/contexts";

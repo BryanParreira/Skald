@@ -5,10 +5,10 @@ import { FolderIcon, type LucideIcon, Settings2Icon } from "lucide-react";
 import { type ReactNode } from "react";
 import { useState } from "react";
 
-import { commands as openerCommands } from "@hypr/plugin-opener2";
-import { commands as settingsCommands } from "@hypr/plugin-settings";
-import { Button } from "@hypr/ui/components/ui/button";
-import { Checkbox } from "@hypr/ui/components/ui/checkbox";
+import { commands as openerCommands } from "@skald/plugin-opener2";
+import { commands as settingsCommands } from "@skald/plugin-settings";
+import { Button } from "@skald/ui/components/ui/button";
+import { Checkbox } from "@skald/ui/components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
@@ -16,20 +16,20 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@hypr/ui/components/ui/dialog";
+} from "@skald/ui/components/ui/dialog";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@hypr/ui/components/ui/select";
+} from "@skald/ui/components/ui/select";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@hypr/ui/components/ui/tooltip";
-import { cn } from "@hypr/utils";
+} from "@skald/ui/components/ui/tooltip";
+import { cn } from "@skald/utils";
 
 import { displayPath } from "./path-utils";
 import { useChangeContentPathWizard } from "./use-storage-wizard";
@@ -292,7 +292,7 @@ function ChangeContentPathDialog({
           </DialogTitle>
           <DialogDescription>
             <Trans>
-              Choose where Velo should store data. (notes, settings, etc)
+              Choose where Skald should store data. (notes, settings, etc)
             </Trans>
           </DialogDescription>
         </DialogHeader>

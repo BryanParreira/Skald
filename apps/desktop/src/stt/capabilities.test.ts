@@ -6,7 +6,7 @@ const { isSupportedLanguagesBatchMock, isSupportedLanguagesLiveMock } =
     isSupportedLanguagesLiveMock: vi.fn(),
   }));
 
-vi.mock("@hypr/plugin-transcription", () => ({
+vi.mock("@skald/plugin-transcription", () => ({
   commands: {
     isSupportedLanguagesBatch: isSupportedLanguagesBatchMock,
     isSupportedLanguagesLive: isSupportedLanguagesLiveMock,
@@ -75,10 +75,10 @@ describe("isSupportedLocalSttModel", () => {
 });
 
 describe("isConfiguredSttModel", () => {
-  test("requires known model ids for Anarlog STT", () => {
-    expect(isConfiguredSttModel("velo", "cloud")).toBe(true);
-    expect(isConfiguredSttModel("velo", "soniqo-qwen3-small")).toBe(true);
-    expect(isConfiguredSttModel("velo", "removed-local-model")).toBe(false);
+  test("requires known model ids for Skald STT", () => {
+    expect(isConfiguredSttModel("skald", "cloud")).toBe(true);
+    expect(isConfiguredSttModel("skald", "soniqo-qwen3-small")).toBe(true);
+    expect(isConfiguredSttModel("skald", "removed-local-model")).toBe(false);
   });
 
   test("allows custom model ids for external providers", () => {

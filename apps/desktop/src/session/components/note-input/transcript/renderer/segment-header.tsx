@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { cn } from "@hypr/utils";
+import { cn } from "@skald/utils";
 
 import { SpeakerAssignPopover } from "./speaker-assign";
 import { useSegmentColorVars } from "./utils";

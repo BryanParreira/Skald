@@ -1,4 +1,4 @@
-import type { TaskStatus } from "@hypr/store";
+import type { TaskStatus } from "@skald/store";
 
 import type { JSONContent } from "./note";
 
@@ -9,7 +9,7 @@ export interface TaskSource {
   id: string;
 }
 
-export type { TaskStatus } from "@hypr/store";
+export type { TaskStatus } from "@skald/store";
 
 export interface TaskRecord {
   taskId: string;
@@ -136,12 +136,9 @@ export function normalizeTaskContent(
     return content;
   }
 
-  return normalizeNode(
-    content,
-    new Set<string>(),
-    new Set<string>(),
-    { current: 0 },
-  ).node;
+  return normalizeNode(content, new Set<string>(), new Set<string>(), {
+    current: 0,
+  }).node;
 }
 
 export function extractTasksFromContent(

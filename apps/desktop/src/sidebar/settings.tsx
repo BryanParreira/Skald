@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { useCallback } from "react";
 
-import { cn } from "@hypr/utils";
+import { cn } from "@skald/utils";
 
 import { CustomSidebarHeader } from "./custom-sidebar-header";
 

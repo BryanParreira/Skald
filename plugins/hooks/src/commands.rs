@@ -1,4 +1,4 @@
-use hypr_hooks::{HookEvent, HookResult};
+use skald_hooks::{HookEvent, HookResult};
 
 use crate::HooksPluginExt;
 

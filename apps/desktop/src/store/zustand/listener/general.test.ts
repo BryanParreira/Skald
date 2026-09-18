@@ -19,31 +19,31 @@ vi.mock("@tauri-apps/api/app", () => ({
   getIdentifier: getIdentifierMock,
 }));
 
-vi.mock("@hypr/plugin-detect", () => ({
+vi.mock("@skald/plugin-detect", () => ({
   commands: {
     listMicUsingApplications: vi.fn(),
   },
 }));
 
-vi.mock("@hypr/plugin-hooks", () => ({
+vi.mock("@skald/plugin-hooks", () => ({
   commands: {
     runEventHooks: runEventHooksMock,
   },
 }));
 
-vi.mock("@hypr/plugin-icon", () => ({
+vi.mock("@skald/plugin-icon", () => ({
   commands: {
     setRecordingIndicator: setRecordingIndicatorMock,
   },
 }));
 
-vi.mock("@hypr/plugin-settings", () => ({
+vi.mock("@skald/plugin-settings", () => ({
   commands: {
     vaultBase: vaultBaseMock,
   },
 }));
 
-vi.mock("@hypr/plugin-transcription", () => ({
+vi.mock("@skald/plugin-transcription", () => ({
   commands: {
     setMicMuted: vi.fn(),
     startCapture: vi.fn(),
@@ -78,11 +78,11 @@ describe("General Listener Slice", () => {
   beforeEach(() => {
     store = createListenerStore();
     vi.clearAllMocks();
-    getIdentifierMock.mockResolvedValue("com.hyprnote.stable");
+    getIdentifierMock.mockResolvedValue("com.skald.stable");
     runEventHooksMock.mockResolvedValue({ status: "ok", data: null });
     setRecordingIndicatorMock.mockResolvedValue({ status: "ok", data: null });
     stopCaptureMock.mockResolvedValue({ status: "ok", data: null });
-    vaultBaseMock.mockResolvedValue({ status: "ok", data: "/tmp/anarlog" });
+    vaultBaseMock.mockResolvedValue({ status: "ok", data: "/tmp/skald" });
   });
 
   describe("Initial State", () => {
@@ -703,7 +703,7 @@ describe("General Listener Slice", () => {
       await expect(
         store.getState().startTranscription({
           session_id: sessionId,
-          provider: "hyprnote",
+          provider: "skald",
           file_path: "/tmp/session.wav",
           base_url: "",
           api_key: "",

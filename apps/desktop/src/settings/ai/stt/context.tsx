@@ -9,7 +9,7 @@ import {
 import {
   commands as localSttCommands,
   type LocalModel,
-} from "@hypr/plugin-local-stt";
+} from "@skald/plugin-local-stt";
 
 import { useBillingAccess } from "~/auth/billing";
 import { useToastAction } from "~/store/zustand/toast-action";

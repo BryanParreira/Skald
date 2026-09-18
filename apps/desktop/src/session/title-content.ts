@@ -1,4 +1,4 @@
-import type { JSONContent } from "@hypr/editor/note";
+import type { JSONContent } from "@skald/editor/note";
 
 export function extractFirstLineTitle(content: JSONContent) {
   const firstBlock = content.content?.[0];
