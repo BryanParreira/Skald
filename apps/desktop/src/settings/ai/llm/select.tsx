@@ -300,7 +300,7 @@ export function getLlmProviderStatus({
     return { configured: true, listModels: async () => result };
   }
 
-  if (provider.id === "velo_local") {
+  if (provider.id === "skald_local") {
     const result: ListModelsResult = {
       models: [DEFAULT_LOCAL_LLM_MODEL],
       ignored: [],

@@ -41,7 +41,7 @@ export function ConfigureProviders() {
 }
 
 function ProviderContext({ providerId }: { providerId: ProviderId }) {
-  if (providerId === "velo_local") {
+  if (providerId === "skald_local") {
     return <LocalLlmDownloadStatus />;
   }
 

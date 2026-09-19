@@ -13,7 +13,7 @@ import type { ReactNode } from "react";
 import type { LocalModel } from "@skald/plugin-local-stt";
 
 import { env } from "~/env";
-import { VeloProviderIcon, ProviderBrandImage } from "~/settings/ai/shared";
+import { SkaldProviderIcon, ProviderBrandImage } from "~/settings/ai/shared";
 import { type ProviderRequirement } from "~/settings/ai/shared/eligibility";
 import { sortProviders } from "~/settings/ai/shared/sort-providers";
 import { localSttQueries } from "~/stt/useLocalSttModel";
@@ -174,7 +174,7 @@ const _PROVIDERS = [
     id: "skald",
     displayName: "Skald",
     badge: null,
-    icon: <VeloProviderIcon />,
+    icon: <SkaldProviderIcon />,
     baseUrl: new URL("/stt", env.VITE_API_URL).toString(),
     models: ["cloud"],
     requirements: [],

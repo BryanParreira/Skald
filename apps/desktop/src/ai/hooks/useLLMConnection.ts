@@ -46,7 +46,7 @@ export type LLMConnectionStatus =
   | {
       status: "pending";
       reason: "local_server_starting";
-      providerId: "velo_local";
+      providerId: "skald_local";
     }
   | { status: "error"; reason: "provider_not_found"; providerId: string }
   | { status: "error"; reason: "unauthenticated"; providerId: "skald" }
@@ -98,7 +98,7 @@ export const useLLMConnection = (): LLMConnectionResult => {
 
   const localLlmServer = useLocalLlmServer();
   useEffect(() => {
-    if (current_llm_provider === "velo_local") {
+    if (current_llm_provider === "skald_local") {
       void localLlmServer.ensureStarted();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -124,7 +124,7 @@ export const useLLMConnection = (): LLMConnectionResult => {
   );
   useEffect(() => {
     if (!current_llm_provider && isLocalModelDownloaded) {
-      setLlmProvider("velo_local");
+      setLlmProvider("skald_local");
       setLlmModel(DEFAULT_LOCAL_LLM_MODEL);
     }
   }, [
@@ -206,14 +206,14 @@ const resolveLLMConnection = (params: {
     };
   }
 
-  if (providerId === "velo_local") {
+  if (providerId === "skald_local") {
     if (!localServerUrl) {
       return {
         conn: null,
         status: {
           status: "pending",
           reason: "local_server_starting",
-          providerId: "velo_local",
+          providerId: "skald_local",
         },
       };
     }
@@ -371,7 +371,7 @@ const createLanguageModel = (
       return wrapWithThinkingMiddleware(provider.chatModel(conn.modelId));
     }
 
-    case "velo_local": {
+    case "skald_local": {
       const provider = createOpenAICompatible({
         fetch: tauriFetch,
         name: conn.providerId,

@@ -401,7 +401,7 @@ function syncLocalLlmServer(store: Store) {
   const provider = store.getValue("current_llm_provider") as string | undefined;
   const model = store.getValue("current_llm_model") as string | undefined;
 
-  if (provider === "velo_local" && model) {
+  if (provider === "skald_local" && model) {
     localLlmCommands
       .startServer(model as Parameters<typeof localLlmCommands.startServer>[0])
       .catch(console.error);

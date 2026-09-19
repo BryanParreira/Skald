@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="parchment" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="1024">
+      <stop offset="0" stop-color="#F8F1E3"/>
+      <stop offset="1" stop-color="#E7D9C0"/>
+    </linearGradient>
+    <linearGradient id="ink" gradientUnits="userSpaceOnUse" x1="0" y1="232" x2="0" y2="792">
+      <stop offset="0" stop-color="#37312A"/>
+      <stop offset="1" stop-color="#1F1B16"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1024" height="1024" rx="228" ry="228" fill="url(#parchment)"/>
+
+  <!-- carved highlight, offset below the stave so the glyph reads as cut into the surface -->
+  <g fill="none" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="84"
+     stroke-linecap="round" stroke-linejoin="round">
+    <path d="M322 246 L322 806"/>
+    <path d="M322 386 L662 246"/>
+    <path d="M322 526 L602 526"/>
+    <path d="M322 666 L662 806"/>
+  </g>
+
+  <g fill="none" stroke="url(#ink)" stroke-width="84"
+     stroke-linecap="round" stroke-linejoin="round">
+    <path d="M320 232 L320 792"/>
+    <path d="M320 372 L660 232"/>
+    <path d="M320 512 L600 512"/>
+    <path d="M320 652 L660 792"/>
+  </g>
+</svg>

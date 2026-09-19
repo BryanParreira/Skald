@@ -9,7 +9,7 @@ type ModelIconSpec = {
 };
 
 const MODEL_ICON_ASSET_BASE = "/assets/model-icons";
-const VELO_ICON_SRC = "/assets/skald-icon.png";
+const SKALD_ICON_SRC = "/assets/skald-icon.png";
 
 export function getLocalModelIcon(model: string): ModelIconSpec | null {
   const value = model.toLowerCase();
@@ -19,7 +19,7 @@ export function getLocalModelIcon(model: string): ModelIconSpec | null {
       label: "A",
       title: "Skald Pro",
       className: "border-border bg-card text-muted-foreground",
-      imageSrc: VELO_ICON_SRC,
+      imageSrc: SKALD_ICON_SRC,
       imageClassName: "size-4 object-contain",
     };
   }

@@ -53,12 +53,12 @@ type ProviderConfig = {
   };
 };
 
-const VELO_ICON_SRC = "/assets/skald-icon.png";
+const SKALD_ICON_SRC = "/assets/skald-icon.png";
 
-export function VeloProviderIcon() {
+export function SkaldProviderIcon() {
   return (
     <img
-      src={VELO_ICON_SRC}
+      src={SKALD_ICON_SRC}
       alt="Skald"
       data-slot="provider-logo"
       className="size-4 object-contain object-center [clip-path:inset(6%_round_18%)]"

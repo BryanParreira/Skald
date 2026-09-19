@@ -271,7 +271,7 @@ pub async fn main() {
                     // regardless of whether the user has picked the local
                     // provider. The frontend starts the server on demand
                     // (see useLLMConnection's `current_llm_provider ===
-                    // "velo_local"` effect) and stops it again when the
+                    // "skald_local"` effect) and stops it again when the
                     // user switches away (see settings.ts
                     // `syncLocalLlmServer`).
                     if let Err(e) = llm_app_handle

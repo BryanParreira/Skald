@@ -12,7 +12,7 @@ import {
 import type { ReactNode } from "react";
 
 import { env } from "~/env";
-import { VeloProviderIcon } from "~/settings/ai/shared";
+import { SkaldProviderIcon } from "~/settings/ai/shared";
 import { type ProviderRequirement } from "~/settings/ai/shared/eligibility";
 import { sortProviders } from "~/settings/ai/shared/sort-providers";
 
@@ -35,15 +35,15 @@ const _PROVIDERS = [
     id: "skald",
     displayName: "Skald",
     badge: "Recommended",
-    icon: <VeloProviderIcon />,
+    icon: <SkaldProviderIcon />,
     baseUrl: new URL("/llm", env.VITE_API_URL).toString(),
     requirements: [{ kind: "requires_auth" }],
   },
   {
-    id: "velo_local",
+    id: "skald_local",
     displayName: "Skald (Local)",
     badge: "On-device",
-    icon: <VeloProviderIcon />,
+    icon: <SkaldProviderIcon />,
     baseUrl: undefined,
     requirements: [],
   },
