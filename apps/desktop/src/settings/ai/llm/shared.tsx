@@ -62,7 +62,7 @@ const _PROVIDERS = [
       models: { label: "Available models", url: "https://lmstudio.ai/models" },
       setup: {
         label: "Setup guide",
-        url: "https://github.com/BryanParreira/Velo",
+        url: "https://github.com/BryanParreira/Skald",
       },
     },
   },
@@ -81,7 +81,7 @@ const _PROVIDERS = [
       models: { label: "Available models", url: "https://ollama.com/library" },
       setup: {
         label: "Setup guide",
-        url: "https://github.com/BryanParreira/Velo",
+        url: "https://github.com/BryanParreira/Skald",
       },
     },
   },

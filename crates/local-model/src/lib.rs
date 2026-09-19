@@ -38,7 +38,7 @@ impl GgufLlmModel {
             // verified to match the official Qwen/Qwen2.5-3B-Instruct-GGUF
             // source file byte-for-byte before upload.
             GgufLlmModel::Qwen2p5_3bQ4 => {
-                "https://github.com/BryanParreira/Velo/releases/download/models-v1/qwen2.5-3b-instruct-q4_k_m.gguf"
+                "https://github.com/BryanParreira/Skald/releases/download/models-v1/qwen2.5-3b-instruct-q4_k_m.gguf"
             }
         }
     }

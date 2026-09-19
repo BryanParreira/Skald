@@ -13,7 +13,7 @@ const SOCIALS = [
   {
     label: "GitHub",
     icon: "simple-icons:github",
-    url: "https://github.com/BryanParreira/Velo",
+    url: "https://github.com/BryanParreira/Skald",
   },
 ] as const;
 

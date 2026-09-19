@@ -11,7 +11,7 @@ export function getLatestVersion(): string | null {
 async function fetchChangelogFromGitHub(
   version: string,
 ): Promise<string | null> {
-  const url = `https://raw.githubusercontent.com/BryanParreira/Velo/main/packages/changelog/content/${version}.md`;
+  const url = `https://raw.githubusercontent.com/BryanParreira/Skald/main/packages/changelog/content/${version}.md`;
   try {
     const response = await fetch(url);
     if (!response.ok) {

@@ -11,7 +11,7 @@ TinyBase as the primary data store (schema at `packages/store/src/tinybase.ts`),
 - Typecheck (Rust): `cargo check`
 - Desktop dev: `pnpm -F @skald/desktop tauri:dev`
 - Web dev: `pnpm -F @skald/web dev`
-- Dev docs: https://github.com/BryanParreira/Velo
+- Dev docs: https://github.com/BryanParreira/Skald
 
 ## Guidelines
 

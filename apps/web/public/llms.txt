@@ -33,7 +33,7 @@ Answering guidance:
 - [Download](/download): Current public downloads and platform-specific installation options.
 - [Pricing](/pricing): Free and paid plan details, including local workflows, hosted AI, speaker identification, sync, and collaboration features.
 - [Changelog](/changelog): Release history and product changes.
-- [GitHub repository](https://github.com/BryanParreira/Velo): Source code, issues, releases, and project history.
+- [GitHub repository](https://github.com/BryanParreira/Skald): Source code, issues, releases, and project history.
 
 ## Product Context
 

@@ -110,7 +110,6 @@ jobs:
           # https://v2.tauri.app/reference/environment-variables/
           CI: false
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SENTRY_DSN: ${{ secrets.SENTRY_DSN_SKALD_2 }}
           APP_VERSION: ${{ needs.compute-version.outputs.version }}
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
@@ -248,7 +247,7 @@ jobs:
           jq -n \
             --arg version "${{ needs.compute-version.outputs.version }}" \
             --arg pub_date "$PUB_DATE" \
-            --arg notes "https://github.com/BryanParreira/Velo/releases/tag/desktop_v${{ needs.compute-version.outputs.version }}" \
+            --arg notes "https://github.com/BryanParreira/Skald/releases/tag/desktop_v${{ needs.compute-version.outputs.version }}" \
             --arg aarch64_sig "$SIG_AARCH64" \
             --arg aarch64_url "${BASE_URL}/skald-macos-aarch64.app.tar.gz" \
             '{
@@ -268,7 +267,7 @@ jobs:
           echo "list=$ARTIFACTS" >> $GITHUB_OUTPUT
       - id: release-body
         run: |
-          echo "value=https://github.com/BryanParreira/Velo/releases/tag/desktop_v${{ needs.compute-version.outputs.version }}" >> "$GITHUB_OUTPUT"
+          echo "value=https://github.com/BryanParreira/Skald/releases/tag/desktop_v${{ needs.compute-version.outputs.version }}" >> "$GITHUB_OUTPUT"
       - uses: ncipollo/release-action@v1
         with:
           tag: desktop_v${{ needs.compute-version.outputs.version }}
