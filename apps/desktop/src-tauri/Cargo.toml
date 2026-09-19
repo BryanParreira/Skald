@@ -1,6 +1,6 @@
 [package]
 name = "desktop"
-version = "1.0.25"
+version = "1.0.26"
 authors = ["you"]
 edition = "2024"
 description = "Skald Desktop App"
