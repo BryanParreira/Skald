@@ -5,13 +5,13 @@ edition = "2024"
 
 [features]
 default = []
-onnx = ["dep:hypr-onnx", "dep:realfft"]
-coreml = ["onnx", "hypr-onnx/coreml"]
+onnx = ["dep:skald-onnx", "dep:realfft"]
+coreml = ["onnx", "skald-onnx/coreml"]
 
 [dependencies]
-hypr-onnx = { workspace = true, optional = true }
 realfft = { workspace = true, optional = true }
 serde = { workspace = true }
+skald-onnx = { workspace = true, optional = true }
 thiserror = { workspace = true }
 
 [dev-dependencies]
@@ -19,9 +19,9 @@ approx = { workspace = true }
 criterion = { workspace = true }
 dasp = { workspace = true }
 hound = { workspace = true }
-hypr-audio-snapshot = { workspace = true }
-hypr-data = { workspace = true }
 rodio = { workspace = true }
+skald-audio-snapshot = { workspace = true }
+skald-data = { workspace = true }
 
 [[bench]]
 name = "denoise_bench"

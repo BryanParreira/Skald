@@ -8,8 +8,8 @@ import {
 } from "lucide-react";
 import { useEffect, useRef } from "react";
 
-import { type PermissionStatus } from "@hypr/plugin-permissions";
-import { cn } from "@hypr/utils";
+import { type PermissionStatus } from "@skald/plugin-permissions";
+import { cn } from "@skald/utils";
 
 import { usePermission } from "~/shared/hooks/usePermissions";
 
@@ -138,10 +138,10 @@ export function PermissionsSection({
   return (
     <div className="@container flex items-stretch gap-3">
       <PermissionBlock
-        enabledLabel={t`Velo can hear your voice`}
+        enabledLabel={t`Skald can hear your voice`}
         enableLabel={t`Allow microphone access`}
         enabledBody={t`Microphone access turned on`}
-        enableBody={t`Help Velo listen to you`}
+        enableBody={t`Help Skald listen to you`}
         Icon={MicIcon}
         permissionName={t`Microphone`}
         status={mic.status}
@@ -150,10 +150,10 @@ export function PermissionsSection({
       />
 
       <PermissionBlock
-        enabledLabel={t`Velo can hear others`}
+        enabledLabel={t`Skald can hear others`}
         enableLabel={t`Allow system audio access`}
         enabledBody={t`System audio enabled`}
-        enableBody={t`Help Velo listen to others`}
+        enableBody={t`Help Skald listen to others`}
         Icon={Volume2Icon}
         permissionName={t`System audio`}
         status={systemAudio.status}

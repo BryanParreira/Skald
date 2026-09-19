@@ -24,7 +24,7 @@ pub(crate) async fn execute_proxy(
     method: String,
 ) -> Result<ExecuteProxyResult, String> {
     let method = method
-        .parse::<hypr_db_execute::ProxyQueryMethod>()
+        .parse::<skald_db_execute::ProxyQueryMethod>()
         .map_err(|error| error.to_string())?;
     state
         .execute_proxy(sql, params, method)
@@ -40,7 +40,7 @@ pub(crate) async fn subscribe(
     sql: String,
     params: Vec<serde_json::Value>,
     on_event: Channel<QueryEvent>,
-) -> Result<hypr_db_reactive::SubscriptionRegistration, String> {
+) -> Result<skald_db_reactive::SubscriptionRegistration, String> {
     state
         .subscribe(
             sql,

@@ -10,8 +10,8 @@ import {
   type MergeableStore,
 } from "tinybase/with-schemas";
 
-import { SCHEMA, type Schemas } from "@hypr/store";
-import { format } from "@hypr/utils";
+import { SCHEMA, type Schemas } from "@skald/store";
+import { format } from "@skald/utils";
 
 import { useMainPersisters } from "./persisters";
 
@@ -56,7 +56,7 @@ export const StoreComponent = () => {
   const synchronizer = useCreateSynchronizer(store, async (store) =>
     createBroadcastChannelSynchronizer(
       store,
-      "hypr-sync-persisted",
+      "skald-sync-persisted",
     ).startSync(),
   );
 

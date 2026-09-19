@@ -24,7 +24,7 @@ const {
   windowShowMock: vi.fn(() => Promise.resolve({ status: "ok", data: null })),
 }));
 
-vi.mock("@hypr/ui/components/ui/button", () => ({
+vi.mock("@skald/ui/components/ui/button", () => ({
   Button: ({
     children,
     ...props
@@ -33,7 +33,7 @@ vi.mock("@hypr/ui/components/ui/button", () => ({
   ),
 }));
 
-vi.mock("@hypr/ui/components/ui/dropdown-menu", () => ({
+vi.mock("@skald/ui/components/ui/dropdown-menu", () => ({
   AppFloatingPanel: ({ children }: { children: React.ReactNode }) => (
     <div>{children}</div>
   ),
@@ -81,7 +81,7 @@ vi.mock("~/meeting-float/host", () => ({
   openFloatingMeetingPanel: vi.fn(),
 }));
 
-vi.mock("@hypr/plugin-windows", () => ({
+vi.mock("@skald/plugin-windows", () => ({
   commands: {
     windowShow: windowShowMock,
   },

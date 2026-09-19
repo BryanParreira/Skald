@@ -66,7 +66,7 @@ vi.mock("~/store/tinybase/store/main", () => ({
 import { ChatSession, type ChatSessionRenderProps } from "./session-provider";
 
 import { buildPersistedChatMessageRow } from "~/chat/store/persisted-messages";
-import type { HyprUIMessage } from "~/chat/types";
+import type { SkaldUIMessage } from "~/chat/types";
 
 type FakeStore = ReturnType<typeof createStore>;
 
@@ -107,7 +107,7 @@ function createStore(rows: Record<string, Record<string, unknown>>) {
   };
 }
 
-function persistedAssistantRow(message: HyprUIMessage) {
+function persistedAssistantRow(message: SkaldUIMessage) {
   return buildPersistedChatMessageRow({
     message,
     chatGroupId: "group-1",
@@ -144,7 +144,7 @@ describe("ChatSession", () => {
   });
 
   it("does not delete the previous persisted assistant when retrying an unpersisted empty assistant", () => {
-    const previousAssistant: HyprUIMessage = {
+    const previousAssistant: SkaldUIMessage = {
       id: "assistant-previous",
       role: "assistant",
       parts: [{ type: "text", text: "Previous answer" }],
@@ -188,7 +188,7 @@ describe("ChatSession", () => {
   });
 
   it("deletes the persisted row for the in-memory assistant being regenerated", () => {
-    const assistant: HyprUIMessage = {
+    const assistant: SkaldUIMessage = {
       id: "assistant-current",
       role: "assistant",
       parts: [{ type: "text", text: "Current answer" }],
@@ -220,7 +220,7 @@ describe("ChatSession", () => {
   });
 
   it("deletes the last assistant row when a trailing user message is present", () => {
-    const assistant: HyprUIMessage = {
+    const assistant: SkaldUIMessage = {
       id: "assistant-current",
       role: "assistant",
       parts: [{ type: "text", text: "Current answer" }],
@@ -287,7 +287,7 @@ describe("ChatSession", () => {
     const store = createStore({});
     mocks.store = store;
     mocks.chatMessagesTable = {};
-    const userMessage: HyprUIMessage = {
+    const userMessage: SkaldUIMessage = {
       id: "user-1",
       role: "user",
       parts: [{ type: "text", text: "Question" }],
@@ -339,13 +339,13 @@ describe("ChatSession", () => {
   });
 
   it("does not replace streaming sdk messages with stale persisted rows", () => {
-    const userMessage: HyprUIMessage = {
+    const userMessage: SkaldUIMessage = {
       id: "user-1",
       role: "user",
       parts: [{ type: "text", text: "Question" }],
       metadata: { createdAt: Date.parse("2024-01-01T00:00:00Z") },
     };
-    const assistantMessage: HyprUIMessage = {
+    const assistantMessage: SkaldUIMessage = {
       id: "assistant-1",
       role: "assistant",
       parts: [{ type: "text", text: "Partial answer" }],
@@ -399,12 +399,12 @@ describe("ChatSession", () => {
 
     const onFinish = mocks.chatInits[0] as {
       onFinish: (params: {
-        message: HyprUIMessage;
-        messages: HyprUIMessage[];
+        message: SkaldUIMessage;
+        messages: SkaldUIMessage[];
         isAbort: boolean;
       }) => void;
     };
-    const userMessage: HyprUIMessage = {
+    const userMessage: SkaldUIMessage = {
       id: "user-1",
       role: "user",
       parts: [{ type: "text", text: "Question" }],
@@ -452,12 +452,12 @@ describe("ChatSession", () => {
       </ChatSession>,
     );
 
-    const userOne: HyprUIMessage = {
+    const userOne: SkaldUIMessage = {
       id: "user-1",
       role: "user",
       parts: [{ type: "text", text: "First question" }],
     };
-    const userTwo: HyprUIMessage = {
+    const userTwo: SkaldUIMessage = {
       id: "user-2",
       role: "user",
       parts: [{ type: "text", text: "Second question" }],
@@ -467,18 +467,18 @@ describe("ChatSession", () => {
 
     const onFinish = mocks.chatInits[0] as {
       onFinish: (params: {
-        message: HyprUIMessage;
-        messages: HyprUIMessage[];
+        message: SkaldUIMessage;
+        messages: SkaldUIMessage[];
         isAbort: boolean;
       }) => void;
     };
-    const assistantOne: HyprUIMessage = {
+    const assistantOne: SkaldUIMessage = {
       id: "assistant-1",
       role: "assistant",
       parts: [{ type: "text", text: "First answer" }],
       metadata: { createdAt: Date.parse("2024-01-01T00:00:01Z") },
     };
-    const assistantTwo: HyprUIMessage = {
+    const assistantTwo: SkaldUIMessage = {
       id: "assistant-2",
       role: "assistant",
       parts: [{ type: "text", text: "Second answer" }],

@@ -61,7 +61,7 @@ vi.mock("~/store/zustand/tabs", () => ({
     }),
 }));
 
-vi.mock("@hypr/editor/note", () => ({
+vi.mock("@skald/editor/note", () => ({
   useLinkedItemOpenBehavior: () => "current",
 }));
 

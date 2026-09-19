@@ -1,12 +1,12 @@
 import { type ComponentProps, type ReactNode } from "react";
 
-import { Button } from "@hypr/ui/components/ui/button";
+import { Button } from "@skald/ui/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@hypr/ui/components/ui/tooltip";
-import { cn } from "@hypr/utils";
+} from "@skald/ui/components/ui/tooltip";
+import { cn } from "@skald/utils";
 
 import { floatingActionSurfaceClassName } from "~/shared/floating-action-surface";
 

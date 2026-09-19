@@ -4,11 +4,11 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-hypr-api-auth = { workspace = true }
-hypr-api-error = { workspace = true }
-hypr-api-nango = { workspace = true }
-hypr-google-mail = { workspace = true, features = ["utoipa"] }
-hypr-nango = { workspace = true }
+skald-api-auth = { workspace = true }
+skald-api-error = { workspace = true }
+skald-api-nango = { workspace = true }
+skald-google-mail = { workspace = true, features = ["utoipa"] }
+skald-nango = { workspace = true }
 
 axum = { workspace = true }
 utoipa = { workspace = true }

@@ -10,24 +10,21 @@ import {
   type ValuesSchema,
 } from "tinybase/with-schemas";
 
-import { commands as detectCommands } from "@hypr/plugin-detect";
-import { commands as localLlmCommands } from "@hypr/plugin-local-llm";
-import { commands as localSttCommands } from "@hypr/plugin-local-stt";
-import { commands as shortcutCommands } from "@hypr/plugin-shortcut";
-import { commands as trayCommands } from "@hypr/plugin-tray";
+import { commands as detectCommands } from "@skald/plugin-detect";
+import { commands as localLlmCommands } from "@skald/plugin-local-llm";
+import { commands as localSttCommands } from "@skald/plugin-local-stt";
+import { commands as shortcutCommands } from "@skald/plugin-shortcut";
+import { commands as trayCommands } from "@skald/plugin-tray";
 import {
   commands as windowsCommands,
   getCurrentWebviewWindowLabel,
-} from "@hypr/plugin-windows";
+} from "@skald/plugin-windows";
 
 import { registerSaveHandler } from "./save";
 
 import { hotkeyFor } from "~/dictation/hotkey";
 import { useSettingsPersister } from "~/store/tinybase/persister/settings";
-import {
-  isConfiguredSttModel,
-  isHyprnoteLocalSttModel,
-} from "~/stt/capabilities";
+import { isConfiguredSttModel, isSkaldLocalSttModel } from "~/stt/capabilities";
 
 export const STORE_ID = "settings";
 
@@ -319,7 +316,10 @@ export const StoreComponent = () => {
   }, [store]);
 
   const synchronizer = useCreateSynchronizer(store, async (store) =>
-    createBroadcastChannelSynchronizer(store, "hypr-sync-settings").startSync(),
+    createBroadcastChannelSynchronizer(
+      store,
+      "skald-sync-settings",
+    ).startSync(),
   );
 
   const queries = useCreateQueries(store, (store) =>
@@ -373,7 +373,7 @@ function clearInvalidSttModel(store: Store) {
   const provider = store.getValue("current_stt_provider") as string | undefined;
   const model = store.getValue("current_stt_model") as string | undefined;
 
-  if (provider === "velo" && model && !isConfiguredSttModel(provider, model)) {
+  if (provider === "skald" && model && !isConfiguredSttModel(provider, model)) {
     store.delValue("current_stt_model");
     return true;
   }
@@ -390,7 +390,7 @@ function syncLocalSttServer(store: Store) {
   const provider = store.getValue("current_stt_provider") as string | undefined;
   const model = store.getValue("current_stt_model") as string | undefined;
 
-  if (isHyprnoteLocalSttModel(provider, model)) {
+  if (isSkaldLocalSttModel(provider, model)) {
     localSttCommands.startServer(model).catch(console.error);
   } else {
     localSttCommands.stopServer(null).catch(console.error);
@@ -401,7 +401,7 @@ function syncLocalLlmServer(store: Store) {
   const provider = store.getValue("current_llm_provider") as string | undefined;
   const model = store.getValue("current_llm_model") as string | undefined;
 
-  if (provider === "velo_local" && model) {
+  if (provider === "skald_local" && model) {
     localLlmCommands
       .startServer(model as Parameters<typeof localLlmCommands.startServer>[0])
       .catch(console.error);

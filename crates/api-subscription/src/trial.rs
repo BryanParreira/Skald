@@ -4,11 +4,11 @@ use axum::{
     response::{IntoResponse, Response},
 };
 use chrono::Utc;
-use hypr_analytics::{AnalyticsPayload, PropertiesPayload, ToAnalyticsPayload};
 use serde::{Deserialize, Serialize};
+use skald_analytics::{AnalyticsPayload, PropertiesPayload, ToAnalyticsPayload};
 use utoipa::{IntoParams, ToSchema};
 
-use hypr_api_error::error_response;
+use skald_api_error::error_response;
 
 #[derive(Debug, Deserialize, IntoParams)]
 pub struct StartTrialQuery {

@@ -2,10 +2,10 @@ import { Icon } from "@iconify-icon/react";
 import { Trans, useLingui } from "@lingui/react/macro";
 import { Building2, Mail } from "lucide-react";
 
-import { commands as openerCommands } from "@hypr/plugin-opener2";
-import { Button } from "@hypr/ui/components/ui/button";
-import { Input } from "@hypr/ui/components/ui/input";
-import { cn } from "@hypr/utils";
+import { commands as openerCommands } from "@skald/plugin-opener2";
+import { Button } from "@skald/ui/components/ui/button";
+import { Input } from "@skald/ui/components/ui/input";
+import { cn } from "@skald/utils";
 
 import { ContactFacehash, getContactBgClass } from "./shared";
 

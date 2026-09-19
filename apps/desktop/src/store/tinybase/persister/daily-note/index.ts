@@ -1,7 +1,7 @@
 import * as _UI from "tinybase/ui-react/with-schemas";
 
-import { getCurrentWebviewWindowLabel } from "@hypr/plugin-windows";
-import { type Schemas } from "@hypr/store";
+import { getCurrentWebviewWindowLabel } from "@skald/plugin-windows";
+import { type Schemas } from "@skald/store";
 
 import { createDailyNotePersister } from "./persister";
 

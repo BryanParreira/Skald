@@ -1,4 +1,4 @@
-import type { ChatGroup, ChatMessageStorage } from "@hypr/store";
+import type { ChatGroup, ChatMessageStorage } from "@skald/store";
 
 export type ChatGroupData = ChatGroup & { id: string };
 

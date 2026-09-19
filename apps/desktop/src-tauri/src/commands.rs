@@ -1,6 +1,6 @@
 use crate::AppExt;
 
-const STAGING_BUNDLE_ID: &str = "com.velo.staging";
+const STAGING_BUNDLE_ID: &str = "com.skald.staging";
 
 #[tauri::command]
 #[specta::specta]

@@ -2,9 +2,9 @@ import { Icon } from "@iconify-icon/react";
 import { useMutation } from "@tanstack/react-query";
 import { Loader2Icon } from "lucide-react";
 
-import { commands as fsSyncCommands } from "@hypr/plugin-fs-sync";
-import { commands as openerCommands } from "@hypr/plugin-opener2";
-import { DropdownMenuItem } from "@hypr/ui/components/ui/dropdown-menu";
+import { commands as fsSyncCommands } from "@skald/plugin-fs-sync";
+import { commands as openerCommands } from "@skald/plugin-opener2";
+import { DropdownMenuItem } from "@skald/ui/components/ui/dropdown-menu";
 
 export function ShowInFinder({ sessionId }: { sessionId: string }) {
   const { mutate, isPending } = useMutation({

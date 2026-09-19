@@ -1,6 +1,6 @@
-use hypr_audio_chunking::AudioChunk;
 use owhisper_interface::batch_sse::BatchSseMessage;
 use owhisper_interface::progress::{InferencePhase, InferenceProgress};
+use skald_audio_chunking::AudioChunk;
 use tokio::sync::mpsc;
 
 use crate::TARGET_SAMPLE_RATE;

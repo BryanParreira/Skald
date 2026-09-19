@@ -1,14 +1,13 @@
 import type { EditorView } from "prosemirror-view";
 import { forwardRef, useCallback, useMemo } from "react";
 
-import { cn } from "@hypr/utils";
-
-import { json2md, parseJsonContent } from "@hypr/editor/markdown";
+import { json2md, parseJsonContent } from "@skald/editor/markdown";
 import {
   NoteEditor,
   type JSONContent,
   type NoteEditorRef,
-} from "@hypr/editor/note";
+} from "@skald/editor/note";
+import { cn } from "@skald/utils";
 
 import { AudioDropTarget } from "../audio-drop-target";
 import { useNoteFileHandlerConfig } from "../file-handler";
@@ -72,7 +71,9 @@ export const EnhancedEditor = forwardRef<
         return false;
       }
       try {
-        return createSourceHash(json2md(parseJsonContent(content))) === generatedHash;
+        return (
+          createSourceHash(json2md(parseJsonContent(content))) === generatedHash
+        );
       } catch {
         return false;
       }

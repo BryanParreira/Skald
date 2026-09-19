@@ -25,7 +25,7 @@ If the user does not ask for different command behavior, keep the single `ping` 
 After the code changes are in place, generate bindings:
 
 ```bash
-pnpm -F @hypr/plugin-<NAME> codegen
+pnpm -F @skald/plugin-<NAME> codegen
 ```
 
 Finish by updating these integration points:

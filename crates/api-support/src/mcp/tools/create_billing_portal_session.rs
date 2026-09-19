@@ -1,10 +1,10 @@
-use hypr_api_auth::AuthContext;
 use rmcp::{
     ErrorData as McpError,
     model::*,
     schemars::{self, JsonSchema},
 };
 use serde::Deserialize;
+use skald_api_auth::AuthContext;
 use stripe_billing::billing_portal_session::CreateBillingPortalSession;
 
 use crate::state::AppState;

@@ -1,4 +1,4 @@
-import { commands as notificationCommands } from "@hypr/plugin-notification";
+import { commands as notificationCommands } from "@skald/plugin-notification";
 
 import { isAppWindowInBackground } from "~/shared/app-window";
 
@@ -22,7 +22,7 @@ export async function showSummaryReadyNotification(
       start_time: null,
       participants: null,
       event_details: null,
-      action_label: "Open Velo",
+      action_label: "Open Skald",
       action_variant: null,
       options: null,
       footer: null,

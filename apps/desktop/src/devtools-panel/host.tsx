@@ -1,12 +1,12 @@
 import { useCallback, useRef, useState } from "react";
 
-import { commands as notificationCommands } from "@hypr/plugin-notification";
+import { commands as notificationCommands } from "@skald/plugin-notification";
 import {
   commands as windowsCommands,
   events as windowsEvents,
   getCurrentWebviewWindowLabel,
   openUrlWithInstruction,
-} from "@hypr/plugin-windows";
+} from "@skald/plugin-windows";
 
 import { useDevtoolsStore, useDevtoolsUserId } from "~/devtools-panel/hooks";
 import { useMountEffect } from "~/shared/hooks/useMountEffect";
@@ -215,7 +215,7 @@ function useDevtoolsPanelActions() {
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         location: "Conference Room",
       },
-      action_label: "Open Velo",
+      action_label: "Open Skald",
       action_variant: null,
       options: null,
       footer: null,
@@ -281,7 +281,7 @@ function useDevtoolsPanelActions() {
     await notificationCommands.showNotification({
       key: createAutoStopEndedNotificationKey(sessionId),
       title: "Did your meeting end?",
-      message: `Velo will stop listening in ${AUTO_STOP_CONFIRM_TIMEOUT_SECONDS} seconds.`,
+      message: `Skald will stop listening in ${AUTO_STOP_CONFIRM_TIMEOUT_SECONDS} seconds.`,
       timeout: { secs: AUTO_STOP_CONFIRM_TIMEOUT_SECONDS, nanos: 0 },
       source: null,
       start_time: null,

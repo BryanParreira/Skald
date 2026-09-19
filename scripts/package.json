@@ -1,7 +1,7 @@
 {
-  "name": "hyprnote-changelog-generator",
+  "name": "skald-changelog-generator",
   "version": "1.0.0",
-  "description": "Local AI changelog generator for hyprnote",
+  "description": "Local AI changelog generator for skald",
   "keywords": [
     "ai",
     "automation",
@@ -9,8 +9,8 @@
     "github",
     "openrouter"
   ],
-  "author": "hyprnote",
   "license": "MIT",
+  "author": "skald",
   "main": "generate-changelog-local.js",
   "scripts": {
     "changelog": "node generate-changelog-local.js",

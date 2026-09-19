@@ -33,7 +33,7 @@ pub async fn inject_text<R: Runtime>(app: &AppHandle<R>, text: &str) -> Result<(
 
 #[cfg(target_os = "macos")]
 fn paste() -> Result<(), Error> {
-    hypr_text_inject_macos::paste().map_err(|e| Error::Inject(e.to_string()))
+    skald_text_inject_macos::paste().map_err(|e| Error::Inject(e.to_string()))
 }
 
 #[cfg(not(target_os = "macos"))]
@@ -47,7 +47,7 @@ mod tests {
 
     fn mock_app() -> tauri::App<tauri::test::MockRuntime> {
         let mut ctx = tauri::test::mock_context(tauri::test::noop_assets());
-        ctx.config_mut().identifier = "com.hyprnote.dev".to_string();
+        ctx.config_mut().identifier = "com.skald.dev".to_string();
         ctx.config_mut().version = Some("1.0.0".to_string());
 
         tauri::test::mock_builder()

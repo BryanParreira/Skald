@@ -6,7 +6,7 @@ import type {
   SessionsState,
   TabInput as WindowsTabInput,
   TemplatesState,
-} from "@hypr/plugin-windows";
+} from "@skald/plugin-windows";
 
 export type {
   ChangelogState,

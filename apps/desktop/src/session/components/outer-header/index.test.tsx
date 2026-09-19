@@ -40,11 +40,11 @@ vi.mock("./overflow", () => ({
   OverflowButton: () => <button type="button">More</button>,
 }));
 
-vi.mock("@hypr/ui/components/ui/dancing-sticks", () => ({
+vi.mock("@skald/ui/components/ui/dancing-sticks", () => ({
   DancingSticks: () => <span data-testid="dancing-sticks" />,
 }));
 
-vi.mock("@hypr/plugin-opener2", () => ({
+vi.mock("@skald/plugin-opener2", () => ({
   commands: {
     openUrl: mocks.openUrl,
   },

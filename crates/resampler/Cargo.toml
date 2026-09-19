@@ -8,7 +8,7 @@ default = ["async-source"]
 async-source = [
   "dep:dasp",
   "dep:futures-util",
-  "dep:hypr-audio-interface",
+  "dep:skald-audio-interface",
   "dep:pin-project",
 ]
 
@@ -16,15 +16,15 @@ async-source = [
 audioadapter-buffers = "2.0"
 dasp = { workspace = true, optional = true }
 futures-util = { workspace = true, optional = true }
-hypr-audio-interface = { workspace = true, optional = true }
 pin-project = { workspace = true, optional = true }
 rubato = "1.0.1"
+skald-audio-interface = { workspace = true, optional = true }
 thiserror = { workspace = true }
 
 [dev-dependencies]
 hound = { workspace = true }
-hypr-data = { workspace = true }
 rodio = { workspace = true, features = ["symphonia-all"] }
+skald-data = { workspace = true }
 tokio = { workspace = true, features = ["full"] }
 
 [[bench]]

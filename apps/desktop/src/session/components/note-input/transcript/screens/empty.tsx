@@ -1,6 +1,6 @@
 import { AlertCircleIcon, AudioLinesIcon, SquareIcon } from "lucide-react";
 
-import { Button } from "@hypr/ui/components/ui/button";
+import { Button } from "@skald/ui/components/ui/button";
 
 // Widths vary per line so the placeholder reads as text rather than a solid
 // block — mirrors how a real transcript line wraps.

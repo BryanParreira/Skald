@@ -1,5 +1,5 @@
-import type { JsonValue } from "@hypr/plugin-fs-sync";
-import type { OrganizationStorage } from "@hypr/store";
+import type { JsonValue } from "@skald/plugin-fs-sync";
+import type { OrganizationStorage } from "@skald/store";
 
 export function frontmatterToOrganization(
   frontmatter: Record<string, unknown>,

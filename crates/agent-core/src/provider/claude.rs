@@ -7,7 +7,7 @@ const STOP_EVENT: &str = "Stop";
 const COMMAND: &str = "char claude notify";
 
 pub fn health(options: &HealthCheckOptions) -> ProviderHealth {
-    let health = hypr_claude::health_check_with_options(&hypr_claude::ClaudeOptions {
+    let health = skald_claude::health_check_with_options(&skald_claude::ClaudeOptions {
         claude_path_override: options.claude_path_override.clone(),
         ..Default::default()
     });
@@ -25,11 +25,11 @@ pub fn health(options: &HealthCheckOptions) -> ProviderHealth {
 }
 
 pub fn install_cli() -> Result<InstallCliResponse, String> {
-    let settings_path = hypr_claude::settings_path();
-    let mut settings = hypr_claude::read_settings(&settings_path)?;
+    let settings_path = skald_claude::settings_path();
+    let mut settings = skald_claude::read_settings(&settings_path)?;
 
-    hypr_claude::upsert_command_hook(&mut settings, STOP_EVENT, COMMAND)?;
-    hypr_claude::write_settings(&settings_path, &settings)?;
+    skald_claude::upsert_command_hook(&mut settings, STOP_EVENT, COMMAND)?;
+    skald_claude::write_settings(&settings_path, &settings)?;
 
     Ok(InstallCliResponse {
         provider: ProviderKind::Claude,
@@ -42,27 +42,27 @@ pub fn install_cli() -> Result<InstallCliResponse, String> {
 }
 
 pub fn upgrade() {
-    upgrade_at(&hypr_claude::settings_path());
+    upgrade_at(&skald_claude::settings_path());
 }
 
 fn upgrade_at(settings_path: &std::path::Path) {
-    let Ok(mut settings) = hypr_claude::read_settings(settings_path) else {
+    let Ok(mut settings) = skald_claude::read_settings(settings_path) else {
         return;
     };
-    if !hypr_claude::has_command_hook(&settings, STOP_EVENT, COMMAND) {
+    if !skald_claude::has_command_hook(&settings, STOP_EVENT, COMMAND) {
         return;
     }
-    let _ = hypr_claude::remove_command_hook(&mut settings, STOP_EVENT, COMMAND);
-    let _ = hypr_claude::upsert_command_hook(&mut settings, STOP_EVENT, COMMAND);
-    let _ = hypr_claude::write_settings(settings_path, &settings);
+    let _ = skald_claude::remove_command_hook(&mut settings, STOP_EVENT, COMMAND);
+    let _ = skald_claude::upsert_command_hook(&mut settings, STOP_EVENT, COMMAND);
+    let _ = skald_claude::write_settings(settings_path, &settings);
 }
 
 pub fn uninstall_cli() -> Result<UninstallCliResponse, String> {
-    let settings_path = hypr_claude::settings_path();
-    let mut settings = hypr_claude::read_settings(&settings_path)?;
+    let settings_path = skald_claude::settings_path();
+    let mut settings = skald_claude::read_settings(&settings_path)?;
 
-    hypr_claude::remove_command_hook(&mut settings, STOP_EVENT, COMMAND)?;
-    hypr_claude::write_settings(&settings_path, &settings)?;
+    skald_claude::remove_command_hook(&mut settings, STOP_EVENT, COMMAND)?;
+    skald_claude::write_settings(&settings_path, &settings)?;
 
     Ok(UninstallCliResponse {
         provider: ProviderKind::Claude,
@@ -75,29 +75,29 @@ pub fn uninstall_cli() -> Result<UninstallCliResponse, String> {
 }
 
 fn integration_installed() -> Result<bool, String> {
-    let settings_path = hypr_claude::settings_path();
-    let settings = hypr_claude::read_settings(&settings_path)?;
-    Ok(hypr_claude::has_command_hook(
+    let settings_path = skald_claude::settings_path();
+    let settings = skald_claude::read_settings(&settings_path)?;
+    Ok(skald_claude::has_command_hook(
         &settings, STOP_EVENT, COMMAND,
     ))
 }
 
-impl From<hypr_claude::HealthStatus> for ProviderHealthStatus {
-    fn from(value: hypr_claude::HealthStatus) -> Self {
+impl From<skald_claude::HealthStatus> for ProviderHealthStatus {
+    fn from(value: skald_claude::HealthStatus) -> Self {
         match value {
-            hypr_claude::HealthStatus::Ready => Self::Ready,
-            hypr_claude::HealthStatus::Warning => Self::Warning,
-            hypr_claude::HealthStatus::Error => Self::Error,
+            skald_claude::HealthStatus::Ready => Self::Ready,
+            skald_claude::HealthStatus::Warning => Self::Warning,
+            skald_claude::HealthStatus::Error => Self::Error,
         }
     }
 }
 
-impl From<hypr_claude::HealthAuthStatus> for ProviderAuthStatus {
-    fn from(value: hypr_claude::HealthAuthStatus) -> Self {
+impl From<skald_claude::HealthAuthStatus> for ProviderAuthStatus {
+    fn from(value: skald_claude::HealthAuthStatus) -> Self {
         match value {
-            hypr_claude::HealthAuthStatus::Authenticated => Self::Authenticated,
-            hypr_claude::HealthAuthStatus::Unauthenticated => Self::Unauthenticated,
-            hypr_claude::HealthAuthStatus::Unknown => Self::Unknown,
+            skald_claude::HealthAuthStatus::Authenticated => Self::Authenticated,
+            skald_claude::HealthAuthStatus::Unauthenticated => Self::Unauthenticated,
+            skald_claude::HealthAuthStatus::Unknown => Self::Unknown,
         }
     }
 }
@@ -124,8 +124,8 @@ mod tests {
 
         upgrade_at(&path);
 
-        let settings = hypr_claude::read_settings(&path).unwrap();
-        assert!(!hypr_claude::has_command_hook(
+        let settings = skald_claude::read_settings(&path).unwrap();
+        assert!(!skald_claude::has_command_hook(
             &settings, STOP_EVENT, COMMAND
         ));
     }
@@ -136,13 +136,13 @@ mod tests {
         let path = dir.path().join("settings.json");
 
         let mut settings = serde_json::json!({});
-        hypr_claude::upsert_command_hook(&mut settings, STOP_EVENT, COMMAND).unwrap();
-        hypr_claude::write_settings(&path, &settings).unwrap();
+        skald_claude::upsert_command_hook(&mut settings, STOP_EVENT, COMMAND).unwrap();
+        skald_claude::write_settings(&path, &settings).unwrap();
 
         upgrade_at(&path);
 
-        let settings = hypr_claude::read_settings(&path).unwrap();
-        assert!(hypr_claude::has_command_hook(
+        let settings = skald_claude::read_settings(&path).unwrap();
+        assert!(skald_claude::has_command_hook(
             &settings, STOP_EVENT, COMMAND
         ));
     }

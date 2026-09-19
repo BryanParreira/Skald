@@ -20,18 +20,18 @@ pub use adapter::deepgram::DeepgramModel;
 pub use adapter::{
     AdapterKind, AquaVoiceAdapter, ArgmaxAdapter, AssemblyAIAdapter, BatchSttAdapter,
     CallbackResult, CallbackSttAdapter, CartesiaAdapter, DashScopeAdapter, DeepgramAdapter,
-    ElevenLabsAdapter, FireworksAdapter, GladiaAdapter, HyprnoteAdapter, LanguageQuality,
-    LanguageSupport, MistralAdapter, OpenAIAdapter, PyannoteAdapter, RealtimeSttAdapter,
+    ElevenLabsAdapter, FireworksAdapter, GladiaAdapter, LanguageQuality, LanguageSupport,
+    MistralAdapter, OpenAIAdapter, PyannoteAdapter, RealtimeSttAdapter, SkaldAdapter,
     SmallestAIAdapter, SonioxAdapter, WhisperCppAdapter, append_provider_param,
-    documented_language_codes_batch, documented_language_codes_live, is_hyprnote_proxy,
-    is_local_host, normalize_languages,
+    documented_language_codes_batch, documented_language_codes_live, is_local_host, is_skald_proxy,
+    normalize_languages,
 };
 pub use adapter::{StreamingBatchEvent, StreamingBatchStream};
 
 pub use batch::{BatchClient, BatchClientBuilder};
 pub use error::Error;
-pub use hypr_ws_client;
 pub use live::{DualHandle, FinalizeHandle, ListenClient, ListenClientBuilder, ListenClientDual};
+pub use skald_ws_client;
 
 pub fn normalize_listen_params(mut params: ListenParams) -> ListenParams {
     params.languages = adapter::normalize_languages(&params.languages);

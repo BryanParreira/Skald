@@ -1,23 +1,23 @@
 {
-  "name": "@hypr/store",
+  "name": "@skald/store",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "main": "./src/index.ts",
+  "types": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts",
     "./schema": "./src/schema.ts",
     "./shared": "./src/shared.ts"
   },
-  "types": "./src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
   "dependencies": {
     "tinybase": "^7.3.5",
     "zod": "^4.3.6"
   },
   "devDependencies": {
     "typescript": "~5.8.3"
-  },
-  "scripts": {
-    "typecheck": "tsc --noEmit"
   }
 }

@@ -4,7 +4,7 @@ import { isLearnableTerm, mergeLearnedTerm } from "./keywords";
 
 describe("isLearnableTerm", () => {
   it("accepts names and short product terms", () => {
-    expect(isLearnableTerm("Anarlog")).toBe(true);
+    expect(isLearnableTerm("Skald")).toBe(true);
     expect(isLearnableTerm("Parakeet TDT")).toBe(true);
   });
 
@@ -19,18 +19,18 @@ describe("isLearnableTerm", () => {
 
 describe("mergeLearnedTerm", () => {
   it("adds a term to an empty dictionary", () => {
-    expect(mergeLearnedTerm(undefined, "Anarlog")).toBe('["Anarlog"]');
-    expect(mergeLearnedTerm("[]", "Anarlog")).toBe('["Anarlog"]');
+    expect(mergeLearnedTerm(undefined, "Skald")).toBe('["Skald"]');
+    expect(mergeLearnedTerm("[]", "Skald")).toBe('["Skald"]');
   });
 
   it("appends to existing terms", () => {
-    expect(mergeLearnedTerm('["Velo"]', "Parakeet TDT")).toBe(
-      '["Velo","Parakeet TDT"]',
+    expect(mergeLearnedTerm('["Skald"]', "Parakeet TDT")).toBe(
+      '["Skald","Parakeet TDT"]',
     );
   });
 
   it("skips terms already present, ignoring case", () => {
-    expect(mergeLearnedTerm('["velo"]', "Velo")).toBeNull();
+    expect(mergeLearnedTerm('["skald"]', "Skald")).toBeNull();
   });
 
   it("skips terms that are not worth learning", () => {
@@ -40,6 +40,6 @@ describe("mergeLearnedTerm", () => {
   });
 
   it("treats an unreadable stored value as empty", () => {
-    expect(mergeLearnedTerm("not json", "Anarlog")).toBe('["Anarlog"]');
+    expect(mergeLearnedTerm("not json", "Skald")).toBe('["Skald"]');
   });
 });

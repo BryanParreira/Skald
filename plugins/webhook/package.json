@@ -1,5 +1,5 @@
 {
-  "name": "@hypr/plugin-webhook",
+  "name": "@skald/plugin-webhook",
   "private": true,
   "main": "./js/index.ts",
   "scripts": {

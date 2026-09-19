@@ -46,7 +46,7 @@ impl TrayCheckUpdate {
             menu_item.set_enabled(enabled)?;
         }
 
-        if let Some(tray) = app.tray_by_id("hypr-tray") {
+        if let Some(tray) = app.tray_by_id("skald-tray") {
             let check_update_item = MenuItem::with_id(app, Self::ID, text, enabled, None::<&str>)?;
 
             let menu = Menu::with_items(
@@ -105,7 +105,7 @@ pub enum UpdateMenuState {
 }
 
 impl MenuItemHandler for TrayCheckUpdate {
-    const ID: &'static str = "hypr_tray_check_update";
+    const ID: &'static str = "skald_tray_check_update";
 
     fn build(app: &AppHandle<tauri::Wry>) -> Result<MenuItemKind<tauri::Wry>> {
         let state = Self::get_state();

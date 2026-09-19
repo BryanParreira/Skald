@@ -1,7 +1,7 @@
 import { createMergeableStore } from "tinybase/with-schemas";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 
-import { SCHEMA as MAIN_SCHEMA } from "@hypr/store";
+import { SCHEMA as MAIN_SCHEMA } from "@skald/store";
 
 import {
   cleanupExpiredAudio,
@@ -21,7 +21,7 @@ const { audioDeleteMock, audioDeleteOrphanedExpiredMock, getSessionModeMock } =
     getSessionModeMock: vi.fn(),
   }));
 
-vi.mock("@hypr/plugin-fs-sync", () => ({
+vi.mock("@skald/plugin-fs-sync", () => ({
   commands: {
     audioDelete: audioDeleteMock,
     audioDeleteOrphanedExpired: audioDeleteOrphanedExpiredMock,

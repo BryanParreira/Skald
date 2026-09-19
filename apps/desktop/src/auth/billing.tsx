@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import type { BillingInfo } from "@hypr/supabase";
+import type { BillingInfo } from "@skald/supabase";
 
 type BillingContextValue = BillingInfo & {
   isReady: boolean;
@@ -11,7 +11,7 @@ type BillingContextValue = BillingInfo & {
 export type BillingAccess = BillingContextValue;
 
 const BILLING_STUB: BillingContextValue = {
-  entitlements: ["hyprnote_pro"],
+  entitlements: ["skald_pro"],
   subscriptionStatus: "active",
   isPro: true,
   isLite: false,

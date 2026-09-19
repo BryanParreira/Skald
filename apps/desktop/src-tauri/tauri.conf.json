@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "Velo",
-  "mainBinaryName": "velo",
-  "identifier": "com.velo.app",
+  "productName": "Skald",
+  "mainBinaryName": "skald",
+  "identifier": "com.skald.app",
   "build": {
     "beforeDevCommand": "pnpm -F desktop dev",
     "devUrl": "http://localhost:1422",
@@ -24,7 +24,7 @@
     }
   },
   "bundle": {
-    "publisher": "Velo",
+    "publisher": "Skald",
     "active": true,
     "createUpdaterArtifacts": true,
     "targets": "all",
@@ -73,14 +73,14 @@
     "deep-link": {
       "desktop": {
         "schemes": [
-          "velo"
+          "skald"
         ]
       }
     },
     "updater": {
       "active": true,
       "endpoints": [
-        "https://github.com/BryanParreira/Velo/releases/latest/download/latest.json"
+        "https://github.com/BryanParreira/Skald/releases/latest/download/latest.json"
       ],
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDZDNTgyNjhCRkE3QjA0QTYKUldTbUJIdjZpeVpZYkg5TndqZTFjaVdndGJqTEZpaTcwSU9ndzNmTGc2WSsvSjlSQWFJeU4vaHoK"
     }

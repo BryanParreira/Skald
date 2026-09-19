@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { cn } from "@hypr/utils";
+import { cn } from "@skald/utils";
 
 export function SettingsAlert({
   children,

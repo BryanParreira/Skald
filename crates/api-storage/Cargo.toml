@@ -4,10 +4,10 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-hypr-api-error = { workspace = true }
-hypr-api-nango = { workspace = true }
-hypr-google-drive = { workspace = true }
-hypr-nango = { workspace = true }
+skald-api-error = { workspace = true }
+skald-api-nango = { workspace = true }
+skald-google-drive = { workspace = true }
+skald-nango = { workspace = true }
 
 utoipa = { workspace = true }
 

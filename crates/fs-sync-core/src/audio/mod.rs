@@ -77,12 +77,12 @@ pub fn delete_orphaned_expired(
 }
 
 pub fn source_metadata(source_path: &Path) -> std::io::Result<AudioSourceMetadata> {
-    use hypr_audio_utils::Source;
+    use skald_audio_utils::Source;
 
     let metadata = std::fs::metadata(source_path)?;
     let created_at = metadata.created().ok().map(system_time_to_iso);
     let modified_at = metadata.modified().ok().map(system_time_to_iso);
-    let duration_ms = hypr_audio_utils::source_from_path(source_path)
+    let duration_ms = skald_audio_utils::source_from_path(source_path)
         .ok()
         .and_then(|source| source.total_duration())
         .and_then(|duration| u64::try_from(duration.as_millis()).ok());
@@ -195,7 +195,7 @@ pub fn import_to_session(
         }
     };
 
-    let result = hypr_audio_norm::normalize_file(
+    let result = skald_audio_norm::normalize_file(
         source_path,
         &tmp_path,
         &target_path,
@@ -228,8 +228,8 @@ pub fn import_audio(
     source_path: &Path,
     tmp_path: &Path,
     target_path: &Path,
-) -> Result<PathBuf, hypr_audio_norm::Error> {
-    hypr_audio_norm::normalize_file(source_path, tmp_path, target_path, None, None::<fn(f64)>)
+) -> Result<PathBuf, skald_audio_norm::Error> {
+    skald_audio_norm::normalize_file(source_path, tmp_path, target_path, None, None::<fn(f64)>)
 }
 
 fn system_time_to_iso(time: std::time::SystemTime) -> String {
@@ -240,7 +240,7 @@ fn system_time_to_iso(time: std::time::SystemTime) -> String {
 mod tests {
     use super::*;
     use assert_fs::TempDir;
-    use hypr_audio_utils::Source;
+    use skald_audio_utils::Source;
     use std::time::SystemTime;
 
     const MIN_MP3_BYTES: u64 = 1024;
@@ -346,20 +346,20 @@ mod tests {
     }
 
     test_import_audio! {
-        test_import_wav: hypr_data::english_1::AUDIO_PATH,
-        test_import_mp3: hypr_data::english_1::AUDIO_MP3_PATH,
-        test_import_mp4: hypr_data::english_1::AUDIO_MP4_PATH,
-        test_import_m4a: hypr_data::english_1::AUDIO_M4A_PATH,
-        test_import_ogg: hypr_data::english_1::AUDIO_OGG_PATH,
-        test_import_flac: hypr_data::english_1::AUDIO_FLAC_PATH,
-        test_import_aac: hypr_data::english_1::AUDIO_AAC_PATH,
-        test_import_aiff: hypr_data::english_1::AUDIO_AIFF_PATH,
-        test_import_caf: hypr_data::english_1::AUDIO_CAF_PATH,
+        test_import_wav: skald_data::english_1::AUDIO_PATH,
+        test_import_mp3: skald_data::english_1::AUDIO_MP3_PATH,
+        test_import_mp4: skald_data::english_1::AUDIO_MP4_PATH,
+        test_import_m4a: skald_data::english_1::AUDIO_M4A_PATH,
+        test_import_ogg: skald_data::english_1::AUDIO_OGG_PATH,
+        test_import_flac: skald_data::english_1::AUDIO_FLAC_PATH,
+        test_import_aac: skald_data::english_1::AUDIO_AAC_PATH,
+        test_import_aiff: skald_data::english_1::AUDIO_AIFF_PATH,
+        test_import_caf: skald_data::english_1::AUDIO_CAF_PATH,
     }
 
     #[test]
     fn test_import_stereo_mp3() {
-        let source_path = std::path::Path::new(hypr_data::english_10::AUDIO_MP3_PATH);
+        let source_path = std::path::Path::new(skald_data::english_10::AUDIO_MP3_PATH);
         let temp = TempDir::new().unwrap();
         let tmp_path = temp.path().join("tmp.mp3");
         let target_path = temp.path().join("target.mp3");
@@ -374,7 +374,7 @@ mod tests {
             "Output too small ({size} bytes), likely empty audio"
         );
 
-        let decoder = hypr_audio_utils::source_from_path(&target_path).unwrap();
+        let decoder = skald_audio_utils::source_from_path(&target_path).unwrap();
         let channels: u16 = decoder.channels().into();
         assert_eq!(channels, 2, "stereo input should produce stereo output");
     }

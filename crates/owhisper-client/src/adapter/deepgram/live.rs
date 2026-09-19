@@ -1,6 +1,6 @@
-use hypr_ws_client::client::Message;
 use owhisper_interface::ListenParams;
 use owhisper_interface::stream::StreamResponse;
+use skald_ws_client::client::Message;
 
 use crate::adapter::RealtimeSttAdapter;
 use crate::adapter::deepgram_compat::build_listen_ws_url;
@@ -16,7 +16,7 @@ impl RealtimeSttAdapter for DeepgramAdapter {
 
     fn is_supported_languages(
         &self,
-        languages: &[hypr_language::Language],
+        languages: &[skald_language::Language],
         model: Option<&str>,
     ) -> bool {
         if languages.is_empty() {
@@ -68,7 +68,7 @@ impl RealtimeSttAdapter for DeepgramAdapter {
 mod tests {
     use std::collections::HashMap;
 
-    use hypr_language::ISO639;
+    use skald_language::ISO639;
 
     use crate::ListenClient;
     use crate::adapter::RealtimeSttAdapter;
@@ -299,7 +299,7 @@ mod tests {
         owhisper_interface::ListenParams {
             model: Some("nova-3".to_string()),
             languages: vec![ISO639::En.into()],
-            keywords: vec!["Hyprnote".to_string(), "transcription".to_string()],
+            keywords: vec!["Skald".to_string(), "transcription".to_string()],
             ..Default::default()
         }
     );

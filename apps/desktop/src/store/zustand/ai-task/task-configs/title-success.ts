@@ -1,4 +1,4 @@
-import { parseJsonContent } from "@hypr/editor/markdown";
+import { parseJsonContent } from "@skald/editor/markdown";
 
 import type { TaskConfig } from ".";
 

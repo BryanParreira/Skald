@@ -1,9 +1,12 @@
 {
-  "name": "@hypr/supabase",
+  "name": "@skald/supabase",
   "exports": {
     ".": "./src/index.ts",
     "./middleware": "./src/middleware.ts",
     "./storage": "./src/storage.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.103.0",
@@ -20,8 +23,5 @@
     "hono": {
       "optional": true
     }
-  },
-  "scripts": {
-    "typecheck": "tsc --noEmit"
   }
 }

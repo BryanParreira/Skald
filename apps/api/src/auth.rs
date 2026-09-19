@@ -2,8 +2,8 @@ use std::collections::BTreeMap;
 
 use axum::{extract::Request, middleware::Next, response::Response};
 
-use hypr_api_auth::AuthContext;
-pub use hypr_api_auth::{AuthState, optional_auth, require_auth};
+use skald_api_auth::AuthContext;
+pub use skald_api_auth::{AuthState, optional_auth, require_auth};
 
 const DEVICE_FINGERPRINT_HEADER: &str = "x-device-fingerprint";
 
@@ -30,7 +30,7 @@ pub async fn sentry_and_analytics(mut request: Request, next: Next) -> Response 
 
             let mut ctx = BTreeMap::new();
             ctx.insert(
-                "hyprnote.enduser.entitlements".into(),
+                "skald.enduser.entitlements".into(),
                 sentry::protocol::Value::Array(
                     auth.claims
                         .entitlements
@@ -40,7 +40,7 @@ pub async fn sentry_and_analytics(mut request: Request, next: Next) -> Response 
                 ),
             );
             scope.set_context(
-                "hyprnote.enduser.claims",
+                "skald.enduser.claims",
                 sentry::protocol::Context::Other(ctx),
             );
         });
@@ -49,14 +49,14 @@ pub async fn sentry_and_analytics(mut request: Request, next: Next) -> Response 
         span.record("enduser.id", user_id.as_str());
         request
             .extensions_mut()
-            .insert(hypr_analytics::AuthenticatedUserId(user_id));
+            .insert(skald_analytics::AuthenticatedUserId(user_id));
     }
 
     if let Some(fingerprint) = device_fingerprint {
         span.record("enduser.pseudo.id", fingerprint.as_str());
         request
             .extensions_mut()
-            .insert(hypr_analytics::DeviceFingerprint(fingerprint));
+            .insert(skald_analytics::DeviceFingerprint(fingerprint));
     }
 
     next.run(request).await

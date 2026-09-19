@@ -8,10 +8,10 @@ import {
 import { useEffect, useRef } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 
-import { ChatEditor, type ChatEditorHandle } from "@hypr/editor/chat";
-import type { PlaceholderFunction } from "@hypr/editor/plugins";
-import { commands as windowsCommands } from "@hypr/plugin-windows";
-import { cn } from "@hypr/utils";
+import { ChatEditor, type ChatEditorHandle } from "@skald/editor/chat";
+import type { PlaceholderFunction } from "@skald/editor/plugins";
+import { commands as windowsCommands } from "@skald/plugin-windows";
+import { cn } from "@skald/utils";
 
 import { useLanguageModel } from "~/ai/hooks";
 import {
@@ -99,7 +99,7 @@ export function ComposerScreen() {
               }
               onStop={sessionProps.stop}
               onSendMessage={sendMessage}
-              title={currentTitle || "Ask Velo AI anything"}
+              title={currentTitle || "Ask Skald AI anything"}
             />
           ) : (
             <ComposerSettingsCard />
@@ -224,7 +224,7 @@ function ComposerInput({
             ])}
           >
             <ArrowUpRightIcon className="size-3.5" />
-            Open Velo
+            Open Skald
           </button>
           <button
             type="button"
@@ -304,7 +304,7 @@ function ComposerInput({
 
 const composerPlaceholder: PlaceholderFunction = ({ node, pos }) => {
   if (node.type.name === "paragraph" && pos === 0) {
-    return "Message Velo AI";
+    return "Message Skald AI";
   }
 
   return "";

@@ -1,5 +1,5 @@
-import { commands as openerCommands } from "@hypr/plugin-opener2";
-import { openUrlWithInstruction } from "@hypr/plugin-windows";
+import { commands as openerCommands } from "@skald/plugin-opener2";
+import { openUrlWithInstruction } from "@skald/plugin-windows";
 
 import { buildWebAppUrl } from "~/shared/utils";
 

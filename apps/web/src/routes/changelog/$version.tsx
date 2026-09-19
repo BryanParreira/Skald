@@ -1,10 +1,10 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
-import { ChangelogContent } from "@hypr/changelog";
+import { ChangelogContent } from "@skald/changelog";
 
 import { SiteFooter } from "@/components/site-footer";
 import { formatChangelogDate, getChangelogEntry } from "@/lib/changelog";
-import { ANARLOG_SITE_URL } from "@/lib/seo";
+import { SKALD_SITE_URL } from "@/lib/seo";
 
 export const Route = createFileRoute("/changelog/$version")({
   component: Component,
@@ -19,21 +19,21 @@ export const Route = createFileRoute("/changelog/$version")({
     const entry = loaderData?.entry;
     if (!entry) return {};
 
-    const url = `${ANARLOG_SITE_URL}/changelog/${entry.version}`;
+    const url = `${SKALD_SITE_URL}/changelog/${entry.version}`;
     const description =
-      entry.summary ?? `Release notes for Anarlog v${entry.version}.`;
+      entry.summary ?? `Release notes for Skald v${entry.version}.`;
 
     return {
       links: [{ rel: "canonical", href: url }],
       meta: [
-        { title: `Anarlog v${entry.version} Changelog` },
+        { title: `Skald v${entry.version} Changelog` },
         {
           name: "description",
           content: description,
         },
         {
           property: "og:title",
-          content: `Anarlog v${entry.version} Changelog`,
+          content: `Skald v${entry.version} Changelog`,
         },
         {
           property: "og:description",
@@ -52,8 +52,8 @@ function Component() {
     <main className="min-h-screen bg-white text-[#181613]">
       <div className="mx-auto w-full max-w-[700px] px-5 py-8 md:px-8 md:py-12">
         <header className="flex items-center justify-between gap-6">
-          <Link to="/" aria-label="Anarlog home">
-            <img src="/logo.svg" alt="Anarlog" className="h-9 w-auto" />
+          <Link to="/" aria-label="Skald home">
+            <img src="/logo.svg" alt="Skald" className="h-9 w-auto" />
           </Link>
         </header>
 

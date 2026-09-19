@@ -1,10 +1,10 @@
 use axum::{Extension, Json};
-use hypr_api_auth::AuthContext;
-use hypr_api_nango::{GoogleCalendar, NangoConnectionState, NangoIntegrationId};
-use hypr_google_calendar::{
+use serde::Deserialize;
+use skald_api_auth::AuthContext;
+use skald_api_nango::{GoogleCalendar, NangoConnectionState, NangoIntegrationId};
+use skald_google_calendar::{
     EventOrderBy, EventType, GoogleCalendarClient, ListCalendarsResponse, ListEventsResponse,
 };
-use serde::Deserialize;
 use utoipa::ToSchema;
 
 use crate::error::{CalendarError, Result};
@@ -128,7 +128,7 @@ pub async fn list_events(
         })
         .transpose()?;
 
-    let google_req = hypr_google_calendar::ListEventsRequest {
+    let google_req = skald_google_calendar::ListEventsRequest {
         calendar_id: req.calendar_id,
         time_min,
         time_max,

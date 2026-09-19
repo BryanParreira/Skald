@@ -1,4 +1,4 @@
-import type { InstalledApp } from "@hypr/plugin-detect";
+import type { InstalledApp } from "@skald/plugin-detect";
 
 function isAppIgnored({
   bundleId,

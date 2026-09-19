@@ -1,9 +1,9 @@
 use axum::{Extension, Json};
-use hypr_api_auth::AuthContext;
-use hypr_api_nango::{GitHub, NangoConnectionState, NangoIntegrationId};
-use hypr_github_issues::{GitHubIssuesClient, IssueStateFilter};
-use hypr_ticket_interface::{CollectionPage, CollectionRef, TicketPage};
 use serde::Deserialize;
+use skald_api_auth::AuthContext;
+use skald_api_nango::{GitHub, NangoConnectionState, NangoIntegrationId};
+use skald_github_issues::{GitHubIssuesClient, IssueStateFilter};
+use skald_ticket_interface::{CollectionPage, CollectionRef, TicketPage};
 use utoipa::ToSchema;
 
 use crate::error::{Result, TicketError};
@@ -69,7 +69,7 @@ pub async fn list_repos(
     let per_page = req.limit.unwrap_or(30);
 
     let repos = client
-        .list_repos(hypr_github_issues::ListReposRequest {
+        .list_repos(skald_github_issues::ListReposRequest {
             per_page: Some(per_page),
             page: Some(page),
             sort: Some("updated".to_string()),
@@ -139,7 +139,7 @@ pub async fn list_tickets(
     };
 
     let issues = client
-        .list_issues(hypr_github_issues::ListIssuesRequest {
+        .list_issues(skald_github_issues::ListIssuesRequest {
             owner: req.owner.clone(),
             repo: req.repo.clone(),
             state: state_filter,

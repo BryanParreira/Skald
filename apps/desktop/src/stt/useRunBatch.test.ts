@@ -55,7 +55,7 @@ vi.mock("./useSTTConnection", () => ({
   useSTTConnection: useSTTConnectionMock,
 }));
 
-vi.mock("@hypr/ui/components/ui/toast", () => ({
+vi.mock("@skald/ui/components/ui/toast", () => ({
   sonnerToast: {
     message: sonnerToastMessageMock,
   },
@@ -208,9 +208,7 @@ describe("getBatchProvider", () => {
   });
 
   test("maps local soniqo models to soniqo batch provider", () => {
-    expect(getBatchProvider("velo", "soniqo-parakeet-batch")).toBe(
-      "soniqo",
-    );
+    expect(getBatchProvider("skald", "soniqo-parakeet-batch")).toBe("soniqo");
   });
 });
 
@@ -235,7 +233,7 @@ describe("getBatchFallbackTarget", () => {
         apiBaseUrl: "https://api.test",
       }),
     ).toEqual({
-      provider: "hyprnote",
+      provider: "skald",
       model: "cloud",
       baseUrl: "https://api.test/stt",
       apiKey: "token",
@@ -368,7 +366,7 @@ describe("useRunBatch", () => {
   test("passes selected transcription languages to batch transcription", async () => {
     useSTTConnectionMock.mockReturnValue({
       conn: {
-        provider: "hyprnote",
+        provider: "skald",
         model: "soniqo-parakeet-batch",
         baseUrl: "soniqo://local",
         apiKey: "",
@@ -438,7 +436,7 @@ describe("useRunBatch", () => {
 
     expect(startTranscriptionMock).toHaveBeenCalledWith(
       expect.objectContaining({
-        provider: "hyprnote",
+        provider: "skald",
         model: "cloud",
         base_url: "https://api.test/stt",
         api_key: "paid-token",

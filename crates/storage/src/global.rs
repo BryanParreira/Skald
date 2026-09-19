@@ -1,10 +1,10 @@
 use std::path::{Path, PathBuf};
 
 pub const VAULT_CONFIG_FILENAME: &str = "global.json";
-const STAGING_BUNDLE_ID: &str = "com.velo.staging";
-const RELEASE_APP_FOLDER: &str = "com.velo.app";
-const LEGACY_RELEASE_APP_FOLDER_V1: &str = "anarlog";
-const LEGACY_RELEASE_APP_FOLDER_V0: &str = "hyprnote";
+const STAGING_BUNDLE_ID: &str = "com.skald.staging";
+const RELEASE_APP_FOLDER: &str = "com.skald.app";
+const LEGACY_RELEASE_APP_FOLDER_V1: &str = "skald";
+const LEGACY_RELEASE_APP_FOLDER_V0: &str = "skald";
 
 pub fn compute_vault_config_path(base: &Path) -> PathBuf {
     base.join(VAULT_CONFIG_FILENAME)
@@ -53,19 +53,19 @@ mod tests {
     fn resolve_app_folder_uses_velo_for_new_installs() {
         let temp = tempdir().unwrap();
         assert_eq!(
-            resolve_app_folder(temp.path(), "com.velo.stable", false),
+            resolve_app_folder(temp.path(), "com.skald.stable", false),
             RELEASE_APP_FOLDER
         );
     }
 
     #[test]
-    fn resolve_app_folder_migrates_anarlog_data() {
+    fn resolve_app_folder_migrates_skald_data() {
         let temp = tempdir().unwrap();
         let legacy = temp.path().join(LEGACY_RELEASE_APP_FOLDER_V1);
         std::fs::create_dir_all(&legacy).unwrap();
         std::fs::write(legacy.join("store.json"), "{}").unwrap();
         assert_eq!(
-            resolve_app_folder(temp.path(), "com.velo.stable", false),
+            resolve_app_folder(temp.path(), "com.skald.stable", false),
             LEGACY_RELEASE_APP_FOLDER_V1
         );
     }
@@ -81,8 +81,8 @@ mod tests {
     #[test]
     fn resolve_app_folder_returns_bundle_id_in_debug_builds() {
         assert_eq!(
-            resolve_app_folder(Path::new("/tmp"), "com.velo.stable", true),
-            "com.velo.stable"
+            resolve_app_folder(Path::new("/tmp"), "com.skald.stable", true),
+            "com.skald.stable"
         );
     }
 }

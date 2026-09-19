@@ -1,7 +1,7 @@
 {
   "name": "@char/plugin-hello-world",
-  "private": true,
   "version": "0.1.0",
+  "private": true,
   "type": "module",
   "scripts": {
     "build": "node ./build.mjs",
@@ -9,7 +9,7 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "@hypr/plugin-sdk": "workspace:*",
+    "@skald/plugin-sdk": "workspace:*",
     "@types/react": "^19.2.14",
     "esbuild": "^0.27.7",
     "typescript": "^5.9.3"

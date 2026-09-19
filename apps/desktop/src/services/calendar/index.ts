@@ -1,6 +1,6 @@
 import type { Queries } from "tinybase/with-schemas";
 
-import type { CalendarProviderType } from "@hypr/plugin-calendar";
+import type { CalendarProviderType } from "@skald/plugin-calendar";
 
 import {
   type CalendarSyncRange,

@@ -12,8 +12,8 @@ import {
 } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 
-import type { NoteEditorRef } from "@hypr/editor/note";
-import { cn } from "@hypr/utils";
+import type { NoteEditorRef } from "@skald/editor/note";
+import { cn } from "@skald/utils";
 
 import { ActionItems } from "./action-items";
 import { Brief } from "./brief";

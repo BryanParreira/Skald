@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import type { DegradedError } from "@hypr/plugin-transcription";
+import type { DegradedError } from "@skald/plugin-transcription";
 
 import { useAudioPlayer } from "~/audio-player";
 import { useMainStoreRowsRevision } from "~/store/tinybase/hooks";

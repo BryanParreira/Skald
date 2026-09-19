@@ -3,16 +3,16 @@ import { BrainIcon, CheckIcon, CopyIcon, RotateCcwIcon } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Streamdown } from "streamdown";
 
-import { cn } from "@hypr/utils";
+import { cn } from "@skald/utils";
 
 import { Disclosure, MessageBubble, MessageContainer } from "./shared";
 import { Tool } from "./tool";
 import type { Part } from "./types";
 
 import { hasRenderableContent } from "~/chat/components/shared";
-import type { HyprUIMessage } from "~/chat/types";
+import type { SkaldUIMessage } from "~/chat/types";
 
-function getMessageText(message: HyprUIMessage): string {
+function getMessageText(message: SkaldUIMessage): string {
   return message.parts
     .filter(
       (part): part is Extract<Part, { type: "text" }> => part.type === "text",
@@ -25,7 +25,7 @@ export function NormalMessage({
   message,
   handleReload,
 }: {
-  message: HyprUIMessage;
+  message: SkaldUIMessage;
   handleReload?: () => void;
 }) {
   const { t } = useLingui();

@@ -15,7 +15,7 @@ use crate::actors::{
     spawn_session_supervisor,
 };
 use crate::{ListenerRuntime, SessionLifecycleEvent, StartSessionError, State};
-use hypr_audio::AudioProvider;
+use skald_audio::AudioProvider;
 
 pub enum RootMsg {
     StartSession(SessionParams, RpcReplyPort<Result<(), StartSessionError>>),

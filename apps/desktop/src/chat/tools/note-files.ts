@@ -1,8 +1,8 @@
 import { tool } from "ai";
 import { z } from "zod";
 
-import { commands as fsSyncCommands } from "@hypr/plugin-fs-sync";
-import type { SessionContentData } from "@hypr/plugin-fs-sync";
+import { commands as fsSyncCommands } from "@skald/plugin-fs-sync";
+import type { SessionContentData } from "@skald/plugin-fs-sync";
 
 import { CONTEXT_TEXT_FIELD } from "./context-text";
 import type { ToolDependencies } from "./types";

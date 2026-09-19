@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 
-import type { JsonValue } from "@hypr/plugin-fs-sync";
+import type { JsonValue } from "@skald/plugin-fs-sync";
 
 import { createMarkdownDirPersister } from "./markdown-dir";
 
@@ -14,7 +14,7 @@ import {
 const settingsMocks = vi.hoisted(() => ({
   vaultBase: vi
     .fn()
-    .mockResolvedValue({ status: "ok", data: "/mock/data/dir/velo" }),
+    .mockResolvedValue({ status: "ok", data: "/mock/data/dir/skald" }),
 }));
 
 const fsSyncMocks = vi.hoisted(() => ({
@@ -29,9 +29,9 @@ const fs2Mocks = vi.hoisted(() => ({
   remove: vi.fn(),
 }));
 
-vi.mock("@hypr/plugin-settings", () => ({ commands: settingsMocks }));
-vi.mock("@hypr/plugin-fs-sync", () => ({ commands: fsSyncMocks }));
-vi.mock("@hypr/plugin-fs2", () => ({ commands: fs2Mocks }));
+vi.mock("@skald/plugin-settings", () => ({ commands: settingsMocks }));
+vi.mock("@skald/plugin-fs-sync", () => ({ commands: fsSyncMocks }));
+vi.mock("@skald/plugin-fs2", () => ({ commands: fs2Mocks }));
 
 const testConfig = {
   tableName: "humans",

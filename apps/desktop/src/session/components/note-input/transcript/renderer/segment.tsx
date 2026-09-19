@@ -1,6 +1,6 @@
 import { memo, useMemo } from "react";
 
-import { cn } from "@hypr/utils";
+import { cn } from "@skald/utils";
 
 import { SegmentHeader } from "./segment-header";
 import {

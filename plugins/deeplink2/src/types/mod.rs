@@ -71,7 +71,7 @@ mod tests {
 
     #[test]
     fn parses_notes_open() {
-        let link: DeepLink = "velo://notes/open?session_id=abc-123".parse().unwrap();
+        let link: DeepLink = "skald://notes/open?session_id=abc-123".parse().unwrap();
         match link {
             DeepLink::NotesOpen(search) => assert_eq!(search.session_id, "abc-123"),
             other => panic!("unexpected deep link: {other:?}"),
@@ -82,7 +82,7 @@ mod tests {
     // detected; the route must still open the note rather than reject the link.
     #[test]
     fn parses_notes_open_with_extra_params() {
-        let link: DeepLink = "velo://notes/open?session_id=abc-123&task_id=t-1"
+        let link: DeepLink = "skald://notes/open?session_id=abc-123&task_id=t-1"
             .parse()
             .unwrap();
         assert_eq!(link.path(), "/notes/open");
@@ -90,6 +90,6 @@ mod tests {
 
     #[test]
     fn rejects_notes_open_without_session_id() {
-        assert!("velo://notes/open".parse::<DeepLink>().is_err());
+        assert!("skald://notes/open".parse::<DeepLink>().is_err());
     }
 }

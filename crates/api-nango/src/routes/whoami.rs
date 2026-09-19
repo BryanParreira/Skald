@@ -1,7 +1,7 @@
 use axum::{Extension, Json, extract::State};
-use hypr_api_auth::AuthContext;
-use hypr_nango::ListConnectionsParams;
 use serde::Serialize;
+use skald_api_auth::AuthContext;
+use skald_nango::ListConnectionsParams;
 use utoipa::ToSchema;
 
 use crate::error::Result;

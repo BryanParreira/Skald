@@ -4,16 +4,16 @@ import { ArrowRight, ChevronDown, Cloud, Cpu, KeyRound } from "lucide-react";
 import { type CSSProperties, useEffect, useRef, useState } from "react";
 import { z } from "zod";
 
-import { DancingSticks } from "@hypr/ui/components/ui/dancing-sticks";
-import { Spinner } from "@hypr/ui/components/ui/spinner";
-import { cn } from "@hypr/utils";
+import { DancingSticks } from "@skald/ui/components/ui/dancing-sticks";
+import { Spinner } from "@skald/ui/components/ui/spinner";
+import { cn } from "@skald/utils";
 
 import { SiteFooter } from "@/components/site-footer";
 import { desktopSchemeSchema } from "@/functions/desktop-flow";
 import { getGitHubStats, getStargazers } from "@/functions/github";
 import { useMountEffect } from "@/hooks/useMountEffect";
 import {
-  ANARLOG_SITE_URL,
+  SKALD_SITE_URL,
   ROOT_DESCRIPTION,
   getOrganizationJsonLd,
   getSoftwareApplicationJsonLd,
@@ -26,7 +26,7 @@ const manifestoLetter = [
   "Notetaking matters more than note-takers. A note-taker is passive. A notepad is something you use. You stay present and in control while the room is still alive.",
   "Most AI tools ask you to move your memory into their ecosystem and rules. Meeting notes should move the other way: back to files on your disk and software you can run offline.",
   "Files endure. Interfaces change. Your notes should survive us. Use on-device models or your own keys, not a service you cannot inspect.",
-  "Anarlog is our attempt to build that meeting notepad.",
+  "Skald is our attempt to build that meeting notepad.",
 ];
 
 const manifestoSigners = MANIFESTO_SIGNERS;
@@ -70,28 +70,28 @@ const credibilityLogos = [
 
 const testimonials = [
   {
-    quote: "Anarlog is great and local.",
+    quote: "Skald is great and local.",
     author: "Tobi Lutke",
     username: "tobi",
     avatar: "/api/assets/blog/testimonials/tobi.jpg/",
     url: "https://x.com/tobi/status/1983892259230699921",
   },
   {
-    quote: "Anarlog is worth a look.",
+    quote: "Skald is worth a look.",
     author: "Anand Chowdhary",
     username: "AnandChowdhary",
     avatar: "/api/assets/blog/testimonials/anand.jpg/",
     url: "https://x.com/AnandChowdhary/status/1997980479698723119",
   },
   {
-    quote: "Anarlog is one of my favorite AI secret weapons.",
+    quote: "Skald is one of my favorite AI secret weapons.",
     author: "James Koshigoe",
     username: "JamesKoshigoe",
     avatar: "/api/assets/blog/testimonials/james-k.jpg/",
     url: "https://x.com/JamesKoshigoe/status/2024676687980671195",
   },
   {
-    quote: "Really liking Anarlog. Open access to my data and a GPL codebase!",
+    quote: "Really liking Skald. Open access to my data and a GPL codebase!",
     author: "James LePage",
     username: "jameswlepage",
     avatar: "/api/assets/blog/testimonials/james-l.jpg/",
@@ -99,7 +99,7 @@ const testimonials = [
   },
   {
     quote:
-      "I love the flexibility that Anarlog gives me to integrate personal notes with AI summaries.",
+      "I love the flexibility that Skald gives me to integrate personal notes with AI summaries.",
     author: "Tom Yang",
     username: "tomyang11_",
     avatar: "/api/assets/blog/testimonials/tom.jpg/",
@@ -147,16 +147,15 @@ const desktopTestimonialSidePositions: TestimonialCardPosition[] = [
 ];
 
 const testimonialDeckStateVersion = 3;
-const testimonialNameContext =
-  "Name context: Hyprnote became Char, then Anarlog.";
+const testimonialNameContext = "Name context: Skald became Char, then Skald.";
 
 function formatTestimonialOffset(offset: TestimonialCardPosition["x"]) {
   return typeof offset === "number" ? `${offset}px` : offset;
 }
 
 function renderPullQuote(quote: string) {
-  return quote.split(/(Anarlog)/g).map((part, index) => {
-    if (part !== "Anarlog") return part;
+  return quote.split(/(Skald)/g).map((part, index) => {
+    if (part !== "Skald") return part;
 
     return (
       <mark
@@ -269,7 +268,7 @@ const authCallbackSearchSchema = z.object({
     .optional()
     .catch(undefined),
   flow: z.enum(["desktop", "web"]).optional().catch("desktop"),
-  scheme: desktopSchemeSchema.optional().catch("hyprnote"),
+  scheme: desktopSchemeSchema.optional().catch("skald"),
   redirect: z.string().optional(),
   error: z.string().optional(),
   error_description: z.string().optional(),
@@ -286,7 +285,7 @@ export const Route = createFileRoute("/")({
     }
 
     const flow = search.flow ?? "desktop";
-    const scheme = search.scheme ?? "hyprnote";
+    const scheme = search.scheme ?? "skald";
 
     throw redirect({
       to: "/auth/",
@@ -315,7 +314,7 @@ export const Route = createFileRoute("/")({
     };
   },
   head: () => ({
-    links: [{ rel: "canonical", href: ANARLOG_SITE_URL }],
+    links: [{ rel: "canonical", href: SKALD_SITE_URL }],
     scripts: [
       {
         type: "application/ld+json",
@@ -339,8 +338,6 @@ function Component() {
 
   return (
     <main className="min-h-screen bg-white text-[#181613]">
-      <AnnouncementBanner />
-
       <div className="mx-auto w-full max-w-[700px] px-5 pt-4 pb-8 md:px-8 md:pt-4 md:pb-12">
         <div className="min-w-0 text-center">
           <section className="pt-10 pb-20 md:pt-12 md:pb-24">
@@ -348,7 +345,7 @@ function Component() {
               AI notepad for private meetings.
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#4f4940]">
-              Jot notes during the call. Anarlog turns them into an editable
+              Jot notes during the call. Skald turns them into an editable
               summary.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-x-5 gap-y-3 text-sm">
@@ -455,7 +452,7 @@ function FinalCtaSection() {
           Keep your meeting notes yours.
         </h2>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#4f4940]">
-          Try Anarlog today and be present in meetings.
+          Try Skald today and be present in meetings.
         </p>
         <a
           href={appleSiliconDownloadUrl}
@@ -502,12 +499,12 @@ function OpenSourceSection({
           Open source by default
         </h2>
         <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-[#4f4940]">
-          We deeply care about transparency. Anarlog is open source so anyone
-          can inspect how meeting memory is handled.
+          We deeply care about transparency. Skald is open source so anyone can
+          inspect how meeting memory is handled.
         </p>
 
         <a
-          href="https://github.com/fastrepl/anarlog"
+          href="https://github.com/BryanParreira/Skald"
           target="_blank"
           rel="noopener noreferrer"
           className="mt-6 inline-flex items-center gap-2 rounded-full border border-neutral-300 bg-white px-5 py-3 text-sm font-medium text-neutral-900 transition-colors hover:border-neutral-400 hover:bg-neutral-100"
@@ -649,7 +646,7 @@ function TestimonialsSection() {
           What people say
         </h2>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#4f4940]">
-          It's clear they love Anarlog.
+          It's clear they love Skald.
         </p>
       </div>
 
@@ -757,7 +754,7 @@ function PrivacySection() {
           Your data stays yours
         </h2>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#4f4940]">
-          Anarlog is built around data you own, privacy you control, and notes
+          Skald is built around data you own, privacy you control, and notes
           that stay useful outside our app.
         </p>
       </div>
@@ -1135,70 +1132,6 @@ function HeroWorkflowDemo() {
         aria-hidden="true"
       />
     </div>
-  );
-}
-
-function AnnouncementBanner() {
-  return (
-    <div className="flex justify-center px-5 pt-6 md:pt-8">
-      <a
-        href="https://char.com"
-        className="char-announcement group relative inline-flex h-8 w-[15.25rem] max-w-full items-center justify-center text-center text-sm font-medium text-[#181613] opacity-75 transition-opacity hover:opacity-100"
-        aria-label="Join the waitlist for Char"
-      >
-        <span className="char-announcement-text char-announcement-text-primary absolute inset-y-0 flex min-w-0 items-center justify-center px-8 whitespace-nowrap">
-          Join the waitlist for Char
-        </span>
-        <span className="char-announcement-text char-announcement-text-secondary absolute inset-y-0 flex min-w-0 items-center justify-center px-8 whitespace-nowrap">
-          We're innovating the todo list
-        </span>
-        <span
-          className="pointer-events-none absolute inset-0"
-          aria-hidden="true"
-        >
-          <CharBracket
-            side="left"
-            className="char-announcement-bracket char-announcement-bracket-left absolute top-1/2 left-1/2 h-5 text-[#181613]"
-          />
-          <CharBracket
-            side="right"
-            className="char-announcement-bracket char-announcement-bracket-right absolute top-1/2 left-1/2 h-5 text-[#181613]"
-          />
-        </span>
-      </a>
-    </div>
-  );
-}
-
-function CharBracket({
-  side,
-  className,
-}: {
-  side: "left" | "right";
-  className?: string;
-}) {
-  return (
-    <svg
-      width="8"
-      height="30"
-      viewBox="0 0 8 30"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
-      aria-hidden="true"
-    >
-      {side === "left" ? (
-        <path
-          d="M7.871 4.147C7.871 5.658 7.082 7.039 6.099 8.214C4.65 9.946 3.77 12.161 3.77 14.575C3.77 16.99 4.65 19.205 6.099 20.937C7.082 22.112 7.871 23.493 7.871 25.004V29.151H2.965V24.319C2.965 22.735 2.165 21.249 0.822 20.34L0 19.783V9.235L0.822 8.678C2.165 7.769 2.965 6.284 2.965 4.699V0L7.871 0V4.147Z"
-          fill="currentColor"
-        />
-      ) : (
-        <path
-          d="M0 4.147C0 5.658 0.789 7.039 1.773 8.214C3.221 9.946 4.101 12.161 4.101 14.575C4.101 16.99 3.221 19.205 1.773 20.937C0.789 22.112 0 23.493 0 25.004V29.151H4.907V24.319C4.907 22.735 5.706 21.249 7.049 20.34L7.871 19.783V9.235L7.049 8.678C5.706 7.769 4.907 6.284 4.907 4.699V0L0 0V4.147Z"
-          fill="currentColor"
-        />
-      )}
-    </svg>
   );
 }
 

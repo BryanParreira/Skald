@@ -11,12 +11,12 @@ import {
 import {
   type SessionContext,
   commands as templateCommands,
-} from "@hypr/plugin-template";
+} from "@skald/plugin-template";
 
 import type { ContextRef } from "../context/entities";
 import { extractContextRefsFromMessages } from "../context/refs";
 import { CONTEXT_TEXT_FIELD } from "../tools/context-text";
-import type { HyprUIMessage } from "../types";
+import type { SkaldUIMessage } from "../types";
 import {
   getSessionIdsFromSearchOutput,
   hasContextText,
@@ -32,7 +32,7 @@ export type ResolvedChatContext =
   | { kind: "session"; context: SessionContext }
   | { kind: "text"; text: string };
 
-export class CustomChatTransport implements ChatTransport<HyprUIMessage> {
+export class CustomChatTransport implements ChatTransport<SkaldUIMessage> {
   constructor(
     private model: LanguageModel,
     private tools: ToolSet,
@@ -169,7 +169,7 @@ export class CustomChatTransport implements ChatTransport<HyprUIMessage> {
     };
   }
 
-  sendMessages: ChatTransport<HyprUIMessage>["sendMessages"] = async (
+  sendMessages: ChatTransport<SkaldUIMessage>["sendMessages"] = async (
     options,
   ) => {
     const cache = new Map<string, string | null>();
@@ -204,7 +204,7 @@ export class CustomChatTransport implements ChatTransport<HyprUIMessage> {
       },
     });
 
-    const messagesWithContext: HyprUIMessage[] = [];
+    const messagesWithContext: SkaldUIMessage[] = [];
 
     for (const [index, msg] of options.messages.entries()) {
       if (msg.role === "user") {
@@ -238,7 +238,7 @@ export class CustomChatTransport implements ChatTransport<HyprUIMessage> {
         );
         messagesWithContext.push({
           ...msg,
-          parts: expandedParts as HyprUIMessage["parts"],
+          parts: expandedParts as SkaldUIMessage["parts"],
         });
       } else {
         messagesWithContext.push(msg);
@@ -278,7 +278,7 @@ export class CustomChatTransport implements ChatTransport<HyprUIMessage> {
     });
   };
 
-  reconnectToStream: ChatTransport<HyprUIMessage>["reconnectToStream"] =
+  reconnectToStream: ChatTransport<SkaldUIMessage>["reconnectToStream"] =
     async () => {
       return null;
     };

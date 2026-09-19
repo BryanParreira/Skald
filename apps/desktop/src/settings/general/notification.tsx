@@ -8,10 +8,10 @@ import {
   commands as detectCommands,
   type InstalledApp,
   type Result,
-} from "@hypr/plugin-detect";
-import { commands as notificationCommands } from "@hypr/plugin-notification";
-import { Badge } from "@hypr/ui/components/ui/badge";
-import { Button } from "@hypr/ui/components/ui/button";
+} from "@skald/plugin-detect";
+import { commands as notificationCommands } from "@skald/plugin-notification";
+import { Badge } from "@skald/ui/components/ui/badge";
+import { Button } from "@skald/ui/components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -19,22 +19,22 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@hypr/ui/components/ui/command";
+} from "@skald/ui/components/ui/command";
 import {
   AppFloatingPanel,
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@hypr/ui/components/ui/popover";
+} from "@skald/ui/components/ui/popover";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@hypr/ui/components/ui/select";
-import { Switch } from "@hypr/ui/components/ui/switch";
-import { cn } from "@hypr/utils";
+} from "@skald/ui/components/ui/select";
+import { Switch } from "@skald/ui/components/ui/switch";
+import { cn } from "@skald/utils";
 
 import {
   getIgnoredBundleIds,

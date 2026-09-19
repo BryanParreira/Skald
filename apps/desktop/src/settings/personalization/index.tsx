@@ -1,9 +1,9 @@
 import { Trans } from "@lingui/react/macro";
 import { useForm } from "@tanstack/react-form";
 
-import { Badge } from "@hypr/ui/components/ui/badge";
-import { Button } from "@hypr/ui/components/ui/button";
-import { Textarea } from "@hypr/ui/components/ui/textarea";
+import { Badge } from "@skald/ui/components/ui/badge";
+import { Button } from "@skald/ui/components/ui/button";
+import { Textarea } from "@skald/ui/components/ui/textarea";
 
 import { SettingsPageTitle } from "~/settings/page-title";
 import { useConfigValue } from "~/shared/config";
@@ -80,7 +80,7 @@ function DictionarySettings({
         {(field) => (
           <Textarea
             className="min-h-44 resize-y"
-            placeholder={"Velo\nFastConformer\nParakeet TDT"}
+            placeholder={"Skald\nFastConformer\nParakeet TDT"}
             value={field.state.value}
             onChange={(event) => field.handleChange(event.target.value)}
             onBlur={field.handleBlur}

@@ -1,1 +1,1 @@
-export * from "@hypr/store/shared";
+export * from "@skald/store/shared";

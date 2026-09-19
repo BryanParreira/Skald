@@ -1,5 +1,5 @@
 [bindings.kotlin]
-package_name = "com.hypr.mobilebridge"
+package_name = "com.skald.mobilebridge"
 
 [bindings.swift]
-module_name = "HyprMobileBridge"
+module_name = "SkaldMobileBridge"

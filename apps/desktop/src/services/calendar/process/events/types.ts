@@ -1,4 +1,4 @@
-import type { EventParticipant } from "@hypr/store";
+import type { EventParticipant } from "@skald/store";
 
 import type {
   ExistingEvent,

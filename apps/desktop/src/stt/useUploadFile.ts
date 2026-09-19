@@ -7,9 +7,9 @@ import { useCallback } from "react";
 import {
   commands as fsSyncCommands,
   events as fsSyncEvents,
-} from "@hypr/plugin-fs-sync";
-import { commands as listener2Commands } from "@hypr/plugin-transcription";
-import type { TranscriptStorage } from "@hypr/store";
+} from "@skald/plugin-fs-sync";
+import { commands as listener2Commands } from "@skald/plugin-transcription";
+import type { TranscriptStorage } from "@skald/store";
 
 import { estimateUploadedAudioSessionCreatedAt } from "./audio-note-date";
 import { useListener } from "./contexts";
@@ -287,7 +287,6 @@ export function useUploadFile(sessionId: string) {
               } satisfies TranscriptStorage;
 
               store.setRow("transcripts", transcriptId, transcriptRow);
-
 
               triggerEnhance();
             }),

@@ -1,8 +1,8 @@
 import { Icon } from "@iconify-icon/react";
 import { Trans } from "@lingui/react/macro";
 
-import { commands as openerCommands } from "@hypr/plugin-opener2";
-import { commands as sfxCommands } from "@hypr/plugin-sfx";
+import { commands as openerCommands } from "@skald/plugin-opener2";
+import { commands as sfxCommands } from "@skald/plugin-sfx";
 
 import { OnboardingButton } from "./shared";
 
@@ -13,7 +13,7 @@ const SOCIALS = [
   {
     label: "GitHub",
     icon: "simple-icons:github",
-    url: "https://github.com/fastrepl/anarlog",
+    url: "https://github.com/BryanParreira/Skald",
   },
 ] as const;
 
@@ -51,7 +51,7 @@ export function FinalSection({ onContinue }: { onContinue: () => void }) {
       className="px-6 py-2 text-sm"
       onClick={() => void finishOnboarding(onContinue)}
     >
-      <Trans>Open Velo</Trans>
+      <Trans>Open Skald</Trans>
     </OnboardingButton>
   );
 }

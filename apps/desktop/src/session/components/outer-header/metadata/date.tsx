@@ -3,9 +3,9 @@ import { useForm } from "@tanstack/react-form";
 import { CheckIcon, PencilIcon, XIcon } from "lucide-react";
 import { useState } from "react";
 
-import { Button } from "@hypr/ui/components/ui/button";
-import { Input } from "@hypr/ui/components/ui/input";
-import { format, safeFormat, safeParseDate } from "@hypr/utils";
+import { Button } from "@skald/ui/components/ui/button";
+import { Input } from "@skald/ui/components/ui/input";
+import { format, safeFormat, safeParseDate } from "@skald/utils";
 
 import * as main from "~/store/tinybase/store/main";
 

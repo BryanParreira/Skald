@@ -17,7 +17,7 @@ const hoisted = vi.hoisted(() => ({
     | undefined,
   llmStatus: {
     status: "success",
-    providerId: "velo",
+    providerId: "skald",
     isHosted: true,
   } as LLMConnectionStatus,
   content: "",
@@ -30,7 +30,7 @@ vi.mock("~/stt/contexts", () => ({
     selector({ getSessionMode: () => hoisted.sessionMode }),
 }));
 
-vi.mock("@hypr/ui/components/ui/spinner", () => ({
+vi.mock("@skald/ui/components/ui/spinner", () => ({
   Spinner: () => <span data-testid="spinner" />,
 }));
 
@@ -110,7 +110,7 @@ describe("Enhanced", () => {
     hoisted.task = undefined;
     hoisted.llmStatus = {
       status: "success",
-      providerId: "velo",
+      providerId: "skald",
       isHosted: true,
     };
     hoisted.content = "";
@@ -224,7 +224,7 @@ describe("Enhanced", () => {
     hoisted.llmStatus = {
       status: "error",
       reason: "not_pro",
-      providerId: "velo",
+      providerId: "skald",
     };
 
     render(<Enhanced sessionId="session-1" enhancedNoteId="note-1" />);
@@ -237,7 +237,7 @@ describe("Enhanced", () => {
     hoisted.llmStatus = {
       status: "error",
       reason: "unauthenticated",
-      providerId: "velo",
+      providerId: "skald",
     };
 
     render(<Enhanced sessionId="session-1" enhancedNoteId="note-1" />);

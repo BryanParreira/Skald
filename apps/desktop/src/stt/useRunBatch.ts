@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 
-import type { TranscriptionParams } from "@hypr/plugin-transcription";
-import type { TranscriptStorage } from "@hypr/store";
+import type { TranscriptionParams } from "@skald/plugin-transcription";
+import type { TranscriptStorage } from "@skald/store";
 
 import { useListener } from "./contexts";
 import { useKeywords } from "./useKeywords";
@@ -78,10 +78,10 @@ export function getBatchProvider(
     return "deepgram";
   }
 
-  if (provider === "velo") {
+  if (provider === "skald") {
     if (model.startsWith("soniqo-")) return "soniqo";
     if (model.startsWith("am-")) return "am";
-    return "hyprnote";
+    return "skald";
   }
   if (DIRECT_BATCH_PROVIDERS.has(provider as TranscriptionParams["provider"])) {
     return provider as TranscriptionParams["provider"];
@@ -107,7 +107,7 @@ export function getBatchFallbackTarget({
 }): BatchTarget {
   if (isPaid && accessToken) {
     return {
-      provider: "hyprnote",
+      provider: "skald",
       model: "cloud",
       baseUrl: new URL("/stt", apiBaseUrl).toString(),
       apiKey: accessToken,
@@ -401,17 +401,17 @@ export const useRunBatch = (sessionId: string) => {
       }
     },
     [
-	conn,
-	aiLanguage,
-	billing.isPaid,
-	indexes,
-	keywords,
-	spokenLanguages,
-	startTranscription,
-	sessionId,
-	settingsStore,
-	store,
-	user_id
-],
+      conn,
+      aiLanguage,
+      billing.isPaid,
+      indexes,
+      keywords,
+      spokenLanguages,
+      startTranscription,
+      sessionId,
+      settingsStore,
+      store,
+      user_id,
+    ],
   );
 };

@@ -101,10 +101,10 @@ jobs:
 
       - if: ${{ inputs.experimental_airgapped }}
         run: |
-          aws s3 cp s3://hyprnote-cache2/v0/resources/stt/nvidia_parakeet-v3_494MB.tar apps/desktop/src-tauri/resources/stt/nvidia_parakeet-v3_494MB.tar \
+          aws s3 cp s3://skald-cache2/v0/resources/stt/nvidia_parakeet-v3_494MB.tar apps/desktop/src-tauri/resources/stt/nvidia_parakeet-v3_494MB.tar \
             --endpoint-url ${{ secrets.CLOUDFLARE_R2_ENDPOINT_URL }} \
             --region auto
-          aws s3 cp s3://hyprnote-cache2/v0/resources/ttt/hypr-llm.gguf apps/desktop/src-tauri/resources/ttt/hypr-llm.gguf \
+          aws s3 cp s3://skald-cache2/v0/resources/ttt/skald-llm.gguf apps/desktop/src-tauri/resources/ttt/skald-llm.gguf \
             --endpoint-url ${{ secrets.CLOUDFLARE_R2_ENDPOINT_URL }} \
             --region auto
         env:
@@ -129,8 +129,6 @@ jobs:
           CI: false
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           AM_API_KEY: ${{ secrets.AM_API_KEY }}
-          POSTHOG_API_KEY: ${{ secrets.POSTHOG_API_KEY }}
-          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
           KEYGEN_ACCOUNT_ID: ${{ secrets.KEYGEN_ACCOUNT_ID }}
           KEYGEN_VERIFY_KEY: ${{ secrets.KEYGEN_VERIFY_KEY }}
           APPLE_ID: ${{ secrets.APPLE_ID }}

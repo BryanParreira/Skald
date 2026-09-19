@@ -2655,7 +2655,7 @@
     "license": {
       "name": ""
     },
-    "title": "Char AI API",
+    "title": "Skald AI API",
     "version": "1.0.0"
   },
   "openapi": "3.0.3",

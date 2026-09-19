@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use std::path::Path;
 
-use hypr_db_app::UpsertEvent;
+use skald_db_app::UpsertEvent;
 use sqlx::SqlitePool;
 
 pub async fn import_legacy_events_from_path(pool: &SqlitePool, path: &Path) -> crate::Result<()> {
@@ -11,7 +11,7 @@ pub async fn import_legacy_events_from_path(pool: &SqlitePool, path: &Path) -> c
 
     let events = read_events_file(path)?;
     for event in events {
-        hypr_db_app::insert_event_if_missing(
+        skald_db_app::insert_event_if_missing(
             pool,
             UpsertEvent {
                 id: &event.id,
@@ -106,11 +106,11 @@ fn read_events_file(path: &Path) -> crate::Result<Vec<LegacyEvent>> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use hypr_db_core::Db;
+    use skald_db_core::Db;
 
     async fn test_db() -> Db {
         let db = Db::connect_memory_plain().await.unwrap();
-        hypr_db_app::prepare_schema(&db).await.unwrap();
+        skald_db_app::prepare_schema(&db).await.unwrap();
         db
     }
 
@@ -147,7 +147,7 @@ mod tests {
             .await
             .unwrap();
 
-        let rows = hypr_db_app::list_events(db.pool()).await.unwrap();
+        let rows = skald_db_app::list_events(db.pool()).await.unwrap();
         assert_eq!(rows.len(), 1);
         assert_eq!(rows[0].id, "evt-1");
         assert_eq!(

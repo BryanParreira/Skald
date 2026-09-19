@@ -17,8 +17,8 @@ import {
 } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 
-import { Button } from "@hypr/ui/components/ui/button";
-import { cn } from "@hypr/utils";
+import { Button } from "@skald/ui/components/ui/button";
+import { cn } from "@skald/utils";
 
 import { useAnchor, useAutoScrollToAnchor } from "./anchor";
 import { TimelineItemComponent } from "./item";

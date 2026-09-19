@@ -1,6 +1,6 @@
 import { sep } from "@tauri-apps/api/path";
 
-import { commands as fsSyncCommands } from "@hypr/plugin-fs-sync";
+import { commands as fsSyncCommands } from "@skald/plugin-fs-sync";
 
 import { processMetaFile } from "./meta";
 import { processMdFile } from "./note";

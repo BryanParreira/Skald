@@ -4,7 +4,7 @@ import type {
   RenderedTranscriptSegment,
   SegmentKey as BoundSegmentKey,
   SegmentWord as BoundSegmentWord,
-} from "@hypr/plugin-transcription";
+} from "@skald/plugin-transcription";
 
 import type { TranscriptWordMetadata } from "~/stt/timing";
 

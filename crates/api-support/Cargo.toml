@@ -4,15 +4,15 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-hypr-api-auth = { workspace = true }
-hypr-api-env = { workspace = true }
-hypr-chatwoot = { workspace = true }
-hypr-llm-proxy = { workspace = true }
-hypr-mcp = { workspace = true }
-hypr-openrouter = { workspace = true }
-hypr-template-support = { workspace = true }
 regex = { workspace = true }
 reqwest = { workspace = true }
+skald-api-auth = { workspace = true }
+skald-api-env = { workspace = true }
+skald-chatwoot = { workspace = true }
+skald-llm-proxy = { workspace = true }
+skald-mcp = { workspace = true }
+skald-openrouter = { workspace = true }
+skald-template-support = { workspace = true }
 urlencoding = { workspace = true }
 
 utoipa = { workspace = true }

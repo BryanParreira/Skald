@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "Velo",
-  "mainBinaryName": "velo",
-  "identifier": "com.velo.app",
+  "productName": "Skald",
+  "mainBinaryName": "skald",
+  "identifier": "com.skald.app",
   "plugins": {
     "updater": {
       "active": false

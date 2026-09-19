@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { open as selectFolder } from "@tauri-apps/plugin-dialog";
 import { useEffect, useState } from "react";
 
-import { commands as settingsCommands } from "@hypr/plugin-settings";
+import { commands as settingsCommands } from "@skald/plugin-settings";
 
 import { scheduleAutomaticRelaunch } from "~/store/tinybase/store/save";
 

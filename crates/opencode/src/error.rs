@@ -24,19 +24,19 @@ pub enum Error {
     Poisoned,
 }
 
-impl From<hypr_cli_process::ProcessError> for Error {
-    fn from(value: hypr_cli_process::ProcessError) -> Self {
+impl From<skald_cli_process::ProcessError> for Error {
+    fn from(value: skald_cli_process::ProcessError) -> Self {
         match value {
-            hypr_cli_process::ProcessError::MissingStdin => Self::MissingStdin,
-            hypr_cli_process::ProcessError::MissingStdout => Self::MissingStdout,
-            hypr_cli_process::ProcessError::StdinWrite(error) => Self::StdinWrite(error),
-            hypr_cli_process::ProcessError::StdoutRead(error) => Self::StdoutRead(error),
-            hypr_cli_process::ProcessError::Wait(error) => Self::Wait(error),
-            hypr_cli_process::ProcessError::Kill(error) => Self::Kill(error),
-            hypr_cli_process::ProcessError::ProcessFailed { detail } => {
+            skald_cli_process::ProcessError::MissingStdin => Self::MissingStdin,
+            skald_cli_process::ProcessError::MissingStdout => Self::MissingStdout,
+            skald_cli_process::ProcessError::StdinWrite(error) => Self::StdinWrite(error),
+            skald_cli_process::ProcessError::StdoutRead(error) => Self::StdoutRead(error),
+            skald_cli_process::ProcessError::Wait(error) => Self::Wait(error),
+            skald_cli_process::ProcessError::Kill(error) => Self::Kill(error),
+            skald_cli_process::ProcessError::ProcessFailed { detail } => {
                 Self::ProcessFailed { detail }
             }
-            hypr_cli_process::ProcessError::Cancelled => Self::Cancelled,
+            skald_cli_process::ProcessError::Cancelled => Self::Cancelled,
         }
     }
 }

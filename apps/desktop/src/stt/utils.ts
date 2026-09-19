@@ -1,4 +1,4 @@
-import type { LiveTranscriptDelta } from "@hypr/plugin-transcription";
+import type { LiveTranscriptDelta } from "@skald/plugin-transcription";
 
 import type { SpeakerHintWithId, WordWithId } from "./types";
 

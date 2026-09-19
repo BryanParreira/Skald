@@ -1,4 +1,4 @@
-import { cn } from "@hypr/utils";
+import { cn } from "@skald/utils";
 
 import {
   SettingsApp,

@@ -1,4 +1,4 @@
-import type { HotKey } from "@hypr/plugin-shortcut";
+import type { HotKey } from "@skald/plugin-shortcut";
 
 export const DICTATION_HOTKEY_IDS = ["fn", "option", "control_option"] as const;
 

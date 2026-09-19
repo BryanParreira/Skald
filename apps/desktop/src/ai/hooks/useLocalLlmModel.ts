@@ -6,7 +6,7 @@ import {
   commands as localLlmCommands,
   events as localLlmEvents,
   type GgufLlmModel,
-} from "@hypr/plugin-local-llm";
+} from "@skald/plugin-local-llm";
 
 // Qwen2p5_3bQ4's download URL (a GitHub release asset in this fork) 404s —
 // the release was never published here. Llama3p2_3bQ4 is hosted on S3 and

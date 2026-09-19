@@ -6,8 +6,8 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@hypr/ui/components/ui/popover";
-import { cn } from "@hypr/utils";
+} from "@skald/ui/components/ui/popover";
+import { cn } from "@skald/utils";
 
 import { EventChip } from "./event-chip";
 import { SessionChip } from "./session-chip";

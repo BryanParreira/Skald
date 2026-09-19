@@ -110,7 +110,6 @@ jobs:
           # https://v2.tauri.app/reference/environment-variables/
           CI: false
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SENTRY_DSN: ${{ secrets.SENTRY_DSN_HYPRNOTE_2 }}
           APP_VERSION: ${{ needs.compute-version.outputs.version }}
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
@@ -122,8 +121,8 @@ jobs:
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
-          VITE_APP_URL: "https://anarlog.so"
-          VITE_API_URL: "https://api.anarlog.so"
+          VITE_APP_URL: ${{ vars.APP_URL }}
+          VITE_API_URL: ${{ vars.API_URL }}
           VITE_PRO_PRODUCT_ID: ${{ secrets.VITE_PRO_PRODUCT_ID }}
           VITE_APP_VERSION: ${{ needs.compute-version.outputs.version }}
       - id: find-dmg
@@ -159,9 +158,9 @@ jobs:
             exit 1
           fi
           mkdir -p /tmp/updater-artifacts
-          cp "$ARCHIVE" "/tmp/updater-artifacts/velo-macos-${{ matrix.arch }}.app.tar.gz"
-          cp "$SIG" "/tmp/updater-artifacts/velo-macos-${{ matrix.arch }}.app.tar.gz.sig"
-          cp "${{ steps.find-dmg.outputs.path }}" "/tmp/updater-artifacts/velo-macos-${{ matrix.arch }}.dmg"
+          cp "$ARCHIVE" "/tmp/updater-artifacts/skald-macos-${{ matrix.arch }}.app.tar.gz"
+          cp "$SIG" "/tmp/updater-artifacts/skald-macos-${{ matrix.arch }}.app.tar.gz.sig"
+          cp "${{ steps.find-dmg.outputs.path }}" "/tmp/updater-artifacts/skald-macos-${{ matrix.arch }}.dmg"
       - if: ${{ inputs.channel != 'staging' }}
         uses: actions/upload-artifact@v4
         with:
@@ -171,7 +170,7 @@ jobs:
       - if: ${{ inputs.channel == 'staging' }}
         uses: actions/upload-artifact@v4
         with:
-          name: hyprnote-staging-macos-${{ matrix.artifact_name }}
+          name: skald-staging-macos-${{ matrix.artifact_name }}
           path: apps/desktop/src-tauri/target/${{ matrix.target }}/release/bundle/dmg/*.dmg
           retention-days: 3
       - if: ${{ inputs.channel == 'staging' }}
@@ -179,10 +178,10 @@ jobs:
           TIMESTAMP=$(date -u +"%Y%m%d%H%M%S")
           COMMIT_HASH=$(git rev-parse --short HEAD)
           DMG_FILE=$(find "apps/desktop/src-tauri/target/${{ matrix.target }}/release/bundle/dmg/" -name "*.dmg" -type f)
-          FILENAME="hyprnote-staging-${TIMESTAMP}-${COMMIT_HASH}-macos-${{ matrix.arch }}.dmg"
+          FILENAME="skald-staging-${TIMESTAMP}-${COMMIT_HASH}-macos-${{ matrix.arch }}.dmg"
           cp "$DMG_FILE" "$FILENAME"
           aws s3 cp "$FILENAME" \
-            "s3://hyprnote-build/desktop/staging/$FILENAME" \
+            "s3://skald-build/desktop/staging/$FILENAME" \
             --endpoint-url ${{ secrets.CLOUDFLARE_R2_ENDPOINT_URL }} \
             --region auto
         env:
@@ -232,25 +231,25 @@ jobs:
           pattern: release-artifacts-*
           path: dist
           merge-multiple: true
-      - run: mv dist/velo-macos-aarch64.dmg hyprnote-macos-aarch64.dmg
+      - run: mv dist/skald-macos-aarch64.dmg skald-macos-aarch64.dmg
       - id: checksums
         uses: ./.github/actions/generate_checksums
         with:
           files: |
-            hyprnote-macos-aarch64.dmg
+            skald-macos-aarch64.dmg
       - id: latest-json
         run: |
           TAG="desktop_v${{ needs.compute-version.outputs.version }}"
           BASE_URL="https://github.com/${{ github.repository }}/releases/download/${TAG}"
-          SIG_AARCH64=$(cat dist/velo-macos-aarch64.app.tar.gz.sig)
+          SIG_AARCH64=$(cat dist/skald-macos-aarch64.app.tar.gz.sig)
           PUB_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
           jq -n \
             --arg version "${{ needs.compute-version.outputs.version }}" \
             --arg pub_date "$PUB_DATE" \
-            --arg notes "https://anarlog.so/changelog/${{ needs.compute-version.outputs.version }}" \
+            --arg notes "https://github.com/BryanParreira/Skald/releases/tag/desktop_v${{ needs.compute-version.outputs.version }}" \
             --arg aarch64_sig "$SIG_AARCH64" \
-            --arg aarch64_url "${BASE_URL}/velo-macos-aarch64.app.tar.gz" \
+            --arg aarch64_url "${BASE_URL}/skald-macos-aarch64.app.tar.gz" \
             '{
               version: $version,
               notes: $notes,
@@ -261,14 +260,14 @@ jobs:
             }' > latest.json
       - id: artifacts
         run: |
-          ARTIFACTS="hyprnote-macos-aarch64.dmg,dist/velo-macos-aarch64.app.tar.gz,dist/velo-macos-aarch64.app.tar.gz.sig,latest.json"
+          ARTIFACTS="skald-macos-aarch64.dmg,dist/skald-macos-aarch64.app.tar.gz,dist/skald-macos-aarch64.app.tar.gz.sig,latest.json"
           if [[ -n "${{ steps.checksums.outputs.checksum_files }}" ]]; then
             ARTIFACTS="$ARTIFACTS,${{ steps.checksums.outputs.checksum_files }}"
           fi
           echo "list=$ARTIFACTS" >> $GITHUB_OUTPUT
       - id: release-body
         run: |
-          echo "value=https://anarlog.so/changelog/${{ needs.compute-version.outputs.version }}" >> "$GITHUB_OUTPUT"
+          echo "value=https://github.com/BryanParreira/Skald/releases/tag/desktop_v${{ needs.compute-version.outputs.version }}" >> "$GITHUB_OUTPUT"
       - uses: ncipollo/release-action@v1
         with:
           tag: desktop_v${{ needs.compute-version.outputs.version }}

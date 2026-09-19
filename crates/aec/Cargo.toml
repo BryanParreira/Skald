@@ -5,13 +5,13 @@ edition = "2024"
 
 [features]
 default = ["onnx", "128"]
-onnx = ["dep:hypr-onnx"]
+onnx = ["dep:skald-onnx"]
 128 = []
 256 = []
 512 = []
 
 [dependencies]
-hypr-onnx = { workspace = true, optional = true }
+skald-onnx = { workspace = true, optional = true }
 
 realfft = { workspace = true }
 
@@ -24,10 +24,10 @@ clap = { workspace = true, features = ["derive"] }
 criterion = { workspace = true }
 dasp = { workspace = true }
 hound = { workspace = true }
-hypr-audacity = { workspace = true }
-hypr-audio-snapshot = { workspace = true }
-hypr-audio-utils = { workspace = true }
 rodio = { workspace = true }
+skald-audacity = { workspace = true }
+skald-audio-snapshot = { workspace = true }
+skald-audio-utils = { workspace = true }
 
 [[bench]]
 name = "aec_bench"

@@ -2,10 +2,10 @@ import { getIdentifier } from "@tauri-apps/api/app";
 import { Effect, Exit } from "effect";
 import type { StoreApi } from "zustand";
 
-import { commands as detectCommands } from "@hypr/plugin-detect";
-import { commands as hooksCommands } from "@hypr/plugin-hooks";
-import { commands as iconCommands } from "@hypr/plugin-icon";
-import { commands as settingsCommands } from "@hypr/plugin-settings";
+import { commands as detectCommands } from "@skald/plugin-detect";
+import { commands as hooksCommands } from "@skald/plugin-hooks";
+import { commands as iconCommands } from "@skald/plugin-icon";
+import { commands as settingsCommands } from "@skald/plugin-settings";
 import {
   commands as listenerCommands,
   events as listenerEvents,
@@ -16,7 +16,7 @@ import {
   type CaptureStatusEvent,
   type LiveTranscriptDelta,
   type LiveTranscriptSegmentDelta,
-} from "@hypr/plugin-transcription";
+} from "@skald/plugin-transcription";
 
 import {
   type GeneralState,
@@ -276,7 +276,7 @@ export const startLiveSession = <T extends LiveStore>(
             .then((r) =>
               r.status === "ok" ? r.data.map((app) => app.id) : null,
             ),
-          getIdentifier().catch(() => "com.velo.stable"),
+          getIdentifier().catch(() => "com.skald.stable"),
         ]),
       catch: (error) => error,
     });
@@ -299,7 +299,7 @@ export const startLiveSession = <T extends LiveStore>(
           beforeListeningStarted: {
             args: {
               resource_dir: sessionPath,
-              app_hyprnote: bundleId,
+              app_skald: bundleId,
               app_meeting,
             },
           },
@@ -395,7 +395,7 @@ export const stopLiveSession = <T extends GeneralState>(
             if (r.status === "error") throw new Error(r.error);
             return r.data;
           }),
-          getIdentifier().catch(() => "com.velo.stable"),
+          getIdentifier().catch(() => "com.skald.stable"),
         ])
           .then(([dataDirPath, bundleId]) => {
             const sessionPath = buildSessionPath(dataDirPath, sessionId);
@@ -403,7 +403,7 @@ export const stopLiveSession = <T extends GeneralState>(
               afterListeningStopped: {
                 args: {
                   resource_dir: sessionPath,
-                  app_hyprnote: bundleId,
+                  app_skald: bundleId,
                   app_meeting: null,
                 },
               },

@@ -1,4 +1,4 @@
-import { cn } from "@hypr/utils";
+import { cn } from "@skald/utils";
 
 function Kbd({ className, ...props }: React.ComponentProps<"kbd">) {
   return (

@@ -1,11 +1,11 @@
-use hypr_supervisor::{
+use ractor::{ActorCell, ActorProcessingErr, ActorRef, concurrency::Duration, registry};
+use skald_supervisor::{
     RestartPolicy,
     dynamic::{
         ChildBackoffFn, DynChildSpec, DynSpawnFn, DynamicSupervisor, DynamicSupervisorMsg,
         DynamicSupervisorOptions, SupervisorError,
     },
 };
-use ractor::{ActorCell, ActorProcessingErr, ActorRef, concurrency::Duration, registry};
 
 #[cfg(feature = "whisper-cpp")]
 use super::internal::{InternalSTTActor, InternalSTTArgs};

@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import {
   type AttachmentSaveResult,
   commands as fsSyncCommands,
-} from "@hypr/plugin-fs-sync";
+} from "@skald/plugin-fs-sync";
 
 export type FileUploadResult = AttachmentSaveResult & {
   url: string;

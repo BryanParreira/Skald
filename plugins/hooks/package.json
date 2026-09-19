@@ -1,5 +1,5 @@
 {
-  "name": "@hypr/plugin-hooks",
+  "name": "@skald/plugin-hooks",
   "private": true,
   "main": "./js/index.ts",
   "scripts": {

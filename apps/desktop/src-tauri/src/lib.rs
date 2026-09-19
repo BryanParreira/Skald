@@ -15,9 +15,11 @@ use tauri_plugin_permissions::{Permission, PermissionsPluginExt};
 use tauri_plugin_windows::{AppWindow, WindowsPluginExt};
 
 #[cfg(any(feature = "dev", feature = "devtools"))]
-const STAGING_BUNDLE_ID: &str = "com.velo.staging";
+const STAGING_BUNDLE_ID: &str = "com.skald.staging";
 
-fn create_audio_provider(_bundle_id: &str) -> std::sync::Arc<dyn hypr_audio_actual::AudioProvider> {
+fn create_audio_provider(
+    _bundle_id: &str,
+) -> std::sync::Arc<dyn skald_audio_actual::AudioProvider> {
     #[cfg(any(feature = "dev", feature = "devtools"))]
     {
         let bundle_id = _bundle_id;
@@ -29,10 +31,10 @@ fn create_audio_provider(_bundle_id: &str) -> std::sync::Arc<dyn hypr_audio_actu
         let mock_audio_allowed = cfg!(feature = "dev") || bundle_id == STAGING_BUNDLE_ID;
 
         if mock_audio_allowed && selection > 0 {
-            return std::sync::Arc::new(hypr_audio_mock::MockAudio::new(selection));
+            return std::sync::Arc::new(skald_audio_mock::MockAudio::new(selection));
         }
     }
-    std::sync::Arc::new(hypr_audio_actual::ActualAudio)
+    std::sync::Arc::new(skald_audio_actual::ActualAudio)
 }
 
 #[tokio::main]
@@ -50,7 +52,7 @@ pub async fn main() {
         let dsn = option_env!("SENTRY_DSN");
 
         if let Some(dsn) = dsn {
-            let release = option_env!("APP_VERSION").map(|v| format!("velo-desktop@{}", v).into());
+            let release = option_env!("APP_VERSION").map(|v| format!("skald-desktop@{}", v).into());
 
             let client = sentry::init((
                 dsn,
@@ -63,11 +65,11 @@ pub async fn main() {
             ));
 
             sentry::configure_scope(|scope| {
-                scope.set_tag("service.namespace", "velo");
+                scope.set_tag("service.namespace", "skald");
                 scope.set_tag("service.name", "desktop");
-                scope.set_tag("enduser.pseudo.id", hypr_host::fingerprint());
+                scope.set_tag("enduser.pseudo.id", skald_host::fingerprint());
                 scope.set_user(Some(sentry::User {
-                    id: Some(hypr_host::fingerprint()),
+                    id: Some(skald_host::fingerprint()),
                     ..Default::default()
                 }));
             });
@@ -82,7 +84,7 @@ pub async fn main() {
         .as_ref()
         .map(|client| tauri_plugin_sentry::minidump::init(client));
 
-    let audio: std::sync::Arc<dyn hypr_audio_actual::AudioProvider> =
+    let audio: std::sync::Arc<dyn skald_audio_actual::AudioProvider> =
         create_audio_provider(&context.config().identifier);
 
     let db = open_desktop_db(&context.config().identifier).await;
@@ -224,9 +226,9 @@ pub async fn main() {
             }
 
             {
-                use tauri_plugin_tray::HyprMenuItem;
+                use tauri_plugin_tray::SkaldMenuItem;
                 app_handle.on_menu_event(|app, event| {
-                    if let Ok(item) = HyprMenuItem::try_from(event.id().clone()) {
+                    if let Ok(item) = SkaldMenuItem::try_from(event.id().clone()) {
                         item.handle(app);
                     }
                 });
@@ -269,7 +271,7 @@ pub async fn main() {
                     // regardless of whether the user has picked the local
                     // provider. The frontend starts the server on demand
                     // (see useLLMConnection's `current_llm_provider ===
-                    // "velo_local"` effect) and stops it again when the
+                    // "skald_local"` effect) and stops it again when the
                     // user switches away (see settings.ts
                     // `syncLocalLlmServer`).
                     if let Err(e) = llm_app_handle
@@ -311,7 +313,9 @@ pub async fn main() {
                                 }
                             }
                             Err(e) => {
-                                tracing::warn!("failed to check local STT model download state: {e}")
+                                tracing::warn!(
+                                    "failed to check local STT model download state: {e}"
+                                )
                             }
                         }
                     }
@@ -353,7 +357,7 @@ pub async fn main() {
     }
 
     #[cfg(target_os = "macos")]
-    hypr_intercept::setup_force_quit_handler();
+    skald_intercept::setup_force_quit_handler();
 
     #[allow(unused_variables)]
     app.run(move |app, event| match event {
@@ -367,7 +371,7 @@ pub async fn main() {
                 ctx.mark_exiting();
             }
 
-            if hypr_intercept::should_force_quit() {
+            if skald_intercept::should_force_quit() {
                 return;
             }
 
@@ -405,8 +409,8 @@ pub async fn main() {
                 // the whole app (confirmed via a real 6.58s main-thread hang
                 // in `psynch_cvwait` at quit). Killing by name is
                 // synchronous, touches no lock, and can't hang.
-                let killed = hypr_host::kill_processes_by_matcher(
-                    hypr_host::ProcessMatcher::Name("llama-server".to_string()),
+                let killed = skald_host::kill_processes_by_matcher(
+                    skald_host::ProcessMatcher::Name("llama-server".to_string()),
                 );
                 if killed > 0 {
                     tracing::info!("killed {killed} llama-server process(es) on quit");
@@ -425,7 +429,7 @@ pub async fn main() {
                 ctx.stop();
             }
 
-            hypr_host::kill_processes_by_matcher(hypr_host::ProcessMatcher::Sidecar);
+            skald_host::kill_processes_by_matcher(skald_host::ProcessMatcher::Sidecar);
         }
         _ => {}
     });

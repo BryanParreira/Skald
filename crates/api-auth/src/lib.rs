@@ -4,9 +4,9 @@ use axum::{
     middleware::Next,
     response::{IntoResponse, Response},
 };
-use hypr_supabase_auth::server::{Error as SupabaseAuthError, SupabaseAuth};
+use skald_supabase_auth::server::{Error as SupabaseAuthError, SupabaseAuth};
 
-pub use hypr_supabase_auth::Claims;
+pub use skald_supabase_auth::Claims;
 
 #[derive(Clone)]
 pub struct AuthContext {
@@ -175,25 +175,20 @@ mod tests {
     #[test]
     fn test_auth_state_with_required_entitlement() {
         let state =
-            AuthState::new("https://example.supabase.co").with_required_entitlement("hyprnote_pro");
+            AuthState::new("https://example.supabase.co").with_required_entitlement("skald_pro");
         assert_eq!(
             state.required_entitlements,
-            Some(vec!["hyprnote_pro".to_string()])
+            Some(vec!["skald_pro".to_string()])
         );
     }
 
     #[test]
     fn test_auth_state_with_required_entitlements() {
-        let state = AuthState::new("https://example.supabase.co").with_required_entitlements(vec![
-            "hyprnote_pro".to_string(),
-            "hyprnote_lite".to_string(),
-        ]);
+        let state = AuthState::new("https://example.supabase.co")
+            .with_required_entitlements(vec!["skald_pro".to_string(), "skald_lite".to_string()]);
         assert_eq!(
             state.required_entitlements,
-            Some(vec![
-                "hyprnote_pro".to_string(),
-                "hyprnote_lite".to_string()
-            ])
+            Some(vec!["skald_pro".to_string(), "skald_lite".to_string()])
         );
     }
 }

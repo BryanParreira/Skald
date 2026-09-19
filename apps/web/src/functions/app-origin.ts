@@ -2,12 +2,16 @@ import { getRequestHeaders } from "@tanstack/react-start/server";
 
 import { env } from "@/env";
 
-const PUBLIC_APP_HOSTS = new Set([
-  "char.com",
-  "www.char.com",
-  "anarlog.so",
-  "www.anarlog.so",
-]);
+const PUBLIC_APP_HOSTS = new Set(
+  (() => {
+    try {
+      const { hostname } = new URL(env.VITE_APP_URL);
+      return [hostname, `www.${hostname}`];
+    } catch {
+      return [];
+    }
+  })(),
+);
 
 const LOCAL_APP_HOSTS = new Set(["localhost", "127.0.0.1", "::1"]);
 

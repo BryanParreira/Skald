@@ -36,11 +36,11 @@ pub struct ProxyQueryResult {
 
 #[derive(Clone)]
 pub struct DbExecutor {
-    db: Arc<hypr_db_core::Db>,
+    db: Arc<skald_db_core::Db>,
 }
 
 impl DbExecutor {
-    pub fn new(db: Arc<hypr_db_core::Db>) -> Self {
+    pub fn new(db: Arc<skald_db_core::Db>) -> Self {
         Self { db }
     }
 

@@ -12,7 +12,7 @@ pub async fn import_all_from_path(path: &Path) -> Result<Collection, crate::Erro
     )
     .await
     .map_err(|_| crate::Error::Timeout {
-        operation: "Hyprnote legacy import",
+        operation: "Skald legacy import",
         seconds: IMPORT_TIMEOUT.as_secs(),
     })??;
     Ok(data)
@@ -25,7 +25,7 @@ pub async fn import_stats_from_path(path: &Path) -> Result<ImportStats, crate::E
     )
     .await
     .map_err(|_| crate::Error::Timeout {
-        operation: "Hyprnote legacy import scan",
+        operation: "Skald legacy import scan",
         seconds: SCAN_TIMEOUT.as_secs(),
     })??;
 

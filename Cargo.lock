@@ -664,9 +664,9 @@ version = "0.1.0"
 dependencies = [
  "api-error",
  "axum 0.8.9",
- "hypr-http-utils",
  "serde",
  "serde_json",
+ "skald-http-utils",
  "slack-web",
  "teems",
  "thiserror 2.0.18",
@@ -4802,7 +4802,6 @@ dependencies = [
  "tauri-plugin-git",
  "tauri-plugin-hooks",
  "tauri-plugin-http",
- "tauri-plugin-hypr-tray",
  "tauri-plugin-icon",
  "tauri-plugin-importer",
  "tauri-plugin-js",
@@ -4830,6 +4829,7 @@ dependencies = [
  "tauri-plugin-shortcut",
  "tauri-plugin-sidecar2",
  "tauri-plugin-single-instance",
+ "tauri-plugin-skald-tray",
  "tauri-plugin-store",
  "tauri-plugin-store2",
  "tauri-plugin-tantivy",
@@ -6536,9 +6536,9 @@ dependencies = [
 name = "github-issues"
 version = "0.1.0"
 dependencies = [
- "hypr-http-utils",
  "serde",
  "serde_json",
+ "skald-http-utils",
  "specta",
  "thiserror 2.0.18",
  "tokio",
@@ -8180,9 +8180,9 @@ name = "google-calendar"
 version = "0.1.0"
 dependencies = [
  "chrono",
- "hypr-http-utils",
  "serde",
  "serde_json",
+ "skald-http-utils",
  "specta",
  "thiserror 2.0.18",
  "tokio",
@@ -8194,9 +8194,9 @@ dependencies = [
 name = "google-drive"
 version = "0.1.0"
 dependencies = [
- "hypr-http-utils",
  "serde",
  "serde_json",
+ "skald-http-utils",
  "thiserror 2.0.18",
  "tokio",
  "urlencoding",
@@ -8206,9 +8206,9 @@ dependencies = [
 name = "google-mail"
 version = "0.1.0"
 dependencies = [
- "hypr-http-utils",
  "serde",
  "serde_json",
+ "skald-http-utils",
  "specta",
  "thiserror 2.0.18",
  "tokio",
@@ -9080,10 +9080,6 @@ name = "hypher"
 version = "0.1.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bef68590049bab63a464eee1a1158ac04c6f6613a546d8d90f78636b8b94f171"
-
-[[package]]
-name = "hypr-http-utils"
-version = "0.1.0"
 
 [[package]]
 name = "iana-time-zone"
@@ -10471,9 +10467,9 @@ dependencies = [
 name = "linear"
 version = "0.1.0"
 dependencies = [
- "hypr-http-utils",
  "serde",
  "serde_json",
+ "skald-http-utils",
  "specta",
  "thiserror 2.0.18",
  "tokio",
@@ -11333,12 +11329,12 @@ version = "0.1.0"
 dependencies = [
  "hex",
  "hmac 0.13.0",
- "hypr-http-utils",
  "reqwest 0.13.2",
  "schemars 1.2.1",
  "serde",
  "serde_json",
  "sha2 0.11.0",
+ "skald-http-utils",
  "specta",
  "strum 0.28.0",
  "thiserror 2.0.18",
@@ -12627,9 +12623,9 @@ name = "outlook-calendar"
 version = "0.1.0"
 dependencies = [
  "chrono",
- "hypr-http-utils",
  "serde",
  "serde_json",
+ "skald-http-utils",
  "specta",
  "thiserror 2.0.18",
  "tokio",
@@ -16208,6 +16204,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b2aa850e253778c88a04c3d7323b043aeda9d3e30d5971937c1855769763678e"
 
 [[package]]
+name = "skald-http-utils"
+version = "0.1.0"
+
+[[package]]
 name = "sketches-ddsketch"
 version = "0.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -16236,9 +16236,9 @@ checksum = "0c790de23124f9ab44544d7ac05d60440adc586479ce501c1d6d7da3cd8c9cf5"
 name = "slack-web"
 version = "0.1.0"
 dependencies = [
- "hypr-http-utils",
  "serde",
  "serde_json",
+ "skald-http-utils",
  "thiserror 2.0.18",
 ]
 
@@ -18344,28 +18344,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "tauri-plugin-hypr-tray"
-version = "0.1.0"
-dependencies = [
- "host",
- "intercept",
- "open",
- "serde_json",
- "specta",
- "specta-typescript",
- "tauri",
- "tauri-plugin",
- "tauri-plugin-clipboard-manager",
- "tauri-plugin-dialog",
- "tauri-plugin-misc",
- "tauri-plugin-updater2",
- "tauri-plugin-windows",
- "tauri-specta",
- "tokio",
- "tracing",
-]
-
-[[package]]
 name = "tauri-plugin-icon"
 version = "0.1.0"
 dependencies = [
@@ -18887,6 +18865,28 @@ dependencies = [
 ]
 
 [[package]]
+name = "tauri-plugin-skald-tray"
+version = "0.1.0"
+dependencies = [
+ "host",
+ "intercept",
+ "open",
+ "serde_json",
+ "specta",
+ "specta-typescript",
+ "tauri",
+ "tauri-plugin",
+ "tauri-plugin-clipboard-manager",
+ "tauri-plugin-dialog",
+ "tauri-plugin-misc",
+ "tauri-plugin-updater2",
+ "tauri-plugin-windows",
+ "tauri-specta",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
 name = "tauri-plugin-store"
 version = "2.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -18967,9 +18967,9 @@ dependencies = [
  "api-client",
  "apple-todo",
  "github-issues",
- "hypr-http-utils",
  "reqwest 0.13.2",
  "serde",
+ "skald-http-utils",
  "specta",
  "specta-typescript",
  "tauri",
@@ -19021,9 +19021,9 @@ dependencies = [
  "tauri",
  "tauri-plugin",
  "tauri-plugin-hooks",
- "tauri-plugin-hypr-tray",
  "tauri-plugin-local-stt",
  "tauri-plugin-settings",
+ "tauri-plugin-skald-tray",
  "tauri-specta",
  "thiserror 2.0.18",
  "tokio",
@@ -19294,9 +19294,9 @@ dependencies = [
 name = "teems"
 version = "0.1.0"
 dependencies = [
- "hypr-http-utils",
  "serde",
  "serde_json",
+ "skald-http-utils",
  "thiserror 2.0.18",
 ]
 

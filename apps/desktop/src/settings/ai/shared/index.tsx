@@ -5,23 +5,23 @@ import { ExternalLink } from "lucide-react";
 import type { ReactNode } from "react";
 import { Streamdown } from "streamdown";
 
-import type { AIProvider } from "@hypr/store";
-import { aiProviderSchema } from "@hypr/store";
+import type { AIProvider } from "@skald/store";
+import { aiProviderSchema } from "@skald/store";
 import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@hypr/ui/components/ui/accordion";
+} from "@skald/ui/components/ui/accordion";
 import {
   InputGroup,
   InputGroupInput,
-} from "@hypr/ui/components/ui/input-group";
+} from "@skald/ui/components/ui/input-group";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@hypr/ui/components/ui/tooltip";
-import { cn } from "@hypr/utils";
+} from "@skald/ui/components/ui/tooltip";
+import { cn } from "@skald/utils";
 
 import {
   getProviderSelectionBlockers,
@@ -33,7 +33,7 @@ import {
 import { useBillingAccess } from "~/auth/billing";
 import * as settings from "~/store/tinybase/store/settings";
 
-export * from "./hypr-cloud-button";
+export * from "./skald-cloud-button";
 export * from "./model-combobox";
 
 type ProviderType = "stt" | "llm";
@@ -53,13 +53,13 @@ type ProviderConfig = {
   };
 };
 
-const VELO_ICON_SRC = "/assets/anarlog-icon.png";
+const SKALD_ICON_SRC = "/assets/skald-icon.png";
 
-export function VeloProviderIcon() {
+export function SkaldProviderIcon() {
   return (
     <img
-      src={VELO_ICON_SRC}
-      alt="Velo"
+      src={SKALD_ICON_SRC}
+      alt="Skald"
       data-slot="provider-logo"
       className="size-4 object-contain object-center [clip-path:inset(6%_round_18%)]"
     />
@@ -142,7 +142,7 @@ function useIsProviderConfigured(
   );
 }
 
-export function NonHyprProviderCard({
+export function NonSkaldProviderCard({
   config,
   providerType,
   providers,

@@ -102,18 +102,18 @@ vi.mock("@lingui/react", () => ({
   }),
 }));
 
-vi.mock("@hypr/editor/markdown", () => ({
+vi.mock("@skald/editor/markdown", () => ({
   json2md: () => "",
   parseJsonContent: () => ({}),
 }));
 
-vi.mock("@hypr/plugin-analytics", () => ({
+vi.mock("@skald/plugin-analytics", () => ({
   commands: {
     event: vi.fn(),
   },
 }));
 
-vi.mock("@hypr/ui/components/ui/spinner", () => ({
+vi.mock("@skald/ui/components/ui/spinner", () => ({
   Spinner: () => <span data-testid="tab-spinner" />,
 }));
 
@@ -677,9 +677,7 @@ describe("Header", () => {
       useEditorTabs({ sessionId: "session-1", audioExists: true }),
     );
 
-    expect(result.current).toEqual([
-      { type: "enhanced", id: "note-1" },
-    ]);
+    expect(result.current).toEqual([{ type: "enhanced", id: "note-1" }]);
   });
 
   it("includes the transcript tab for active meetings with live segments", () => {
@@ -705,9 +703,7 @@ describe("Header", () => {
       useEditorTabs({ sessionId: "session-1", audioExists: false }),
     );
 
-    expect(result.current).toEqual([
-      { type: "enhanced", id: "note-1" },
-    ]);
+    expect(result.current).toEqual([{ type: "enhanced", id: "note-1" }]);
   });
 });
 

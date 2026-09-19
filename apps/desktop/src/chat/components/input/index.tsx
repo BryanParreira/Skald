@@ -4,10 +4,10 @@ import { useLingui } from "@lingui/react/macro";
 import { ArrowUpIcon, SquareIcon } from "lucide-react";
 import { useMemo, useRef } from "react";
 
-import { ChatEditor, type ChatEditorHandle } from "@hypr/editor/chat";
-import type { PlaceholderFunction } from "@hypr/editor/plugins";
-import { Button } from "@hypr/ui/components/ui/button";
-import { cn } from "@hypr/utils";
+import { ChatEditor, type ChatEditorHandle } from "@skald/editor/chat";
+import type { PlaceholderFunction } from "@skald/editor/plugins";
+import { Button } from "@skald/ui/components/ui/button";
+import { cn } from "@skald/utils";
 
 import { useAutoFocusEditor, useDraftState, useSubmit } from "./hooks";
 

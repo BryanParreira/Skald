@@ -6,9 +6,9 @@ import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
 
-import { cn } from "@hypr/utils";
+import { cn } from "@skald/utils";
 
-import { AnarlogLogo } from "@/components/anarlog-logo";
+import { SkaldLogo } from "@/components/skald-logo";
 import {
   createDesktopSession,
   doAuth,
@@ -54,7 +54,7 @@ export const Route = createFileRoute("/auth")({
             to: "/callback/auth/",
             search: {
               flow: "desktop",
-              scheme: search.scheme ?? "hyprnote",
+              scheme: search.scheme ?? "skald",
               access_token: result.access_token,
               refresh_token: result.refresh_token,
             },
@@ -80,7 +80,7 @@ function Component() {
         <Header />
         <DesktopReauthView
           email={existingUser.email}
-          scheme={scheme ?? "hyprnote"}
+          scheme={scheme ?? "skald"}
         />
       </Container>
     );
@@ -211,8 +211,8 @@ function Header() {
           "border-color-brand border-b",
         ])}
       >
-        <AnarlogLogo compact className="text-fg h-10 w-auto" />
-        <h1 className="text-fg py-4 font-mono text-xl">Welcome to Anarlog</h1>
+        <SkaldLogo compact className="text-fg h-10 w-auto" />
+        <h1 className="text-fg py-4 font-mono text-xl">Welcome to Skald</h1>
       </div>
     </div>
   );
@@ -275,17 +275,11 @@ function LegalText() {
   return (
     <p className="mt-4 px-8 pb-8 text-center text-xs text-neutral-500">
       By signing up, you agree to our{" "}
-      <a
-        href="https://anarlog.so/terms"
-        className="underline hover:text-neutral-700"
-      >
+      <a href="/terms" className="underline hover:text-neutral-700">
         Terms of Service
       </a>{" "}
       and{" "}
-      <a
-        href="https://anarlog.so/privacy"
-        className="underline hover:text-neutral-700"
-      >
+      <a href="/privacy" className="underline hover:text-neutral-700">
         Privacy Policy
       </a>
       .

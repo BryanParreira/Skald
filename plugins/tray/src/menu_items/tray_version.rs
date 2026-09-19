@@ -10,12 +10,12 @@ pub struct TrayVersion;
 impl TrayVersion {
     fn get_channel(identifier: &str, app_name: &str) -> &'static str {
         match identifier {
-            "com.velo.stable" | "com.velo.app" => "stable",
-            "com.velo.staging" => "staging",
-            "com.velo.dev" => "dev",
+            "com.skald.stable" | "com.skald.app" => "stable",
+            "com.skald.staging" => "staging",
+            "com.skald.dev" => "dev",
             _ => match app_name {
-                "Velo" => "stable",
-                "Velo Staging" => "staging",
+                "Skald" => "stable",
+                "Skald Staging" => "staging",
                 _ => "dev",
             },
         }
@@ -23,7 +23,7 @@ impl TrayVersion {
 }
 
 impl MenuItemHandler for TrayVersion {
-    const ID: &'static str = "hypr_tray_version";
+    const ID: &'static str = "skald_tray_version";
 
     fn build(app: &AppHandle<tauri::Wry>) -> Result<MenuItemKind<tauri::Wry>> {
         let identifier = &app.config().identifier;
@@ -46,23 +46,26 @@ mod tests {
     #[test]
     fn gets_channel_from_identifier() {
         assert_eq!(
-            TrayVersion::get_channel("com.velo.stable", "Velo"),
+            TrayVersion::get_channel("com.skald.stable", "Skald"),
             "stable"
         );
         assert_eq!(
-            TrayVersion::get_channel("com.velo.staging", "Velo Staging"),
+            TrayVersion::get_channel("com.skald.staging", "Skald Staging"),
             "staging"
         );
-        assert_eq!(TrayVersion::get_channel("com.velo.dev", "Velo Dev"), "dev");
+        assert_eq!(
+            TrayVersion::get_channel("com.skald.dev", "Skald Dev"),
+            "dev"
+        );
     }
 
     #[test]
     fn falls_back_to_product_name_for_unknown_identifier() {
-        assert_eq!(TrayVersion::get_channel("unknown", "Velo"), "stable");
+        assert_eq!(TrayVersion::get_channel("unknown", "Skald"), "stable");
         assert_eq!(
-            TrayVersion::get_channel("unknown", "Velo Staging"),
+            TrayVersion::get_channel("unknown", "Skald Staging"),
             "staging"
         );
-        assert_eq!(TrayVersion::get_channel("unknown", "Velo Dev"), "dev");
+        assert_eq!(TrayVersion::get_channel("unknown", "Skald Dev"), "dev");
     }
 }

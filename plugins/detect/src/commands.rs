@@ -4,7 +4,7 @@ use crate::DetectPluginExt;
 #[specta::specta]
 pub(crate) async fn list_installed_applications<R: tauri::Runtime>(
     app: tauri::AppHandle<R>,
-) -> Result<Vec<hypr_detect::InstalledApp>, String> {
+) -> Result<Vec<skald_detect::InstalledApp>, String> {
     Ok(app.detect().list_installed_applications())
 }
 
@@ -12,7 +12,7 @@ pub(crate) async fn list_installed_applications<R: tauri::Runtime>(
 #[specta::specta]
 pub(crate) async fn list_mic_using_applications<R: tauri::Runtime>(
     app: tauri::AppHandle<R>,
-) -> Result<Vec<hypr_detect::InstalledApp>, crate::Error> {
+) -> Result<Vec<skald_detect::InstalledApp>, crate::Error> {
     app.detect().list_mic_using_applications()
 }
 
@@ -70,7 +70,7 @@ pub(crate) async fn set_mic_active_threshold<R: tauri::Runtime>(
 pub(crate) async fn get_preferred_languages<R: tauri::Runtime>(
     _app: tauri::AppHandle<R>,
 ) -> Result<Vec<String>, String> {
-    Ok(hypr_detect::get_preferred_languages()
+    Ok(skald_detect::get_preferred_languages()
         .into_iter()
         .map(|l| l.bcp47_code())
         .collect())
@@ -91,7 +91,7 @@ pub(crate) async fn get_preferred_languages<R: tauri::Runtime>(
 pub(crate) async fn get_current_locale_identifier<R: tauri::Runtime>(
     _app: tauri::AppHandle<R>,
 ) -> Result<String, String> {
-    Ok(hypr_detect::get_current_locale_identifier())
+    Ok(skald_detect::get_current_locale_identifier())
 }
 
 #[cfg(not(target_os = "macos"))]

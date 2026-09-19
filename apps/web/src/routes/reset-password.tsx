@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeftIcon } from "lucide-react";
 import { useState } from "react";
 
-import { cn } from "@hypr/utils";
+import { cn } from "@skald/utils";
 
 import { Image } from "@/components/image";
 import { doPasswordResetRequest } from "@/functions/auth";
@@ -58,7 +58,7 @@ function Component() {
           >
             <Image
               src="/logo.svg"
-              alt="Anarlog"
+              alt="Skald"
               width={96}
               height={96}
               className={cn([
