@@ -4,7 +4,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@skald/ui/components/ui/tooltip";
+} from "@notiz/ui/components/ui/tooltip";
 
 export function ReconnectRequiredIndicator() {
   return (

@@ -40,7 +40,7 @@ pub async fn handler(
         .await
         .map_err(|e| {
             tracing::error!(
-                skald.stt.job.id = %pipeline_id,
+                notiz.stt.job.id = %pipeline_id,
                 error = %e,
                 "failed_to_query_job"
             );

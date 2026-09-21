@@ -13,12 +13,12 @@ pub enum Error {
     UnsupportedVersion(u8),
 }
 
-impl From<skald_hooks::Error> for Error {
-    fn from(e: skald_hooks::Error) -> Self {
+impl From<notiz_hooks::Error> for Error {
+    fn from(e: notiz_hooks::Error) -> Self {
         match e {
-            skald_hooks::Error::ConfigLoad(s) => Error::ConfigLoad(s),
-            skald_hooks::Error::ConfigParse(s) => Error::ConfigParse(s),
-            skald_hooks::Error::UnsupportedVersion(v) => Error::UnsupportedVersion(v),
+            notiz_hooks::Error::ConfigLoad(s) => Error::ConfigLoad(s),
+            notiz_hooks::Error::ConfigParse(s) => Error::ConfigParse(s),
+            notiz_hooks::Error::UnsupportedVersion(v) => Error::UnsupportedVersion(v),
         }
     }
 }

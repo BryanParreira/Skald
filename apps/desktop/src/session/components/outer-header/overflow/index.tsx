@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-import { Button } from "@skald/ui/components/ui/button";
+import { Button } from "@notiz/ui/components/ui/button";
 import {
   AppFloatingPanel,
   DropdownMenu,
@@ -18,7 +18,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@skald/ui/components/ui/dropdown-menu";
+} from "@notiz/ui/components/ui/dropdown-menu";
 
 import { DeleteNote } from "./delete";
 import { ExportModal } from "./export-modal";

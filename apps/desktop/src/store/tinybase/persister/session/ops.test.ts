@@ -9,7 +9,7 @@ const fsSyncMocks = vi.hoisted(() => ({
   renameFolder: vi.fn(),
 }));
 
-vi.mock("@skald/plugin-fs-sync", () => ({ commands: fsSyncMocks }));
+vi.mock("@notiz/plugin-fs-sync", () => ({ commands: fsSyncMocks }));
 
 describe("sessionOps", () => {
   const store = createTestMainStore();

@@ -7,17 +7,17 @@ import {
 import { Reorder, useDragControls } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import type { TemplateSection } from "@skald/store";
-import { Button } from "@skald/ui/components/ui/button";
+import type { TemplateSection } from "@notiz/store";
+import { Button } from "@notiz/ui/components/ui/button";
 import {
   AppFloatingPanel,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@skald/ui/components/ui/dropdown-menu";
-import { Input } from "@skald/ui/components/ui/input";
-import { cn } from "@skald/utils";
+} from "@notiz/ui/components/ui/dropdown-menu";
+import { Input } from "@notiz/ui/components/ui/input";
+import { cn } from "@notiz/utils";
 
 type SectionDraft = TemplateSection & { key: string };
 

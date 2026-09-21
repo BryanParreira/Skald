@@ -9,11 +9,11 @@ pub trait ModelLoader: Send + Sync + 'static {
 }
 
 #[cfg(feature = "whisper-local")]
-impl ModelLoader for skald_whisper_local::LoadedWhisper {
-    type Error = skald_whisper_local::Error;
+impl ModelLoader for notiz_whisper_local::LoadedWhisper {
+    type Error = notiz_whisper_local::Error;
 
     fn load(path: &Path) -> Result<Self, Self::Error> {
-        skald_whisper_local::LoadedWhisper::builder()
+        notiz_whisper_local::LoadedWhisper::builder()
             .model_path(path.to_string_lossy().into_owned())
             .build()
     }

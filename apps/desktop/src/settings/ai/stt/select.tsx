@@ -13,23 +13,23 @@ import { useRef } from "react";
 import {
   commands as localSttCommands,
   type LocalModel,
-} from "@skald/plugin-local-stt";
-import { commands as openerCommands } from "@skald/plugin-opener2";
-import type { AIProviderStorage } from "@skald/store";
-import { Input } from "@skald/ui/components/ui/input";
+} from "@notiz/plugin-local-stt";
+import { commands as openerCommands } from "@notiz/plugin-opener2";
+import type { AIProviderStorage } from "@notiz/store";
+import { Input } from "@notiz/ui/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@skald/ui/components/ui/select";
+} from "@notiz/ui/components/ui/select";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@skald/ui/components/ui/tooltip";
-import { cn } from "@skald/utils";
+} from "@notiz/ui/components/ui/tooltip";
+import { cn } from "@notiz/utils";
 
 import { useSttSettings } from "./context";
 import { HealthStatusIndicator, useConnectionHealth } from "./health";
@@ -53,7 +53,7 @@ import { SettingsAlert } from "~/shared/ui/settings-alert";
 import * as settings from "~/store/tinybase/store/settings";
 import {
   isConfiguredSttModel,
-  isSkaldLocalSttModel,
+  isNotizLocalSttModel,
   isLiveTranscriptionSupported,
   isRealtimeLocalModel,
   isSupportedLanguagesBatch,
@@ -149,7 +149,7 @@ export function SelectProviderAndModel() {
         <SettingsAlert>
           <Trans>
             <strong className="font-medium">Transcription model</strong> is
-            needed to make Skald listen to your conversations.
+            needed to make Notiz listen to your conversations.
           </Trans>
         </SettingsAlert>
       )}
@@ -298,7 +298,7 @@ function useHasLanguageWarning() {
     ? current_stt_model
     : undefined;
   const isConfigured = !!(current_stt_provider && selectedSttModel);
-  const isOnDeviceModel = isSkaldLocalSttModel(
+  const isOnDeviceModel = isNotizLocalSttModel(
     current_stt_provider,
     selectedSttModel,
   );
@@ -474,7 +474,7 @@ function useConfiguredMapping(): Record<
         return [provider.id, { configured: false, models: [] }];
       }
 
-      if (provider.id === "skald") {
+      if (provider.id === "notiz") {
         const models: ModelEntry[] = [
           { id: "cloud", isDownloaded: billing.isPaid, category: "latest" },
         ];

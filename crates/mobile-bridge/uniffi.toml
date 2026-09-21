@@ -1,5 +1,5 @@
 [bindings.kotlin]
-package_name = "com.skald.mobilebridge"
+package_name = "com.notiz.mobilebridge"
 
 [bindings.swift]
-module_name = "SkaldMobileBridge"
+module_name = "NotizMobileBridge"

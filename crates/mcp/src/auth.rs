@@ -1,8 +1,8 @@
+use notiz_api_auth::AuthContext;
 use rmcp::{
     ErrorData as McpError,
     handler::server::{common::FromContextPart, tool::ToolCallContext},
 };
-use skald_api_auth::AuthContext;
 
 pub struct McpAuth(pub Option<AuthContext>);
 

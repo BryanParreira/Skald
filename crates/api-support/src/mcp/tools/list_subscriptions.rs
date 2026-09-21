@@ -1,10 +1,10 @@
+use notiz_api_auth::AuthContext;
 use rmcp::{
     ErrorData as McpError,
     model::*,
     schemars::{self, JsonSchema},
 };
 use serde::Deserialize;
-use skald_api_auth::AuthContext;
 use stripe_billing::subscription::{ListSubscription, ListSubscriptionStatus};
 
 use crate::state::AppState;

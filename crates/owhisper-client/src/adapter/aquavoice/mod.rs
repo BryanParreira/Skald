@@ -6,10 +6,10 @@ use super::{LanguageQuality, LanguageSupport};
 pub struct AquaVoiceAdapter;
 
 impl AquaVoiceAdapter {
-    pub fn language_support_batch(languages: &[skald_language::Language]) -> LanguageSupport {
+    pub fn language_support_batch(languages: &[notiz_language::Language]) -> LanguageSupport {
         if languages
             .iter()
-            .all(|l| l.iso639() == skald_language::ISO639::En)
+            .all(|l| l.iso639() == notiz_language::ISO639::En)
         {
             LanguageSupport::Supported {
                 quality: LanguageQuality::NoData,
@@ -19,7 +19,7 @@ impl AquaVoiceAdapter {
         }
     }
 
-    pub fn is_supported_languages_batch(languages: &[skald_language::Language]) -> bool {
+    pub fn is_supported_languages_batch(languages: &[notiz_language::Language]) -> bool {
         Self::language_support_batch(languages).is_supported()
     }
 }

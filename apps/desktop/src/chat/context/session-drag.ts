@@ -1,6 +1,6 @@
 import type { ContextRef } from "./entities";
 
-const SESSION_CONTEXT_DRAG_TYPE = "application/x-skald-session-context";
+const SESSION_CONTEXT_DRAG_TYPE = "application/x-notiz-session-context";
 
 type SessionDragPayload = {
   sessionId: string;

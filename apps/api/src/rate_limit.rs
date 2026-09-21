@@ -11,7 +11,7 @@ use governor::{
     clock::{Clock, DefaultClock},
     state::keyed::DefaultKeyedStateStore,
 };
-use skald_api_auth::AuthContext;
+use notiz_api_auth::AuthContext;
 
 type KeyedLimiter = RateLimiter<String, DefaultKeyedStateStore<String>, DefaultClock>;
 

@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useMemo, useState } from "react";
 
-import { TZDate, format, safeParseDate } from "@skald/utils";
+import { TZDate, format, safeParseDate } from "@notiz/utils";
 
 import type { TimelineEventsTable, TimelineSessionsTable } from "./utils";
 

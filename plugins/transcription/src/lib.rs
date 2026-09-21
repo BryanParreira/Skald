@@ -16,19 +16,19 @@ pub use api::*;
 pub use error::{Error, Result};
 pub use listener::{Listener, ListenerPluginExt};
 pub use listener2::{Listener2, Listener2PluginExt};
-pub use skald_transcription_core::listener::{
+pub use notiz_transcription_core::listener::{
     DegradedError, ListenerRuntime, LiveTranscriptDelta, LiveTranscriptEngine,
     LiveTranscriptSegment, LiveTranscriptSegmentDelta, LiveTranscriptUpdate,
 };
-pub use skald_transcription_core::listener2::{
+pub use notiz_transcription_core::listener2::{
     DenoiseEvent, DenoiseParams, DenoiseRuntime, Error as Listener2Error,
     Result as Listener2Result, Subtitle, Token, VttWord, export_words_to_vtt_file,
     is_supported_languages_batch, list_documented_language_codes_batch, parse_subtitle_from_path,
     run_denoise, suggest_providers_for_languages_batch,
 };
 
-use skald_audio::AudioProvider;
-use skald_transcription_core::listener::actors::{RootActor, RootArgs};
+use notiz_audio::AudioProvider;
+use notiz_transcription_core::listener::actors::{RootActor, RootArgs};
 
 const PLUGIN_NAME: &str = "transcription";
 

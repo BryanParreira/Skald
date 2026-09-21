@@ -1,6 +1,6 @@
+mod notiz;
 mod passthrough;
 mod session;
-mod skald;
 
 use std::collections::BTreeMap;
 use std::future::Future;
@@ -14,13 +14,13 @@ use axum::{
 };
 use owhisper_client::Provider;
 
+use crate::notiz_routing::should_use_notiz_routing;
 use crate::query_params::{QueryParams, QueryValue};
 use crate::relay::OnCloseCallback;
-use crate::skald_routing::should_use_skald_routing;
 
 use super::AppState;
 
-use skald_analytics::{AuthenticatedUserId, DeviceFingerprint};
+use notiz_analytics::{AuthenticatedUserId, DeviceFingerprint};
 
 pub enum ProxyBuildError {
     SessionInitFailed(String),
@@ -99,14 +99,14 @@ where
     name = "stt.ws.upgrade",
     skip(state, analytics_ctx, ws, params),
     fields(
-        skald.subsystem = "stt",
+        notiz.subsystem = "stt",
         http.response.status_code = tracing::field::Empty,
-        skald.stt.provider.name = tracing::field::Empty,
-        skald.stt.routing_strategy = tracing::field::Empty,
-        skald.stt.model = tracing::field::Empty,
-        skald.stt.language_codes = tracing::field::Empty,
-        skald.audio.sample_rate_hz = tracing::field::Empty,
-        skald.audio.channel_count = tracing::field::Empty,
+        notiz.stt.provider.name = tracing::field::Empty,
+        notiz.stt.routing_strategy = tracing::field::Empty,
+        notiz.stt.model = tracing::field::Empty,
+        notiz.stt.language_codes = tracing::field::Empty,
+        notiz.audio.sample_rate_hz = tracing::field::Empty,
+        notiz.audio.channel_count = tracing::field::Empty,
         enduser.id = tracing::field::Empty,
         enduser.pseudo.id = tracing::field::Empty,
         error.type = tracing::field::Empty,
@@ -120,15 +120,15 @@ pub async fn handler(
     mut params: QueryParams,
 ) -> Response {
     let span = tracing::Span::current();
-    span.record("skald.subsystem", "stt");
+    span.record("notiz.subsystem", "stt");
 
-    let is_skald_routing = should_use_skald_routing(params.get_first("provider"));
+    let is_notiz_routing = should_use_notiz_routing(params.get_first("provider"));
 
     let selected = match state.resolve_provider(&mut params) {
         Ok(v) => v,
         Err(resp) => {
             span.record("http.response.status_code", resp.status().as_u16() as i64);
-            skald_observability::mark_span_as_error(&span, "provider_selection_failed");
+            notiz_observability::mark_span_as_error(&span, "provider_selection_failed");
             tracing::warn!(
                 parent: &span,
                 error.type = "provider_selection_failed",
@@ -150,14 +150,14 @@ pub async fn handler(
         .collect::<Vec<_>>()
         .join(",");
 
-    span.record("skald.stt.provider.name", provider_name.as_str());
+    span.record("notiz.stt.provider.name", provider_name.as_str());
     span.record(
-        "skald.stt.routing_strategy",
-        if is_skald_routing { "skald" } else { "direct" },
+        "notiz.stt.routing_strategy",
+        if is_notiz_routing { "notiz" } else { "direct" },
     );
-    span.record("skald.stt.model", model);
-    span.record("skald.audio.sample_rate_hz", sample_rate);
-    span.record("skald.audio.channel_count", channels as i64);
+    span.record("notiz.stt.model", model);
+    span.record("notiz.audio.sample_rate_hz", sample_rate);
+    span.record("notiz.audio.channel_count", channels as i64);
     if let Some(user_id) = analytics_ctx.user_id.as_deref() {
         span.record("enduser.id", user_id);
     }
@@ -165,30 +165,30 @@ pub async fn handler(
         span.record("enduser.pseudo.id", fingerprint);
     }
     if !languages_str.is_empty() {
-        span.record("skald.stt.language_codes", languages_str.as_str());
+        span.record("notiz.stt.language_codes", languages_str.as_str());
     }
 
     tracing::info!(
         parent: &span,
-        skald.stt.provider.name = %provider_name,
-        skald.stt.routing_strategy = %(if is_skald_routing { "skald" } else { "direct" }),
-        skald.stt.model = %model,
-        skald.audio.sample_rate_hz = sample_rate,
-        skald.audio.channel_count = channels,
+        notiz.stt.provider.name = %provider_name,
+        notiz.stt.routing_strategy = %(if is_notiz_routing { "notiz" } else { "direct" }),
+        notiz.stt.model = %model,
+        notiz.audio.sample_rate_hz = sample_rate,
+        notiz.audio.channel_count = channels,
         "stt_ws_session_started"
     );
 
     sentry::configure_scope(|scope| {
-        scope.set_tag("skald.stt.provider.name", &provider_name);
+        scope.set_tag("notiz.stt.provider.name", &provider_name);
         scope.set_tag(
-            "skald.stt.routing_strategy",
-            if is_skald_routing { "skald" } else { "direct" },
+            "notiz.stt.routing_strategy",
+            if is_notiz_routing { "notiz" } else { "direct" },
         );
 
-        scope.set_tag("skald.stt.model", model);
+        scope.set_tag("notiz.stt.model", model);
         let languages: Vec<_> = languages.iter().map(|l| l.iso639().to_string()).collect();
         if !languages.is_empty() {
-            scope.set_tag("skald.stt.language_codes", languages.join(","));
+            scope.set_tag("notiz.stt.language_codes", languages.join(","));
         }
 
         let keywords = params
@@ -201,15 +201,15 @@ pub async fn handler(
             .unwrap_or(0);
 
         let mut ctx = BTreeMap::new();
-        ctx.insert("skald.audio.sample_rate_hz".into(), sample_rate.into());
-        ctx.insert("skald.audio.channel_count".into(), channels.into());
-        ctx.insert("skald.stt.keyword_count".into(), keywords.into());
-        ctx.insert("skald.stt.language_count".into(), languages.len().into());
-        scope.set_context("skald.stt.request", sentry::protocol::Context::Other(ctx));
+        ctx.insert("notiz.audio.sample_rate_hz".into(), sample_rate.into());
+        ctx.insert("notiz.audio.channel_count".into(), channels.into());
+        ctx.insert("notiz.stt.keyword_count".into(), keywords.into());
+        ctx.insert("notiz.stt.language_count".into(), languages.len().into());
+        scope.set_context("notiz.stt.request", sentry::protocol::Context::Other(ctx));
     });
 
-    let proxy_result = if is_skald_routing {
-        skald::build_proxy(&state, &selected, &params, analytics_ctx).await
+    let proxy_result = if is_notiz_routing {
+        notiz::build_proxy(&state, &selected, &params, analytics_ctx).await
     } else {
         passthrough::build_proxy(&state, &selected, &params, analytics_ctx)
             .await
@@ -223,12 +223,12 @@ pub async fn handler(
                 "http.response.status_code",
                 StatusCode::BAD_GATEWAY.as_u16() as i64,
             );
-            skald_observability::mark_span_as_error(&span, "session_init_failed");
+            notiz_observability::mark_span_as_error(&span, "session_init_failed");
             tracing::error!(
                 parent: &span,
                 error.type = "session_init_failed",
                 error = %e,
-                skald.stt.provider.name = ?selected.provider(),
+                notiz.stt.provider.name = ?selected.provider(),
                 "session_init_failed"
             );
             sentry::configure_scope(|scope| {
@@ -241,12 +241,12 @@ pub async fn handler(
                 "http.response.status_code",
                 StatusCode::BAD_REQUEST.as_u16() as i64,
             );
-            skald_observability::mark_span_as_error(&span, "proxy_build_failed");
+            notiz_observability::mark_span_as_error(&span, "proxy_build_failed");
             tracing::error!(
                 parent: &span,
                 error.type = "proxy_build_failed",
                 error = %e,
-                skald.stt.provider.name = ?provider,
+                notiz.stt.provider.name = ?provider,
                 "proxy_build_failed"
             );
             sentry::configure_scope(|scope| {

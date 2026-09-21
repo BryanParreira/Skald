@@ -1,15 +1,15 @@
 import { CalendarIcon, MapPinIcon, VideoIcon } from "lucide-react";
 import { forwardRef, type ReactElement, useState } from "react";
 
-import { commands as openerCommands } from "@skald/plugin-opener2";
-import { Button } from "@skald/ui/components/ui/button";
+import { commands as openerCommands } from "@notiz/plugin-opener2";
+import { Button } from "@notiz/ui/components/ui/button";
 import {
   AppFloatingPanel,
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@skald/ui/components/ui/popover";
-import { cn, safeFormat, safeParseDate, TZDate } from "@skald/utils";
+} from "@notiz/ui/components/ui/popover";
+import { cn, safeFormat, safeParseDate, TZDate } from "@notiz/utils";
 
 import { DateEditor } from "./date";
 import { ParticipantsDisplay } from "./participants";

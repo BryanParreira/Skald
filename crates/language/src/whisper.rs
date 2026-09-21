@@ -1,10 +1,10 @@
 use crate::{Error, ISO639, Language};
 
-impl TryInto<skald_whisper::Language> for Language {
+impl TryInto<notiz_whisper::Language> for Language {
     type Error = Error;
 
-    fn try_into(self) -> Result<skald_whisper::Language, Self::Error> {
-        use skald_whisper::Language as WL;
+    fn try_into(self) -> Result<notiz_whisper::Language, Self::Error> {
+        use notiz_whisper::Language as WL;
 
         match self.iso639 {
             ISO639::Af => Ok(WL::Af),
@@ -109,11 +109,11 @@ impl TryInto<skald_whisper::Language> for Language {
     }
 }
 
-impl TryInto<Language> for skald_whisper::Language {
+impl TryInto<Language> for notiz_whisper::Language {
     type Error = Error;
 
     fn try_into(self) -> Result<Language, Self::Error> {
-        use skald_whisper::Language as WL;
+        use notiz_whisper::Language as WL;
 
         let iso639 = match self {
             WL::Af => ISO639::Af,

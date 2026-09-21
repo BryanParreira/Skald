@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 import { SyncProvider } from "~/calendar/components/context";
 import { useTabs } from "~/store/zustand/tabs";

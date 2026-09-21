@@ -4,9 +4,9 @@ use crate::TemplatePluginExt;
 #[specta::specta]
 pub async fn render<R: tauri::Runtime>(
     _app: tauri::AppHandle<R>,
-    tpl: skald_template_app::Template,
+    tpl: notiz_template_app::Template,
 ) -> Result<String, String> {
-    skald_template_app::render(tpl).map_err(|e| e.to_string())
+    notiz_template_app::render(tpl).map_err(|e| e.to_string())
 }
 
 #[tauri::command]
@@ -23,16 +23,16 @@ pub async fn render_custom<R: tauri::Runtime>(
 #[specta::specta]
 pub async fn render_support<R: tauri::Runtime>(
     _app: tauri::AppHandle<R>,
-    tpl: skald_template_support::SupportTemplate,
+    tpl: notiz_template_support::SupportTemplate,
 ) -> Result<String, String> {
-    skald_template_support::render(tpl).map_err(|e| e.to_string())
+    notiz_template_support::render(tpl).map_err(|e| e.to_string())
 }
 
 #[tauri::command]
 #[specta::specta]
 pub async fn get_template_source<R: tauri::Runtime>(
     _app: tauri::AppHandle<R>,
-    template: skald_template_app::EditableTemplate,
+    template: notiz_template_app::EditableTemplate,
 ) -> Result<String, String> {
-    Ok(skald_template_app::template_source(template).to_string())
+    Ok(notiz_template_app::template_source(template).to_string())
 }

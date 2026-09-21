@@ -21,9 +21,9 @@ pub use adapter::{
     AdapterKind, AquaVoiceAdapter, ArgmaxAdapter, AssemblyAIAdapter, BatchSttAdapter,
     CallbackResult, CallbackSttAdapter, CartesiaAdapter, DashScopeAdapter, DeepgramAdapter,
     ElevenLabsAdapter, FireworksAdapter, GladiaAdapter, LanguageQuality, LanguageSupport,
-    MistralAdapter, OpenAIAdapter, PyannoteAdapter, RealtimeSttAdapter, SkaldAdapter,
+    MistralAdapter, NotizAdapter, OpenAIAdapter, PyannoteAdapter, RealtimeSttAdapter,
     SmallestAIAdapter, SonioxAdapter, WhisperCppAdapter, append_provider_param,
-    documented_language_codes_batch, documented_language_codes_live, is_local_host, is_skald_proxy,
+    documented_language_codes_batch, documented_language_codes_live, is_local_host, is_notiz_proxy,
     normalize_languages,
 };
 pub use adapter::{StreamingBatchEvent, StreamingBatchStream};
@@ -31,7 +31,7 @@ pub use adapter::{StreamingBatchEvent, StreamingBatchStream};
 pub use batch::{BatchClient, BatchClientBuilder};
 pub use error::Error;
 pub use live::{DualHandle, FinalizeHandle, ListenClient, ListenClientBuilder, ListenClientDual};
-pub use skald_ws_client;
+pub use notiz_ws_client;
 
 pub fn normalize_listen_params(mut params: ListenParams) -> ListenParams {
     params.languages = adapter::normalize_languages(&params.languages);

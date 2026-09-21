@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-skald-api-auth = { workspace = true }
+notiz-api-auth = { workspace = true }
 
 askama = { workspace = true }
 axum = { workspace = true }

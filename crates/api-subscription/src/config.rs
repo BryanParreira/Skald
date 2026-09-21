@@ -1,9 +1,9 @@
 use std::sync::Arc;
 
-use skald_analytics::AnalyticsClient;
+use notiz_analytics::AnalyticsClient;
 
 use crate::StripeEnv;
-use skald_api_env::{LoopsEnv, SupabaseEnv};
+use notiz_api_env::{LoopsEnv, SupabaseEnv};
 
 #[derive(Clone)]
 pub struct SubscriptionConfig {

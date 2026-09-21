@@ -22,17 +22,17 @@ import {
 } from "~/chat/store/persisted-messages";
 import { stripEphemeralToolContext } from "~/chat/tools/strip-ephemeral-tool-context";
 import { useTransport } from "~/chat/transport/use-transport";
-import type { SkaldUIMessage } from "~/chat/types";
+import type { NotizUIMessage } from "~/chat/types";
 import * as main from "~/store/tinybase/store/main";
 
 export type ChatSessionRenderProps = {
   sessionId: string;
-  messages: SkaldUIMessage[];
+  messages: NotizUIMessage[];
   setMessages: (
-    msgs: SkaldUIMessage[] | ((prev: SkaldUIMessage[]) => SkaldUIMessage[]),
+    msgs: NotizUIMessage[] | ((prev: NotizUIMessage[]) => NotizUIMessage[]),
   ) => void;
   sendMessage: (
-    message: SkaldUIMessage,
+    message: NotizUIMessage,
     options?: { chatGroupId?: string },
   ) => void;
   regenerate: () => void;
@@ -58,7 +58,7 @@ interface ChatSessionProps {
   children: (props: ChatSessionRenderProps) => ReactNode;
 }
 
-function areMessagesEqual(a: SkaldUIMessage[], b: SkaldUIMessage[]) {
+function areMessagesEqual(a: NotizUIMessage[], b: NotizUIMessage[]) {
   if (a.length !== b.length) {
     return false;
   }
@@ -135,7 +135,7 @@ export function ChatSession({
 
   const chat = useMemo(
     () =>
-      new Chat<SkaldUIMessage>({
+      new Chat<NotizUIMessage>({
         id: sessionId,
         messages:
           store && chatGroupId
@@ -148,7 +148,7 @@ export function ChatSession({
           const messageIndex = messages.findIndex((m) => m.id === message.id);
           const lastMessageIndex =
             messageIndex === -1 ? messages.length - 1 : messageIndex - 1;
-          let submittedUserMessage: SkaldUIMessage | undefined;
+          let submittedUserMessage: NotizUIMessage | undefined;
           for (let i = lastMessageIndex; i >= 0; i--) {
             if (messages[i].role === "user") {
               submittedUserMessage = messages[i];
@@ -219,7 +219,7 @@ export function ChatSession({
     status,
     error,
     setMessages: chatSetMessages,
-  } = useChat<SkaldUIMessage>({ chat });
+  } = useChat<NotizUIMessage>({ chat });
 
   useEffect(() => {
     if (
@@ -240,13 +240,13 @@ export function ChatSession({
   ]);
 
   const sendMessage = useCallback(
-    (message: SkaldUIMessage, options?: { chatGroupId?: string }) => {
+    (message: NotizUIMessage, options?: { chatGroupId?: string }) => {
       const targetChatGroupId =
         options?.chatGroupId ?? latestChatGroupIdRef.current;
       if (targetChatGroupId) {
         submittedChatGroupIdsRef.current.set(message.id, targetChatGroupId);
       }
-      // SkaldUIMessage is structurally compatible with CreateUIMessage<SkaldUIMessage>:
+      // NotizUIMessage is structurally compatible with CreateUIMessage<NotizUIMessage>:
       // no `text`/`files` so the SDK takes the `else` branch and uses message.id as the message id.
       void chatSendMessage(message as Parameters<typeof chatSendMessage>[0]);
     },
@@ -268,7 +268,7 @@ export function ChatSession({
 
   const setMessages = useCallback(
     (
-      next: SkaldUIMessage[] | ((prev: SkaldUIMessage[]) => SkaldUIMessage[]),
+      next: NotizUIMessage[] | ((prev: NotizUIMessage[]) => NotizUIMessage[]),
     ) => {
       chatSetMessages(next);
       if (!store || !chatGroupId) return;
@@ -329,7 +329,7 @@ export function ChatSession({
   return <div className="flex min-h-0 flex-1 flex-col">{content}</div>;
 }
 
-const unavailableChatTransport: ChatTransport<SkaldUIMessage> = {
+const unavailableChatTransport: ChatTransport<NotizUIMessage> = {
   sendMessages: async () => {
     throw new Error("Chat model is not ready");
   },

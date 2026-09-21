@@ -1,5 +1,5 @@
 use crate::Segment;
-use skald_whisper::Language;
+use notiz_whisper::Language;
 
 #[derive(Default)]
 pub struct LoadedWhisperBuilder {}

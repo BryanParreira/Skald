@@ -19,8 +19,8 @@ pub struct SessionState {
     source_cell: Option<ActorCell>,
     listener_cell: Option<ActorCell>,
     recorder_cell: Option<ActorCell>,
-    source_restarts: skald_supervisor::RestartTracker,
-    recorder_restarts: skald_supervisor::RestartTracker,
+    source_restarts: notiz_supervisor::RestartTracker,
+    recorder_restarts: notiz_supervisor::RestartTracker,
     mode: SessionModeState,
     shutting_down: bool,
 }
@@ -71,8 +71,8 @@ impl Actor for SessionActor {
                 source_cell: Some(source_ref.get_cell()),
                 listener_cell: None,
                 recorder_cell,
-                source_restarts: skald_supervisor::RestartTracker::new(),
-                recorder_restarts: skald_supervisor::RestartTracker::new(),
+                source_restarts: notiz_supervisor::RestartTracker::new(),
+                recorder_restarts: notiz_supervisor::RestartTracker::new(),
                 mode,
                 shutting_down: false,
             })
@@ -409,9 +409,9 @@ mod tests {
     use std::sync::Arc;
     use std::time::{Instant, SystemTime};
 
+    use notiz_audio::{AudioProvider, CaptureConfig, CaptureStream};
+    use notiz_supervisor::RestartTracker;
     use ractor::ActorStatus;
-    use skald_audio::{AudioProvider, CaptureConfig, CaptureStream};
-    use skald_supervisor::RestartTracker;
 
     use super::*;
     use crate::{
@@ -421,12 +421,12 @@ mod tests {
 
     struct TestRuntime;
 
-    impl skald_storage::StorageRuntime for TestRuntime {
-        fn global_base(&self) -> Result<PathBuf, skald_storage::Error> {
+    impl notiz_storage::StorageRuntime for TestRuntime {
+        fn global_base(&self) -> Result<PathBuf, notiz_storage::Error> {
             Ok(std::env::temp_dir())
         }
 
-        fn vault_base(&self) -> Result<PathBuf, skald_storage::Error> {
+        fn vault_base(&self) -> Result<PathBuf, notiz_storage::Error> {
             Ok(std::env::temp_dir())
         }
     }
@@ -445,14 +445,14 @@ mod tests {
         fn open_capture(
             &self,
             _config: CaptureConfig,
-        ) -> Result<CaptureStream, skald_audio::Error> {
+        ) -> Result<CaptureStream, notiz_audio::Error> {
             unimplemented!()
         }
         fn open_speaker_capture(
             &self,
             _sample_rate: u32,
             _chunk_size: usize,
-        ) -> Result<CaptureStream, skald_audio::Error> {
+        ) -> Result<CaptureStream, notiz_audio::Error> {
             unimplemented!()
         }
         fn open_mic_capture(
@@ -460,7 +460,7 @@ mod tests {
             _device: Option<String>,
             _sample_rate: u32,
             _chunk_size: usize,
-        ) -> Result<CaptureStream, skald_audio::Error> {
+        ) -> Result<CaptureStream, notiz_audio::Error> {
             unimplemented!()
         }
         fn default_device_name(&self) -> String {
@@ -477,10 +477,10 @@ mod tests {
             let (tx, _rx) = std::sync::mpsc::channel();
             tx
         }
-        fn probe_mic(&self, _device: Option<String>) -> Result<(), skald_audio::Error> {
+        fn probe_mic(&self, _device: Option<String>) -> Result<(), notiz_audio::Error> {
             Ok(())
         }
-        fn probe_speaker(&self) -> Result<(), skald_audio::Error> {
+        fn probe_speaker(&self) -> Result<(), notiz_audio::Error> {
             Ok(())
         }
     }
@@ -535,12 +535,12 @@ mod tests {
         lifecycle_events: std::sync::Mutex<Vec<crate::SessionLifecycleEvent>>,
     }
 
-    impl skald_storage::StorageRuntime for RecordingRuntime {
-        fn global_base(&self) -> Result<PathBuf, skald_storage::Error> {
+    impl notiz_storage::StorageRuntime for RecordingRuntime {
+        fn global_base(&self) -> Result<PathBuf, notiz_storage::Error> {
             Ok(std::env::temp_dir())
         }
 
-        fn vault_base(&self) -> Result<PathBuf, skald_storage::Error> {
+        fn vault_base(&self) -> Result<PathBuf, notiz_storage::Error> {
             Ok(std::env::temp_dir())
         }
     }
@@ -594,7 +594,7 @@ mod tests {
     }
 
     fn test_update(
-        languages: Vec<skald_language::Language>,
+        languages: Vec<notiz_language::Language>,
         participant_human_ids: Vec<&str>,
         self_human_id: Option<&str>,
     ) -> SessionConfigUpdate {
@@ -612,12 +612,12 @@ mod tests {
     #[test]
     fn config_update_refreshes_when_languages_change() {
         let mut ctx = test_ctx();
-        ctx.params.languages = vec![skald_language::ISO639::En.into()];
+        ctx.params.languages = vec![notiz_language::ISO639::En.into()];
         let state = test_state(ctx);
         let update = test_update(
             vec![
-                skald_language::ISO639::En.into(),
-                skald_language::ISO639::Ko.into(),
+                notiz_language::ISO639::En.into(),
+                notiz_language::ISO639::Ko.into(),
             ],
             vec![],
             None,
@@ -654,7 +654,7 @@ mod tests {
     #[test]
     fn local_soniqo_live_listener_failure_stops_session() {
         let mut ctx = test_ctx();
-        ctx.params.base_url = skald_transcribe_soniqo::LOCAL_BASE_URL.to_string();
+        ctx.params.base_url = notiz_transcribe_soniqo::LOCAL_BASE_URL.to_string();
         ctx.params.model = "soniqo-parakeet-streaming".to_string();
         let state = test_state(ctx);
 
@@ -672,7 +672,7 @@ mod tests {
     }
 
     #[test]
-    fn skald_proxy_soniox_listener_failure_enters_batch_fallback() {
+    fn notiz_proxy_soniox_listener_failure_enters_batch_fallback() {
         let mut ctx = test_ctx();
         ctx.params.base_url = "https://api.hyprnote.com/stt?provider=soniox".to_string();
         ctx.params.model = "cloud".to_string();

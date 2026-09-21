@@ -31,13 +31,13 @@ vi.mock("@tauri-apps/api/window", () => ({
   }),
 }));
 
-vi.mock("@skald/plugin-notification", () => ({
+vi.mock("@notiz/plugin-notification", () => ({
   commands: {
     showNotification: showNotificationMock,
   },
 }));
 
-vi.mock("@skald/plugin-transcription", () => ({
+vi.mock("@notiz/plugin-transcription", () => ({
   events: {
     transcriptionEvent: {
       listen: listenMock,
@@ -60,7 +60,7 @@ describe("runBatchSession", () => {
     expect(
       shouldUseSyntheticBatchProgress({
         session_id: "session-1",
-        provider: "skald",
+        provider: "notiz",
         file_path: "/tmp/session.wav",
         base_url: "",
         api_key: "",
@@ -179,7 +179,7 @@ describe("runBatchSession", () => {
         "session-1",
         {
           session_id: "session-1",
-          provider: "skald",
+          provider: "notiz",
           file_path: "/tmp/session.wav",
           base_url: "",
           api_key: "",
@@ -280,7 +280,7 @@ describe("runBatchSession", () => {
         "session-1",
         {
           session_id: "session-1",
-          provider: "skald",
+          provider: "notiz",
           file_path: "/tmp/session.wav",
           base_url: "",
           api_key: "",
@@ -389,7 +389,7 @@ describe("runBatchSession", () => {
       "session-1",
       {
         session_id: "session-1",
-        provider: "skald",
+        provider: "notiz",
         file_path: "/tmp/session.wav",
         base_url: "",
         api_key: "",
@@ -480,7 +480,7 @@ describe("runBatchSession", () => {
       "session-1",
       {
         session_id: "session-1",
-        provider: "skald",
+        provider: "notiz",
         file_path: "/tmp/session.wav",
         base_url: "",
         api_key: "",
@@ -492,7 +492,7 @@ describe("runBatchSession", () => {
       expect.objectContaining({
         title: "Transcription complete",
         message: "Your transcript is ready.",
-        action_label: "Open Skald",
+        action_label: "Open Notiz",
         source: { type: "session", session_id: "session-1" },
       }),
     );
@@ -597,7 +597,7 @@ describe("runBatchSession", () => {
       "session-1",
       {
         session_id: "session-1",
-        provider: "skald",
+        provider: "notiz",
         file_path: "/tmp/session.wav",
         base_url: "",
         api_key: "",
@@ -684,7 +684,7 @@ describe("runBatchSession", () => {
         "session-1",
         {
           session_id: "session-1",
-          provider: "skald",
+          provider: "notiz",
           file_path: "/tmp/session.wav",
           base_url: "",
           api_key: "",
@@ -758,7 +758,7 @@ describe("runBatchSession", () => {
         "session-1",
         {
           session_id: "session-1",
-          provider: "skald",
+          provider: "notiz",
           file_path: "/tmp/session.wav",
           base_url: "",
           api_key: "",
@@ -836,7 +836,7 @@ describe("runBatchSession", () => {
         "session-1",
         {
           session_id: "session-1",
-          provider: "skald",
+          provider: "notiz",
           file_path: "/tmp/session.wav",
           base_url: "",
           api_key: "",

@@ -1,5 +1,5 @@
 {
-  "name": "@skald/plugin-local-stt",
+  "name": "@notiz/plugin-local-stt",
   "private": true,
   "main": "./js/index.ts",
   "scripts": {

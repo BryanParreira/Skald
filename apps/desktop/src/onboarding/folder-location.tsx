@@ -4,8 +4,8 @@ import { homeDir } from "@tauri-apps/api/path";
 import { message, open as selectFolder } from "@tauri-apps/plugin-dialog";
 import { FolderIcon } from "lucide-react";
 
-import { commands as openerCommands } from "@skald/plugin-opener2";
-import { commands as settingsCommands } from "@skald/plugin-settings";
+import { commands as openerCommands } from "@notiz/plugin-opener2";
+import { commands as settingsCommands } from "@notiz/plugin-settings";
 
 import { ObsidianVaultList } from "~/settings/general/storage/obsidian-vault-list";
 import { displayPath } from "~/settings/general/storage/path-utils";

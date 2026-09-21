@@ -30,6 +30,6 @@ struct ApiDoc;
 
 pub fn openapi() -> utoipa::openapi::OpenApi {
     let mut doc = ApiDoc::openapi();
-    doc.merge(skald_google_mail::openapi::openapi());
+    doc.merge(notiz_google_mail::openapi::openapi());
     doc
 }

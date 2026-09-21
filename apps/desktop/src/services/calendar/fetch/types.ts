@@ -1,4 +1,4 @@
-import type { EventParticipant, EventStorage } from "@skald/store";
+import type { EventParticipant, EventStorage } from "@notiz/store";
 
 export type { EventParticipant };
 

@@ -21,4 +21,4 @@ tauri = { workspace = true, features = ["test"] }
 tauri-specta = { workspace = true, features = ["derive", "typescript"] }
 
 [target.'cfg(target_os = "macos")'.dependencies]
-skald-shortcut-macos = { workspace = true }
+notiz-shortcut-macos = { workspace = true }

@@ -4,11 +4,11 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-skald-api-auth = { workspace = true }
-skald-api-error = { workspace = true }
-skald-api-nango = { workspace = true }
-skald-google-mail = { workspace = true, features = ["utoipa"] }
-skald-nango = { workspace = true }
+notiz-api-auth = { workspace = true }
+notiz-api-error = { workspace = true }
+notiz-api-nango = { workspace = true }
+notiz-google-mail = { workspace = true, features = ["utoipa"] }
+notiz-nango = { workspace = true }
 
 axum = { workspace = true }
 utoipa = { workspace = true }

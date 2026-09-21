@@ -1,5 +1,5 @@
 {
-  "name": "@skald/plugin-fs-sync",
+  "name": "@notiz/plugin-fs-sync",
   "version": "0.0.0",
   "private": true,
   "main": "./js/index.ts",

@@ -1,7 +1,7 @@
 import { sep } from "@tauri-apps/api/path";
 
-import { isValidContent, json2md } from "@skald/editor/markdown";
-import type { ParsedDocument } from "@skald/plugin-fs-sync";
+import { isValidContent, json2md } from "@notiz/editor/markdown";
+import type { ParsedDocument } from "@notiz/plugin-fs-sync";
 
 import type { NoteFrontmatter } from "~/store/tinybase/persister/session/types";
 import {

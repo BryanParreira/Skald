@@ -15,9 +15,9 @@ specta-typescript = { workspace = true }
 tempfile = { workspace = true }
 
 [dependencies]
-skald-storage = { workspace = true }
-skald-supabase-auth = { workspace = true, features = ["client"] }
-skald-template-support = { workspace = true }
+notiz-storage = { workspace = true }
+notiz-supabase-auth = { workspace = true, features = ["client"] }
+notiz-template-support = { workspace = true }
 tauri-plugin-settings = { workspace = true }
 
 tauri = { workspace = true, features = ["test"] }

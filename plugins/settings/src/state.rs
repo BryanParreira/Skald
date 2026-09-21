@@ -15,7 +15,7 @@ impl StartupSnapshot {
     }
 
     fn settings_path(&self) -> PathBuf {
-        skald_storage::vault::compute_settings_path(&self.startup_vault_base)
+        notiz_storage::vault::compute_settings_path(&self.startup_vault_base)
     }
 
     pub fn startup_vault_base(&self) -> &PathBuf {
@@ -42,12 +42,12 @@ impl StartupSnapshot {
         let merged = merge_settings(existing, settings);
         let content = serde_json::to_string_pretty(&merged)?;
 
-        skald_storage::fs::atomic_write_async(&self.settings_path(), &content).await?;
+        notiz_storage::fs::atomic_write_async(&self.settings_path(), &content).await?;
         Ok(())
     }
 
     pub fn reset(&self) -> crate::Result<()> {
-        skald_storage::fs::atomic_write(&self.settings_path(), "{}")?;
+        notiz_storage::fs::atomic_write(&self.settings_path(), "{}")?;
         Ok(())
     }
 }

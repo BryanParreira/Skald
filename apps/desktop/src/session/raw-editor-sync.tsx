@@ -3,7 +3,7 @@ import { emitTo, listen, type UnlistenFn } from "@tauri-apps/api/event";
 import { useMountEffect } from "~/shared/hooks/useMountEffect";
 import * as main from "~/store/tinybase/store/main";
 
-const RAW_EDITOR_SYNC_EVENT = "skald-raw-editor-sync";
+const RAW_EDITOR_SYNC_EVENT = "notiz-raw-editor-sync";
 
 type RawEditorSyncPayload = {
   sessionId: string;

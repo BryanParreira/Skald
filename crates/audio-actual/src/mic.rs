@@ -109,7 +109,7 @@ impl MicInput {
             crate::Error::MicOpenFailed
         })?;
         tracing::info!(
-            skald.audio.sample_rate_hz = ?config.sample_rate(),
+            notiz.audio.sample_rate_hz = ?config.sample_rate(),
             device_name,
             "mic_input_initialized"
         );
@@ -339,8 +339,8 @@ mod tests {
     #[tokio::test]
     #[ignore = "requires audio hardware"]
     async fn test_mic_stream_with_resampling() {
-        use skald_audio_utils::chunk_size_for_stt;
-        use skald_resampler::ResampleExtDynamicNew;
+        use notiz_audio_utils::chunk_size_for_stt;
+        use notiz_resampler::ResampleExtDynamicNew;
 
         let mic = MicInput::new(None).unwrap();
         println!("mic device: {}", mic.device_name());

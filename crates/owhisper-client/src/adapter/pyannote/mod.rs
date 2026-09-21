@@ -13,7 +13,7 @@ const DEFAULT_BASE_URL: &str = "https://api.pyannote.ai";
 
 impl PyannoteAdapter {
     pub fn language_support_batch(
-        languages: &[skald_language::Language],
+        languages: &[notiz_language::Language],
         model: Option<&str>,
     ) -> LanguageSupport {
         if languages.is_empty() {
@@ -43,7 +43,7 @@ impl PyannoteAdapter {
     }
 
     pub fn find_model(
-        languages: &[skald_language::Language],
+        languages: &[notiz_language::Language],
     ) -> Option<PyannoteTranscriptionModel> {
         TRANSCRIPTION_MODELS
             .iter()
@@ -80,7 +80,7 @@ pub(super) fn documented_language_codes() -> Vec<&'static str> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use skald_language::{ISO639, Language};
+    use notiz_language::{ISO639, Language};
 
     #[test]
     fn test_batch_api_url_empty_uses_default() {

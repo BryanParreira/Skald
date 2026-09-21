@@ -7,9 +7,9 @@ import { useCallback } from "react";
 import {
   commands as fsSyncCommands,
   events as fsSyncEvents,
-} from "@skald/plugin-fs-sync";
-import { commands as listener2Commands } from "@skald/plugin-transcription";
-import type { TranscriptStorage } from "@skald/store";
+} from "@notiz/plugin-fs-sync";
+import { commands as listener2Commands } from "@notiz/plugin-transcription";
+import type { TranscriptStorage } from "@notiz/store";
 
 import { estimateUploadedAudioSessionCreatedAt } from "./audio-note-date";
 import { useListener } from "./contexts";

@@ -18,8 +18,8 @@ pub enum SyncError {
     Internal(String),
 }
 
-impl From<skald_supabase_auth::server::Error> for SyncError {
-    fn from(err: skald_supabase_auth::server::Error) -> Self {
+impl From<notiz_supabase_auth::server::Error> for SyncError {
+    fn from(err: notiz_supabase_auth::server::Error) -> Self {
         Self::Auth(err.to_string())
     }
 }
@@ -36,6 +36,6 @@ impl IntoResponse for SyncError {
             ),
         };
 
-        skald_api_error::error_response(status, code, &message)
+        notiz_api_error::error_response(status, code, &message)
     }
 }

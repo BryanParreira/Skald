@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const loadSettings = vi.hoisted(() => vi.fn());
 
-vi.mock("@skald/plugin-settings", () => ({
+vi.mock("@notiz/plugin-settings", () => ({
   commands: {
     load: loadSettings,
   },
@@ -91,7 +91,7 @@ describe("bootstrapThemeFromSettings", () => {
     await bootstrapThemeFromSettings({ timeoutMs: 100 });
 
     expect(document.documentElement.classList.contains("dark")).toBe(true);
-    expect(localStorage.getItem("skald-theme")).toBe("dark");
+    expect(localStorage.getItem("notiz-theme")).toBe("dark");
   });
 
   it("does not hold startup past the deadline when settings load stalls", async () => {
@@ -116,7 +116,7 @@ describe("bootstrapThemeFromSettings", () => {
     await vi.advanceTimersByTimeAsync(20);
 
     expect(resolved).toBe(true);
-    expect(localStorage.getItem("skald-theme")).toBe(null);
+    expect(localStorage.getItem("notiz-theme")).toBe(null);
 
     resolveLoad({
       status: "ok",
@@ -125,6 +125,6 @@ describe("bootstrapThemeFromSettings", () => {
     await Promise.resolve();
 
     expect(document.documentElement.classList.contains("dark")).toBe(true);
-    expect(localStorage.getItem("skald-theme")).toBe("dark");
+    expect(localStorage.getItem("notiz-theme")).toBe("dark");
   });
 });

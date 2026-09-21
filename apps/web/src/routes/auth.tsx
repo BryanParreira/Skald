@@ -6,9 +6,9 @@ import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
-import { SkaldLogo } from "@/components/skald-logo";
+import { NotizLogo } from "@/components/notiz-logo";
 import {
   createDesktopSession,
   doAuth,
@@ -54,7 +54,7 @@ export const Route = createFileRoute("/auth")({
             to: "/callback/auth/",
             search: {
               flow: "desktop",
-              scheme: search.scheme ?? "skald",
+              scheme: search.scheme ?? "notiz",
               access_token: result.access_token,
               refresh_token: result.refresh_token,
             },
@@ -80,7 +80,7 @@ function Component() {
         <Header />
         <DesktopReauthView
           email={existingUser.email}
-          scheme={scheme ?? "skald"}
+          scheme={scheme ?? "notiz"}
         />
       </Container>
     );
@@ -211,8 +211,8 @@ function Header() {
           "border-color-brand border-b",
         ])}
       >
-        <SkaldLogo compact className="text-fg h-10 w-auto" />
-        <h1 className="text-fg py-4 font-mono text-xl">Welcome to Skald</h1>
+        <NotizLogo compact className="text-fg h-10 w-auto" />
+        <h1 className="text-fg py-4 font-mono text-xl">Welcome to Notiz</h1>
       </div>
     </div>
   );

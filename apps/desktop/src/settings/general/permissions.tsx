@@ -2,9 +2,9 @@ import { Trans, useLingui } from "@lingui/react/macro";
 import { AlertCircleIcon, ArrowRightIcon, CheckIcon } from "lucide-react";
 import { useState } from "react";
 
-import type { PermissionStatus } from "@skald/plugin-permissions";
-import { Button } from "@skald/ui/components/ui/button";
-import { cn } from "@skald/utils";
+import type { PermissionStatus } from "@notiz/plugin-permissions";
+import { Button } from "@notiz/ui/components/ui/button";
+import { cn } from "@notiz/utils";
 
 import { usePermission } from "~/shared/hooks/usePermissions";
 
@@ -189,7 +189,7 @@ export function Permissions() {
       <PermissionGroup title={<Trans>Others</Trans>}>
         <PermissionRow
           title={t`Calendar`}
-          description={t`Required to sync Apple Calendar events into Skald`}
+          description={t`Required to sync Apple Calendar events into Notiz`}
           status={calendar.status}
           isPending={calendar.isPending}
           onRequest={calendar.request}

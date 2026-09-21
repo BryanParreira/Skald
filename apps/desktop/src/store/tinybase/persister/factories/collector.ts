@@ -13,9 +13,9 @@ import type {
 import {
   commands as fsSyncCommands,
   type ParsedDocument,
-} from "@skald/plugin-fs-sync";
-import { commands as fs2Commands } from "@skald/plugin-fs2";
-import { extractChangedTables } from "@skald/tinybase-utils";
+} from "@notiz/plugin-fs-sync";
+import { commands as fs2Commands } from "@notiz/plugin-fs2";
+import { extractChangedTables } from "@notiz/tinybase-utils";
 
 import {
   createFileListener,

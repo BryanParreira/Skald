@@ -66,7 +66,7 @@ export type {
   CanStartTrialResponse,
   CanStartTrialResponse2,
   CanStartTrialResponses,
-  SkaldTask,
+  NotizTask,
   ChatStatus,
   ClientOptions,
   CollectionPage,

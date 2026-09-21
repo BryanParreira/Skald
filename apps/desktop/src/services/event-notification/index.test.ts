@@ -9,7 +9,7 @@ const { showNotificationMock } = vi.hoisted(() => ({
   showNotificationMock: vi.fn(),
 }));
 
-vi.mock("@skald/plugin-notification", () => ({
+vi.mock("@notiz/plugin-notification", () => ({
   commands: {
     showNotification: showNotificationMock,
   },
@@ -58,7 +58,7 @@ describe("checkEventNotifications", () => {
     expect(showNotificationMock).toHaveBeenCalledWith(
       expect.objectContaining({
         source: { type: "calendar_event", event_id: "event-1" },
-        action_label: "Open Skald",
+        action_label: "Open Notiz",
         participants: null,
         event_details: null,
         options: null,

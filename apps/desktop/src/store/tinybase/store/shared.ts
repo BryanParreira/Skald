@@ -1,1 +1,1 @@
-export * from "@skald/store/shared";
+export * from "@notiz/store/shared";

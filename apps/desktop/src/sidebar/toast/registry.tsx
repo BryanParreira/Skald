@@ -1,4 +1,4 @@
-import type { ServerStatus } from "@skald/plugin-local-stt";
+import type { ServerStatus } from "@notiz/plugin-local-stt";
 
 import type { DownloadProgress, ToastCondition, ToastType } from "./types";
 

@@ -5,13 +5,13 @@ edition = "2024"
 
 [features]
 default = ["whisper"]
-whisper = ["dep:skald-whisper"]
+whisper = ["dep:notiz-whisper"]
 detect = ["dep:whichlang"]
 
 [dependencies]
 codes-iso-639 = { workspace = true }
 
-skald-whisper = { workspace = true, optional = true }
+notiz-whisper = { workspace = true, optional = true }
 whichlang = { workspace = true, optional = true }
 
 schemars = { workspace = true }

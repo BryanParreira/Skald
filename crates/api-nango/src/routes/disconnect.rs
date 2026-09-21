@@ -1,6 +1,6 @@
 use axum::{Extension, Json, extract::State};
+use notiz_api_auth::AuthContext;
 use serde::{Deserialize, Serialize};
-use skald_api_auth::AuthContext;
 use utoipa::ToSchema;
 
 use crate::error::Result;
@@ -47,8 +47,8 @@ pub async fn delete_connection(
     if !owns {
         tracing::warn!(
             enduser.id = %auth.claims.sub,
-            skald.connection.id = %body.connection_id,
-            skald.integration.id = %body.integration_id,
+            notiz.connection.id = %body.connection_id,
+            notiz.integration.id = %body.integration_id,
             "disconnect denied: connection not owned by user"
         );
         return Err(crate::error::NangoError::Forbidden(
@@ -62,12 +62,12 @@ pub async fn delete_connection(
         .await
     {
         Ok(()) => {}
-        Err(skald_nango::Error::Api(404, response_body)) => {
+        Err(notiz_nango::Error::Api(404, response_body)) => {
             tracing::warn!(
                 enduser.id = %auth.claims.sub,
-                skald.connection.id = %body.connection_id,
-                skald.integration.id = %body.integration_id,
-                skald.http.response.body = %response_body,
+                notiz.connection.id = %body.connection_id,
+                notiz.integration.id = %body.integration_id,
+                notiz.http.response.body = %response_body,
                 "nango connection already deleted, cleaning local row"
             );
         }

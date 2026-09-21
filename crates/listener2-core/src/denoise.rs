@@ -44,20 +44,20 @@ fn run_denoise_blocking(
         session_id: params.session_id.clone(),
     });
 
-    let metadata = skald_audio_utils::audio_file_metadata(&params.input_path)
+    let metadata = notiz_audio_utils::audio_file_metadata(&params.input_path)
         .map_err(|e| crate::Error::DenoiseError(e.to_string()))?;
     let channels = metadata.channels.max(1) as usize;
 
-    let source = skald_audio_utils::source_from_path(&params.input_path)
+    let source = notiz_audio_utils::source_from_path(&params.input_path)
         .map_err(|e| crate::Error::DenoiseError(e.to_string()))?;
 
-    let samples = skald_audio_utils::resample_audio(source, DENOISE_SAMPLE_RATE)
+    let samples = notiz_audio_utils::resample_audio(source, DENOISE_SAMPLE_RATE)
         .map_err(|e| crate::Error::DenoiseError(e.to_string()))?;
 
-    let channel_buffers = skald_audio_utils::deinterleave(&samples, channels);
+    let channel_buffers = notiz_audio_utils::deinterleave(&samples, channels);
 
-    let mut denoisers: Vec<skald_denoise::onnx::Denoiser> = (0..channels)
-        .map(|_| skald_denoise::onnx::Denoiser::new())
+    let mut denoisers: Vec<notiz_denoise::onnx::Denoiser> = (0..channels)
+        .map(|_| notiz_denoise::onnx::Denoiser::new())
         .collect::<Result<_, _>>()
         .map_err(|e| crate::Error::DenoiseError(e.to_string()))?;
 
@@ -85,7 +85,7 @@ fn run_denoise_blocking(
         output_channels.push(channel_output);
     }
 
-    let output = skald_audio_utils::interleave(&output_channels);
+    let output = notiz_audio_utils::interleave(&output_channels);
 
     let spec = hound::WavSpec {
         channels: channels as u16,

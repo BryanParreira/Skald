@@ -4,10 +4,10 @@ version = "0.1.0"
 edition = "2024"
 
 [features]
-whisper-local = ["skald-whisper-local"]
+whisper-local = ["notiz-whisper-local"]
 
 [dependencies]
-skald-whisper-local = { workspace = true, optional = true }
+notiz-whisper-local = { workspace = true, optional = true }
 
 thiserror = { workspace = true }
 tokio = { workspace = true, features = ["sync", "time", "rt", "macros"] }

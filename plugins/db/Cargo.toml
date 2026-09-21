@@ -8,13 +8,13 @@ links = "tauri-plugin-db"
 description = ""
 
 [dependencies]
-skald-db-app = { workspace = true }
-skald-db-core = { workspace = true }
-skald-db-execute = { workspace = true }
-skald-db-migrate = { workspace = true }
-skald-db-reactive = { workspace = true, features = ["specta"] }
-skald-storage = { workspace = true }
-skald-tauri-utils = { workspace = true }
+notiz-db-app = { workspace = true }
+notiz-db-core = { workspace = true }
+notiz-db-execute = { workspace = true }
+notiz-db-migrate = { workspace = true }
+notiz-db-reactive = { workspace = true, features = ["specta"] }
+notiz-storage = { workspace = true }
+notiz-tauri-utils = { workspace = true }
 
 serde = { workspace = true }
 serde_json = { workspace = true }

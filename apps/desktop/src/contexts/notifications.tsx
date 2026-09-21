@@ -13,12 +13,12 @@ import {
   events as localSttEvents,
   type ServerStatus,
   type LocalModel,
-} from "@skald/plugin-local-stt";
+} from "@notiz/plugin-local-stt";
 
 import { useConfigValues } from "~/shared/config";
 import type { DownloadProgress } from "~/sidebar/toast/types";
 import { useTabs } from "~/store/zustand/tabs";
-import { isConfiguredSttModel, isSkaldLocalSttModel } from "~/stt/capabilities";
+import { isConfiguredSttModel, isNotizLocalSttModel } from "~/stt/capabilities";
 
 interface NotificationState {
   hasActiveBanner: boolean;
@@ -61,7 +61,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     !current_llm_provider ||
     !current_llm_model;
 
-  const sttModel = isSkaldLocalSttModel(current_stt_provider, current_stt_model)
+  const sttModel = isNotizLocalSttModel(current_stt_provider, current_stt_model)
     ? current_stt_model
     : null;
   const isLocalSttModel = !!sttModel;

@@ -34,11 +34,11 @@ vi.mock("@tauri-apps/api/window", () => ({
   }),
 }));
 
-vi.mock("@skald/editor/markdown", () => ({
+vi.mock("@notiz/editor/markdown", () => ({
   parseJsonContent: (value: string) => JSON.parse(value),
 }));
 
-vi.mock("@skald/editor/note", () => ({
+vi.mock("@notiz/editor/note", () => ({
   NoteEditor: (props: Record<string, unknown>) => {
     hoisted.noteEditorProps.push(props);
 
@@ -46,7 +46,7 @@ vi.mock("@skald/editor/note", () => ({
   },
 }));
 
-vi.mock("@skald/plugin-analytics", () => ({
+vi.mock("@notiz/plugin-analytics", () => ({
   commands: {
     event: vi.fn(),
   },

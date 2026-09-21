@@ -7,7 +7,7 @@ mod state;
 
 pub use error::{Error, Result};
 pub use ext::*;
-pub use skald_storage::ObsidianVault;
+pub use notiz_storage::ObsidianVault;
 pub use state::*;
 
 const PLUGIN_NAME: &str = "settings";

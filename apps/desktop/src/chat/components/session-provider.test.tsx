@@ -66,7 +66,7 @@ vi.mock("~/store/tinybase/store/main", () => ({
 import { ChatSession, type ChatSessionRenderProps } from "./session-provider";
 
 import { buildPersistedChatMessageRow } from "~/chat/store/persisted-messages";
-import type { SkaldUIMessage } from "~/chat/types";
+import type { NotizUIMessage } from "~/chat/types";
 
 type FakeStore = ReturnType<typeof createStore>;
 
@@ -107,7 +107,7 @@ function createStore(rows: Record<string, Record<string, unknown>>) {
   };
 }
 
-function persistedAssistantRow(message: SkaldUIMessage) {
+function persistedAssistantRow(message: NotizUIMessage) {
   return buildPersistedChatMessageRow({
     message,
     chatGroupId: "group-1",
@@ -144,7 +144,7 @@ describe("ChatSession", () => {
   });
 
   it("does not delete the previous persisted assistant when retrying an unpersisted empty assistant", () => {
-    const previousAssistant: SkaldUIMessage = {
+    const previousAssistant: NotizUIMessage = {
       id: "assistant-previous",
       role: "assistant",
       parts: [{ type: "text", text: "Previous answer" }],
@@ -188,7 +188,7 @@ describe("ChatSession", () => {
   });
 
   it("deletes the persisted row for the in-memory assistant being regenerated", () => {
-    const assistant: SkaldUIMessage = {
+    const assistant: NotizUIMessage = {
       id: "assistant-current",
       role: "assistant",
       parts: [{ type: "text", text: "Current answer" }],
@@ -220,7 +220,7 @@ describe("ChatSession", () => {
   });
 
   it("deletes the last assistant row when a trailing user message is present", () => {
-    const assistant: SkaldUIMessage = {
+    const assistant: NotizUIMessage = {
       id: "assistant-current",
       role: "assistant",
       parts: [{ type: "text", text: "Current answer" }],
@@ -287,7 +287,7 @@ describe("ChatSession", () => {
     const store = createStore({});
     mocks.store = store;
     mocks.chatMessagesTable = {};
-    const userMessage: SkaldUIMessage = {
+    const userMessage: NotizUIMessage = {
       id: "user-1",
       role: "user",
       parts: [{ type: "text", text: "Question" }],
@@ -339,13 +339,13 @@ describe("ChatSession", () => {
   });
 
   it("does not replace streaming sdk messages with stale persisted rows", () => {
-    const userMessage: SkaldUIMessage = {
+    const userMessage: NotizUIMessage = {
       id: "user-1",
       role: "user",
       parts: [{ type: "text", text: "Question" }],
       metadata: { createdAt: Date.parse("2024-01-01T00:00:00Z") },
     };
-    const assistantMessage: SkaldUIMessage = {
+    const assistantMessage: NotizUIMessage = {
       id: "assistant-1",
       role: "assistant",
       parts: [{ type: "text", text: "Partial answer" }],
@@ -399,12 +399,12 @@ describe("ChatSession", () => {
 
     const onFinish = mocks.chatInits[0] as {
       onFinish: (params: {
-        message: SkaldUIMessage;
-        messages: SkaldUIMessage[];
+        message: NotizUIMessage;
+        messages: NotizUIMessage[];
         isAbort: boolean;
       }) => void;
     };
-    const userMessage: SkaldUIMessage = {
+    const userMessage: NotizUIMessage = {
       id: "user-1",
       role: "user",
       parts: [{ type: "text", text: "Question" }],
@@ -452,12 +452,12 @@ describe("ChatSession", () => {
       </ChatSession>,
     );
 
-    const userOne: SkaldUIMessage = {
+    const userOne: NotizUIMessage = {
       id: "user-1",
       role: "user",
       parts: [{ type: "text", text: "First question" }],
     };
-    const userTwo: SkaldUIMessage = {
+    const userTwo: NotizUIMessage = {
       id: "user-2",
       role: "user",
       parts: [{ type: "text", text: "Second question" }],
@@ -467,18 +467,18 @@ describe("ChatSession", () => {
 
     const onFinish = mocks.chatInits[0] as {
       onFinish: (params: {
-        message: SkaldUIMessage;
-        messages: SkaldUIMessage[];
+        message: NotizUIMessage;
+        messages: NotizUIMessage[];
         isAbort: boolean;
       }) => void;
     };
-    const assistantOne: SkaldUIMessage = {
+    const assistantOne: NotizUIMessage = {
       id: "assistant-1",
       role: "assistant",
       parts: [{ type: "text", text: "First answer" }],
       metadata: { createdAt: Date.parse("2024-01-01T00:00:01Z") },
     };
-    const assistantTwo: SkaldUIMessage = {
+    const assistantTwo: NotizUIMessage = {
       id: "assistant-2",
       role: "assistant",
       parts: [{ type: "text", text: "Second answer" }],

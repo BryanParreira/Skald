@@ -4,13 +4,13 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-skald-api-auth = { workspace = true }
-skald-api-error = { workspace = true }
-skald-api-nango = { workspace = true }
-skald-github-issues = { workspace = true, features = ["utoipa"] }
-skald-linear = { workspace = true }
-skald-nango = { workspace = true }
-skald-ticket-interface = { workspace = true, features = ["utoipa"] }
+notiz-api-auth = { workspace = true }
+notiz-api-error = { workspace = true }
+notiz-api-nango = { workspace = true }
+notiz-github-issues = { workspace = true, features = ["utoipa"] }
+notiz-linear = { workspace = true }
+notiz-nango = { workspace = true }
+notiz-ticket-interface = { workspace = true, features = ["utoipa"] }
 
 axum = { workspace = true }
 utoipa = { workspace = true }

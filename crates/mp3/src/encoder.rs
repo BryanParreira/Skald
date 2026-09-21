@@ -155,7 +155,7 @@ impl EncoderCore {
     }
 }
 
-pub(crate) use skald_audio_utils::f32_to_i16;
+pub(crate) use notiz_audio_utils::f32_to_i16;
 
 fn bitrate_for_channels(channels: u8) -> Result<mp3lame_encoder::Bitrate, Error> {
     match channels {

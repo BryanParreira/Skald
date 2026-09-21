@@ -1,4 +1,4 @@
-import { json2md, md2json } from "@skald/editor/markdown";
+import { json2md, md2json } from "@notiz/editor/markdown";
 
 import { createTaskId, type TaskConfig } from ".";
 import {

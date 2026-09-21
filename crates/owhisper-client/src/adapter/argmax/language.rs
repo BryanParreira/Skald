@@ -4,7 +4,7 @@ use crate::adapter::deepgram_compat::{
     LanguageQueryStrategy, Serializer, TranscriptionMode, UrlQuery,
 };
 
-pub use skald_am::PARAKEET_V3_LANGS;
+pub use notiz_am::PARAKEET_V3_LANGS;
 
 pub struct ArgmaxLanguageStrategy;
 
@@ -23,23 +23,23 @@ impl LanguageQueryStrategy for ArgmaxLanguageStrategy {
     }
 }
 
-fn pick_single_language(params: &ListenParams) -> skald_language::Language {
+fn pick_single_language(params: &ListenParams) -> notiz_language::Language {
     let model = params.model.as_deref().unwrap_or("");
 
     if model.contains("parakeet") && model.contains("v2") {
-        skald_language::ISO639::En.into()
+        notiz_language::ISO639::En.into()
     } else if model.contains("parakeet") && model.contains("v3") {
         params
             .languages
             .iter()
             .find(|lang| PARAKEET_V3_LANGS.contains(&lang.iso639().code()))
             .cloned()
-            .unwrap_or_else(|| skald_language::ISO639::En.into())
+            .unwrap_or_else(|| notiz_language::ISO639::En.into())
     } else {
         params
             .languages
             .first()
             .cloned()
-            .unwrap_or_else(|| skald_language::ISO639::En.into())
+            .unwrap_or_else(|| notiz_language::ISO639::En.into())
     }
 }

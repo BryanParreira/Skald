@@ -3,11 +3,11 @@ import type { App, Image } from "modal";
 import { env } from "../env";
 import { getModalClient } from "./client";
 
-const APP_NAME = "skald-slack-internal";
+const APP_NAME = "notiz-slack-internal";
 const DEFAULT_TIMEOUT_MS = 5 * 60 * 1000;
 const MAX_RETRIES = 3;
 const RETRY_DELAY_MS = 1000;
-export const REPO_PATH = "/root/skald";
+export const REPO_PATH = "/root/notiz";
 
 export type BunSandbox = Awaited<ReturnType<typeof createBunSandbox>>;
 

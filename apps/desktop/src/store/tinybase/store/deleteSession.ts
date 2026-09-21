@@ -1,5 +1,5 @@
-import { commands as fsSyncCommands } from "@skald/plugin-fs-sync";
-import type { TranscriptStorage } from "@skald/store";
+import { commands as fsSyncCommands } from "@notiz/plugin-fs-sync";
+import type { TranscriptStorage } from "@notiz/store";
 
 import * as main from "./main";
 

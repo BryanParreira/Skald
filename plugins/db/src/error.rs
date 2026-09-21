@@ -5,19 +5,19 @@ pub type Result<T> = std::result::Result<T, Error>;
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
     #[error(transparent)]
-    Db(#[from] skald_db_core::DbOpenError),
+    Db(#[from] notiz_db_core::DbOpenError),
     #[error(transparent)]
-    Migrate(#[from] skald_db_migrate::MigrateError),
+    Migrate(#[from] notiz_db_migrate::MigrateError),
     #[error(transparent)]
-    AppSchema(#[from] skald_db_app::AppSchemaError),
+    AppSchema(#[from] notiz_db_app::AppSchemaError),
     #[error(transparent)]
     Io(#[from] std::io::Error),
     #[error(transparent)]
     Sqlx(#[from] sqlx::Error),
     #[error(transparent)]
-    Execute(#[from] skald_db_execute::Error),
+    Execute(#[from] notiz_db_execute::Error),
     #[error(transparent)]
-    Reactive(#[from] skald_db_reactive::Error),
+    Reactive(#[from] notiz_db_reactive::Error),
 }
 
 impl Serialize for Error {

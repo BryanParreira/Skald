@@ -7,7 +7,7 @@ use utoipa::{Modify, OpenApi};
 #[derive(OpenApi)]
 #[openapi(
     info(
-        title = "Skald AI API",
+        title = "Notiz AI API",
         version = "1.0.0",
         description = "AI services API for speech-to-text transcription, LLM chat completions, and subscription management"
     ),
@@ -28,15 +28,15 @@ pub struct ApiDoc;
 pub fn openapi() -> utoipa::openapi::OpenApi {
     let mut doc = ApiDoc::openapi();
 
-    let stt_doc = skald_transcribe_proxy::openapi();
-    let llm_doc = skald_llm_proxy::openapi();
-    let pyannote_doc = with_path_prefix(skald_api_pyannote::openapi(), "/pyannote");
-    let calendar_doc = with_path_prefix(skald_api_calendar::openapi(), "/calendar");
-    let mail_doc = with_path_prefix(skald_api_mail::openapi(), "/mail");
-    let ticket_doc = with_path_prefix(skald_api_ticket::openapi(), "/ticket");
-    let nango_doc = with_path_prefix(skald_api_nango::openapi(), "/nango");
-    let subscription_doc = with_path_prefix(skald_api_subscription::openapi(), "/subscription");
-    let support_doc = skald_api_support::openapi();
+    let stt_doc = notiz_transcribe_proxy::openapi();
+    let llm_doc = notiz_llm_proxy::openapi();
+    let pyannote_doc = with_path_prefix(notiz_api_pyannote::openapi(), "/pyannote");
+    let calendar_doc = with_path_prefix(notiz_api_calendar::openapi(), "/calendar");
+    let mail_doc = with_path_prefix(notiz_api_mail::openapi(), "/mail");
+    let ticket_doc = with_path_prefix(notiz_api_ticket::openapi(), "/ticket");
+    let nango_doc = with_path_prefix(notiz_api_nango::openapi(), "/nango");
+    let subscription_doc = with_path_prefix(notiz_api_subscription::openapi(), "/subscription");
+    let support_doc = notiz_api_support::openapi();
 
     doc.merge(stt_doc);
     doc.merge(llm_doc);

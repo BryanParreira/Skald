@@ -1,15 +1,15 @@
 use std::path::{Path, PathBuf};
 
-pub use skald_am::AmModel;
-use skald_model_downloader::{DownloadableModel, Error};
-pub use skald_transcribe_soniqo::SoniqoModel;
-pub use skald_whisper_local_model::WhisperModel;
+pub use notiz_am::AmModel;
+use notiz_model_downloader::{DownloadableModel, Error};
+pub use notiz_transcribe_soniqo::SoniqoModel;
+pub use notiz_whisper_local_model::WhisperModel;
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize, specta::Type, Eq, Hash, PartialEq)]
 pub enum GgufLlmModel {
     Llama3p2_3bQ4,
     Gemma3_4bQ4,
-    SkaldLLM,
+    NotizLLM,
     Qwen2p5_3bQ4,
 }
 
@@ -17,7 +17,7 @@ impl GgufLlmModel {
     pub fn file_name(&self) -> &str {
         match self {
             GgufLlmModel::Llama3p2_3bQ4 => "llm.gguf",
-            GgufLlmModel::SkaldLLM => "skald-llm.gguf",
+            GgufLlmModel::NotizLLM => "notiz-llm.gguf",
             GgufLlmModel::Gemma3_4bQ4 => "gemma-3-4b-it-Q4_K_M.gguf",
             GgufLlmModel::Qwen2p5_3bQ4 => "qwen2.5-3b-instruct-q4_k_m.gguf",
         }
@@ -28,8 +28,8 @@ impl GgufLlmModel {
             GgufLlmModel::Llama3p2_3bQ4 => {
                 "https://hyprnote.s3.us-east-1.amazonaws.com/v0/lmstudio-community/Llama-3.2-3B-Instruct-GGUF/main/Llama-3.2-3B-Instruct-Q4_K_M.gguf"
             }
-            GgufLlmModel::SkaldLLM => {
-                "https://hyprnote.s3.us-east-1.amazonaws.com/v0/yujonglee/skald-llm-sm/model_q4_k_m.gguf"
+            GgufLlmModel::NotizLLM => {
+                "https://hyprnote.s3.us-east-1.amazonaws.com/v0/yujonglee/notiz-llm-sm/model_q4_k_m.gguf"
             }
             GgufLlmModel::Gemma3_4bQ4 => {
                 "https://hyprnote.s3.us-east-1.amazonaws.com/v0/unsloth/gemma-3-4b-it-GGUF/gemma-3-4b-it-Q4_K_M.gguf"
@@ -38,7 +38,7 @@ impl GgufLlmModel {
             // verified to match the official Qwen/Qwen2.5-3B-Instruct-GGUF
             // source file byte-for-byte before upload.
             GgufLlmModel::Qwen2p5_3bQ4 => {
-                "https://github.com/BryanParreira/Skald/releases/download/models-v1/qwen2.5-3b-instruct-q4_k_m.gguf"
+                "https://github.com/BryanParreira/Notiz/releases/download/models-v1/qwen2.5-3b-instruct-q4_k_m.gguf"
             }
         }
     }
@@ -46,7 +46,7 @@ impl GgufLlmModel {
     pub fn model_size(&self) -> u64 {
         match self {
             GgufLlmModel::Llama3p2_3bQ4 => 2019377440,
-            GgufLlmModel::SkaldLLM => 1107409056,
+            GgufLlmModel::NotizLLM => 1107409056,
             GgufLlmModel::Gemma3_4bQ4 => 2489894016,
             // Confirmed via HF's LFS metadata for the source file.
             GgufLlmModel::Qwen2p5_3bQ4 => 2104932768,
@@ -56,7 +56,7 @@ impl GgufLlmModel {
     pub fn model_checksum(&self) -> u32 {
         match self {
             GgufLlmModel::Llama3p2_3bQ4 => 2831308098,
-            GgufLlmModel::SkaldLLM => 4037351144,
+            GgufLlmModel::NotizLLM => 4037351144,
             GgufLlmModel::Gemma3_4bQ4 => 2760830291,
             GgufLlmModel::Qwen2p5_3bQ4 => 237264834,
         }
@@ -65,7 +65,7 @@ impl GgufLlmModel {
     pub fn display_name(&self) -> &'static str {
         match self {
             GgufLlmModel::Llama3p2_3bQ4 => "Llama 3.2 3B Q4",
-            GgufLlmModel::SkaldLLM => "SkaldLLM",
+            GgufLlmModel::NotizLLM => "NotizLLM",
             GgufLlmModel::Gemma3_4bQ4 => "Gemma 3 4B Q4",
             GgufLlmModel::Qwen2p5_3bQ4 => "Qwen 2.5 3B Q4",
         }
@@ -131,7 +131,7 @@ impl LocalModel {
         models.extend([
             LocalModel::GgufLlm(GgufLlmModel::Qwen2p5_3bQ4),
             LocalModel::GgufLlm(GgufLlmModel::Llama3p2_3bQ4),
-            LocalModel::GgufLlm(GgufLlmModel::SkaldLLM),
+            LocalModel::GgufLlm(GgufLlmModel::NotizLLM),
             LocalModel::GgufLlm(GgufLlmModel::Gemma3_4bQ4),
         ]);
 
@@ -170,7 +170,7 @@ impl LocalModel {
             LocalModel::Am(AmModel::ParakeetV3) => "am-parakeet-v3",
             LocalModel::Am(AmModel::WhisperLargeV3) => "am-whisper-large-v3",
             LocalModel::GgufLlm(GgufLlmModel::Llama3p2_3bQ4) => "llm-llama3-2-3b-q4",
-            LocalModel::GgufLlm(GgufLlmModel::SkaldLLM) => "llm-skald-llm",
+            LocalModel::GgufLlm(GgufLlmModel::NotizLLM) => "llm-notiz-llm",
             LocalModel::GgufLlm(GgufLlmModel::Gemma3_4bQ4) => "llm-gemma3-4b-q4",
             LocalModel::GgufLlm(GgufLlmModel::Qwen2p5_3bQ4) => "llm-qwen2-5-3b-q4",
         }
@@ -244,7 +244,7 @@ impl DownloadableModel for GgufLlmModel {
         }
 
         let actual =
-            skald_file::file_size(&path).map_err(|e| Error::OperationFailed(e.to_string()))?;
+            notiz_file::file_size(&path).map_err(|e| Error::OperationFailed(e.to_string()))?;
         let expected = self.model_size();
         // Only when it disagrees — this is polled every second, so logging
         // the success case floods the log.
@@ -313,7 +313,7 @@ impl DownloadableModel for LocalModel {
 
     fn is_downloaded(&self, models_base: &Path) -> Result<bool, Error> {
         match self {
-            LocalModel::Soniqo(model) => skald_transcribe_soniqo::is_model_downloaded(*model)
+            LocalModel::Soniqo(model) => notiz_transcribe_soniqo::is_model_downloaded(*model)
                 .map_err(|e| Error::OperationFailed(e.to_string())),
             LocalModel::Whisper(model) => {
                 Ok(models_base.join("stt").join(model.file_name()).exists())
@@ -343,7 +343,7 @@ impl DownloadableModel for LocalModel {
 
     fn delete_downloaded(&self, models_base: &Path) -> Result<(), Error> {
         match self {
-            LocalModel::Soniqo(model) => skald_transcribe_soniqo::delete_model(*model)
+            LocalModel::Soniqo(model) => notiz_transcribe_soniqo::delete_model(*model)
                 .map_err(|e| Error::DeleteFailed(e.to_string())),
             LocalModel::Whisper(model) => {
                 let model_path = models_base.join("stt").join(model.file_name());

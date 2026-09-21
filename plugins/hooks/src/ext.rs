@@ -1,4 +1,4 @@
-use skald_hooks::{HookEvent, HookResult, run_hooks_for_event};
+use notiz_hooks::{HookEvent, HookResult, run_hooks_for_event};
 
 use crate::config;
 

@@ -1,10 +1,10 @@
 {
   "ignorePatterns": ["**/*.gen.ts"],
   "plugins": ["promise"],
-  "jsPlugins": ["./eslint-plugin-skald.mjs"],
+  "jsPlugins": ["./eslint-plugin-notiz.mjs"],
   "rules": {
-    "skald/await-tauri-commands": "warn",
-    "skald/no-raw-tinybase": "off"
+    "notiz/await-tauri-commands": "warn",
+    "notiz/no-raw-tinybase": "off"
   },
   "overrides": [
     {
@@ -18,7 +18,7 @@
     {
       "files": ["apps/desktop/src/**/*.{ts,tsx}"],
       "rules": {
-        "skald/no-raw-tinybase": "error"
+        "notiz/no-raw-tinybase": "error"
       }
     },
     {
@@ -33,7 +33,7 @@
         "apps/desktop/src/**/*.spec.tsx"
       ],
       "rules": {
-        "skald/no-raw-tinybase": "off"
+        "notiz/no-raw-tinybase": "off"
       }
     },
     {
@@ -64,7 +64,7 @@
         "apps/desktop/src/templates/utils.ts"
       ],
       "rules": {
-        "skald/no-raw-tinybase": "off"
+        "notiz/no-raw-tinybase": "off"
       }
     }
   ]

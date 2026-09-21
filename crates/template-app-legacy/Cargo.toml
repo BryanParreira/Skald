@@ -22,4 +22,4 @@ reqwest = { workspace = true, features = ["blocking"] }
 
 [dev-dependencies]
 insta = { workspace = true }
-skald-data = { workspace = true }
+notiz-data = { workspace = true }

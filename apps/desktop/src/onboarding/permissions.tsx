@@ -8,8 +8,8 @@ import {
 } from "lucide-react";
 import { useEffect, useRef } from "react";
 
-import { type PermissionStatus } from "@skald/plugin-permissions";
-import { cn } from "@skald/utils";
+import { type PermissionStatus } from "@notiz/plugin-permissions";
+import { cn } from "@notiz/utils";
 
 import { usePermission } from "~/shared/hooks/usePermissions";
 
@@ -138,10 +138,10 @@ export function PermissionsSection({
   return (
     <div className="@container flex items-stretch gap-3">
       <PermissionBlock
-        enabledLabel={t`Skald can hear your voice`}
+        enabledLabel={t`Notiz can hear your voice`}
         enableLabel={t`Allow microphone access`}
         enabledBody={t`Microphone access turned on`}
-        enableBody={t`Help Skald listen to you`}
+        enableBody={t`Help Notiz listen to you`}
         Icon={MicIcon}
         permissionName={t`Microphone`}
         status={mic.status}
@@ -150,10 +150,10 @@ export function PermissionsSection({
       />
 
       <PermissionBlock
-        enabledLabel={t`Skald can hear others`}
+        enabledLabel={t`Notiz can hear others`}
         enableLabel={t`Allow system audio access`}
         enabledBody={t`System audio enabled`}
-        enableBody={t`Help Skald listen to others`}
+        enableBody={t`Help Notiz listen to others`}
         Icon={Volume2Icon}
         permissionName={t`System audio`}
         status={systemAudio.status}

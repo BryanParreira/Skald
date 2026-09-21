@@ -4,16 +4,16 @@ import { ArrowRight, ChevronDown, Cloud, Cpu, KeyRound } from "lucide-react";
 import { type CSSProperties, useEffect, useRef, useState } from "react";
 import { z } from "zod";
 
-import { DancingSticks } from "@skald/ui/components/ui/dancing-sticks";
-import { Spinner } from "@skald/ui/components/ui/spinner";
-import { cn } from "@skald/utils";
+import { DancingSticks } from "@notiz/ui/components/ui/dancing-sticks";
+import { Spinner } from "@notiz/ui/components/ui/spinner";
+import { cn } from "@notiz/utils";
 
 import { SiteFooter } from "@/components/site-footer";
 import { desktopSchemeSchema } from "@/functions/desktop-flow";
 import { getGitHubStats, getStargazers } from "@/functions/github";
 import { useMountEffect } from "@/hooks/useMountEffect";
 import {
-  SKALD_SITE_URL,
+  NOTIZ_SITE_URL,
   ROOT_DESCRIPTION,
   getOrganizationJsonLd,
   getSoftwareApplicationJsonLd,
@@ -26,7 +26,7 @@ const manifestoLetter = [
   "Notetaking matters more than note-takers. A note-taker is passive. A notepad is something you use. You stay present and in control while the room is still alive.",
   "Most AI tools ask you to move your memory into their ecosystem and rules. Meeting notes should move the other way: back to files on your disk and software you can run offline.",
   "Files endure. Interfaces change. Your notes should survive us. Use on-device models or your own keys, not a service you cannot inspect.",
-  "Skald is our attempt to build that meeting notepad.",
+  "Notiz is our attempt to build that meeting notepad.",
 ];
 
 const manifestoSigners = MANIFESTO_SIGNERS;
@@ -70,28 +70,28 @@ const credibilityLogos = [
 
 const testimonials = [
   {
-    quote: "Skald is great and local.",
+    quote: "Notiz is great and local.",
     author: "Tobi Lutke",
     username: "tobi",
     avatar: "/api/assets/blog/testimonials/tobi.jpg/",
     url: "https://x.com/tobi/status/1983892259230699921",
   },
   {
-    quote: "Skald is worth a look.",
+    quote: "Notiz is worth a look.",
     author: "Anand Chowdhary",
     username: "AnandChowdhary",
     avatar: "/api/assets/blog/testimonials/anand.jpg/",
     url: "https://x.com/AnandChowdhary/status/1997980479698723119",
   },
   {
-    quote: "Skald is one of my favorite AI secret weapons.",
+    quote: "Notiz is one of my favorite AI secret weapons.",
     author: "James Koshigoe",
     username: "JamesKoshigoe",
     avatar: "/api/assets/blog/testimonials/james-k.jpg/",
     url: "https://x.com/JamesKoshigoe/status/2024676687980671195",
   },
   {
-    quote: "Really liking Skald. Open access to my data and a GPL codebase!",
+    quote: "Really liking Notiz. Open access to my data and a GPL codebase!",
     author: "James LePage",
     username: "jameswlepage",
     avatar: "/api/assets/blog/testimonials/james-l.jpg/",
@@ -99,7 +99,7 @@ const testimonials = [
   },
   {
     quote:
-      "I love the flexibility that Skald gives me to integrate personal notes with AI summaries.",
+      "I love the flexibility that Notiz gives me to integrate personal notes with AI summaries.",
     author: "Tom Yang",
     username: "tomyang11_",
     avatar: "/api/assets/blog/testimonials/tom.jpg/",
@@ -147,15 +147,15 @@ const desktopTestimonialSidePositions: TestimonialCardPosition[] = [
 ];
 
 const testimonialDeckStateVersion = 3;
-const testimonialNameContext = "Name context: Skald became Char, then Skald.";
+const testimonialNameContext = "Name context: Notiz became Char, then Notiz.";
 
 function formatTestimonialOffset(offset: TestimonialCardPosition["x"]) {
   return typeof offset === "number" ? `${offset}px` : offset;
 }
 
 function renderPullQuote(quote: string) {
-  return quote.split(/(Skald)/g).map((part, index) => {
-    if (part !== "Skald") return part;
+  return quote.split(/(Notiz)/g).map((part, index) => {
+    if (part !== "Notiz") return part;
 
     return (
       <mark
@@ -268,7 +268,7 @@ const authCallbackSearchSchema = z.object({
     .optional()
     .catch(undefined),
   flow: z.enum(["desktop", "web"]).optional().catch("desktop"),
-  scheme: desktopSchemeSchema.optional().catch("skald"),
+  scheme: desktopSchemeSchema.optional().catch("notiz"),
   redirect: z.string().optional(),
   error: z.string().optional(),
   error_description: z.string().optional(),
@@ -285,7 +285,7 @@ export const Route = createFileRoute("/")({
     }
 
     const flow = search.flow ?? "desktop";
-    const scheme = search.scheme ?? "skald";
+    const scheme = search.scheme ?? "notiz";
 
     throw redirect({
       to: "/auth/",
@@ -314,7 +314,7 @@ export const Route = createFileRoute("/")({
     };
   },
   head: () => ({
-    links: [{ rel: "canonical", href: SKALD_SITE_URL }],
+    links: [{ rel: "canonical", href: NOTIZ_SITE_URL }],
     scripts: [
       {
         type: "application/ld+json",
@@ -345,7 +345,7 @@ function Component() {
               AI notepad for private meetings.
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#4f4940]">
-              Jot notes during the call. Skald turns them into an editable
+              Jot notes during the call. Notiz turns them into an editable
               summary.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-x-5 gap-y-3 text-sm">
@@ -452,7 +452,7 @@ function FinalCtaSection() {
           Keep your meeting notes yours.
         </h2>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#4f4940]">
-          Try Skald today and be present in meetings.
+          Try Notiz today and be present in meetings.
         </p>
         <a
           href={appleSiliconDownloadUrl}
@@ -499,12 +499,12 @@ function OpenSourceSection({
           Open source by default
         </h2>
         <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-[#4f4940]">
-          We deeply care about transparency. Skald is open source so anyone can
+          We deeply care about transparency. Notiz is open source so anyone can
           inspect how meeting memory is handled.
         </p>
 
         <a
-          href="https://github.com/BryanParreira/Skald"
+          href="https://github.com/BryanParreira/Notiz"
           target="_blank"
           rel="noopener noreferrer"
           className="mt-6 inline-flex items-center gap-2 rounded-full border border-neutral-300 bg-white px-5 py-3 text-sm font-medium text-neutral-900 transition-colors hover:border-neutral-400 hover:bg-neutral-100"
@@ -646,7 +646,7 @@ function TestimonialsSection() {
           What people say
         </h2>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#4f4940]">
-          It's clear they love Skald.
+          It's clear they love Notiz.
         </p>
       </div>
 
@@ -754,7 +754,7 @@ function PrivacySection() {
           Your data stays yours
         </h2>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#4f4940]">
-          Skald is built around data you own, privacy you control, and notes
+          Notiz is built around data you own, privacy you control, and notes
           that stay useful outside our app.
         </p>
       </div>

@@ -5,19 +5,19 @@ edition = "2024"
 
 [features]
 default = ["onnx"]
-onnx = ["dep:skald-onnx"]
+onnx = ["dep:notiz-onnx"]
 
 [dependencies]
-skald-onnx = { workspace = true, optional = true }
+notiz-onnx = { workspace = true, optional = true }
 thiserror = { workspace = true }
 
 [dev-dependencies]
 approx = { workspace = true }
 criterion = { workspace = true }
 hound = { workspace = true }
+notiz-data = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true }
-skald-data = { workspace = true }
 
 [[bench]]
 name = "segmentation_bench"

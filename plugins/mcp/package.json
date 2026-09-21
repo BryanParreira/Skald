@@ -1,5 +1,5 @@
 {
-  "name": "@skald/plugin-mcp",
+  "name": "@notiz/plugin-mcp",
   "private": true,
   "main": "./js/index.ts",
   "scripts": {

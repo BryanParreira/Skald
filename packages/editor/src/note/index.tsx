@@ -32,7 +32,7 @@ import {
   useState,
 } from "react";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 import { EditorErrorBoundary } from "../editor-error-boundary";
 import {

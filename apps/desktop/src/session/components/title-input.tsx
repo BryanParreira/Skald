@@ -13,7 +13,7 @@ import {
 } from "react";
 import { useResizeObserver } from "usehooks-ts";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 import { useTitleGenerating } from "~/ai/hooks";
 import * as main from "~/store/tinybase/store/main";

@@ -1,5 +1,5 @@
+use notiz_pyannote_cloud::types;
 use serde::{Deserialize, Serialize};
-use skald_pyannote_cloud::types;
 use utoipa::ToSchema;
 
 #[derive(Debug, Deserialize, Serialize, ToSchema)]

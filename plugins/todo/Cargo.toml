@@ -8,11 +8,11 @@ links = "tauri-plugin-todo"
 description = ""
 
 [dependencies]
-skald-api-client = { workspace = true }
-skald-apple-todo = { workspace = true, features = ["specta"] }
-skald-github-issues = { workspace = true, features = ["specta"] }
-skald-http = { workspace = true }
-skald-ticket-interface = { workspace = true }
+notiz-api-client = { workspace = true }
+notiz-apple-todo = { workspace = true, features = ["specta"] }
+notiz-github-issues = { workspace = true, features = ["specta"] }
+notiz-http = { workspace = true }
+notiz-ticket-interface = { workspace = true }
 
 tauri = { workspace = true, features = ["test"] }
 tauri-plugin-auth = { workspace = true }

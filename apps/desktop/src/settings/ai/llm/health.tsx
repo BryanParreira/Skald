@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { generateText } from "ai";
 import { useEffect } from "react";
 
-import { Spinner } from "@skald/ui/components/ui/spinner";
+import { Spinner } from "@notiz/ui/components/ui/spinner";
 
 import { useLanguageModel } from "~/ai/hooks";
 

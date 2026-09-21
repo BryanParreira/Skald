@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from "react";
 
-import type { ContactsSelection } from "@skald/plugin-windows";
+import type { ContactsSelection } from "@notiz/plugin-windows";
 
 import { DetailsColumn } from "./details";
 import { OrganizationDetailsColumn } from "./organization-details";

@@ -1,4 +1,4 @@
-import { commands as fsSyncCommands } from "@skald/plugin-fs-sync";
+import { commands as fsSyncCommands } from "@notiz/plugin-fs-sync";
 
 import type { Store } from "~/store/tinybase/store/main";
 

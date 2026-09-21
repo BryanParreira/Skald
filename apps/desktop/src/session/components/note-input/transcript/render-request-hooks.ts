@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import type {
   RenderTranscriptHuman,
   RenderTranscriptRequest,
-} from "@skald/plugin-transcription";
+} from "@notiz/plugin-transcription";
 
 import { getUniqueRowIds, useStoreRowsRevision } from "~/store/tinybase/hooks";
 import * as main from "~/store/tinybase/store/main";

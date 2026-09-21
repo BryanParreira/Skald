@@ -9,9 +9,9 @@ pub use error::{Error, Result};
 pub use ext::*;
 use store::*;
 
-pub use skald_analytics::*;
+pub use notiz_analytics::*;
 
-pub type ManagedState = skald_analytics::AnalyticsClient;
+pub type ManagedState = notiz_analytics::AnalyticsClient;
 
 const PLUGIN_NAME: &str = "analytics";
 
@@ -34,13 +34,13 @@ pub fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
     tauri::plugin::Builder::new(PLUGIN_NAME)
         .invoke_handler(specta_builder.invoke_handler())
         .setup(|app, _api| {
-            // Skald collects no usage analytics. The client is built with no
+            // Notiz collects no usage analytics. The client is built with no
             // PostHog key, which leaves its `posthog` field `None` and makes
             // every event a no-op, so nothing leaves the device no matter
             // what any caller does. The plugin itself stays because
-            // `plugins/flag` reuses `skald_analytics::AnalyticsClient` as the
+            // `plugins/flag` reuses `notiz_analytics::AnalyticsClient` as the
             // type of its managed state for feature flags.
-            let client = skald_analytics::AnalyticsClientBuilder::default().build();
+            let client = notiz_analytics::AnalyticsClientBuilder::default().build();
 
             assert!(app.manage(client));
             Ok(())
@@ -71,7 +71,7 @@ mod test {
 
     fn create_app<R: tauri::Runtime>(builder: tauri::Builder<R>) -> tauri::App<R> {
         let mut ctx = tauri::test::mock_context(tauri::test::noop_assets());
-        ctx.config_mut().identifier = "com.skald.dev".to_string();
+        ctx.config_mut().identifier = "com.notiz.dev".to_string();
         ctx.config_mut().version = Some("0.0.1".to_string());
 
         builder.plugin(init()).build(ctx).unwrap()
@@ -82,7 +82,7 @@ mod test {
         let app = create_app(tauri::test::mock_builder());
         let result = app
             .analytics()
-            .event(skald_analytics::AnalyticsPayload::builder("test_event").build())
+            .event(notiz_analytics::AnalyticsPayload::builder("test_event").build())
             .await;
         assert!(result.is_ok());
 

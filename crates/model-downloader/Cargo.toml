@@ -7,8 +7,8 @@ edition = "2024"
 specta = ["dep:specta"]
 
 [dependencies]
-skald-download-interface = { workspace = true }
-skald-file = { workspace = true }
+notiz-download-interface = { workspace = true }
+notiz-file = { workspace = true }
 
 serde = { workspace = true }
 specta = { workspace = true, optional = true }

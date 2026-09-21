@@ -1,14 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo } from "react";
 
-import { commands as localSttCommands } from "@skald/plugin-local-stt";
-import type { AIProviderStorage } from "@skald/store";
+import { commands as localSttCommands } from "@notiz/plugin-local-stt";
+import type { AIProviderStorage } from "@notiz/store";
 
 import { useBillingAccess } from "~/auth/billing";
 import { providerRowId } from "~/settings/ai/shared";
 import { type ProviderId } from "~/settings/ai/stt/shared";
 import * as settings from "~/store/tinybase/store/settings";
-import { isSkaldCloudSttModel, isSkaldLocalSttModel } from "~/stt/capabilities";
+import { isNotizCloudSttModel, isNotizLocalSttModel } from "~/stt/capabilities";
 
 export const useSTTConnection = () => {
   const billing = useBillingAccess();
@@ -51,7 +51,7 @@ export const useSTTConnection = () => {
   );
   useEffect(() => {
     if (!current_stt_provider && isDefaultLocalModelDownloaded) {
-      setSttProvider("skald");
+      setSttProvider("notiz");
       setSttModel(defaultLocalModel);
     }
   }, [
@@ -61,7 +61,7 @@ export const useSTTConnection = () => {
     setSttModel,
   ]);
 
-  const localModel = isSkaldLocalSttModel(
+  const localModel = isNotizLocalSttModel(
     current_stt_provider,
     current_stt_model,
   )
@@ -69,13 +69,13 @@ export const useSTTConnection = () => {
     : null;
   const isLocalModel = !!localModel;
 
-  const isCloudModel = isSkaldCloudSttModel(
+  const isCloudModel = isNotizCloudSttModel(
     current_stt_provider,
     current_stt_model,
   );
 
   const local = useQuery({
-    enabled: current_stt_provider === "skald",
+    enabled: current_stt_provider === "notiz",
     queryKey: ["stt-connection", current_stt_provider, localModel],
     // Every open note mounts this. Poll quickly until the speech server is
     // ready, then back off; a crash is still noticed within ten seconds.

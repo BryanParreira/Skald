@@ -182,7 +182,7 @@ export type CanStartTrialResponse = {
   reason?: null | CanStartTrialReason;
 };
 
-export type SkaldTask = "chat" | "enhance" | "title";
+export type NotizTask = "chat" | "enhance" | "title";
 
 export type ChatStatus = "available" | "doNotDisturb" | "unknown";
 
@@ -1856,7 +1856,7 @@ export type LlmChatCompletionsData = {
     /**
      * Task type for model selection
      */
-    "x-char-task"?: null | SkaldTask;
+    "x-char-task"?: null | NotizTask;
   };
   path?: never;
   query?: never;
@@ -2345,7 +2345,7 @@ export type SttListenStreamData = {
   path?: never;
   query?: {
     /**
-     * STT provider. Use 'skald' for automatic routing (default), or specify:
+     * STT provider. Use 'notiz' for automatic routing (default), or specify:
      * deepgram, soniox, assemblyai, gladia, elevenlabs, fireworks, openai, dashscope, mistral
      */
     provider?: string;
@@ -2396,7 +2396,7 @@ export type SttListenBatchData = {
   path?: never;
   query?: {
     /**
-     * STT provider. Use 'skald' for automatic routing (default), or specify:
+     * STT provider. Use 'notiz' for automatic routing (default), or specify:
      * deepgram, soniox, assemblyai, gladia, elevenlabs, fireworks, openai, dashscope, mistral
      */
     provider?: string;

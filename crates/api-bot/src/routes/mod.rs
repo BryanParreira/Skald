@@ -8,7 +8,7 @@ use axum::{
     routing::{delete, get, post},
 };
 
-use skald_recall::RecallClient;
+use notiz_recall::RecallClient;
 
 use crate::config::BotConfig;
 use crate::error::BotError;

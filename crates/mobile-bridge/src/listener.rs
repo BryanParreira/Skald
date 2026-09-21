@@ -1,6 +1,6 @@
 use std::sync::Arc;
 
-use skald_db_reactive::QueryEventSink;
+use notiz_db_reactive::QueryEventSink;
 
 #[uniffi::export(with_foreign)]
 pub trait QueryEventListener: Send + Sync {

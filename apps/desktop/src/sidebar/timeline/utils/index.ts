@@ -6,7 +6,7 @@ import {
   startOfDay,
   startOfMonth,
   TZDate,
-} from "@skald/utils";
+} from "@notiz/utils";
 
 import { getSessionEvent } from "~/session/utils";
 

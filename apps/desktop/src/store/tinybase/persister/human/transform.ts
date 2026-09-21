@@ -1,5 +1,5 @@
-import type { JsonValue } from "@skald/plugin-fs-sync";
-import type { HumanStorage } from "@skald/store";
+import type { JsonValue } from "@notiz/plugin-fs-sync";
+import type { HumanStorage } from "@notiz/store";
 
 type HumanFrontmatter = Omit<HumanStorage, "memo">;
 

@@ -3,11 +3,11 @@ import { generateText, Output } from "ai";
 import { useCallback, useMemo } from "react";
 import { z } from "zod";
 
-import { createTaskId, type TaskRecord } from "@skald/editor/tasks";
+import { createTaskId, type TaskRecord } from "@notiz/editor/tasks";
 import {
   commands as templateCommands,
   type JsonValue,
-} from "@skald/plugin-template";
+} from "@notiz/plugin-template";
 
 import systemPromptTemplate from "./action-items.system.md.jinja?raw";
 import userPromptTemplate from "./action-items.user.md.jinja?raw";

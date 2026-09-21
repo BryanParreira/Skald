@@ -1,4 +1,4 @@
-use skald_db_core::Db;
+use notiz_db_core::Db;
 use sqlx::{Column, Row, TypeInfo, ValueRef};
 
 use crate::{ProxyQueryMethod, ProxyQueryResult};
@@ -129,8 +129,8 @@ mod tests {
     use super::*;
     use crate::DbExecutor;
 
-    async fn test_db() -> skald_db_core::Db {
-        skald_db_core::Db::connect_memory_plain().await.unwrap()
+    async fn test_db() -> notiz_db_core::Db {
+        notiz_db_core::Db::connect_memory_plain().await.unwrap()
     }
 
     #[tokio::test]

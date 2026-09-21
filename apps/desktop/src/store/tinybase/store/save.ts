@@ -1,6 +1,6 @@
 import { relaunch as tauriRelaunch } from "@tauri-apps/plugin-process";
 
-import { commands as store2Commands } from "@skald/plugin-store2";
+import { commands as store2Commands } from "@notiz/plugin-store2";
 
 import { commands } from "~/types/tauri.gen";
 

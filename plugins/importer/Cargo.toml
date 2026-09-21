@@ -16,8 +16,8 @@ specta-typescript = { workspace = true }
 
 [dependencies]
 legacy-db-parser = { workspace = true }
-skald-granola = { workspace = true }
-skald-importer-core = { workspace = true }
+notiz-granola = { workspace = true }
+notiz-importer-core = { workspace = true }
 
 tauri-plugin-settings = { workspace = true }
 

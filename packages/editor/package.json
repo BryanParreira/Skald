@@ -1,5 +1,5 @@
 {
-  "name": "@skald/editor",
+  "name": "@notiz/editor",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -22,9 +22,9 @@
   "dependencies": {
     "@floating-ui/dom": "^1.7.6",
     "@handlewithcare/react-prosemirror": "^3.0.1",
-    "@skald/plugin-opener2": "workspace:*",
-    "@skald/store": "workspace:*",
-    "@skald/utils": "workspace:^",
+    "@notiz/plugin-opener2": "workspace:*",
+    "@notiz/store": "workspace:*",
+    "@notiz/utils": "workspace:^",
     "facehash": "^0.0.7",
     "lucide-react": "^0.544.0",
     "markdown-it": "^14.1.1",

@@ -1,8 +1,8 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 
-import { deleteConnection } from "@skald/api-client";
-import { createClient } from "@skald/api-client/client";
+import { deleteConnection } from "@notiz/api-client";
+import { createClient } from "@notiz/api-client/client";
 
 import { env } from "@/env";
 import { getAccessToken } from "@/functions/access-token";

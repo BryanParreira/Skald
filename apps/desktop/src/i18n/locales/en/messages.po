@@ -23,12 +23,12 @@ msgid "{0} opened on"
 msgstr "{0} opened on"
 
 #: src/settings/ai/llm/select.tsx:177
-msgid "<0>Language model</0> is needed to make Skald summarize and chat about your conversations."
-msgstr "<0>Language model</0> is needed to make Skald summarize and chat about your conversations."
+msgid "<0>Language model</0> is needed to make Notiz summarize and chat about your conversations."
+msgstr "<0>Language model</0> is needed to make Notiz summarize and chat about your conversations."
 
 #: src/settings/ai/stt/select.tsx:150
-msgid "<0>Transcription model</0> is needed to make Skald listen to your conversations."
-msgstr "<0>Transcription model</0> is needed to make Skald listen to your conversations."
+msgid "<0>Transcription model</0> is needed to make Notiz listen to your conversations."
+msgstr "<0>Transcription model</0> is needed to make Notiz listen to your conversations."
 
 #: src/settings/general/storage/index.tsx:167
 msgid "1 day"
@@ -192,8 +192,8 @@ msgid "Ask anything"
 msgstr "Ask anything"
 
 #: src/shared/chat-cta.tsx:32
-msgid "Ask Skald anything"
-msgstr "Ask Skald anything"
+msgid "Ask Notiz anything"
+msgstr "Ask Notiz anything"
 
 #: src/task/resource-view.tsx:156
 msgid "Assignees:"
@@ -205,8 +205,8 @@ msgid "Audio"
 msgstr "Audio"
 
 #: src/instruction/index.tsx:188
-msgid "Authorize access in your browser, then return to Skald."
-msgstr "Authorize access in your browser, then return to Skald."
+msgid "Authorize access in your browser, then return to Notiz."
+msgstr "Authorize access in your browser, then return to Notiz."
 
 #: src/settings/general/notification.tsx:238
 msgid "Automatically detect when a meeting starts based on microphone activity."
@@ -288,8 +288,8 @@ msgid "Choose storage location"
 msgstr "Choose storage location"
 
 #: src/settings/general/storage/index.tsx:294
-msgid "Choose where Skald should store data. (notes, settings, etc)"
-msgstr "Choose where Skald should store data. (notes, settings, etc)"
+msgid "Choose where Notiz should store data. (notes, settings, etc)"
+msgstr "Choose where Notiz should store data. (notes, settings, etc)"
 
 #: src/settings/dictation/index.tsx:99
 msgid "Clean up text"
@@ -341,8 +341,8 @@ msgid "Company"
 msgstr "Company"
 
 #: src/instruction/index.tsx:241
-msgid "Complete sign-in in your browser, then return to Skald."
-msgstr "Complete sign-in in your browser, then return to Skald."
+msgid "Complete sign-in in your browser, then return to Notiz."
+msgstr "Complete sign-in in your browser, then return to Notiz."
 
 #: src/instruction/index.tsx:170
 msgid "Complete your purchase"
@@ -706,8 +706,8 @@ msgid "Find a note..."
 msgstr "Find a note..."
 
 #: src/instruction/index.tsx:171
-msgid "Finish checkout in your browser, then return to Skald."
-msgstr "Finish checkout in your browser, then return to Skald."
+msgid "Finish checkout in your browser, then return to Notiz."
+msgstr "Finish checkout in your browser, then return to Notiz."
 
 #: src/settings/general/week-start.tsx:58
 msgid "First day of the week in the calendar view"
@@ -775,12 +775,12 @@ msgid "Having trouble?"
 msgstr "Having trouble?"
 
 #: src/onboarding/permissions.tsx:156
-msgid "Help Skald listen to others"
-msgstr "Help Skald listen to others"
+msgid "Help Notiz listen to others"
+msgstr "Help Notiz listen to others"
 
 #: src/onboarding/permissions.tsx:144
-msgid "Help Skald listen to you"
-msgstr "Help Skald listen to you"
+msgid "Help Notiz listen to you"
+msgstr "Help Notiz listen to you"
 
 #: src/sidebar/timeline/index.tsx:463
 msgid "Hide Deleted Events"
@@ -1187,8 +1187,8 @@ msgid "Open settings"
 msgstr "Open settings"
 
 #: src/onboarding/final.tsx:54
-msgid "Open Skald"
-msgstr "Open Skald"
+msgid "Open Notiz"
+msgstr "Open Notiz"
 
 #: src/settings/dictation/index.tsx:92
 msgid "Option"
@@ -1225,8 +1225,8 @@ msgid "Participants"
 msgstr "Participants"
 
 #: src/instruction/index.tsx:263
-msgid "Paste the browser URL here if the browser button did not reopen Skald."
-msgstr "Paste the browser URL here if the browser button did not reopen Skald."
+msgid "Paste the browser URL here if the browser button did not reopen Notiz."
+msgstr "Paste the browser URL here if the browser button did not reopen Notiz."
 
 #: src/contacts/organization-details.tsx:65
 #: src/session/components/note-input/transcript/renderer/speaker-assign.tsx:526
@@ -1387,8 +1387,8 @@ msgid "Required to record your voice during meetings and calls"
 msgstr "Required to record your voice during meetings and calls"
 
 #: src/settings/general/permissions.tsx:192
-msgid "Required to sync Apple Calendar events into Skald"
-msgstr "Required to sync Apple Calendar events into Skald"
+msgid "Required to sync Apple Calendar events into Notiz"
+msgstr "Required to sync Apple Calendar events into Notiz"
 
 #: src/calendar/components/apple/permission.tsx:152
 #: src/settings/general/permissions.tsx:96
@@ -1801,24 +1801,24 @@ msgid "Upload transcript"
 msgstr "Upload transcript"
 
 #: src/settings/general/account.tsx:12
-msgid "Skald"
-msgstr "Skald"
+msgid "Notiz"
+msgstr "Notiz"
 
 #: src/onboarding/permissions.tsx:153
-msgid "Skald can hear others"
-msgstr "Skald can hear others"
+msgid "Notiz can hear others"
+msgstr "Notiz can hear others"
 
 #: src/onboarding/permissions.tsx:141
-msgid "Skald can hear your voice"
-msgstr "Skald can hear your voice"
+msgid "Notiz can hear your voice"
+msgstr "Notiz can hear your voice"
 
 #: src/onboarding/index.tsx:192
-msgid "Skald needs access to your microphone and system audio to record and transcribe your meetings"
-msgstr "Skald needs access to your microphone and system audio to record and transcribe your meetings"
+msgid "Notiz needs access to your microphone and system audio to record and transcribe your meetings"
+msgstr "Notiz needs access to your microphone and system audio to record and transcribe your meetings"
 
 #: src/onboarding/index.tsx:208
-msgid "Skald will sync your calendar to get meeting reminders"
-msgstr "Skald will sync your calendar to get meeting reminders"
+msgid "Notiz will sync your calendar to get meeting reminders"
+msgstr "Notiz will sync your calendar to get meeting reminders"
 
 #: src/contacts/organization-details.tsx:153
 msgid "View LinkedIn profile"
@@ -1833,8 +1833,8 @@ msgid "Week starts on"
 msgstr "Week starts on"
 
 #: src/onboarding/index.tsx:182
-msgid "Welcome to Skald"
-msgstr "Welcome to Skald"
+msgid "Welcome to Notiz"
+msgstr "Welcome to Notiz"
 
 #: src/changelog/index.tsx:165
 msgid "What's new in {version}?"
@@ -1875,12 +1875,12 @@ msgid "You need to select a model to summarize this meeting"
 msgstr "You need to select a model to summarize this meeting"
 
 #: src/session/components/note-input/enhanced/config-error.tsx:52
-msgid "You need to sign in to use Skald's language model"
-msgstr "You need to sign in to use Skald's language model"
+msgid "You need to sign in to use Notiz's language model"
+msgstr "You need to sign in to use Notiz's language model"
 
 #: src/session/components/note-input/enhanced/config-error.tsx:57
-msgid "Your Skald plan has expired. Configure another language model or renew your plan"
-msgstr "Your Skald plan has expired. Configure another language model or renew your plan"
+msgid "Your Notiz plan has expired. Configure another language model or renew your plan"
+msgstr "Your Notiz plan has expired. Configure another language model or renew your plan"
 
 #: src/templates/template-sidebar.tsx:320
 msgid "Z to A"

@@ -1,5 +1,5 @@
 {
-  "name": "@skald/plugin-screen",
+  "name": "@notiz/plugin-screen",
   "private": true,
   "main": "./js/index.ts",
   "scripts": {

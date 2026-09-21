@@ -1,5 +1,5 @@
 {
-  "name": "@skald/plugin-tantivy",
+  "name": "@notiz/plugin-tantivy",
   "private": true,
   "main": "./js/index.ts",
   "scripts": {

@@ -2,7 +2,7 @@ mod chunk_policy;
 mod continuous;
 mod session;
 
-use skald_vad::silero_onnx::CHUNK_SIZE_16KHZ;
+use notiz_vad::silero_onnx::CHUNK_SIZE_16KHZ;
 
 use crate::{AudioChunk, Chunker};
 

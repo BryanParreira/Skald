@@ -6,7 +6,7 @@ mod ext;
 
 pub use error::{Error, Result};
 pub use ext::AgentPluginExt;
-pub use skald_agent_core::*;
+pub use notiz_agent_core::*;
 
 const PLUGIN_NAME: &str = "agent";
 
@@ -18,15 +18,15 @@ fn make_specta_builder<R: tauri::Runtime>() -> tauri_specta::Builder<R> {
             commands::install_cli::<Wry>,
             commands::uninstall_cli::<Wry>,
         ])
-        .typ::<skald_agent_core::ProviderKind>()
-        .typ::<skald_agent_core::ProviderHealthStatus>()
-        .typ::<skald_agent_core::ProviderAuthStatus>()
-        .typ::<skald_agent_core::ProviderHealth>()
-        .typ::<skald_agent_core::HealthCheckResponse>()
-        .typ::<skald_agent_core::InstallCliRequest>()
-        .typ::<skald_agent_core::InstallCliResponse>()
-        .typ::<skald_agent_core::UninstallCliRequest>()
-        .typ::<skald_agent_core::UninstallCliResponse>()
+        .typ::<notiz_agent_core::ProviderKind>()
+        .typ::<notiz_agent_core::ProviderHealthStatus>()
+        .typ::<notiz_agent_core::ProviderAuthStatus>()
+        .typ::<notiz_agent_core::ProviderHealth>()
+        .typ::<notiz_agent_core::HealthCheckResponse>()
+        .typ::<notiz_agent_core::InstallCliRequest>()
+        .typ::<notiz_agent_core::InstallCliResponse>()
+        .typ::<notiz_agent_core::UninstallCliRequest>()
+        .typ::<notiz_agent_core::UninstallCliResponse>()
         .error_handling(tauri_specta::ErrorHandlingMode::Result)
 }
 
@@ -36,7 +36,7 @@ pub fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
     tauri::plugin::Builder::new(PLUGIN_NAME)
         .invoke_handler(specta_builder.invoke_handler())
         .setup(|_app, _api| {
-            skald_agent_core::upgrade_hooks();
+            notiz_agent_core::upgrade_hooks();
             Ok(())
         })
         .build()

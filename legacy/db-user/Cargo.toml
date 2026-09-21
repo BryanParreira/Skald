@@ -5,9 +5,9 @@ edition = "2024"
 
 [dependencies]
 legacy-db-core = { workspace = true }
+notiz-buffer = { workspace = true }
+notiz-language = { workspace = true }
 owhisper-interface = { workspace = true }
-skald-buffer = { workspace = true }
-skald-language = { workspace = true }
 
 libsql = { workspace = true }
 tokio = { workspace = true, features = ["rt", "macros"] }

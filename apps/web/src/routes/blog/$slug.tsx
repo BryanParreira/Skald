@@ -6,7 +6,7 @@ import type { ComponentProps } from "react";
 
 import { mdxComponents } from "@/components/mdx-components";
 import { SiteFooter } from "@/components/site-footer";
-import { SKALD_SITE_URL } from "@/lib/seo";
+import { NOTIZ_SITE_URL } from "@/lib/seo";
 
 const blogMdxComponents = {
   ...mdxComponents,
@@ -25,7 +25,7 @@ export const Route = createFileRoute("/blog/$slug")({
   head: ({ loaderData }) => {
     const article = loaderData?.article;
     if (!article) return {};
-    const url = `${SKALD_SITE_URL}/blog/${article.slug}`;
+    const url = `${NOTIZ_SITE_URL}/blog/${article.slug}`;
     return {
       links: [{ rel: "canonical", href: url }],
       meta: [
@@ -54,8 +54,8 @@ function Component() {
     <main className="min-h-screen bg-white text-[#181613]">
       <div className="mx-auto w-full max-w-[860px] px-5 py-8 md:px-8 md:py-12">
         <header className="flex items-center justify-between gap-6">
-          <Link to="/" aria-label="Skald home">
-            <img src="/logo.svg" alt="Skald" className="h-9 w-auto" />
+          <Link to="/" aria-label="Notiz home">
+            <img src="/logo.svg" alt="Notiz" className="h-9 w-auto" />
           </Link>
         </header>
 
@@ -120,7 +120,7 @@ function BlogTable({ children, ...props }: ComponentProps<"table">) {
 function BlogDownloadCta() {
   return (
     <aside
-      aria-label="Download Skald"
+      aria-label="Download Notiz"
       className="mt-20 border-y border-[#eee8df] bg-[#faf7f1] px-5 py-8 md:px-7"
     >
       <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
@@ -129,7 +129,7 @@ function BlogDownloadCta() {
             Take notes without inviting a bot
           </p>
           <p className="mt-3 max-w-xl text-base leading-7 text-[#4f4940]">
-            Download Skald for private, local-first meeting notes on your Mac.
+            Download Notiz for private, local-first meeting notes on your Mac.
           </p>
         </div>
         <Link

@@ -1,7 +1,7 @@
 {
-  "name": "skald-changelog-generator",
+  "name": "notiz-changelog-generator",
   "version": "1.0.0",
-  "description": "Local AI changelog generator for skald",
+  "description": "Local AI changelog generator for notiz",
   "keywords": [
     "ai",
     "automation",
@@ -10,7 +10,7 @@
     "openrouter"
   ],
   "license": "MIT",
-  "author": "skald",
+  "author": "notiz",
   "main": "generate-changelog-local.js",
   "scripts": {
     "changelog": "node generate-changelog-local.js",

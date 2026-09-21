@@ -1,7 +1,7 @@
+use notiz_ws_client::client::Message;
 use owhisper_interface::ListenParams;
 use owhisper_interface::stream::{Alternatives, Channel, Metadata, StreamResponse};
 use serde::Deserialize;
-use skald_ws_client::client::Message;
 
 use crate::adapter::RealtimeSttAdapter;
 
@@ -16,7 +16,7 @@ impl RealtimeSttAdapter for CartesiaAdapter {
 
     fn is_supported_languages(
         &self,
-        languages: &[skald_language::Language],
+        languages: &[notiz_language::Language],
         _model: Option<&str>,
     ) -> bool {
         CartesiaAdapter::is_supported_languages_live(languages)
@@ -62,7 +62,7 @@ impl RealtimeSttAdapter for CartesiaAdapter {
             Err(error) => {
                 tracing::warn!(
                     error = ?error,
-                    skald.payload.size_bytes = raw.len() as u64,
+                    notiz.payload.size_bytes = raw.len() as u64,
                     "cartesia_json_parse_failed"
                 );
                 return vec![];

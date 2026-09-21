@@ -4,8 +4,8 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-skald-api-error = { workspace = true }
-skald-supabase-auth = { workspace = true, features = ["server"] }
+notiz-api-error = { workspace = true }
+notiz-supabase-auth = { workspace = true, features = ["server"] }
 
 utoipa = { workspace = true }
 

@@ -5,7 +5,7 @@ import { useCreateChatMessage } from "./useCreateChatMessage";
 
 import { useLanguageModel } from "~/ai/hooks";
 import type { ContextRef } from "~/chat/context/entities";
-import type { SkaldUIMessage } from "~/chat/types";
+import type { NotizUIMessage } from "~/chat/types";
 import { id } from "~/shared/utils";
 import * as main from "~/store/tinybase/store/main";
 
@@ -82,9 +82,9 @@ export function useChatActions({
   const handleSendMessage = useCallback(
     (
       content: string,
-      parts: SkaldUIMessage["parts"],
+      parts: NotizUIMessage["parts"],
       sendMessage: (
-        message: SkaldUIMessage,
+        message: NotizUIMessage,
         options?: { chatGroupId?: string },
       ) => void,
       contextRefs?: ContextRef[],
@@ -94,7 +94,7 @@ export function useChatActions({
         createdAt: Date.now(),
         ...(contextRefs && contextRefs.length > 0 ? { contextRefs } : {}),
       };
-      const uiMessage: SkaldUIMessage = {
+      const uiMessage: NotizUIMessage = {
         id: messageId,
         role: "user",
         parts,

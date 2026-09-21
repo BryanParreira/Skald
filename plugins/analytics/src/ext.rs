@@ -9,7 +9,7 @@ pub struct Analytics<'a, R: tauri::Runtime, M: tauri::Manager<R>> {
 impl<'a, R: tauri::Runtime, M: tauri::Manager<R>> Analytics<'a, R, M> {
     pub async fn event(
         &self,
-        mut payload: skald_analytics::AnalyticsPayload,
+        mut payload: notiz_analytics::AnalyticsPayload,
     ) -> Result<(), crate::Error> {
         Self::enrich_payload(self.manager, &mut payload);
 
@@ -17,24 +17,24 @@ impl<'a, R: tauri::Runtime, M: tauri::Manager<R>> Analytics<'a, R, M> {
             return Ok(());
         }
 
-        let machine_id = skald_host::fingerprint();
+        let machine_id = notiz_host::fingerprint();
         let client = self.manager.state::<crate::ManagedState>();
         client
             .event(machine_id, payload)
             .await
-            .map_err(crate::Error::SkaldAnalytics)?;
+            .map_err(crate::Error::NotizAnalytics)?;
 
         Ok(())
     }
 
-    pub fn event_fire_and_forget(&self, mut payload: skald_analytics::AnalyticsPayload) {
+    pub fn event_fire_and_forget(&self, mut payload: notiz_analytics::AnalyticsPayload) {
         Self::enrich_payload(self.manager, &mut payload);
 
         if self.is_disabled().unwrap_or(true) {
             return;
         }
 
-        let machine_id = skald_host::fingerprint();
+        let machine_id = notiz_host::fingerprint();
         let client = self.manager.state::<crate::ManagedState>().inner().clone();
 
         tauri::async_runtime::spawn(async move {
@@ -42,7 +42,7 @@ impl<'a, R: tauri::Runtime, M: tauri::Manager<R>> Analytics<'a, R, M> {
         });
     }
 
-    fn enrich_payload(manager: &M, payload: &mut skald_analytics::AnalyticsPayload) {
+    fn enrich_payload(manager: &M, payload: &mut notiz_analytics::AnalyticsPayload) {
         let app_version = env!("APP_VERSION");
         let app_identifier = manager.config().identifier.clone();
         let git_hash = manager.misc().get_git_hash();
@@ -91,16 +91,16 @@ impl<'a, R: tauri::Runtime, M: tauri::Manager<R>> Analytics<'a, R, M> {
 
     pub async fn set_properties(
         &self,
-        payload: skald_analytics::PropertiesPayload,
+        payload: notiz_analytics::PropertiesPayload,
     ) -> Result<(), crate::Error> {
         if !self.is_disabled()? {
-            let machine_id = skald_host::fingerprint();
+            let machine_id = notiz_host::fingerprint();
 
             let client = self.manager.state::<crate::ManagedState>();
             client
                 .set_properties(machine_id, payload)
                 .await
-                .map_err(crate::Error::SkaldAnalytics)?;
+                .map_err(crate::Error::NotizAnalytics)?;
         }
 
         Ok(())
@@ -109,17 +109,17 @@ impl<'a, R: tauri::Runtime, M: tauri::Manager<R>> Analytics<'a, R, M> {
     pub async fn identify(
         &self,
         user_id: impl Into<String>,
-        payload: skald_analytics::PropertiesPayload,
+        payload: notiz_analytics::PropertiesPayload,
     ) -> Result<(), crate::Error> {
         if !self.is_disabled()? {
-            let machine_id = skald_host::fingerprint();
+            let machine_id = notiz_host::fingerprint();
             let user_id = user_id.into();
 
             let client = self.manager.state::<crate::ManagedState>();
             client
                 .identify(user_id, machine_id, payload)
                 .await
-                .map_err(crate::Error::SkaldAnalytics)?;
+                .map_err(crate::Error::NotizAnalytics)?;
         }
 
         Ok(())

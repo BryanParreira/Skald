@@ -5,11 +5,11 @@ edition = "2024"
 
 [dependencies]
 hex = "0.4"
+notiz-http = { workspace = true }
 reqwest = { workspace = true, features = ["json"] }
 schemars = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true }
-skald-http = { workspace = true }
 specta = { workspace = true, features = ["derive", "serde_json"] }
 strum = { workspace = true, features = ["derive"] }
 thiserror = { workspace = true }

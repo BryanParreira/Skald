@@ -4,7 +4,7 @@ use crate::{
 };
 
 pub fn health(options: &HealthCheckOptions) -> ProviderHealth {
-    let health = skald_codex::health_check_with_options(&skald_codex::CodexOptions {
+    let health = notiz_codex::health_check_with_options(&notiz_codex::CodexOptions {
         codex_path_override: options.codex_path_override.clone(),
         ..Default::default()
     });
@@ -22,20 +22,20 @@ pub fn health(options: &HealthCheckOptions) -> ProviderHealth {
 }
 
 pub fn install_cli() -> Result<InstallCliResponse, String> {
-    let config_path = skald_codex::config_path();
-    let command = skald_codex::notify_command();
+    let config_path = notiz_codex::config_path();
+    let command = notiz_codex::notify_command();
 
-    let mut table = skald_codex::read_config(&config_path)?;
+    let mut table = notiz_codex::read_config(&config_path)?;
 
-    if table.contains_key("notify") && !skald_codex::has_notify(&table, &command) {
+    if table.contains_key("notify") && !notiz_codex::has_notify(&table, &command) {
         return Err(format!(
             "refusing to replace existing notify handler in {}",
             config_path.display()
         ));
     }
 
-    skald_codex::set_notify(&mut table, command);
-    skald_codex::write_config(&config_path, &table)?;
+    notiz_codex::set_notify(&mut table, command);
+    notiz_codex::write_config(&config_path, &table)?;
 
     Ok(InstallCliResponse {
         provider: ProviderKind::Codex,
@@ -48,35 +48,35 @@ pub fn install_cli() -> Result<InstallCliResponse, String> {
 }
 
 pub fn upgrade() {
-    upgrade_at(&skald_codex::config_path());
+    upgrade_at(&notiz_codex::config_path());
 }
 
 fn upgrade_at(config_path: &std::path::Path) {
-    let command = skald_codex::notify_command();
-    let Ok(mut table) = skald_codex::read_config(config_path) else {
+    let command = notiz_codex::notify_command();
+    let Ok(mut table) = notiz_codex::read_config(config_path) else {
         return;
     };
-    if !skald_codex::has_notify(&table, &command) {
+    if !notiz_codex::has_notify(&table, &command) {
         return;
     }
-    skald_codex::set_notify(&mut table, command);
-    let _ = skald_codex::write_config(config_path, &table);
+    notiz_codex::set_notify(&mut table, command);
+    let _ = notiz_codex::write_config(config_path, &table);
 }
 
 pub fn uninstall_cli() -> Result<UninstallCliResponse, String> {
-    let config_path = skald_codex::config_path();
-    let command = skald_codex::notify_command();
-    let mut table = skald_codex::read_config(&config_path)?;
+    let config_path = notiz_codex::config_path();
+    let command = notiz_codex::notify_command();
+    let mut table = notiz_codex::read_config(&config_path)?;
 
-    if table.contains_key("notify") && !skald_codex::has_notify(&table, &command) {
+    if table.contains_key("notify") && !notiz_codex::has_notify(&table, &command) {
         return Err(format!(
             "refusing to remove existing notify handler in {}",
             config_path.display()
         ));
     }
 
-    skald_codex::remove_notify(&mut table);
-    skald_codex::write_config(&config_path, &table)?;
+    notiz_codex::remove_notify(&mut table);
+    notiz_codex::write_config(&config_path, &table)?;
 
     Ok(UninstallCliResponse {
         provider: ProviderKind::Codex,
@@ -89,30 +89,30 @@ pub fn uninstall_cli() -> Result<UninstallCliResponse, String> {
 }
 
 fn integration_installed() -> Result<bool, String> {
-    let config_path = skald_codex::config_path();
-    let table = skald_codex::read_config(&config_path)?;
-    Ok(skald_codex::has_notify(
+    let config_path = notiz_codex::config_path();
+    let table = notiz_codex::read_config(&config_path)?;
+    Ok(notiz_codex::has_notify(
         &table,
-        &skald_codex::notify_command(),
+        &notiz_codex::notify_command(),
     ))
 }
 
-impl From<skald_codex::HealthStatus> for ProviderHealthStatus {
-    fn from(value: skald_codex::HealthStatus) -> Self {
+impl From<notiz_codex::HealthStatus> for ProviderHealthStatus {
+    fn from(value: notiz_codex::HealthStatus) -> Self {
         match value {
-            skald_codex::HealthStatus::Ready => Self::Ready,
-            skald_codex::HealthStatus::Warning => Self::Warning,
-            skald_codex::HealthStatus::Error => Self::Error,
+            notiz_codex::HealthStatus::Ready => Self::Ready,
+            notiz_codex::HealthStatus::Warning => Self::Warning,
+            notiz_codex::HealthStatus::Error => Self::Error,
         }
     }
 }
 
-impl From<skald_codex::HealthAuthStatus> for ProviderAuthStatus {
-    fn from(value: skald_codex::HealthAuthStatus) -> Self {
+impl From<notiz_codex::HealthAuthStatus> for ProviderAuthStatus {
+    fn from(value: notiz_codex::HealthAuthStatus) -> Self {
         match value {
-            skald_codex::HealthAuthStatus::Authenticated => Self::Authenticated,
-            skald_codex::HealthAuthStatus::Unauthenticated => Self::Unauthenticated,
-            skald_codex::HealthAuthStatus::Unknown => Self::Unknown,
+            notiz_codex::HealthAuthStatus::Authenticated => Self::Authenticated,
+            notiz_codex::HealthAuthStatus::Unauthenticated => Self::Unauthenticated,
+            notiz_codex::HealthAuthStatus::Unknown => Self::Unknown,
         }
     }
 }
@@ -139,10 +139,10 @@ mod tests {
 
         upgrade_at(&path);
 
-        let table = skald_codex::read_config(&path).unwrap();
-        assert!(!skald_codex::has_notify(
+        let table = notiz_codex::read_config(&path).unwrap();
+        assert!(!notiz_codex::has_notify(
             &table,
-            &skald_codex::notify_command()
+            &notiz_codex::notify_command()
         ));
     }
 
@@ -152,13 +152,13 @@ mod tests {
         let path = dir.path().join("config.toml");
 
         let mut table = toml::Table::new();
-        let command = skald_codex::notify_command();
-        skald_codex::set_notify(&mut table, command.clone());
-        skald_codex::write_config(&path, &table).unwrap();
+        let command = notiz_codex::notify_command();
+        notiz_codex::set_notify(&mut table, command.clone());
+        notiz_codex::write_config(&path, &table).unwrap();
 
         upgrade_at(&path);
 
-        let table = skald_codex::read_config(&path).unwrap();
-        assert!(skald_codex::has_notify(&table, &command));
+        let table = notiz_codex::read_config(&path).unwrap();
+        assert!(notiz_codex::has_notify(&table, &command));
     }
 }

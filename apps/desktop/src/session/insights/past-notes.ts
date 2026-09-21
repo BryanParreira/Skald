@@ -6,8 +6,8 @@ import { z } from "zod";
 import {
   commands as templateCommands,
   type JsonValue,
-} from "@skald/plugin-template";
-import { format, safeParseDate } from "@skald/utils";
+} from "@notiz/plugin-template";
+import { format, safeParseDate } from "@notiz/utils";
 
 import systemPromptTemplate from "./past-note-key-facts.system.md.jinja?raw";
 import userPromptTemplate from "./past-note-key-facts.user.md.jinja?raw";

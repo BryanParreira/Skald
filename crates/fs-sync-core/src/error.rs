@@ -11,7 +11,7 @@ pub enum Error {
     #[error("Path error: {0}")]
     Path(String),
     #[error(transparent)]
-    Frontmatter(#[from] skald_frontmatter::Error),
+    Frontmatter(#[from] notiz_frontmatter::Error),
     #[error("Markdown error: {0}")]
     Markdown(String),
 }
@@ -30,5 +30,5 @@ pub enum AudioImportError {
     #[error(transparent)]
     Io(#[from] std::io::Error),
     #[error(transparent)]
-    Processing(#[from] skald_audio_norm::Error),
+    Processing(#[from] notiz_audio_norm::Error),
 }

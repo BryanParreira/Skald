@@ -1,7 +1,7 @@
 import {
   type SearchDocument,
   commands as tantivy,
-} from "@skald/plugin-tantivy";
+} from "@notiz/plugin-tantivy";
 
 import {
   createHumanSearchableContent,

@@ -1,4 +1,4 @@
-import type { InstalledApp } from "@skald/plugin-detect";
+import type { InstalledApp } from "@notiz/plugin-detect";
 
 function isAppIgnored({
   bundleId,

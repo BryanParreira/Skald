@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 const SIDEBAR_ROWS = [
   { width: "85%", delay: 0 },

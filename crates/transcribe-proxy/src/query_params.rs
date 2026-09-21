@@ -7,7 +7,7 @@ use axum::{
     http::{StatusCode, request::Parts},
     response::{IntoResponse, Response},
 };
-use skald_language::Language;
+use notiz_language::Language;
 
 #[derive(Debug, Clone)]
 pub enum QueryValue {
@@ -148,7 +148,7 @@ where
 mod tests {
     use super::*;
     use axum::http::Uri;
-    use skald_language::ISO639;
+    use notiz_language::ISO639;
 
     fn parse_query(query: &str) -> QueryParams {
         let uri: Uri = format!("http://example.com{}", query).parse().unwrap();

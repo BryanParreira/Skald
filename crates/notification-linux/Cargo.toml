@@ -14,7 +14,7 @@ required-features = ["linux-examples"]
 tokio = { workspace = true }
 
 [dependencies]
-skald-notification-interface = { workspace = true }
+notiz-notification-interface = { workspace = true }
 
 [target.'cfg(target_os = "linux")'.dependencies]
 gdk = "0.18"

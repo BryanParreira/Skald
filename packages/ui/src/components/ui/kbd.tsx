@@ -1,4 +1,4 @@
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 function Kbd({ className, ...props }: React.ComponentProps<"kbd">) {
   return (

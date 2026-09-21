@@ -5,7 +5,7 @@ import { useMemo } from "react";
 import {
   commands as templateCommands,
   type JsonValue,
-} from "@skald/plugin-template";
+} from "@notiz/plugin-template";
 
 import systemPromptTemplate from "./follow-up.system.md.jinja?raw";
 import userPromptTemplate from "./follow-up.user.md.jinja?raw";

@@ -1,5 +1,5 @@
 {
-  "name": "@skald/agent-core",
+  "name": "@notiz/agent-core",
   "private": true,
   "type": "module",
   "exports": {

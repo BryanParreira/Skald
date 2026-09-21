@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
-import type { LiveQueryClient, Unsubscribe } from "@skald/db-runtime";
+import type { LiveQueryClient, Unsubscribe } from "@notiz/db-runtime";
 
 type UseLiveQueryOptions<TRow, TData> = {
   sql: string;

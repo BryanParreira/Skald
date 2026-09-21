@@ -1,5 +1,5 @@
 {
-  "name": "@skald/plugin-sfx",
+  "name": "@notiz/plugin-sfx",
   "private": true,
   "main": "./js/index.ts",
   "scripts": {

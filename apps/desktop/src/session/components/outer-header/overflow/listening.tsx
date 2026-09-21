@@ -1,6 +1,6 @@
 import { MicIcon, MicOffIcon } from "lucide-react";
 
-import { DropdownMenuItem } from "@skald/ui/components/ui/dropdown-menu";
+import { DropdownMenuItem } from "@notiz/ui/components/ui/dropdown-menu";
 
 import { useListener } from "~/stt/contexts";
 import { useStartListening } from "~/stt/useStartListening";

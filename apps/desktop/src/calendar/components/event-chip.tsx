@@ -1,14 +1,14 @@
 import { format } from "date-fns";
 import { useCallback, useMemo } from "react";
 
-import { Button } from "@skald/ui/components/ui/button";
+import { Button } from "@notiz/ui/components/ui/button";
 import {
   AppFloatingPanel,
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@skald/ui/components/ui/popover";
-import { cn } from "@skald/utils";
+} from "@notiz/ui/components/ui/popover";
+import { cn } from "@notiz/utils";
 
 import { toTz, useCalendar, useTimezone } from "~/calendar/hooks";
 import { EventDisplay } from "~/session/components/outer-header/metadata";

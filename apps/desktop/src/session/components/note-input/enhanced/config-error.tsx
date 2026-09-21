@@ -2,7 +2,7 @@ import { Trans } from "@lingui/react/macro";
 import { ArrowRightIcon } from "lucide-react";
 import type { ReactNode } from "react";
 
-import { Button } from "@skald/ui/components/ui/button";
+import { Button } from "@notiz/ui/components/ui/button";
 
 import type { LLMConnectionStatus } from "~/ai/hooks";
 import { useTabs } from "~/store/zustand/tabs";
@@ -49,13 +49,13 @@ function getMessageForStatus(status: LLMConnectionStatus): ReactNode {
   }
 
   if (status.status === "error" && status.reason === "unauthenticated") {
-    return <Trans>You need to sign in to use Skald's language model</Trans>;
+    return <Trans>You need to sign in to use Notiz's language model</Trans>;
   }
 
   if (status.status === "error" && status.reason === "not_pro") {
     return (
       <Trans>
-        Your Skald plan has expired. Configure another language model or renew
+        Your Notiz plan has expired. Configure another language model or renew
         your plan
       </Trans>
     );

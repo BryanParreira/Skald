@@ -1,8 +1,8 @@
 use std::path::Path;
 
-use skald_db_core::{Db, DbOpenOptions, DbStorage};
-use skald_db_execute::{DbExecutor, ProxyQueryMethod, ProxyQueryResult};
-use skald_db_reactive::{LiveQueryRuntime, QueryEventSink, SubscriptionRegistration};
+use notiz_db_core::{Db, DbOpenOptions, DbStorage};
+use notiz_db_execute::{DbExecutor, ProxyQueryMethod, ProxyQueryResult};
+use notiz_db_reactive::{LiveQueryRuntime, QueryEventSink, SubscriptionRegistration};
 use tauri::ipc::Channel;
 
 use crate::{QueryEvent, Result};
@@ -49,7 +49,7 @@ impl PluginDbRuntime {
 
     async fn ensure_app_schema(&self) -> Result<()> {
         self.schema_ready
-            .get_or_try_init(|| async { skald_db_app::prepare_schema(self.db.as_ref()).await })
+            .get_or_try_init(|| async { notiz_db_app::prepare_schema(self.db.as_ref()).await })
             .await?;
         Ok(())
     }
@@ -83,7 +83,7 @@ impl PluginDbRuntime {
         Ok(self.live_query_runtime.subscribe(sql, params, sink).await?)
     }
 
-    pub async fn unsubscribe(&self, subscription_id: &str) -> skald_db_reactive::Result<()> {
+    pub async fn unsubscribe(&self, subscription_id: &str) -> notiz_db_reactive::Result<()> {
         self.live_query_runtime.unsubscribe(subscription_id).await
     }
 }
@@ -103,7 +103,7 @@ pub async fn open_app_db(db_path: Option<&Path>) -> Result<Db> {
     })
     .await?;
 
-    skald_db_app::prepare_schema(&db).await?;
+    notiz_db_app::prepare_schema(&db).await?;
 
     Ok(db)
 }

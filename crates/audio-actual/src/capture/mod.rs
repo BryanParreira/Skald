@@ -1,7 +1,7 @@
 mod joiner;
 mod stream;
 
-use skald_audio::{CaptureConfig, CaptureStream, Error};
+use notiz_audio::{CaptureConfig, CaptureStream, Error};
 use stream::{CaptureSide, setup_mic_stream, setup_speaker_stream};
 
 pub(crate) fn open_capture(config: CaptureConfig) -> Result<CaptureStream, Error> {

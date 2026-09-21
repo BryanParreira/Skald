@@ -2,15 +2,15 @@ import { Trans, useLingui } from "@lingui/react/macro";
 import { ArrowDownUp, BookText, Plus, Search, X } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import { Button } from "@skald/ui/components/ui/button";
+import { Button } from "@notiz/ui/components/ui/button";
 import {
   AppFloatingPanel,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@skald/ui/components/ui/dropdown-menu";
-import { cn } from "@skald/utils";
+} from "@notiz/ui/components/ui/dropdown-menu";
+import { cn } from "@notiz/utils";
 
 import { type WebTemplate } from "./codec";
 import { getTemplateCopyTitle, type UserTemplate } from "./queries";

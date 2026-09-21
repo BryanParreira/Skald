@@ -4,8 +4,8 @@ import type { StoreApi } from "zustand";
 import {
   commands as listenerCommands,
   type CaptureParams,
-} from "@skald/plugin-transcription";
-import type { TranscriptionParams } from "@skald/plugin-transcription";
+} from "@notiz/plugin-transcription";
+import type { TranscriptionParams } from "@notiz/plugin-transcription";
 
 import type { BatchActions, BatchState } from "./batch";
 import { runBatchSession } from "./general-batch";

@@ -3,8 +3,8 @@ use std::str::FromStr;
 
 use crate::listener::ListenerPluginExt;
 use crate::{CaptureConfigUpdate, CaptureParams, CaptureState};
-use skald_transcript::{RenderTranscriptRequest, RenderedTranscriptSegment};
-use skald_transcription_core::listener2 as listener2_core;
+use notiz_transcript::{RenderTranscriptRequest, RenderedTranscriptSegment};
+use notiz_transcription_core::listener2 as listener2_core;
 
 #[tauri::command]
 #[specta::specta]
@@ -95,7 +95,7 @@ pub async fn is_supported_languages_live<R: tauri::Runtime>(
 
     let languages_parsed = languages
         .iter()
-        .map(|s| skald_language::Language::from_str(s))
+        .map(|s| notiz_language::Language::from_str(s))
         .collect::<Result<Vec<_>, _>>()
         .map_err(|e| format!("unknown_language: {}", e))?;
 
@@ -110,7 +110,7 @@ pub async fn suggest_providers_for_languages_live<R: tauri::Runtime>(
 ) -> Result<Vec<String>, String> {
     let languages_parsed = languages
         .iter()
-        .map(|s| skald_language::Language::from_str(s))
+        .map(|s| notiz_language::Language::from_str(s))
         .collect::<Result<Vec<_>, _>>()
         .map_err(|e| format!("unknown_language: {}", e))?;
 
@@ -159,5 +159,5 @@ pub async fn list_documented_language_codes_live<R: tauri::Runtime>(
 pub async fn render_transcript_segments(
     params: RenderTranscriptRequest,
 ) -> Result<Vec<RenderedTranscriptSegment>, String> {
-    Ok(skald_transcript::render_transcript_segments(params))
+    Ok(notiz_transcript::render_transcript_segments(params))
 }

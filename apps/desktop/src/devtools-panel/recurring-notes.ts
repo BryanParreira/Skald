@@ -5,7 +5,7 @@ import type {
   SessionEvent,
   SessionKeyFactsStorage,
   SessionStorage,
-} from "@skald/store";
+} from "@notiz/store";
 
 import { buildPastSessionNotes } from "~/session/insights/past-notes";
 import { DEFAULT_USER_ID } from "~/shared/utils";

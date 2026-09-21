@@ -4,7 +4,7 @@ use crate::AgentPluginExt;
 #[specta::specta]
 pub fn health_check<R: tauri::Runtime>(
     app: tauri::AppHandle<R>,
-) -> Result<skald_agent_core::HealthCheckResponse, String> {
+) -> Result<notiz_agent_core::HealthCheckResponse, String> {
     Ok(app.agent().health_check())
 }
 
@@ -12,8 +12,8 @@ pub fn health_check<R: tauri::Runtime>(
 #[specta::specta]
 pub fn install_cli<R: tauri::Runtime>(
     app: tauri::AppHandle<R>,
-    payload: skald_agent_core::InstallCliRequest,
-) -> Result<skald_agent_core::InstallCliResponse, String> {
+    payload: notiz_agent_core::InstallCliRequest,
+) -> Result<notiz_agent_core::InstallCliResponse, String> {
     app.agent().install_cli(payload)
 }
 
@@ -21,7 +21,7 @@ pub fn install_cli<R: tauri::Runtime>(
 #[specta::specta]
 pub fn uninstall_cli<R: tauri::Runtime>(
     app: tauri::AppHandle<R>,
-    payload: skald_agent_core::UninstallCliRequest,
-) -> Result<skald_agent_core::UninstallCliResponse, String> {
+    payload: notiz_agent_core::UninstallCliRequest,
+) -> Result<notiz_agent_core::UninstallCliResponse, String> {
     app.agent().uninstall_cli(payload)
 }

@@ -2,7 +2,7 @@ use std::convert::TryFrom;
 
 use bytes::{BufMut, Bytes, BytesMut};
 use futures_util::{Stream, StreamExt};
-use skald_audio_interface::AsyncSource;
+use notiz_audio_interface::AsyncSource;
 
 mod error;
 mod pcm;
@@ -52,7 +52,7 @@ pub trait AudioFormatExt: AsyncSource {
     where
         Self: Sized + Send + Unpin + 'static,
     {
-        skald_resampler::ResamplerDynamicOld::new(self, sample_rate)
+        notiz_resampler::ResamplerDynamicOld::new(self, sample_rate)
             .chunks(chunk_size)
             .map(|chunk| {
                 let n = std::mem::size_of::<f32>() * chunk.len();
@@ -183,7 +183,7 @@ pub fn mix_audio_pcm16le(mic: &[u8], speaker: &[u8]) -> Vec<u8> {
     mixed
 }
 
-pub use skald_audio_mime::content_type_to_extension;
+pub use notiz_audio_mime::content_type_to_extension;
 
 pub fn source_from_path(
     path: impl AsRef<std::path::Path>,
@@ -363,14 +363,14 @@ mod tests {
     }
 
     test_audio_file_metadata! {
-        test_audio_file_metadata_wav: skald_data::english_1::AUDIO_PATH,
-        test_audio_file_metadata_mp3: skald_data::english_1::AUDIO_MP3_PATH,
-        test_audio_file_metadata_mp4: skald_data::english_1::AUDIO_MP4_PATH,
-        test_audio_file_metadata_m4a: skald_data::english_1::AUDIO_M4A_PATH,
-        test_audio_file_metadata_ogg: skald_data::english_1::AUDIO_OGG_PATH,
-        test_audio_file_metadata_flac: skald_data::english_1::AUDIO_FLAC_PATH,
-        test_audio_file_metadata_aac: skald_data::english_1::AUDIO_AAC_PATH,
-        test_audio_file_metadata_aiff: skald_data::english_1::AUDIO_AIFF_PATH,
+        test_audio_file_metadata_wav: notiz_data::english_1::AUDIO_PATH,
+        test_audio_file_metadata_mp3: notiz_data::english_1::AUDIO_MP3_PATH,
+        test_audio_file_metadata_mp4: notiz_data::english_1::AUDIO_MP4_PATH,
+        test_audio_file_metadata_m4a: notiz_data::english_1::AUDIO_M4A_PATH,
+        test_audio_file_metadata_ogg: notiz_data::english_1::AUDIO_OGG_PATH,
+        test_audio_file_metadata_flac: notiz_data::english_1::AUDIO_FLAC_PATH,
+        test_audio_file_metadata_aac: notiz_data::english_1::AUDIO_AAC_PATH,
+        test_audio_file_metadata_aiff: notiz_data::english_1::AUDIO_AIFF_PATH,
     }
 
     #[test]

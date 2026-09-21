@@ -7,7 +7,7 @@ const { successMock, errorMock } = vi.hoisted(() => ({
   errorMock: vi.fn(),
 }));
 
-vi.mock("@skald/ui/components/ui/toast", () => ({
+vi.mock("@notiz/ui/components/ui/toast", () => ({
   sonnerToast: { success: successMock, error: errorMock },
 }));
 

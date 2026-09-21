@@ -1,6 +1,6 @@
 import { sep } from "@tauri-apps/api/path";
 
-import type { TranscriptJson, TranscriptWithData } from "@skald/plugin-fs-sync";
+import type { TranscriptJson, TranscriptWithData } from "@notiz/plugin-fs-sync";
 
 import {
   buildSessionPath,

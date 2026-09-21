@@ -4,18 +4,18 @@ use serde::{Serialize, ser::Serializer};
 pub enum Error {
     #[cfg(feature = "onnx")]
     #[error(transparent)]
-    SkaldOnnxError(#[from] skald_onnx::Error),
+    NotizOnnxError(#[from] notiz_onnx::Error),
 
     #[cfg(feature = "onnx")]
     #[error(transparent)]
-    OrtError(#[from] skald_onnx::ort::Error),
+    OrtError(#[from] notiz_onnx::ort::Error),
 
     #[error(transparent)]
     FftError(#[from] realfft::FftError),
 
     #[cfg(feature = "onnx")]
     #[error(transparent)]
-    ShapeError(#[from] skald_onnx::ndarray::ShapeError),
+    ShapeError(#[from] notiz_onnx::ndarray::ShapeError),
 
     #[error("Missing output tensor: {0}")]
     MissingOutput(String),

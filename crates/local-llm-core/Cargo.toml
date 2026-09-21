@@ -7,10 +7,10 @@ edition = "2024"
 specta = ["dep:specta"]
 
 [dependencies]
-skald-file = { workspace = true }
-skald-gguf = { workspace = true }
-skald-lmstudio = { workspace = true }
-skald-local-model = { workspace = true }
+notiz-file = { workspace = true }
+notiz-gguf = { workspace = true }
+notiz-lmstudio = { workspace = true }
+notiz-local-model = { workspace = true }
 
 dirs = { workspace = true }
 serde = { workspace = true }

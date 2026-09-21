@@ -5,7 +5,7 @@ import { EnhancerService } from ".";
 
 import { listenerStore } from "~/store/zustand/listener/instance";
 
-vi.mock("@skald/plugin-analytics", () => ({
+vi.mock("@notiz/plugin-analytics", () => ({
   commands: {
     event: vi.fn().mockResolvedValue(undefined),
   },

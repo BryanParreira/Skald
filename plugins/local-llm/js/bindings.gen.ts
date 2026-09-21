@@ -177,7 +177,7 @@ export type DownloadStatus =
 export type GgufLlmModel =
   | "Llama3p2_3bQ4"
   | "Gemma3_4bQ4"
-  | "SkaldLLM"
+  | "NotizLLM"
   | "Qwen2p5_3bQ4";
 export type ModelInfo = {
   key: GgufLlmModel;

@@ -28,7 +28,7 @@ common_derives! {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use skald_askama_utils::tpl_snapshot;
+    use notiz_askama_utils::tpl_snapshot;
 
     tpl_snapshot!(
         test_event_contact_system,

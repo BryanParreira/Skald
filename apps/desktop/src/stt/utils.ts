@@ -1,4 +1,4 @@
-import type { LiveTranscriptDelta } from "@skald/plugin-transcription";
+import type { LiveTranscriptDelta } from "@notiz/plugin-transcription";
 
 import type { SpeakerHintWithId, WordWithId } from "./types";
 

@@ -1,6 +1,6 @@
 use axum::{Extension, Json, extract::State};
+use notiz_api_auth::AuthContext;
 use serde::{Deserialize, Serialize};
-use skald_api_auth::AuthContext;
 use utoipa::ToSchema;
 
 use crate::error::Result;
@@ -81,7 +81,7 @@ pub async fn create_session(
                 ));
             }
 
-            let reconnect_req = skald_nango::ReconnectSessionRequest {
+            let reconnect_req = notiz_nango::ReconnectSessionRequest {
                 connection_id: connection_id.to_string(),
                 integration_id: body.integration_id.clone(),
             };
@@ -101,7 +101,7 @@ pub async fn create_session(
                 .lookup_connection(&auth.token, &user_id, &body.integration_id)
                 .await?
             {
-                let reconnect_req = skald_nango::ReconnectSessionRequest {
+                let reconnect_req = notiz_nango::ReconnectSessionRequest {
                     connection_id: existing.connection_id.clone(),
                     integration_id: body.integration_id.clone(),
                 };
@@ -115,13 +115,13 @@ pub async fn create_session(
                             connection_id: Some(existing.connection_id),
                         }));
                     }
-                    Err(skald_nango::Error::Api(404, response_body)) => {
+                    Err(notiz_nango::Error::Api(404, response_body)) => {
                         tracing::warn!(
                             enduser.id = %user_id,
-                            skald.integration.id = %body.integration_id,
-                            skald.connection.id = %existing.connection_id,
-                            skald.connection.status = %existing.status,
-                            skald.http.response.body = %response_body,
+                            notiz.integration.id = %body.integration_id,
+                            notiz.connection.id = %existing.connection_id,
+                            notiz.connection.status = %existing.status,
+                            notiz.http.response.body = %response_body,
                             "reconnect session failed with not found, cleaning stale local row"
                         );
                         state
@@ -145,8 +145,8 @@ pub async fn create_session(
         tags.insert("end_user_email".to_string(), e.clone());
     }
 
-    let req = skald_nango::CreateConnectSessionRequest {
-        end_user: skald_nango::EndUser {
+    let req = notiz_nango::CreateConnectSessionRequest {
+        end_user: notiz_nango::EndUser {
             id: user_id,
             display_name: None,
             email,

@@ -16,37 +16,37 @@ pub fn list_installed_apps() -> Vec<InstalledApp> {
 }
 
 const SELF_BUNDLE_IDS: &[&str] = &[
-    "com.skald.dev",
-    "com.skald.stable",
-    "com.skald.staging",
-    "com.skald.nightly",
+    "com.notiz.dev",
+    "com.notiz.stable",
+    "com.notiz.staging",
+    "com.notiz.nightly",
 ];
 
 const SELF_APP_NAMES: &[&str] = &[
-    "skald",
-    "skald staging",
-    "skald nightly",
-    "skald",
-    "skald staging",
-    "skald nightly",
-    "skald",
-    "skald staging",
-    "skald nightly",
+    "notiz",
+    "notiz staging",
+    "notiz nightly",
+    "notiz",
+    "notiz staging",
+    "notiz nightly",
+    "notiz",
+    "notiz staging",
+    "notiz nightly",
     "char",
     "char staging",
     "char nightly",
 ];
 
 const SELF_APP_PATH_SEGMENTS: &[&str] = &[
-    "/skald.app/",
-    "/skald staging.app/",
-    "/skald nightly.app/",
-    "/skald.app/",
-    "/skald staging.app/",
-    "/skald nightly.app/",
-    "/skald.app/",
-    "/skald staging.app/",
-    "/skald nightly.app/",
+    "/notiz.app/",
+    "/notiz staging.app/",
+    "/notiz nightly.app/",
+    "/notiz.app/",
+    "/notiz staging.app/",
+    "/notiz nightly.app/",
+    "/notiz.app/",
+    "/notiz staging.app/",
+    "/notiz nightly.app/",
     "/char.app/",
     "/char staging.app/",
     "/char nightly.app/",
@@ -102,25 +102,25 @@ mod tests {
 
     #[test]
     fn test_is_self_app_matches_known_bundle_ids() {
-        assert!(is_self_app(&app("com.skald.stable", "Skald")));
-        assert!(is_self_app(&app("com.skald.Skald", "Skald")));
+        assert!(is_self_app(&app("com.notiz.stable", "Notiz")));
+        assert!(is_self_app(&app("com.notiz.Notiz", "Notiz")));
     }
 
     #[test]
     fn test_is_self_app_matches_renamed_app_names() {
-        assert!(is_self_app(&app("pid:42", "Skald")));
+        assert!(is_self_app(&app("pid:42", "Notiz")));
         assert!(is_self_app(&app("pid:43", "Char Nightly")));
-        assert!(is_self_app(&app("pid:44", "Skald Staging")));
+        assert!(is_self_app(&app("pid:44", "Notiz Staging")));
     }
 
     #[test]
     fn test_is_self_app_matches_path_fallbacks() {
         assert!(is_self_app(&app(
-            "/Applications/Skald.app/Contents/MacOS/skald",
+            "/Applications/Notiz.app/Contents/MacOS/notiz",
             "Unknown",
         )));
         assert!(is_self_app(&app(
-            "/Applications/Skald Nightly.app/Contents/MacOS/Skald Nightly",
+            "/Applications/Notiz Nightly.app/Contents/MacOS/Notiz Nightly",
             "Unknown",
         )));
     }

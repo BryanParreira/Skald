@@ -3,7 +3,7 @@ import { jwtDecode } from "jwt-decode";
 import { useEffect } from "react";
 import { z } from "zod";
 
-import { deriveBillingInfo, type SupabaseJwtPayload } from "@skald/supabase";
+import { deriveBillingInfo, type SupabaseJwtPayload } from "@notiz/supabase";
 
 import { desktopSchemeSchema } from "@/functions/desktop-flow";
 import { getSupabaseBrowserClient } from "@/functions/supabase";

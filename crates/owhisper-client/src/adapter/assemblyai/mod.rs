@@ -9,11 +9,11 @@ use super::LanguageSupport;
 pub struct AssemblyAIAdapter;
 
 impl AssemblyAIAdapter {
-    pub fn language_support_live(languages: &[skald_language::Language]) -> LanguageSupport {
+    pub fn language_support_live(languages: &[notiz_language::Language]) -> LanguageSupport {
         LanguageSupport::min(languages.iter().map(language::single_language_support_live))
     }
 
-    pub fn language_support_batch(languages: &[skald_language::Language]) -> LanguageSupport {
+    pub fn language_support_batch(languages: &[notiz_language::Language]) -> LanguageSupport {
         LanguageSupport::min(
             languages
                 .iter()
@@ -21,11 +21,11 @@ impl AssemblyAIAdapter {
         )
     }
 
-    pub fn is_supported_languages_live(languages: &[skald_language::Language]) -> bool {
+    pub fn is_supported_languages_live(languages: &[notiz_language::Language]) -> bool {
         Self::language_support_live(languages).is_supported()
     }
 
-    pub fn is_supported_languages_batch(languages: &[skald_language::Language]) -> bool {
+    pub fn is_supported_languages_batch(languages: &[notiz_language::Language]) -> bool {
         Self::language_support_batch(languages).is_supported()
     }
 }

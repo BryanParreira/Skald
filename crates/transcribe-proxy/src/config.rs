@@ -6,8 +6,8 @@ use owhisper_client::Provider;
 
 use crate::analytics::SttAnalyticsReporter;
 use crate::env::{ApiKeys, Env};
+use crate::notiz_routing::{NotizRouter, NotizRoutingConfig};
 use crate::provider_selector::ProviderSelector;
-use crate::skald_routing::{SkaldRouter, SkaldRoutingConfig};
 
 pub const DEFAULT_CONNECT_TIMEOUT_MS: u64 = 7 * 1000;
 
@@ -30,20 +30,20 @@ pub struct SttProxyConfig {
     pub connect_timeout: Duration,
     pub analytics: Option<Arc<dyn SttAnalyticsReporter>>,
     pub upstream_urls: HashMap<Provider, String>,
-    pub skald_routing: Option<SkaldRoutingConfig>,
+    pub notiz_routing: Option<NotizRoutingConfig>,
     pub supabase: SupabaseConfig,
     pub callback: CallbackConfig,
 }
 
 impl SttProxyConfig {
-    pub fn new(env: &Env, supabase: &skald_api_env::SupabaseEnv) -> Self {
+    pub fn new(env: &Env, supabase: &notiz_api_env::SupabaseEnv) -> Self {
         Self {
             api_keys: ApiKeys::from(&env.stt).0,
             default_provider: Provider::Deepgram,
             connect_timeout: Duration::from_millis(DEFAULT_CONNECT_TIMEOUT_MS),
             analytics: None,
             upstream_urls: HashMap::new(),
-            skald_routing: None,
+            notiz_routing: None,
             supabase: SupabaseConfig {
                 url: Some(supabase.supabase_url.clone()),
                 service_role_key: Some(supabase.supabase_service_role_key.clone()),
@@ -75,8 +75,8 @@ impl SttProxyConfig {
         self
     }
 
-    pub fn with_skald_routing(mut self, config: SkaldRoutingConfig) -> Self {
-        self.skald_routing = Some(config);
+    pub fn with_notiz_routing(mut self, config: NotizRoutingConfig) -> Self {
+        self.notiz_routing = Some(config);
         self
     }
 
@@ -88,7 +88,7 @@ impl SttProxyConfig {
         )
     }
 
-    pub fn skald_router(&self) -> Option<SkaldRouter> {
-        self.skald_routing.clone().map(SkaldRouter::new)
+    pub fn notiz_router(&self) -> Option<NotizRouter> {
+        self.notiz_routing.clone().map(NotizRouter::new)
     }
 }

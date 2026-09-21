@@ -38,6 +38,6 @@ impl IntoResponse for SubscriptionError {
             ),
         };
 
-        skald_api_error::error_response(status, code, &message)
+        notiz_api_error::error_response(status, code, &message)
     }
 }

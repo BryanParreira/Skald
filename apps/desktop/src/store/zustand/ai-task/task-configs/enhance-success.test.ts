@@ -1,7 +1,7 @@
 import type { LanguageModel } from "ai";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { json2md } from "@skald/editor/markdown";
+import { json2md } from "@notiz/editor/markdown";
 
 import type { TaskConfig } from ".";
 import { enhanceSuccess } from "./enhance-success";

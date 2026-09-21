@@ -1,1 +1,1 @@
-export { default } from "@skald/ui/postcss.config";
+export { default } from "@notiz/ui/postcss.config";

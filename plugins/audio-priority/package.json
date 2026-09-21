@@ -1,5 +1,5 @@
 {
-  "name": "@skald/plugin-audio-priority",
+  "name": "@notiz/plugin-audio-priority",
   "private": true,
   "main": "./js/index.ts",
   "scripts": {

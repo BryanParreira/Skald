@@ -1,7 +1,7 @@
+use notiz_ws_client::client::Message;
 use owhisper_interface::ListenParams;
 use owhisper_interface::stream::{Alternatives, Channel, Metadata, StreamResponse};
 use serde::Deserialize;
-use skald_ws_client::client::Message;
 
 use super::FireworksAdapter;
 use crate::adapter::RealtimeSttAdapter;
@@ -16,7 +16,7 @@ impl RealtimeSttAdapter for FireworksAdapter {
 
     fn is_supported_languages(
         &self,
-        languages: &[skald_language::Language],
+        languages: &[notiz_language::Language],
         _model: Option<&str>,
     ) -> bool {
         FireworksAdapter::is_supported_languages_live(languages)
@@ -65,7 +65,7 @@ impl RealtimeSttAdapter for FireworksAdapter {
             Err(e) => {
                 tracing::warn!(
                     error = ?e,
-                    skald.payload.size_bytes = raw.len() as u64,
+                    notiz.payload.size_bytes = raw.len() as u64,
                     "fireworks_json_parse_failed"
                 );
                 return vec![];
@@ -245,7 +245,7 @@ struct FireworksWord {
 
 #[cfg(test)]
 mod tests {
-    use skald_language::ISO639;
+    use notiz_language::ISO639;
 
     use super::FireworksAdapter;
     use crate::ListenClient;
@@ -311,7 +311,7 @@ mod tests {
             .api_base("https://api.fireworks.ai")
             .api_key(std::env::var("FIREWORKS_API_KEY").expect("FIREWORKS_API_KEY not set"))
             .params(owhisper_interface::ListenParams {
-                languages: vec![skald_language::ISO639::En.into()],
+                languages: vec![notiz_language::ISO639::En.into()],
                 ..Default::default()
             })
             .build_single()
@@ -328,7 +328,7 @@ mod tests {
             .api_base("https://api.fireworks.ai")
             .api_key(std::env::var("FIREWORKS_API_KEY").expect("FIREWORKS_API_KEY not set"))
             .params(owhisper_interface::ListenParams {
-                languages: vec![skald_language::ISO639::En.into()],
+                languages: vec![notiz_language::ISO639::En.into()],
                 ..Default::default()
             })
             .build_dual()

@@ -52,8 +52,8 @@ pub(crate) async fn submit_bug_report(
     let redacted_description = redact::redact_pii(input.description);
     let (description, title) = make_title(&redacted_description, "Bug Report");
 
-    let body = skald_template_support::render(skald_template_support::SupportTemplate::BugReport(
-        skald_template_support::BugReport {
+    let body = notiz_template_support::render(notiz_template_support::SupportTemplate::BugReport(
+        notiz_template_support::BugReport {
             description,
             platform: input.platform.to_string(),
             arch: input.arch.to_string(),
@@ -91,8 +91,8 @@ pub(crate) async fn submit_feature_request(
     let (description, title) = make_title(&redacted_description, "Feature Request");
 
     let body =
-        skald_template_support::render(skald_template_support::SupportTemplate::FeatureRequest(
-            skald_template_support::FeatureRequest {
+        notiz_template_support::render(notiz_template_support::SupportTemplate::FeatureRequest(
+            notiz_template_support::FeatureRequest {
                 description,
                 platform: input.platform.to_string(),
                 arch: input.arch.to_string(),
@@ -303,8 +303,8 @@ async fn attach_log_analysis(state: &AppState, issue_number: u64, log_text: &str
     };
 
     let tail = logs::safe_tail(&clean_logs, 10000);
-    let log_comment = skald_template_support::render(
-        skald_template_support::SupportTemplate::LogAnalysis(skald_template_support::LogAnalysis {
+    let log_comment = notiz_template_support::render(
+        notiz_template_support::SupportTemplate::LogAnalysis(notiz_template_support::LogAnalysis {
             summary_section,
             tail: tail.to_string(),
         }),

@@ -1,7 +1,7 @@
 import { useForm } from "@tanstack/react-form";
 import { useEffect } from "react";
 
-import { Input } from "@skald/ui/components/ui/input";
+import { Input } from "@notiz/ui/components/ui/input";
 
 import * as settings from "~/store/tinybase/store/settings";
 

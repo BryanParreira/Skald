@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=Notiz
+GenericName=AI Meeting Notes
+Comment=The AI notepad for private meetings
+Exec=notiz %U
+Icon=com.notiz.Notiz
+Terminal=false
+Type=Application
+Categories=Office;AudioVideo;Recorder;
+Keywords=notes;meeting;transcription;ai;audio;recording;
+StartupNotify=true
+StartupWMClass=notiz
+MimeType=x-scheme-handler/notiz;

@@ -1,5 +1,5 @@
 {
-  "name": "@skald/plugin-shortcut",
+  "name": "@notiz/plugin-shortcut",
   "private": true,
   "main": "./js/index.ts",
   "scripts": {

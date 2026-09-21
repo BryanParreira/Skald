@@ -1,6 +1,6 @@
 use std::collections::{BTreeSet, HashSet};
 
-use skald_notification_interface::NotificationKey;
+use notiz_notification_interface::NotificationKey;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum MicEventType {
@@ -18,7 +18,7 @@ pub enum SkipReason {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum AppCategory {
-    Skald,
+    Notiz,
     Dictation,
     IDE,
     ScreenRecording,
@@ -29,11 +29,11 @@ pub enum AppCategory {
 impl AppCategory {
     pub fn bundle_ids(&self) -> &'static [&'static str] {
         match self {
-            Self::Skald => &[
-                "com.skald.dev",
-                "com.skald.stable",
-                "com.skald.nightly",
-                "com.skald.staging",
+            Self::Notiz => &[
+                "com.notiz.dev",
+                "com.notiz.stable",
+                "com.notiz.nightly",
+                "com.notiz.staging",
             ],
             Self::Dictation => &[
                 "com.electron.wispr-flow",
@@ -72,7 +72,7 @@ impl AppCategory {
 
     pub fn all() -> &'static [AppCategory] {
         &[
-            Self::Skald,
+            Self::Notiz,
             Self::Dictation,
             Self::IDE,
             Self::ScreenRecording,
@@ -107,14 +107,14 @@ fn is_system_process(app_id: &str) -> bool {
 }
 
 pub struct PolicyContext<'a> {
-    pub apps: &'a [skald_detect::InstalledApp],
+    pub apps: &'a [notiz_detect::InstalledApp],
     pub is_dnd: bool,
     pub event_type: MicEventType,
 }
 
 #[derive(Debug)]
 pub struct PolicyResult {
-    pub filtered_apps: Vec<skald_detect::InstalledApp>,
+    pub filtered_apps: Vec<notiz_detect::InstalledApp>,
     pub dedup_key: String,
 }
 
@@ -140,9 +140,9 @@ impl MicNotificationPolicy {
 
     fn filter_apps(
         &self,
-        apps: &[skald_detect::InstalledApp],
+        apps: &[notiz_detect::InstalledApp],
         is_dnd: bool,
-    ) -> Result<Vec<skald_detect::InstalledApp>, SkipReason> {
+    ) -> Result<Vec<notiz_detect::InstalledApp>, SkipReason> {
         if self.respect_dnd && is_dnd {
             return Err(SkipReason::DoNotDisturb);
         }
@@ -207,8 +207,8 @@ impl Default for MicNotificationPolicy {
 mod tests {
     use super::*;
 
-    fn app(id: &str) -> skald_detect::InstalledApp {
-        skald_detect::InstalledApp {
+    fn app(id: &str) -> notiz_detect::InstalledApp {
+        notiz_detect::InstalledApp {
             id: id.to_string(),
             name: id.to_string(),
         }
@@ -219,8 +219,8 @@ mod tests {
     #[test]
     fn test_app_category_find() {
         assert_eq!(
-            AppCategory::find_category("com.skald.dev"),
-            Some(AppCategory::Skald)
+            AppCategory::find_category("com.notiz.dev"),
+            Some(AppCategory::Notiz)
         );
         assert_eq!(AppCategory::find_category("com.zoom.us"), None);
     }
@@ -252,7 +252,7 @@ mod tests {
     #[test]
     fn test_app_category_all_returns_every_variant() {
         let all = AppCategory::all();
-        assert!(all.contains(&AppCategory::Skald));
+        assert!(all.contains(&AppCategory::Notiz));
         assert!(all.contains(&AppCategory::Dictation));
         assert!(all.contains(&AppCategory::IDE));
         assert!(all.contains(&AppCategory::ScreenRecording));
@@ -307,7 +307,7 @@ mod tests {
     #[test]
     fn test_should_not_track_categorized_app() {
         let policy = MicNotificationPolicy::default();
-        assert!(!policy.should_track_app("com.skald.dev"));
+        assert!(!policy.should_track_app("com.notiz.dev"));
         assert!(!policy.should_track_app("com.electron.aqua-voice"));
         assert!(!policy.should_track_app("com.microsoft.VSCode"));
     }
@@ -377,7 +377,7 @@ mod tests {
     #[test]
     fn test_evaluate_filters_all_categorized_apps() {
         let policy = MicNotificationPolicy::default();
-        let apps = vec![app("com.skald.dev"), app("com.electron.aqua-voice")];
+        let apps = vec![app("com.notiz.dev"), app("com.electron.aqua-voice")];
         let ctx = PolicyContext {
             apps: &apps,
             is_dnd: false,
@@ -500,7 +500,7 @@ mod tests {
     #[test]
     fn test_evaluate_empty_apps_list() {
         let policy = MicNotificationPolicy::default();
-        let apps: Vec<skald_detect::InstalledApp> = vec![];
+        let apps: Vec<notiz_detect::InstalledApp> = vec![];
         let ctx = PolicyContext {
             apps: &apps,
             is_dnd: false,
@@ -571,7 +571,7 @@ mod tests {
             ignored_categories: vec![],
             ..Default::default()
         };
-        let apps = vec![app("com.skald.dev"), app("us.zoom.xos")];
+        let apps = vec![app("com.notiz.dev"), app("us.zoom.xos")];
         let ctx = PolicyContext {
             apps: &apps,
             is_dnd: false,
@@ -589,7 +589,7 @@ mod tests {
         };
         let apps = vec![
             app("com.electron.aqua-voice"),
-            app("com.skald.dev"),
+            app("com.notiz.dev"),
             app("us.zoom.xos"),
         ];
         let ctx = PolicyContext {
@@ -599,6 +599,6 @@ mod tests {
         };
         let result = policy.evaluate(&ctx).unwrap();
         let ids: Vec<_> = result.filtered_apps.iter().map(|a| a.id.as_str()).collect();
-        assert_eq!(ids, vec!["com.skald.dev", "us.zoom.xos"]);
+        assert_eq!(ids, vec!["com.notiz.dev", "us.zoom.xos"]);
     }
 }

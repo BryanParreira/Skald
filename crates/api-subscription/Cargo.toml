@@ -4,12 +4,12 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-skald-analytics = { workspace = true }
-skald-api-auth = { workspace = true }
-skald-api-env = { workspace = true }
-skald-api-error = { workspace = true }
-skald-loops = { workspace = true }
-skald-observability = { workspace = true }
+notiz-analytics = { workspace = true }
+notiz-api-auth = { workspace = true }
+notiz-api-env = { workspace = true }
+notiz-api-error = { workspace = true }
+notiz-loops = { workspace = true }
+notiz-observability = { workspace = true }
 
 utoipa = { workspace = true }
 

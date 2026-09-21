@@ -1,7 +1,7 @@
-CREDENTIALS_FILE="$HOME/skald-r2.toml"
+CREDENTIALS_FILE="$HOME/notiz-r2.toml"
 ENDPOINT_URL="https://3db5267cdeb5f79263ede3ec58090fe0.r2.cloudflarestorage.com"
-BUCKET_FROM="skald-cache"
-BUCKET_TO="skald-cache2"
+BUCKET_FROM="notiz-cache"
+BUCKET_TO="notiz-cache2"
 
 AWS_REGION=auto s5cmd \
     --log trace \

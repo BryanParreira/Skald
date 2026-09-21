@@ -1,11 +1,11 @@
-import { json2md } from "@skald/editor/markdown";
+import { json2md } from "@notiz/editor/markdown";
 import type {
   Event,
   EventParticipant,
   HumanStorage,
   MappingSessionParticipantStorage,
   SessionEvent,
-} from "@skald/store";
+} from "@notiz/store";
 
 import * as main from "./main";
 

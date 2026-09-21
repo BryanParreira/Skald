@@ -25,7 +25,7 @@ export function modelSupportsImageInput(
     return false;
   }
 
-  if (providerId === "skald" && modelId === "Auto") {
+  if (providerId === "notiz" && modelId === "Auto") {
     return true;
   }
 

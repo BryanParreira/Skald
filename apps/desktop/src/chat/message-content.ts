@@ -1,4 +1,4 @@
-import type { SkaldUIMessage } from "~/chat/types";
+import type { NotizUIMessage } from "~/chat/types";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
@@ -26,6 +26,6 @@ export function hasRenderableParts(parts: unknown): boolean {
   });
 }
 
-export function hasRenderableContent(message: SkaldUIMessage) {
+export function hasRenderableContent(message: NotizUIMessage) {
   return hasRenderableParts(message.parts);
 }

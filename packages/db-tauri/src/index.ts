@@ -1,6 +1,6 @@
-import type { LiveQueryClient } from "@skald/db-runtime";
-import type { DrizzleProxyClient } from "@skald/db-runtime";
-import { execute, executeProxy, subscribe } from "@skald/plugin-db";
+import type { LiveQueryClient } from "@notiz/db-runtime";
+import type { DrizzleProxyClient } from "@notiz/db-runtime";
+import { execute, executeProxy, subscribe } from "@notiz/plugin-db";
 
 export const tauriLiveQueryClient: LiveQueryClient & DrizzleProxyClient = {
   execute,

@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import { Streamdown } from "streamdown";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 import { streamdownComponents } from "../../streamdown";
 

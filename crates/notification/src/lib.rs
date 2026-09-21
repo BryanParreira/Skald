@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::sync::{Mutex, OnceLock};
 use std::time::{Duration, Instant};
 
-pub use skald_notification_interface::*;
+pub use notiz_notification_interface::*;
 
 type NotificationContextMap = Mutex<HashMap<String, (Option<NotificationSource>, Instant)>>;
 
@@ -13,8 +13,8 @@ const DEDUPE_WINDOW: Duration = Duration::from_mins(1);
 const CONTEXT_TTL: Duration = Duration::from_mins(10);
 
 fn resolve_default_icon(
-    notification: &skald_notification_interface::Notification,
-) -> skald_notification_interface::Notification {
+    notification: &notiz_notification_interface::Notification,
+) -> notiz_notification_interface::Notification {
     let mut resolved = notification.clone();
 
     if resolved.icon.is_none() {
@@ -55,15 +55,15 @@ fn get_context(key: &str) -> NotificationContext {
     }
 }
 
-fn show_inner(notification: &skald_notification_interface::Notification) {
+fn show_inner(notification: &notiz_notification_interface::Notification) {
     #[cfg(all(feature = "legacy", target_os = "macos"))]
-    skald_notification_macos::show(notification);
+    notiz_notification_macos::show(notification);
 
     #[cfg(all(feature = "legacy", target_os = "linux"))]
-    skald_notification_linux::show(notification);
+    notiz_notification_linux::show(notification);
 }
 
-pub fn show(notification: &skald_notification_interface::Notification) {
+pub fn show(notification: &notiz_notification_interface::Notification) {
     let resolved_notification = resolve_default_icon(notification);
 
     let Some(key) = &notification.key else {
@@ -98,10 +98,10 @@ pub fn show(notification: &skald_notification_interface::Notification) {
 
 pub fn clear() {
     #[cfg(all(feature = "legacy", target_os = "macos"))]
-    skald_notification_macos::dismiss_all();
+    notiz_notification_macos::dismiss_all();
 
     #[cfg(all(feature = "legacy", target_os = "linux"))]
-    skald_notification_linux::dismiss_all();
+    notiz_notification_linux::dismiss_all();
 }
 
 pub fn setup_dismiss_handler<F>(f: F)
@@ -113,7 +113,7 @@ where
     #[cfg(all(feature = "legacy", target_os = "macos"))]
     {
         let f = f.clone();
-        skald_notification_macos::setup_dismiss_handler(move |key, _tag| {
+        notiz_notification_macos::setup_dismiss_handler(move |key, _tag| {
             f(get_context(&key));
         });
     }
@@ -121,7 +121,7 @@ where
     #[cfg(all(feature = "legacy", target_os = "linux"))]
     {
         let f = f.clone();
-        skald_notification_linux::setup_notification_dismiss_handler(move |key| {
+        notiz_notification_linux::setup_notification_dismiss_handler(move |key| {
             f(get_context(&key));
         });
     }
@@ -138,7 +138,7 @@ where
     #[cfg(all(feature = "legacy", target_os = "macos"))]
     {
         let f = f.clone();
-        skald_notification_macos::setup_collapsed_confirm_handler(move |key, _tag| {
+        notiz_notification_macos::setup_collapsed_confirm_handler(move |key, _tag| {
             f(get_context(&key));
         });
     }
@@ -146,7 +146,7 @@ where
     #[cfg(all(feature = "legacy", target_os = "linux"))]
     {
         let f = f.clone();
-        skald_notification_linux::setup_notification_confirm_handler(move |key| {
+        notiz_notification_linux::setup_notification_confirm_handler(move |key| {
             f(get_context(&key));
         });
     }
@@ -163,7 +163,7 @@ where
     #[cfg(all(feature = "legacy", target_os = "macos"))]
     {
         let f = f.clone();
-        skald_notification_macos::setup_expanded_accept_handler(move |key, _tag| {
+        notiz_notification_macos::setup_expanded_accept_handler(move |key, _tag| {
             f(get_context(&key));
         });
     }
@@ -171,7 +171,7 @@ where
     #[cfg(all(feature = "legacy", target_os = "linux"))]
     {
         let f = f.clone();
-        skald_notification_linux::setup_notification_accept_handler(move |key| {
+        notiz_notification_linux::setup_notification_accept_handler(move |key| {
             f(get_context(&key));
         });
     }
@@ -188,7 +188,7 @@ where
     #[cfg(all(feature = "legacy", target_os = "macos"))]
     {
         let f = f.clone();
-        skald_notification_macos::setup_collapsed_timeout_handler(move |key, _tag| {
+        notiz_notification_macos::setup_collapsed_timeout_handler(move |key, _tag| {
             f(get_context(&key));
         });
     }
@@ -196,7 +196,7 @@ where
     #[cfg(all(feature = "legacy", target_os = "linux"))]
     {
         let f = f.clone();
-        skald_notification_linux::setup_notification_timeout_handler(move |key| {
+        notiz_notification_linux::setup_notification_timeout_handler(move |key| {
             f(get_context(&key));
         });
     }
@@ -213,7 +213,7 @@ where
     #[cfg(all(feature = "legacy", target_os = "macos"))]
     {
         let f = f.clone();
-        skald_notification_macos::setup_option_selected_handler(move |key, tag| {
+        notiz_notification_macos::setup_option_selected_handler(move |key, tag| {
             f(get_context(&key), tag);
         });
     }
@@ -230,7 +230,7 @@ where
     #[cfg(all(feature = "legacy", target_os = "macos"))]
     {
         let f = f.clone();
-        skald_notification_macos::setup_footer_action_handler(move |key, _tag| {
+        notiz_notification_macos::setup_footer_action_handler(move |key, _tag| {
             f(get_context(&key));
         });
     }

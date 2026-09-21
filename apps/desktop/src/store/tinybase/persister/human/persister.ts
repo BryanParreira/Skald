@@ -1,5 +1,5 @@
-import type { HumanStorage } from "@skald/store";
-import type { Schemas } from "@skald/store";
+import type { HumanStorage } from "@notiz/store";
+import type { Schemas } from "@notiz/store";
 
 import { parseHumanIdFromPath } from "./changes";
 import { frontmatterToHuman, humanToFrontmatter } from "./transform";

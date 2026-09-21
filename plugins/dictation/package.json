@@ -1,5 +1,5 @@
 {
-  "name": "@skald/plugin-dictation",
+  "name": "@notiz/plugin-dictation",
   "private": true,
   "main": "./js/index.ts",
   "scripts": {

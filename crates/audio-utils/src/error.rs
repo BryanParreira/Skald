@@ -7,7 +7,7 @@ pub enum Error {
     #[error(transparent)]
     DecoderError(#[from] rodio::decoder::DecoderError),
     #[error(transparent)]
-    Resampler(#[from] skald_resampler::Error),
+    Resampler(#[from] notiz_resampler::Error),
     #[error(transparent)]
     Io(#[from] std::io::Error),
     #[error(transparent)]

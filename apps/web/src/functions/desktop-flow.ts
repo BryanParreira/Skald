@@ -1,9 +1,9 @@
 import { z } from "zod";
 
 export const DESKTOP_SCHEMES = [
-  "skald",
-  "skald",
-  "skald-staging",
+  "notiz",
+  "notiz",
+  "notiz-staging",
   "char",
   "char-staging",
 ] as const;

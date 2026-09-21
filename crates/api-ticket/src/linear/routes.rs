@@ -1,9 +1,9 @@
 use axum::{Extension, Json};
+use notiz_api_auth::AuthContext;
+use notiz_api_nango::{Linear, NangoConnectionState, NangoIntegrationId};
+use notiz_linear::LinearClient;
+use notiz_ticket_interface::{CollectionPage, CollectionRef, TicketPage};
 use serde::Deserialize;
-use skald_api_auth::AuthContext;
-use skald_api_nango::{Linear, NangoConnectionState, NangoIntegrationId};
-use skald_linear::LinearClient;
-use skald_ticket_interface::{CollectionPage, CollectionRef, TicketPage};
 use utoipa::ToSchema;
 
 use crate::error::{Result, TicketError};
@@ -59,7 +59,7 @@ pub async fn list_teams(
     let client = LinearClient::new(http);
 
     let teams = client
-        .list_teams(skald_linear::ListTeamsRequest {
+        .list_teams(notiz_linear::ListTeamsRequest {
             first: req.limit,
             after: req.cursor,
         })
@@ -115,7 +115,7 @@ pub async fn list_tickets(
     let client = LinearClient::new(http);
 
     let issues = client
-        .list_issues(skald_linear::ListIssuesRequest {
+        .list_issues(notiz_linear::ListIssuesRequest {
             team_id: Some(req.team_id.clone()),
             first: req.limit,
             after: req.cursor,

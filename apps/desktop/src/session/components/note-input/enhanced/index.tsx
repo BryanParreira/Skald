@@ -2,7 +2,7 @@ import { useLingui } from "@lingui/react/macro";
 import type { EditorView } from "prosemirror-view";
 import { forwardRef, useMemo } from "react";
 
-import type { NoteEditorRef } from "@skald/editor/note";
+import type { NoteEditorRef } from "@notiz/editor/note";
 
 import { ConfigError } from "./config-error";
 import { EnhancedEditor } from "./editor";

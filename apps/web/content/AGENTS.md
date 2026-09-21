@@ -2,15 +2,15 @@
 
 All content created under this directory must follow the positioning below.
 
-## What Skald Is
+## What Notiz Is
 
-Skald is the open-source AI meeting notetaker. Free forever, MIT-licensed, runs on your machine. The app you've been using as "Char" — same product, same files, renamed and relicensed.
+Notiz is the open-source AI meeting notetaker. Free forever, MIT-licensed, runs on your machine. The app you've been using as "Char" — same product, same files, renamed and relicensed.
 
-> Note: This blog lives at skald.so. The brand "Char" still exists, but it's a different product now (an agentic todo notepad — see char.com). All content under this directory is for **Skald**, the meeting notetaker.
+> Note: This blog lives at notiz.so. The brand "Char" still exists, but it's a different product now (an agentic todo notepad — see char.com). All content under this directory is for **Notiz**, the meeting notetaker.
 
 ## Core Philosophy
 
-**Zero lock-in.** Skald gives users ownership at the foundational level — your files, your AI, your workflow. No lock-in. No compromises.
+**Zero lock-in.** Notiz gives users ownership at the foundational level — your files, your AI, your workflow. No lock-in. No compromises.
 
 **Files over apps.** Everything is stored as plain markdown files on the user's device, not in proprietary databases or cloud servers.
 
@@ -41,7 +41,7 @@ Skald is the open-source AI meeting notetaker. Free forever, MIT-licensed, runs 
 
 **Your choice of AI stack**
 
-- Managed cloud service (kept through the Char→Skald migration window)
+- Managed cloud service (kept through the Char→Notiz migration window)
 - Bring your own API keys (OpenAI, Deepgram, Anthropic, others)
 - Run local models (via Ollama or LM Studio)
 
@@ -62,7 +62,7 @@ Skald is the open-source AI meeting notetaker. Free forever, MIT-licensed, runs 
 - Import existing recordings/transcripts
 - 45+ language support
 
-## What Makes Skald Different
+## What Makes Notiz Different
 
 **vs. Other AI notetakers (Granola, Otter, Fireflies, Fathom, tldv):**
 
@@ -74,7 +74,7 @@ Skald is the open-source AI meeting notetaker. Free forever, MIT-licensed, runs 
 
 **Privacy approach:**
 
-- Skald doesn't store conversations
+- Notiz doesn't store conversations
 - Every audio file, transcript, and note lives on the user's computer
 - User decides if data ever leaves their device
 - Option to deploy fully local
@@ -115,9 +115,9 @@ A meeting notetaker that gives complete control without getting in your way. Cle
 
 ## Critical Reminders
 
-- **Name:** Always use "Skald" for the meeting notetaker. "Char" is the legacy name (the app pre-rename) AND a different product (the agentic todo notepad at char.com). Don't conflate them in content.
-- **Skald** is the original product name — only mention in historical context.
-- **Don't recommend Char as a "managed Skald"** — Char is a different product (delegation/todos), not a managed cloud version of the meeting notetaker.
+- **Name:** Always use "Notiz" for the meeting notetaker. "Char" is the legacy name (the app pre-rename) AND a different product (the agentic todo notepad at char.com). Don't conflate them in content.
+- **Notiz** is the original product name — only mention in historical context.
+- **Don't recommend Char as a "managed Notiz"** — Char is a different product (delegation/todos), not a managed cloud version of the meeting notetaker.
 - **Tone:** Direct, engineering-minded, respects user intelligence
 - **Focus:** Zero lock-in, true ownership, complete control, open source
 - **Avoid:** Generic productivity language, corporate marketing speak, fear-based messaging

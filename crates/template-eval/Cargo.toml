@@ -7,13 +7,13 @@ edition = "2024"
 askama = { workspace = true }
 libtest-mimic = "0.8.1"
 markdown = { workspace = true }
+notiz-openrouter = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true }
-skald-openrouter = { workspace = true }
 specta = { workspace = true, features = ["derive"] }
 thiserror = { workspace = true }
 tokio = { workspace = true, features = ["rt"] }
 
 [dev-dependencies]
 insta = { workspace = true }
-skald-askama-utils = { workspace = true }
+notiz-askama-utils = { workspace = true }

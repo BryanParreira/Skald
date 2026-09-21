@@ -1,15 +1,15 @@
 import type {
   SessionContentData,
   TranscriptSpeakerHint,
-} from "@skald/plugin-fs-sync";
-import { commands as listenerCommands } from "@skald/plugin-transcription";
+} from "@notiz/plugin-fs-sync";
+import { commands as listenerCommands } from "@notiz/plugin-transcription";
 import type {
   IdentityAssignment,
   RenderTranscriptHuman,
   RenderTranscriptInput,
   RenderTranscriptRequest,
   RenderedTranscriptSegment,
-} from "@skald/plugin-transcription";
+} from "@notiz/plugin-transcription";
 
 import type * as main from "~/store/tinybase/store/main";
 import type { SegmentWord } from "~/stt/live-segment";

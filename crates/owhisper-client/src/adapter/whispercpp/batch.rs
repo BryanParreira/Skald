@@ -20,7 +20,7 @@ impl WhisperCppAdapter {
     ) -> Result<StreamingBatchStream, Error> {
         let path = file_path.as_ref().to_path_buf();
         tracing::info!(
-            skald.file.path = %path.display(),
+            notiz.file.path = %path.display(),
             url.full = %api_base,
             "starting_whispercpp_batch_stream"
         );
@@ -107,8 +107,8 @@ fn load_audio_file(path: PathBuf) -> Result<(Vec<u8>, String, f64), Error> {
 }
 
 fn audio_duration_secs(path: &Path) -> f64 {
-    use skald_audio_utils::Source;
-    let Ok(source) = skald_audio_utils::source_from_path(path) else {
+    use notiz_audio_utils::Source;
+    let Ok(source) = notiz_audio_utils::source_from_path(path) else {
         return 0.0;
     };
     if let Some(d) = source.total_duration() {

@@ -7,9 +7,9 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-import { type PermissionStatus } from "@skald/plugin-permissions";
-import { Button } from "@skald/ui/components/ui/button";
-import { cn } from "@skald/utils";
+import { type PermissionStatus } from "@notiz/plugin-permissions";
+import { Button } from "@notiz/ui/components/ui/button";
+import { cn } from "@notiz/utils";
 
 function ActionLink({
   onClick,

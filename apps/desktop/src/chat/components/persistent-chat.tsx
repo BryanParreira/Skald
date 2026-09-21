@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 import { ChatPanelFrame } from "./chat-panel";
 

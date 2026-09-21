@@ -1,5 +1,5 @@
 {
-  "name": "@skald/plugin-icon",
+  "name": "@notiz/plugin-icon",
   "private": true,
   "main": "./js/index.ts",
   "scripts": {

@@ -5,6 +5,6 @@ edition = "2024"
 
 [dependencies]
 hidapi = { workspace = true }
-skald-hid-interface = { workspace = true }
+notiz-hid-interface = { workspace = true }
 thiserror = { workspace = true }
 tracing = { workspace = true }

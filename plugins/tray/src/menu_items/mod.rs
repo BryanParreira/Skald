@@ -32,34 +32,34 @@ pub trait MenuItemHandler {
 macro_rules! menu_items {
     ($($variant:ident => $item:ty),* $(,)?) => {
         #[derive(Debug, Clone, Copy)]
-        pub enum SkaldMenuItem {
+        pub enum NotizMenuItem {
             $($variant),*
         }
 
-        impl From<SkaldMenuItem> for tauri::menu::MenuId {
-            fn from(value: SkaldMenuItem) -> Self {
+        impl From<NotizMenuItem> for tauri::menu::MenuId {
+            fn from(value: NotizMenuItem) -> Self {
                 match value {
-                    $(SkaldMenuItem::$variant => <$item as MenuItemHandler>::ID),*
+                    $(NotizMenuItem::$variant => <$item as MenuItemHandler>::ID),*
                 }.into()
             }
         }
 
-        impl TryFrom<tauri::menu::MenuId> for SkaldMenuItem {
+        impl TryFrom<tauri::menu::MenuId> for NotizMenuItem {
             type Error = ();
 
             fn try_from(id: tauri::menu::MenuId) -> std::result::Result<Self, Self::Error> {
                 let id = id.0.as_str();
                 match id {
-                    $(<$item as MenuItemHandler>::ID => Ok(SkaldMenuItem::$variant),)*
+                    $(<$item as MenuItemHandler>::ID => Ok(NotizMenuItem::$variant),)*
                     _ => Err(()),
                 }
             }
         }
 
-        impl SkaldMenuItem {
+        impl NotizMenuItem {
             pub fn handle(self, app: &AppHandle<tauri::Wry>) {
                 match self {
-                    $(SkaldMenuItem::$variant => <$item>::handle(app)),*
+                    $(NotizMenuItem::$variant => <$item>::handle(app)),*
                 }
             }
         }

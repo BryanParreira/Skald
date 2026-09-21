@@ -4,15 +4,15 @@ import { downloadDir, join } from "@tauri-apps/api/path";
 import { useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 
-import { json2md } from "@skald/editor/markdown";
+import { json2md } from "@notiz/editor/markdown";
 import {
   commands as exportCommands,
   type ExportMetadata,
   type TranscriptItem,
-} from "@skald/plugin-export";
-import { commands as fs2Commands } from "@skald/plugin-fs2";
-import { commands as openerCommands } from "@skald/plugin-opener2";
-import { cn } from "@skald/utils";
+} from "@notiz/plugin-export";
+import { commands as fs2Commands } from "@notiz/plugin-fs2";
+import { commands as openerCommands } from "@notiz/plugin-opener2";
+import { cn } from "@notiz/utils";
 
 import { formatDate, formatDuration } from "./export-utils";
 

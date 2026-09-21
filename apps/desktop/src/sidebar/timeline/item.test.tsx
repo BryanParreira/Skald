@@ -31,35 +31,35 @@ const mocks = vi.hoisted(() => ({
   windowShow: vi.fn(() => Promise.resolve({ status: "ok", data: null })),
 }));
 
-vi.mock("@skald/plugin-fs-sync", () => ({
+vi.mock("@notiz/plugin-fs-sync", () => ({
   commands: {
     sessionDir: vi.fn(() => Promise.resolve({ status: "ok", data: "" })),
   },
 }));
 
-vi.mock("@skald/plugin-opener2", () => ({
+vi.mock("@notiz/plugin-opener2", () => ({
   commands: {
     openPath: vi.fn(() => Promise.resolve()),
   },
 }));
 
-vi.mock("@skald/plugin-windows", () => ({
+vi.mock("@notiz/plugin-windows", () => ({
   commands: {
     windowShow: mocks.windowShow,
   },
 }));
 
-vi.mock("@skald/ui/components/ui/dancing-sticks", () => ({
+vi.mock("@notiz/ui/components/ui/dancing-sticks", () => ({
   DancingSticks: ({ amplitude }: { amplitude: number }) => (
     <span data-amplitude={amplitude} data-testid="dancing-sticks" />
   ),
 }));
 
-vi.mock("@skald/ui/components/ui/spinner", () => ({
+vi.mock("@notiz/ui/components/ui/spinner", () => ({
   Spinner: () => <span data-testid="spinner" />,
 }));
 
-vi.mock("@skald/ui/components/ui/tooltip", () => ({
+vi.mock("@notiz/ui/components/ui/tooltip", () => ({
   Tooltip: ({ children }: { children: ReactNode }) => <>{children}</>,
   TooltipContent: ({ children }: { children: ReactNode }) => <>{children}</>,
   TooltipTrigger: ({ children }: { children: ReactNode }) => <>{children}</>,

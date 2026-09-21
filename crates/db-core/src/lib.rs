@@ -36,7 +36,7 @@ pub enum DbOpenError {
     #[error(transparent)]
     Sqlx(#[from] sqlx::Error),
     #[error(transparent)]
-    Cloudsync(#[from] skald_cloudsync::Error),
+    Cloudsync(#[from] notiz_cloudsync::Error),
 }
 
 pub type ManagedDb = std::sync::Arc<Db>;
@@ -48,7 +48,7 @@ pub struct Db {
     pub(crate) cloudsync_path: Option<PathBuf>,
     pub(crate) cloudsync_runtime: Arc<Mutex<CloudsyncRuntimeState>>,
     pub(crate) pool: SqlitePool,
-    change_notifier: skald_db_change::ChangeNotifier,
+    change_notifier: notiz_db_change::ChangeNotifier,
 }
 
 impl std::fmt::Debug for Db {
@@ -82,27 +82,27 @@ impl Drop for Db {
 
 impl Db {
     pub async fn open(options: DbOpenOptions<'_>) -> Result<Self, DbOpenError> {
-        let (change_notifier, pool_options) = skald_db_change::ChangeNotifier::new();
+        let (change_notifier, pool_options) = notiz_db_change::ChangeNotifier::new();
         connect_with_options(&options, pool_options, change_notifier).await
     }
 
-    pub fn change_notifier(&self) -> &skald_db_change::ChangeNotifier {
+    pub fn change_notifier(&self) -> &notiz_db_change::ChangeNotifier {
         &self.change_notifier
     }
 
-    pub async fn connect_local(path: impl AsRef<Path>) -> Result<Self, skald_cloudsync::Error> {
+    pub async fn connect_local(path: impl AsRef<Path>) -> Result<Self, notiz_cloudsync::Error> {
         if let Some(parent) = path.as_ref().parent() {
             std::fs::create_dir_all(parent)?;
         }
         let options = apply_internal_connect_policy(SqliteConnectOptions::new())
             .filename(path)
             .create_if_missing(true);
-        let (options, cloudsync_path) = skald_cloudsync::apply(options)?;
-        let (change_notifier, pool_options) = skald_db_change::ChangeNotifier::new();
+        let (options, cloudsync_path) = notiz_cloudsync::apply(options)?;
+        let (change_notifier, pool_options) = notiz_db_change::ChangeNotifier::new();
         let pool = pool_options
             .connect_with(options)
             .await
-            .map_err(skald_cloudsync::Error::from)?;
+            .map_err(notiz_cloudsync::Error::from)?;
 
         Ok(Self {
             cloudsync_enabled: true,
@@ -113,16 +113,16 @@ impl Db {
         })
     }
 
-    pub async fn connect_memory() -> Result<Self, skald_cloudsync::Error> {
+    pub async fn connect_memory() -> Result<Self, notiz_cloudsync::Error> {
         let options =
             apply_internal_connect_policy(SqliteConnectOptions::from_str("sqlite::memory:")?);
-        let (options, cloudsync_path) = skald_cloudsync::apply(options)?;
-        let (change_notifier, pool_options) = skald_db_change::ChangeNotifier::new();
+        let (options, cloudsync_path) = notiz_cloudsync::apply(options)?;
+        let (change_notifier, pool_options) = notiz_db_change::ChangeNotifier::new();
         let pool = pool_options
             .max_connections(1)
             .connect_with(options)
             .await
-            .map_err(skald_cloudsync::Error::from)?;
+            .map_err(notiz_cloudsync::Error::from)?;
 
         Ok(Self {
             cloudsync_enabled: true,
@@ -141,7 +141,7 @@ impl Db {
             .filename(path)
             .create_if_missing(true)
             .pragma("foreign_keys", "ON");
-        let (change_notifier, pool_options) = skald_db_change::ChangeNotifier::new();
+        let (change_notifier, pool_options) = notiz_db_change::ChangeNotifier::new();
         let pool = pool_options.connect_with(options).await?;
 
         Ok(Self {
@@ -157,7 +157,7 @@ impl Db {
         let options =
             apply_internal_connect_policy(SqliteConnectOptions::from_str("sqlite::memory:")?)
                 .pragma("foreign_keys", "ON");
-        let (change_notifier, pool_options) = skald_db_change::ChangeNotifier::new();
+        let (change_notifier, pool_options) = notiz_db_change::ChangeNotifier::new();
         let pool = pool_options
             .max_connections(1)
             .connect_with(options)
@@ -180,7 +180,7 @@ impl Db {
 async fn connect_with_options(
     options: &DbOpenOptions<'_>,
     pool_options: SqlitePoolOptions,
-    change_notifier: skald_db_change::ChangeNotifier,
+    change_notifier: notiz_db_change::ChangeNotifier,
 ) -> Result<Db, DbOpenError> {
     let mut connect_options = match options.storage {
         DbStorage::Local(path) => {
@@ -204,7 +204,7 @@ async fn connect_with_options(
     }
 
     let (connect_options, cloudsync_path) = if options.cloudsync_enabled {
-        let (connect_options, cloudsync_path) = skald_cloudsync::apply(connect_options)?;
+        let (connect_options, cloudsync_path) = notiz_cloudsync::apply(connect_options)?;
         (connect_options, Some(cloudsync_path))
     } else {
         (connect_options, None)
@@ -458,7 +458,7 @@ mod tests {
             .unwrap();
 
         assert_eq!(change.table, "test_events");
-        assert_eq!(change.kind, skald_db_change::TableChangeKind::Insert);
+        assert_eq!(change.kind, notiz_db_change::TableChangeKind::Insert);
         assert!(change.seq > before);
         assert_eq!(notifier.current_seq(), change.seq);
         assert_eq!(notifier.latest_table_seq("test_events"), Some(change.seq));
@@ -494,7 +494,7 @@ mod tests {
             .unwrap()
             .unwrap();
         assert_eq!(change.table, "test_events");
-        assert_eq!(change.kind, skald_db_change::TableChangeKind::Insert);
+        assert_eq!(change.kind, notiz_db_change::TableChangeKind::Insert);
         assert_eq!(notifier.latest_table_seq("test_events"), Some(change.seq));
     }
 
@@ -552,7 +552,7 @@ mod tests {
             .unwrap()
             .unwrap();
         assert_eq!(change.table, "test_events");
-        assert_eq!(change.kind, skald_db_change::TableChangeKind::Update);
+        assert_eq!(change.kind, notiz_db_change::TableChangeKind::Update);
         assert_eq!(notifier.latest_table_seq("test_events"), Some(change.seq));
         assert!(
             tokio::time::timeout(std::time::Duration::from_millis(100), changes.recv())
@@ -595,9 +595,9 @@ mod tests {
             .unwrap();
 
         assert_eq!(update.table, "test_events");
-        assert_eq!(update.kind, skald_db_change::TableChangeKind::Update);
+        assert_eq!(update.kind, notiz_db_change::TableChangeKind::Update);
         assert_eq!(delete.table, "test_events");
-        assert_eq!(delete.kind, skald_db_change::TableChangeKind::Delete);
+        assert_eq!(delete.kind, notiz_db_change::TableChangeKind::Delete);
         assert!(delete.seq > update.seq);
         assert_eq!(notifier.latest_table_seq("test_events"), Some(delete.seq));
     }
@@ -725,7 +725,7 @@ mod tests {
             .unwrap();
 
         assert_eq!(change.table, "retained_events");
-        assert_eq!(change.kind, skald_db_change::TableChangeKind::Insert);
+        assert_eq!(change.kind, notiz_db_change::TableChangeKind::Insert);
         assert_eq!(
             notifier.latest_table_seq("retained_events"),
             Some(change.seq)

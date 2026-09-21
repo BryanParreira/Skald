@@ -31,7 +31,7 @@ impl SupabaseStorage {
     }
 
     fn auth_headers(&self, builder: reqwest::RequestBuilder) -> reqwest::RequestBuilder {
-        skald_observability::with_current_trace_context(
+        notiz_observability::with_current_trace_context(
             builder
                 .header("Authorization", format!("Bearer {}", self.service_role_key))
                 .header("apikey", &self.service_role_key),

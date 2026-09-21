@@ -1,4 +1,4 @@
-import { SCHEMA } from "@skald/store";
+import { SCHEMA } from "@notiz/store";
 
 import type { TablesContent } from "~/store/tinybase/persister/shared";
 

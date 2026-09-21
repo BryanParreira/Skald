@@ -27,8 +27,8 @@ serde = { workspace = true, features = ["derive"] }
 specta = { workspace = true, features = ["derive"] }
 
 [target."cfg(target_os = \"macos\")".dependencies]
-skald-bundle = { workspace = true }
-skald-language = { workspace = true }
+notiz-bundle = { workspace = true }
+notiz-language = { workspace = true }
 
 plist = "1.7"
 cidre = { workspace = true, features = ["ax"] }

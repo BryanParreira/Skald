@@ -1,5 +1,5 @@
-import { commands as openerCommands } from "@skald/plugin-opener2";
-import { openUrlWithInstruction } from "@skald/plugin-windows";
+import { commands as openerCommands } from "@notiz/plugin-opener2";
+import { openUrlWithInstruction } from "@notiz/plugin-windows";
 
 import { buildWebAppUrl } from "~/shared/utils";
 

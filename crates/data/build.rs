@@ -7,7 +7,7 @@ fn main() {
 
     if is_release && is_primary {
         panic!(
-            "\n\nskald-data is a test-only crate.\nDo not add it to [dependencies]; use [dev-dependencies] instead.\n"
+            "\n\nnotiz-data is a test-only crate.\nDo not add it to [dependencies]; use [dev-dependencies] instead.\n"
         );
     }
 }

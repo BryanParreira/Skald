@@ -1,12 +1,12 @@
 import { isTauri } from "@tauri-apps/api/core";
 import { useCallback, useLayoutEffect, useRef } from "react";
 
-import { commands as windowsCommands } from "@skald/plugin-windows";
+import { commands as windowsCommands } from "@notiz/plugin-windows";
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-} from "@skald/ui/components/ui/resizable";
+} from "@notiz/ui/components/ui/resizable";
 
 import { NOTE_SURFACE_MIN_WIDTH_PX } from "./layout-widths";
 

@@ -33,6 +33,6 @@ const messageMetadataSchema = z.object({
 });
 
 type MessageMetadata = z.infer<typeof messageMetadataSchema>;
-export type SkaldUIMessage = UIMessage<
+export type NotizUIMessage = UIMessage<
   MessageMetadata & { contextRefs?: ContextRef[] }
 >;

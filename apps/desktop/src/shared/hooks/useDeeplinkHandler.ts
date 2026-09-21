@@ -3,8 +3,8 @@ import { isTauri } from "@tauri-apps/api/core";
 import { useEffect } from "react";
 import { useScheduleTaskRunCallback } from "tinytick/ui-react";
 
-import { events as deeplink2Events } from "@skald/plugin-deeplink2";
-import { dismissInstruction } from "@skald/plugin-windows";
+import { events as deeplink2Events } from "@notiz/plugin-deeplink2";
+import { dismissInstruction } from "@notiz/plugin-windows";
 
 import { useAuth } from "~/auth";
 import { CALENDAR_SYNC_TASK_ID } from "~/services/calendar";

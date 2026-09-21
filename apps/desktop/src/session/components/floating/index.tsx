@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "motion/react";
 import type { CSSProperties } from "react";
 import { useCallback } from "react";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 import { useCaretPosition } from "../caret-position-context";
 import { ListenButton } from "./listen";

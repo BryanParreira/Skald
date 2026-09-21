@@ -7,7 +7,7 @@ pub enum Error {
     Request(#[from] reqwest::Error),
 
     #[error(transparent)]
-    SkaldFile(#[from] skald_file::Error),
+    NotizFile(#[from] notiz_file::Error),
 
     #[error(transparent)]
     Json(#[from] serde_json::Error),

@@ -1,7 +1,7 @@
 import type {
   HumanStorage,
   MappingSessionParticipantStorage,
-} from "@skald/store";
+} from "@notiz/store";
 
 import type { Ctx } from "../../ctx";
 import type { ParticipantsSyncOutput } from "./types";

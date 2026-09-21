@@ -32,7 +32,7 @@ import type { EditorView } from "prosemirror-view";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 import { schema } from "../note/schema";
 import { createTaskItemAttrs } from "../tasks";

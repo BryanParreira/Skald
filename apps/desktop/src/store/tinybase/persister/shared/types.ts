@@ -1,5 +1,5 @@
-import type { ParsedDocument } from "@skald/plugin-fs-sync";
-import { SCHEMA } from "@skald/store";
+import type { ParsedDocument } from "@notiz/plugin-fs-sync";
+import { SCHEMA } from "@notiz/store";
 
 import type { Store } from "~/store/tinybase/store/main";
 

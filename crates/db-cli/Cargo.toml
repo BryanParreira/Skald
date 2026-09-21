@@ -4,9 +4,9 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-skald-db-app = { workspace = true }
-skald-db-core = { workspace = true }
-skald-db-migrate = { workspace = true }
+notiz-db-app = { workspace = true }
+notiz-db-core = { workspace = true }
+notiz-db-migrate = { workspace = true }
 
 clap = { workspace = true, features = ["derive", "env"] }
 dirs = { workspace = true }

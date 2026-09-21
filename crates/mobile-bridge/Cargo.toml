@@ -8,11 +8,11 @@ crate-type = ["lib", "cdylib", "staticlib"]
 name = "mobile_bridge"
 
 [dependencies]
-skald-db-app = { workspace = true }
-skald-db-core = { workspace = true }
-skald-db-execute = { workspace = true }
-skald-db-migrate = { workspace = true }
-skald-db-reactive = { workspace = true }
+notiz-db-app = { workspace = true }
+notiz-db-core = { workspace = true }
+notiz-db-execute = { workspace = true }
+notiz-db-migrate = { workspace = true }
+notiz-db-reactive = { workspace = true }
 
 serde_json = { workspace = true }
 thiserror = { workspace = true }

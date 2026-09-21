@@ -49,6 +49,6 @@ impl PyannoteError {
 
 impl IntoResponse for PyannoteError {
     fn into_response(self) -> Response {
-        skald_api_error::error_response(self.status, self.code, &self.message)
+        notiz_api_error::error_response(self.status, self.code, &self.message)
     }
 }

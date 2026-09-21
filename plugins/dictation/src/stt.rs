@@ -8,7 +8,7 @@ pub use self::stub::ActiveSession;
 mod macos {
     use bytes::Bytes;
     use futures_util::StreamExt;
-    use owhisper_client::skald_ws_client;
+    use owhisper_client::notiz_ws_client;
     use owhisper_interface::{ControlMessage, MixedMessage, stream::StreamResponse};
     use tauri::{AppHandle, Manager, Runtime};
     use tokio::sync::oneshot;
@@ -19,13 +19,13 @@ mod macos {
     // transcription, run in-process through the Soniqo bridge, so dictation
     // needs no second model. Falls back to the "am" sidecar when an API key is
     // set, and to the whisper.cpp model otherwise.
-    const FALLBACK_WHISPER_MODEL: skald_whisper_local_model::WhisperModel =
-        skald_whisper_local_model::WhisperModel::QuantizedSmallEn;
+    const FALLBACK_WHISPER_MODEL: notiz_whisper_local_model::WhisperModel =
+        notiz_whisper_local_model::WhisperModel::QuantizedSmallEn;
 
     const TARGET_RATE: u32 = 16000;
 
     type BoxedResponseStream = std::pin::Pin<
-        Box<dyn futures_util::Stream<Item = Result<StreamResponse, skald_ws_client::Error>> + Send>,
+        Box<dyn futures_util::Stream<Item = Result<StreamResponse, notiz_ws_client::Error>> + Send>,
     >;
 
     pub struct ActiveSession {
@@ -37,16 +37,16 @@ mod macos {
         pub async fn start<R: Runtime>(app: AppHandle<R>) -> Result<Self, Error> {
             use tauri_plugin_local_stt::{LocalModel, LocalSttPluginExt, SharedState};
 
-            let soniqo_model = skald_transcribe_soniqo::SoniqoModel::ParakeetStreaming;
+            let soniqo_model = notiz_transcribe_soniqo::SoniqoModel::ParakeetStreaming;
             let soniqo_ready = tokio::task::spawn_blocking(move || {
-                skald_transcribe_soniqo::is_model_downloaded(soniqo_model).unwrap_or(false)
+                notiz_transcribe_soniqo::is_model_downloaded(soniqo_model).unwrap_or(false)
             })
             .await
             .unwrap_or(false);
 
             // The Soniqo bridge runs one live session for the whole app, so
             // starting dictation now would cut off a meeting being transcribed.
-            if soniqo_ready && skald_transcribe_soniqo::is_live_session_active() {
+            if soniqo_ready && notiz_transcribe_soniqo::is_live_session_active() {
                 return Err(Error::Stt(
                     "a recording is already being transcribed live".to_string(),
                 ));
@@ -58,7 +58,7 @@ mod macos {
                 guard.am_api_key.clone().filter(|k| !k.is_empty())
             };
 
-            let am_model = skald_am::AmModel::ParakeetV2;
+            let am_model = notiz_am::AmModel::ParakeetV2;
             let use_argmax = am_api_key.is_some()
                 && app
                     .local_stt()
@@ -68,10 +68,10 @@ mod macos {
 
             // Mic capture is set up once and fed into whichever backend we pick below.
             let mic =
-                skald_audio_actual::MicInput::new(None).map_err(|e| Error::Audio(e.to_string()))?;
-            let chunk_size = skald_audio_utils::chunk_size_for_stt(TARGET_RATE);
+                notiz_audio_actual::MicInput::new(None).map_err(|e| Error::Audio(e.to_string()))?;
+            let chunk_size = notiz_audio_utils::chunk_size_for_stt(TARGET_RATE);
             let resampled = {
-                use skald_resampler::ResampleExtDynamicNew;
+                use notiz_resampler::ResampleExtDynamicNew;
                 mic.stream()
                     .resampled_chunks(TARGET_RATE, chunk_size)
                     .map_err(|e| Error::Audio(e.to_string()))?
@@ -81,7 +81,7 @@ mod macos {
 
             if soniqo_ready {
                 let session = tokio::task::spawn_blocking(move || {
-                    skald_transcribe_soniqo::LiveTranscriptionSession::start(soniqo_model)
+                    notiz_transcribe_soniqo::LiveTranscriptionSession::start(soniqo_model)
                 })
                 .await
                 .map_err(|e| Error::Stt(format!("soniqo start task failed: {e}")))?
@@ -105,7 +105,7 @@ mod macos {
 
                 let params = owhisper_interface::ListenParams {
                     model: Some(am_model.to_string()),
-                    languages: vec![skald_language::ISO639::En.into()],
+                    languages: vec![notiz_language::ISO639::En.into()],
                     ..Default::default()
                 };
 
@@ -155,7 +155,7 @@ mod macos {
     }
 
     async fn forward_mic_to_channel(
-        mut resampled: impl futures_util::Stream<Item = Result<Vec<f32>, skald_resampler::Error>>
+        mut resampled: impl futures_util::Stream<Item = Result<Vec<f32>, notiz_resampler::Error>>
         + Unpin,
         audio_tx: tokio::sync::mpsc::Sender<MixedMessage<Bytes, ControlMessage>>,
         mut stop_rx: oneshot::Receiver<()>,
@@ -171,7 +171,7 @@ mod macos {
                 chunk = resampled.next() => {
                     match chunk {
                         Some(Ok(samples)) => {
-                            let bytes = skald_audio_utils::f32_to_i16_bytes(samples.into_iter());
+                            let bytes = notiz_audio_utils::f32_to_i16_bytes(samples.into_iter());
                             if audio_tx.send(MixedMessage::Audio(bytes)).await.is_err() {
                                 break;
                             }
@@ -187,11 +187,11 @@ mod macos {
     // keep reading briefly before finalizing instead of cutting it off.
     const SONIQO_TAIL: std::time::Duration = std::time::Duration::from_millis(250);
 
-    type SoniqoSession = skald_transcribe_soniqo::LiveTranscriptionSession;
+    type SoniqoSession = notiz_transcribe_soniqo::LiveTranscriptionSession;
 
     async fn run_soniqo(
         session: SoniqoSession,
-        mut resampled: impl futures_util::Stream<Item = Result<Vec<f32>, skald_resampler::Error>>
+        mut resampled: impl futures_util::Stream<Item = Result<Vec<f32>, notiz_resampler::Error>>
         + Unpin,
         mut stop_rx: oneshot::Receiver<()>,
     ) -> String {
@@ -244,7 +244,7 @@ mod macos {
             let finished = tokio::task::spawn_blocking(move || {
                 let mut current = current;
                 let result =
-                    current.finalize(skald_transcribe_soniqo::TranscriptSource::Microphone);
+                    current.finalize(notiz_transcribe_soniqo::TranscriptSource::Microphone);
                 let _ = current.stop();
                 result
             })
@@ -265,11 +265,11 @@ mod macos {
     async fn append_samples(
         session: SoniqoSession,
         samples: Vec<f32>,
-    ) -> Result<(SoniqoSession, Vec<skald_transcribe_soniqo::LivePartial>), String> {
+    ) -> Result<(SoniqoSession, Vec<notiz_transcribe_soniqo::LivePartial>), String> {
         let (session, result) = tokio::task::spawn_blocking(move || {
             let mut session = session;
             let result = session.append(
-                skald_transcribe_soniqo::TranscriptSource::Microphone,
+                notiz_transcribe_soniqo::TranscriptSource::Microphone,
                 &samples,
             );
             (session, result)
@@ -286,7 +286,7 @@ mod macos {
     // committed segments become text.
     fn push_final_texts(
         transcript: &mut String,
-        partials: Vec<skald_transcribe_soniqo::LivePartial>,
+        partials: Vec<notiz_transcribe_soniqo::LivePartial>,
     ) {
         for partial in partials {
             let text = partial.text.trim();
@@ -302,7 +302,7 @@ mod macos {
 
     async fn collect_transcript(
         response_stream: impl futures_util::Stream<
-            Item = Result<StreamResponse, skald_ws_client::Error>,
+            Item = Result<StreamResponse, notiz_ws_client::Error>,
         >,
     ) -> String {
         futures_util::pin_mut!(response_stream);
@@ -382,7 +382,7 @@ mod macos {
 
         #[tokio::test]
         async fn ignores_non_transcript_and_error_items() {
-            let items: Vec<Result<StreamResponse, skald_ws_client::Error>> = vec![
+            let items: Vec<Result<StreamResponse, notiz_ws_client::Error>> = vec![
                 Ok(StreamResponse::SpeechStartedResponse {
                     channel: vec![0],
                     timestamp: 0.0,
@@ -393,8 +393,8 @@ mod macos {
             assert_eq!(transcript, "hi");
         }
 
-        fn partial(text: &str, is_final: bool) -> skald_transcribe_soniqo::LivePartial {
-            skald_transcribe_soniqo::LivePartial {
+        fn partial(text: &str, is_final: bool) -> notiz_transcribe_soniqo::LivePartial {
+            notiz_transcribe_soniqo::LivePartial {
                 source: "microphone".to_string(),
                 text: text.to_string(),
                 is_final,
@@ -418,7 +418,7 @@ mod macos {
 
         #[tokio::test]
         async fn empty_stream_yields_empty_transcript() {
-            let items: Vec<Result<StreamResponse, skald_ws_client::Error>> = vec![];
+            let items: Vec<Result<StreamResponse, notiz_ws_client::Error>> = vec![];
             let transcript = collect_transcript(futures_util::stream::iter(items)).await;
             assert_eq!(transcript, "");
         }

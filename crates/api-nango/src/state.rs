@@ -1,4 +1,4 @@
-use skald_nango::NangoClient;
+use notiz_nango::NangoClient;
 
 use crate::config::{NangoConfig, build_nango_client};
 use crate::routes::webhook::ForwardHandlerRegistry;

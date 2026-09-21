@@ -8,9 +8,9 @@ use crate::{ListenerRuntime, SessionLifecycleEvent};
 
 pub(crate) fn configure_sentry_session_context(params: &SessionParams) {
     sentry::configure_scope(|scope| {
-        scope.set_tag("skald.session.id", &params.session_id);
+        scope.set_tag("notiz.session.id", &params.session_id);
         scope.set_tag(
-            "skald.session.type",
+            "notiz.session.type",
             if params.onboarding {
                 "onboarding"
             } else {
@@ -20,27 +20,27 @@ pub(crate) fn configure_sentry_session_context(params: &SessionParams) {
 
         let mut session_context = BTreeMap::new();
         session_context.insert(
-            "skald.session.id".to_string(),
+            "notiz.session.id".to_string(),
             params.session_id.clone().into(),
         );
         session_context.insert(
-            "skald.gen_ai.request.model".to_string(),
+            "notiz.gen_ai.request.model".to_string(),
             params.model.clone().into(),
         );
         session_context.insert(
-            "skald.session.transcription_mode".to_string(),
+            "notiz.session.transcription_mode".to_string(),
             format!("{:?}", params.transcription_mode).into(),
         );
         session_context.insert(
-            "skald.session.onboarding".to_string(),
+            "notiz.session.onboarding".to_string(),
             params.onboarding.into(),
         );
         session_context.insert(
-            "skald.session.language_codes".to_string(),
+            "notiz.session.language_codes".to_string(),
             format!("{:?}", params.languages).into(),
         );
         scope.set_context(
-            "skald.session",
+            "notiz.session",
             sentry::protocol::Context::Other(session_context),
         );
     });
@@ -48,9 +48,9 @@ pub(crate) fn configure_sentry_session_context(params: &SessionParams) {
 
 pub(crate) fn clear_sentry_session_context() {
     sentry::configure_scope(|scope| {
-        scope.remove_tag("skald.session.id");
-        scope.remove_tag("skald.session.type");
-        scope.remove_context("skald.session");
+        scope.remove_tag("notiz.session.id");
+        scope.remove_tag("notiz.session.type");
+        scope.remove_context("notiz.session");
     });
 }
 
@@ -73,7 +73,7 @@ pub(crate) fn emit_session_ended(
     });
 
     if let Some(reason) = failure_reason {
-        tracing::info!(skald.session.stop_reason = %reason, "session_stopped");
+        tracing::info!(notiz.session.stop_reason = %reason, "session_stopped");
     } else {
         tracing::info!("session_stopped");
     }

@@ -1,1 +1,1 @@
-https://github.com/BryanParreira/Skald
+https://github.com/BryanParreira/Notiz

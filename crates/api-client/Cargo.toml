@@ -4,9 +4,9 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-skald-google-calendar = { workspace = true }
-skald-outlook-calendar = { workspace = true }
-skald-ticket-interface = { workspace = true }
+notiz-google-calendar = { workspace = true }
+notiz-outlook-calendar = { workspace = true }
+notiz-ticket-interface = { workspace = true }
 
 chrono = { workspace = true, features = ["serde"] }
 progenitor-client = { workspace = true }

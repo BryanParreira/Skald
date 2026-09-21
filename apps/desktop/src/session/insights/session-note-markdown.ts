@@ -1,4 +1,4 @@
-import { json2md } from "@skald/editor/markdown";
+import { json2md } from "@notiz/editor/markdown";
 
 import * as main from "~/store/tinybase/store/main";
 

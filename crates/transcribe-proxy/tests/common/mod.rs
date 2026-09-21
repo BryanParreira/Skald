@@ -2,9 +2,9 @@
 
 pub mod fixtures;
 pub mod mock_upstream;
+pub mod notiz;
 pub mod proxy;
 pub mod recording;
-pub mod skald;
 pub mod ws;
 
 #[allow(unused_imports)]
@@ -15,22 +15,22 @@ pub use mock_upstream::{
     start_mock_server_with_config, start_split_mock_server_with_config,
 };
 #[allow(unused_imports)]
+pub use notiz::{
+    ClientStreamResult, TranscriptEvent, batch_upstream_url, close_only_recording,
+    collect_streaming_via_client, collect_streaming_via_client_result, english, sample_response,
+    send_batch, send_batch_via_deepgram_client, send_batch_via_notiz_client, send_streaming,
+    send_streaming_via_client, single_response_recording, soniox_error_recording,
+    soniox_finalize_message, soniox_finalize_recording, soniox_finalize_ws_message,
+    soniox_partial_recording, soniox_partial_ws_message, split_test_audio_frame, start_mock_ws,
+    start_split_mock_ws, stereo_listen_url, terminal_finalize_count, transcript_events,
+};
+#[allow(unused_imports)]
 pub use proxy::{
     MockBatchUpstream, start_mock_batch_upstream, start_proxy, start_proxy_under_stt, wait_for,
     wait_for_first_batch_query, wait_for_first_request,
 };
 #[allow(unused_imports)]
 pub use recording::{Direction, MessageKind, WsMessage, WsRecording};
-#[allow(unused_imports)]
-pub use skald::{
-    ClientStreamResult, TranscriptEvent, batch_upstream_url, close_only_recording,
-    collect_streaming_via_client, collect_streaming_via_client_result, english, sample_response,
-    send_batch, send_batch_via_deepgram_client, send_batch_via_skald_client, send_streaming,
-    send_streaming_via_client, single_response_recording, soniox_error_recording,
-    soniox_finalize_message, soniox_finalize_recording, soniox_finalize_ws_message,
-    soniox_partial_recording, soniox_partial_ws_message, split_test_audio_frame, start_mock_ws,
-    start_split_mock_ws, stereo_listen_url, terminal_finalize_count, transcript_events,
-};
 #[allow(unused_imports)]
 pub use ws::{
     CloseInfo, ProxyWsStream, collect_json_messages, collect_text_messages, connect_to_proxy,
@@ -44,11 +44,11 @@ use std::time::Duration;
 use futures_util::StreamExt;
 use owhisper_client::Provider;
 use transcribe_proxy::{
-    SkaldRoutingConfig, SttAnalyticsReporter, SttEvent, SttProxyConfig, router,
+    NotizRoutingConfig, SttAnalyticsReporter, SttEvent, SttProxyConfig, router,
 };
 
-fn test_supabase_env() -> skald_api_env::SupabaseEnv {
-    skald_api_env::SupabaseEnv {
+fn test_supabase_env() -> notiz_api_env::SupabaseEnv {
+    notiz_api_env::SupabaseEnv {
         supabase_url: String::new(),
         supabase_anon_key: String::new(),
         supabase_service_role_key: String::new(),
@@ -89,7 +89,7 @@ pub async fn start_server_with_provider(provider: Provider, api_key: String) -> 
     let env = env_with_provider(provider, api_key);
     let config = SttProxyConfig::new(&env, &test_supabase_env())
         .with_default_provider(provider)
-        .with_skald_routing(SkaldRoutingConfig::default());
+        .with_notiz_routing(NotizRoutingConfig::default());
     start_server(config).await
 }
 
@@ -135,13 +135,13 @@ pub fn test_audio_stream_with_rate(
 > + Send
 + Unpin
 + 'static {
-    use skald_audio_utils::AudioFormatExt;
+    use notiz_audio_utils::AudioFormatExt;
 
     // chunk_samples should be proportional to sample_rate to maintain 100ms chunks
     let chunk_samples = (sample_rate / 10) as usize;
 
     let audio = rodio::Decoder::new(std::io::BufReader::new(
-        std::fs::File::open(skald_data::english_1::AUDIO_PATH).unwrap(),
+        std::fs::File::open(notiz_data::english_1::AUDIO_PATH).unwrap(),
     ))
     .unwrap()
     .to_i16_le_chunks(sample_rate, chunk_samples);

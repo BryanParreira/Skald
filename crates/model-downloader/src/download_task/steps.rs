@@ -6,7 +6,7 @@ use crate::model::DownloadableModel;
 
 pub(super) enum ChecksumError {
     Mismatch { actual: u32, expected: u32 },
-    Calculate(skald_file::Error),
+    Calculate(notiz_file::Error),
     Join(tokio::task::JoinError),
 }
 
@@ -17,9 +17,9 @@ pub(super) enum FinalizeError {
 
 pub(super) async fn download<M: DownloadableModel>(
     params: &DownloadTaskParams<M>,
-    progress_callback: impl Fn(skald_download_interface::DownloadProgress) + Send + Sync,
-) -> Result<(), skald_file::Error> {
-    skald_file::download_file_parallel_cancellable(
+    progress_callback: impl Fn(notiz_download_interface::DownloadProgress) + Send + Sync,
+) -> Result<(), notiz_file::Error> {
+    notiz_file::download_file_parallel_cancellable(
         &params.url,
         &params.destination,
         progress_callback,
@@ -34,7 +34,7 @@ pub(super) async fn verify_checksum<M: DownloadableModel>(
 ) -> Result<(), ChecksumError> {
     let destination_for_checksum = params.destination.clone();
     let checksum_result = tokio::task::spawn_blocking(move || {
-        skald_file::calculate_file_checksum(destination_for_checksum)
+        notiz_file::calculate_file_checksum(destination_for_checksum)
     })
     .await;
 

@@ -51,7 +51,7 @@ describe("parseChatGroupIdFromPath", () => {
   describe("absolute paths (defensive handling)", () => {
     test("extracts chat group ID from absolute path", () => {
       expect(
-        parseChatGroupIdFromPath("/Users/test/data/skald/chats/abc-123/file"),
+        parseChatGroupIdFromPath("/Users/test/data/notiz/chats/abc-123/file"),
       ).toBe("abc-123");
     });
   });

@@ -2,12 +2,12 @@
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-app_skald=""
+app_notiz=""
 
 while [[ $# -gt 0 ]]; do
   case $1 in
-    --app-skald)
-      app_skald="$2"
+    --app-notiz)
+      app_notiz="$2"
       shift 2
       ;;
     *)
@@ -16,6 +16,6 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-if [[ -n "$app_skald" ]]; then
-  "$SCRIPT_DIR/yabai_impl.sh" --bundle-id "$app_skald" --position left
+if [[ -n "$app_notiz" ]]; then
+  "$SCRIPT_DIR/yabai_impl.sh" --bundle-id "$app_notiz" --position left
 fi

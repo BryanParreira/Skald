@@ -8,8 +8,8 @@ links = "tauri-plugin-calendar"
 description = ""
 
 [dependencies]
-skald-calendar = { workspace = true, features = ["specta"] }
-skald-calendar-interface = { workspace = true }
+notiz-calendar = { workspace = true, features = ["specta"] }
+notiz-calendar-interface = { workspace = true }
 
 tauri = { workspace = true, features = ["test"] }
 tauri-plugin-auth = { workspace = true }

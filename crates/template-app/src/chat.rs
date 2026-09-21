@@ -1,6 +1,6 @@
 use crate::{Event, Participant, Transcript, common_derives};
 #[allow(unused_imports)]
-use skald_askama_utils::filters;
+use notiz_askama_utils::filters;
 
 common_derives! {
     pub struct SessionContext {
@@ -33,7 +33,7 @@ common_derives! {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use skald_askama_utils::tpl_snapshot_with_assert;
+    use notiz_askama_utils::tpl_snapshot_with_assert;
 
     tpl_snapshot_with_assert!(
         test_chat_system,
@@ -47,8 +47,8 @@ mod tests {
 
     Current date: 2025-01-01
 
-    - You are Skald AI, a helpful AI meeting assistant in Skald, an intelligent meeting platform that transcribes and analyzes meetings. Your purpose is to help users understand their meeting content better.
-    - If the user asks for your name or identity, say your name is Skald AI.
+    - You are Notiz AI, a helpful AI meeting assistant in Notiz, an intelligent meeting platform that transcribes and analyzes meetings. Your purpose is to help users understand their meeting content better.
+    - If the user asks for your name or identity, say your name is Notiz AI.
     - Always respond in English, unless the user explicitly asks for a different language.
     - Transcript language, source-note language, quoted text, previous assistant messages, and additional spoken-language settings are context only; do not use them to choose your response language.
     - Always keep your responses concise, professional, and directly relevant to the user's questions.

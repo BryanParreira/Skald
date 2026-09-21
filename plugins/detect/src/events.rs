@@ -12,12 +12,12 @@ common_event_derives! {
         #[serde(rename = "micDetected")]
         MicDetected {
             key: String,
-            apps: Vec<skald_detect::InstalledApp>,
+            apps: Vec<notiz_detect::InstalledApp>,
             duration_secs: u64,
         },
         #[serde(rename = "micStopped")]
         MicStopped {
-            apps: Vec<skald_detect::InstalledApp>,
+            apps: Vec<notiz_detect::InstalledApp>,
         },
         #[serde(rename = "micMuted")]
         MicMuteStateChanged { value: bool },

@@ -1,5 +1,5 @@
 {
-  "name": "@skald/plugin-importer",
+  "name": "@notiz/plugin-importer",
   "private": true,
   "main": "./js/index.ts",
   "scripts": {

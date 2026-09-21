@@ -1,5 +1,5 @@
-use skald_api_env::{NangoEnv, SupabaseEnv};
-use skald_nango::NangoClient;
+use notiz_api_env::{NangoEnv, SupabaseEnv};
+use notiz_nango::NangoClient;
 
 #[derive(Clone)]
 pub struct NangoConfig {
@@ -38,8 +38,8 @@ impl NangoConfig {
     }
 }
 
-pub(crate) fn build_nango_client(config: &NangoConfig) -> Result<NangoClient, skald_nango::Error> {
-    let mut builder = skald_nango::NangoClient::builder().api_key(&config.nango.nango_api_key);
+pub(crate) fn build_nango_client(config: &NangoConfig) -> Result<NangoClient, notiz_nango::Error> {
+    let mut builder = notiz_nango::NangoClient::builder().api_key(&config.nango.nango_api_key);
     if let Some(api_base) = &config.nango.nango_api_base {
         builder = builder.api_base(api_base);
     }

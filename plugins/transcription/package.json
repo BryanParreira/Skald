@@ -1,5 +1,5 @@
 {
-  "name": "@skald/plugin-transcription",
+  "name": "@notiz/plugin-transcription",
   "private": true,
   "main": "./js/index.ts",
   "scripts": {

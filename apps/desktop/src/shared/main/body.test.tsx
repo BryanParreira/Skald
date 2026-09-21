@@ -66,7 +66,7 @@ vi.mock("@tauri-apps/api/window", () => ({
   }),
 }));
 
-vi.mock("@skald/plugin-windows", () => ({
+vi.mock("@notiz/plugin-windows", () => ({
   commands: mocks.windowsCommands,
   events: {
     devtoolsPanelAction: {

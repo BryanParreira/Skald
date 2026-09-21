@@ -1,4 +1,4 @@
-use skald_calendar_interface::CalendarProviderType;
+use notiz_calendar_interface::CalendarProviderType;
 
 #[derive(Debug, thiserror::Error)]
 pub enum Error {

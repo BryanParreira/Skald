@@ -1,6 +1,6 @@
 import { type ReactNode, useCallback } from "react";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 import { ChatBody } from "./body";
 import { ChatContent } from "./content";

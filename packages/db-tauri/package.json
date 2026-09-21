@@ -1,5 +1,5 @@
 {
-  "name": "@skald/db-tauri",
+  "name": "@notiz/db-tauri",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -13,8 +13,8 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@skald/db-runtime": "workspace:*",
-    "@skald/plugin-db": "workspace:*"
+    "@notiz/db-runtime": "workspace:*",
+    "@notiz/plugin-db": "workspace:*"
   },
   "devDependencies": {
     "typescript": "~5.8.3",

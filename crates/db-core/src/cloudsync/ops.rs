@@ -16,8 +16,8 @@ impl Db {
         self.cloudsync_path.as_deref()
     }
 
-    pub async fn cloudsync_version(&self) -> Result<String, skald_cloudsync::Error> {
-        skald_cloudsync::version(&self.pool).await
+    pub async fn cloudsync_version(&self) -> Result<String, notiz_cloudsync::Error> {
+        notiz_cloudsync::version(&self.pool).await
     }
 
     pub async fn cloudsync_init(
@@ -25,99 +25,99 @@ impl Db {
         table_name: &str,
         crdt_algo: Option<&str>,
         force: Option<bool>,
-    ) -> Result<(), skald_cloudsync::Error> {
-        skald_cloudsync::init(&self.pool, table_name, crdt_algo, force).await
+    ) -> Result<(), notiz_cloudsync::Error> {
+        notiz_cloudsync::init(&self.pool, table_name, crdt_algo, force).await
     }
 
     pub async fn cloudsync_network_init(
         &self,
         connection_string: &str,
-    ) -> Result<(), skald_cloudsync::Error> {
-        skald_cloudsync::network_init(&self.pool, connection_string).await
+    ) -> Result<(), notiz_cloudsync::Error> {
+        notiz_cloudsync::network_init(&self.pool, connection_string).await
     }
 
     pub async fn cloudsync_network_set_apikey(
         &self,
         api_key: &str,
-    ) -> Result<(), skald_cloudsync::Error> {
-        skald_cloudsync::network_set_apikey(&self.pool, api_key).await
+    ) -> Result<(), notiz_cloudsync::Error> {
+        notiz_cloudsync::network_set_apikey(&self.pool, api_key).await
     }
 
     pub async fn cloudsync_network_set_token(
         &self,
         token: &str,
-    ) -> Result<(), skald_cloudsync::Error> {
-        skald_cloudsync::network_set_token(&self.pool, token).await
+    ) -> Result<(), notiz_cloudsync::Error> {
+        notiz_cloudsync::network_set_token(&self.pool, token).await
     }
 
     pub async fn cloudsync_begin_alter(
         &self,
         table_name: &str,
-    ) -> Result<(), skald_cloudsync::Error> {
+    ) -> Result<(), notiz_cloudsync::Error> {
         cloudsync_begin_alter_on(&self.pool, table_name).await
     }
 
     pub async fn cloudsync_commit_alter(
         &self,
         table_name: &str,
-    ) -> Result<(), skald_cloudsync::Error> {
+    ) -> Result<(), notiz_cloudsync::Error> {
         cloudsync_commit_alter_on(&self.pool, table_name).await
     }
 
-    pub async fn cloudsync_cleanup(&self, table_name: &str) -> Result<(), skald_cloudsync::Error> {
-        skald_cloudsync::cleanup(&self.pool, table_name).await
+    pub async fn cloudsync_cleanup(&self, table_name: &str) -> Result<(), notiz_cloudsync::Error> {
+        notiz_cloudsync::cleanup(&self.pool, table_name).await
     }
 
-    pub async fn cloudsync_terminate(&self) -> Result<(), skald_cloudsync::Error> {
-        skald_cloudsync::terminate(&self.pool).await
+    pub async fn cloudsync_terminate(&self) -> Result<(), notiz_cloudsync::Error> {
+        notiz_cloudsync::terminate(&self.pool).await
     }
 
-    pub async fn cloudsync_network_cleanup(&self) -> Result<(), skald_cloudsync::Error> {
-        skald_cloudsync::network_cleanup(&self.pool).await
+    pub async fn cloudsync_network_cleanup(&self) -> Result<(), notiz_cloudsync::Error> {
+        notiz_cloudsync::network_cleanup(&self.pool).await
     }
 
     pub async fn cloudsync_network_has_unsent_changes(
         &self,
-    ) -> Result<bool, skald_cloudsync::Error> {
-        skald_cloudsync::network_has_unsent_changes(&self.pool).await
+    ) -> Result<bool, notiz_cloudsync::Error> {
+        notiz_cloudsync::network_has_unsent_changes(&self.pool).await
     }
 
     pub async fn cloudsync_network_send_changes(
         &self,
         wait_ms: Option<i64>,
         max_retries: Option<i64>,
-    ) -> Result<i64, skald_cloudsync::Error> {
-        skald_cloudsync::network_send_changes(&self.pool, wait_ms, max_retries).await
+    ) -> Result<i64, notiz_cloudsync::Error> {
+        notiz_cloudsync::network_send_changes(&self.pool, wait_ms, max_retries).await
     }
 
     pub async fn cloudsync_network_check_changes(
         &self,
         wait_ms: Option<i64>,
         max_retries: Option<i64>,
-    ) -> Result<i64, skald_cloudsync::Error> {
-        skald_cloudsync::network_check_changes(&self.pool, wait_ms, max_retries).await
+    ) -> Result<i64, notiz_cloudsync::Error> {
+        notiz_cloudsync::network_check_changes(&self.pool, wait_ms, max_retries).await
     }
 
-    pub async fn cloudsync_network_reset_sync_version(&self) -> Result<(), skald_cloudsync::Error> {
-        skald_cloudsync::network_reset_sync_version(&self.pool).await
+    pub async fn cloudsync_network_reset_sync_version(&self) -> Result<(), notiz_cloudsync::Error> {
+        notiz_cloudsync::network_reset_sync_version(&self.pool).await
     }
 
-    pub async fn cloudsync_network_logout(&self) -> Result<(), skald_cloudsync::Error> {
-        skald_cloudsync::network_logout(&self.pool).await
+    pub async fn cloudsync_network_logout(&self) -> Result<(), notiz_cloudsync::Error> {
+        notiz_cloudsync::network_logout(&self.pool).await
     }
 
     pub async fn cloudsync_network_sync(
         &self,
         wait_ms: Option<i64>,
         max_retries: Option<i64>,
-    ) -> Result<i64, skald_cloudsync::Error> {
-        skald_cloudsync::network_sync(&self.pool, wait_ms, max_retries).await
+    ) -> Result<i64, notiz_cloudsync::Error> {
+        notiz_cloudsync::network_sync(&self.pool, wait_ms, max_retries).await
     }
 
     pub(crate) async fn apply_cloudsync_auth(
         &self,
         auth: &CloudsyncAuth,
-    ) -> Result<(), skald_cloudsync::Error> {
+    ) -> Result<(), notiz_cloudsync::Error> {
         match auth {
             CloudsyncAuth::None => Ok(()),
             CloudsyncAuth::ApiKey { api_key } => self.cloudsync_network_set_apikey(api_key).await,
@@ -129,19 +129,19 @@ impl Db {
 pub async fn cloudsync_begin_alter_on<'e, E>(
     executor: E,
     table_name: &str,
-) -> Result<(), skald_cloudsync::Error>
+) -> Result<(), notiz_cloudsync::Error>
 where
     E: Executor<'e, Database = Sqlite>,
 {
-    skald_cloudsync::begin_alter(executor, table_name).await
+    notiz_cloudsync::begin_alter(executor, table_name).await
 }
 
 pub async fn cloudsync_commit_alter_on<'e, E>(
     executor: E,
     table_name: &str,
-) -> Result<(), skald_cloudsync::Error>
+) -> Result<(), notiz_cloudsync::Error>
 where
     E: Executor<'e, Database = Sqlite>,
 {
-    skald_cloudsync::commit_alter(executor, table_name).await
+    notiz_cloudsync::commit_alter(executor, table_name).await
 }

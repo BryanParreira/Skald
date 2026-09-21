@@ -1,5 +1,5 @@
 {
-  "name": "@skald/db-react",
+  "name": "@notiz/db-react",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -13,7 +13,7 @@
     "test": "vitest run --environment jsdom"
   },
   "dependencies": {
-    "@skald/db-runtime": "workspace:*"
+    "@notiz/db-runtime": "workspace:*"
   },
   "devDependencies": {
     "@testing-library/react": "^16.3.2",

@@ -9,24 +9,24 @@ description = ""
 
 [features]
 default = ["zoom", "sleep"]
-zoom = ["skald-detect/zoom"]
-language = ["skald-detect/language"]
-sleep = ["skald-detect/sleep"]
+zoom = ["notiz-detect/zoom"]
+language = ["notiz-detect/language"]
+sleep = ["notiz-detect/sleep"]
 test-support = []
 
 [build-dependencies]
 tauri-plugin = { workspace = true, features = ["build"] }
 
 [dev-dependencies]
-skald-detect = { workspace = true, features = ["mic"] }
+notiz-detect = { workspace = true, features = ["mic"] }
 specta-typescript = { workspace = true }
 tauri-plugin-detect = { path = ".", features = ["test-support"] }
 tokio = { workspace = true, features = ["test-util"] }
 
 [dependencies]
-skald-detect = { workspace = true, features = ["mic", "list", "language", "sleep"] }
-skald-host = { workspace = true }
-skald-notification-interface = { workspace = true }
+notiz-detect = { workspace = true, features = ["mic", "list", "language", "sleep"] }
+notiz-host = { workspace = true }
+notiz-notification-interface = { workspace = true }
 
 tauri = { workspace = true, features = ["specta", "test"] }
 tauri-plugin-settings = { workspace = true }

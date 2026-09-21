@@ -1,4 +1,4 @@
-use skald_http::HttpClient;
+use notiz_http::HttpClient;
 
 use crate::error::Error;
 use crate::types::{PostMessageRequest, PostMessageResponse, SlackResponse};

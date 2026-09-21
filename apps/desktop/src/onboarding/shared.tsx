@@ -10,7 +10,7 @@ import {
 import { AnimatePresence, motion } from "motion/react";
 import { type ReactNode, useEffect, useRef } from "react";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 const SCROLL_DELAY_MS = 350;
 

@@ -14,7 +14,7 @@ vi.mock("ai", async (importOriginal) => ({
   generateText: hoisted.generateText,
 }));
 
-vi.mock("@skald/plugin-template", () => ({
+vi.mock("@notiz/plugin-template", () => ({
   commands: {
     renderCustom: vi.fn(async (template: string) => ({
       status: "ok",

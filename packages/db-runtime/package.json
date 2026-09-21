@@ -1,5 +1,5 @@
 {
-  "name": "@skald/db-runtime",
+  "name": "@notiz/db-runtime",
   "version": "0.1.0",
   "private": true,
   "type": "module",

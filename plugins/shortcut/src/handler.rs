@@ -13,7 +13,7 @@ pub use self::stub::Handler;
 mod macos {
     use std::{sync::Mutex, time::Duration};
 
-    use skald_shortcut_macos as sm;
+    use notiz_shortcut_macos as sm;
     use tauri::{AppHandle, Runtime};
     use tauri_specta::Event;
 

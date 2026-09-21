@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
-import { TooltipProvider } from "@skald/ui/components/ui/tooltip";
+import { TooltipProvider } from "@notiz/ui/components/ui/tooltip";
 
 import {
   getOnboardingNeeded,

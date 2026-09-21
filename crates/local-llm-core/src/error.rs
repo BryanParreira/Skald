@@ -1,11 +1,11 @@
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
     #[error(transparent)]
-    SkaldFileError(#[from] skald_file::Error),
+    NotizFileError(#[from] notiz_file::Error),
     #[error(transparent)]
     IoError(#[from] std::io::Error),
     #[error(transparent)]
-    LmStudioError(#[from] skald_lmstudio::Error),
+    LmStudioError(#[from] notiz_lmstudio::Error),
     #[error("Model not downloaded")]
     ModelNotDownloaded,
     #[error("Failed to start local LLM server: {0}")]

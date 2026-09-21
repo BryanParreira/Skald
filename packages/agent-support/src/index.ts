@@ -1,4 +1,4 @@
-export * from "@skald/agent-core";
+export * from "@notiz/agent-core";
 
 export { agent } from "./agent";
 export type { CompiledAgentGraph } from "./graph";

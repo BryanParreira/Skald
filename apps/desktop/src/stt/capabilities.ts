@@ -1,8 +1,8 @@
-import type { LocalModel } from "@skald/plugin-local-stt";
+import type { LocalModel } from "@notiz/plugin-local-stt";
 import {
   commands as listenerCommands,
   type TranscriptionMode,
-} from "@skald/plugin-transcription";
+} from "@notiz/plugin-transcription";
 
 type LiveTranscriptionConfig = {
   languages: string[];
@@ -49,18 +49,18 @@ export function isSupportedLocalSttModel(
   );
 }
 
-export function isSkaldCloudSttModel(
+export function isNotizCloudSttModel(
   provider?: string | null,
   model?: string | null,
 ) {
-  return provider === "skald" && model === "cloud";
+  return provider === "notiz" && model === "cloud";
 }
 
-export function isSkaldLocalSttModel(
+export function isNotizLocalSttModel(
   provider?: string | null,
   model?: string | null,
 ): model is LocalModel {
-  return provider === "skald" && isSupportedLocalSttModel(model);
+  return provider === "notiz" && isSupportedLocalSttModel(model);
 }
 
 export function isConfiguredSttModel(
@@ -71,7 +71,7 @@ export function isConfiguredSttModel(
     return false;
   }
 
-  if (provider === "skald") {
+  if (provider === "notiz") {
     return model === "cloud" || isSupportedLocalSttModel(model);
   }
 
@@ -191,7 +191,7 @@ export async function getLiveTranscriptionConfig({
   model?: string | null;
   languages: readonly string[];
 }): Promise<LiveTranscriptionConfig> {
-  if (isSkaldLocalSttModel(provider, model)) {
+  if (isNotizLocalSttModel(provider, model)) {
     return getOnDeviceTranscriptionConfig(model, languages);
   }
 

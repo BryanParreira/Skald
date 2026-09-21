@@ -5,8 +5,8 @@ use axum::{
     http::{StatusCode, request::Parts},
     response::{IntoResponse, Response},
 };
-use skald_api_auth::AuthContext;
-use skald_nango::{NangoClient, OwnedNangoHttpClient, OwnedNangoProxy};
+use notiz_api_auth::AuthContext;
+use notiz_nango::{NangoClient, OwnedNangoHttpClient, OwnedNangoProxy};
 
 use crate::integrations::NangoIntegrationId;
 
@@ -212,7 +212,7 @@ impl IntoResponse for NangoConnectionError {
             ),
         };
 
-        skald_api_error::error_response(status, code, &message)
+        notiz_api_error::error_response(status, code, &message)
     }
 }
 

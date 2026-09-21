@@ -1,7 +1,7 @@
 import { AudioLinesIcon } from "lucide-react";
 import type { HTMLAttributes, ReactNode } from "react";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 import { AUDIO_EXTENSIONS } from "~/stt/useUploadFile";
 

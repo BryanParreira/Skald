@@ -6,7 +6,7 @@ import type {
   SessionsState,
   TabInput as WindowsTabInput,
   TemplatesState,
-} from "@skald/plugin-windows";
+} from "@notiz/plugin-windows";
 
 export type {
   ChangelogState,

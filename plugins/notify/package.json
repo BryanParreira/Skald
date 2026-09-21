@@ -1,5 +1,5 @@
 {
-  "name": "@skald/plugin-notify",
+  "name": "@notiz/plugin-notify",
   "private": true,
   "main": "./js/index.ts",
   "scripts": {

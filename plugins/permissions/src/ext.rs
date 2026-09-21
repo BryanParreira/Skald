@@ -51,13 +51,13 @@ pub struct Permissions<'a, R: tauri::Runtime, M: tauri::Manager<R>> {
 }
 
 impl<'a, R: tauri::Runtime, M: tauri::Manager<R>> Permissions<'a, R, M> {
-    fn audio_provider(&self) -> Option<Arc<dyn skald_audio::AudioProvider>> {
+    fn audio_provider(&self) -> Option<Arc<dyn notiz_audio::AudioProvider>> {
         self.manager
-            .try_state::<Arc<dyn skald_audio::AudioProvider>>()
+            .try_state::<Arc<dyn notiz_audio::AudioProvider>>()
             .map(|s| Arc::clone(&*s))
     }
 
-    fn require_audio(&self) -> Result<Arc<dyn skald_audio::AudioProvider>, crate::Error> {
+    fn require_audio(&self) -> Result<Arc<dyn notiz_audio::AudioProvider>, crate::Error> {
         self.audio_provider().ok_or(crate::Error::NoAudioProvider)
     }
 
@@ -358,7 +358,7 @@ impl<'a, R: tauri::Runtime, M: tauri::Manager<R>> Permissions<'a, R, M> {
 
     async fn check_system_audio(&self) -> Result<PermissionStatus, crate::Error> {
         #[cfg(target_os = "macos")]
-        return check!("system_audio", skald_tcc::audio_capture_permission_status());
+        return check!("system_audio", notiz_tcc::audio_capture_permission_status());
 
         #[cfg(not(target_os = "macos"))]
         {
@@ -374,7 +374,7 @@ impl<'a, R: tauri::Runtime, M: tauri::Manager<R>> Permissions<'a, R, M> {
         #[cfg(target_os = "macos")]
         return check!(
             "screen_recording",
-            skald_tcc::screen_capture_permission_status()
+            notiz_tcc::screen_capture_permission_status()
         );
 
         #[cfg(not(target_os = "macos"))]
@@ -497,7 +497,7 @@ impl<'a, R: tauri::Runtime, M: tauri::Manager<R>> Permissions<'a, R, M> {
     async fn request_screen_recording(&self) -> Result<(), crate::Error> {
         #[cfg(target_os = "macos")]
         {
-            let _ = skald_tcc::request_screen_capture_permission();
+            let _ = notiz_tcc::request_screen_capture_permission();
         }
 
         Ok(())
@@ -603,7 +603,7 @@ impl<'a, R: tauri::Runtime, M: tauri::Manager<R>> Permissions<'a, R, M> {
         use tauri_plugin_shell::ShellExt;
 
         let bundle_id = if cfg!(debug_assertions) {
-            match skald_bundle::get_ancestor_bundle_id() {
+            match notiz_bundle::get_ancestor_bundle_id() {
                 Some(id) => {
                     tracing::info!(service, bundle_id = %id, "resolving_ancestor_bundle_id");
                     id

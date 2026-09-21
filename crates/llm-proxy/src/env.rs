@@ -1,4 +1,4 @@
-pub use skald_api_env::OpenRouterEnv as Env;
+pub use notiz_api_env::OpenRouterEnv as Env;
 
 pub struct ApiKey(pub String);
 

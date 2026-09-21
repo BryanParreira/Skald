@@ -7,11 +7,11 @@ edition = "2024"
 specta = ["dep:specta"]
 
 [dependencies]
-skald-api-client = { workspace = true }
-skald-apple-calendar = { workspace = true, features = ["specta"] }
-skald-calendar-interface = { workspace = true }
-skald-google-calendar = { workspace = true, features = ["specta"] }
-skald-outlook-calendar = { workspace = true, features = ["specta"] }
+notiz-api-client = { workspace = true }
+notiz-apple-calendar = { workspace = true, features = ["specta"] }
+notiz-calendar-interface = { workspace = true }
+notiz-google-calendar = { workspace = true, features = ["specta"] }
+notiz-outlook-calendar = { workspace = true, features = ["specta"] }
 
 chrono = { workspace = true, features = ["serde"] }
 chrono-tz = { workspace = true }

@@ -10,14 +10,14 @@ import {
 } from "lucide-react";
 import { useEffect, useRef } from "react";
 
-import type { NoteEditorRef } from "@skald/editor/note";
-import { Kbd } from "@skald/ui/components/ui/kbd";
+import type { NoteEditorRef } from "@notiz/editor/note";
+import { Kbd } from "@notiz/ui/components/ui/kbd";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@skald/ui/components/ui/tooltip";
-import { cn } from "@skald/utils";
+} from "@notiz/ui/components/ui/tooltip";
+import { cn } from "@notiz/utils";
 
 import { useSearch } from "./context";
 

@@ -10,8 +10,8 @@ import {
   type MergeableStore,
 } from "tinybase/with-schemas";
 
-import { SCHEMA, type Schemas } from "@skald/store";
-import { format } from "@skald/utils";
+import { SCHEMA, type Schemas } from "@notiz/store";
+import { format } from "@notiz/utils";
 
 import { useMainPersisters } from "./persisters";
 
@@ -56,7 +56,7 @@ export const StoreComponent = () => {
   const synchronizer = useCreateSynchronizer(store, async (store) =>
     createBroadcastChannelSynchronizer(
       store,
-      "skald-sync-persisted",
+      "notiz-sync-persisted",
     ).startSync(),
   );
 

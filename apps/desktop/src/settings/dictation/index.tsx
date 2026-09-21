@@ -7,7 +7,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@skald/ui/components/ui/select";
+} from "@notiz/ui/components/ui/select";
 
 import { SettingRow } from "~/settings/general/app-settings";
 import { PermissionRow } from "~/settings/general/permissions";

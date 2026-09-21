@@ -5,7 +5,7 @@ import {
   type Permission,
   commands as permissionsCommands,
   type PermissionStatus,
-} from "@skald/plugin-permissions";
+} from "@notiz/plugin-permissions";
 
 export function usePermission(type: Permission) {
   const [optimisticStatus, setOptimisticStatus] =

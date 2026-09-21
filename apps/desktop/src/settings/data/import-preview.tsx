@@ -8,14 +8,14 @@ import {
   UsersIcon,
 } from "lucide-react";
 
-import { type ImportStats } from "@skald/plugin-importer";
-import { Button } from "@skald/ui/components/ui/button";
+import { type ImportStats } from "@notiz/plugin-importer";
+import { Button } from "@notiz/ui/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@skald/ui/components/ui/tooltip";
+} from "@notiz/ui/components/ui/tooltip";
 
 export function ImportPreview({
   stats,

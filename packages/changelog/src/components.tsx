@@ -1,7 +1,7 @@
 import { isValidElement } from "react";
 import { Streamdown } from "streamdown";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 function flattenTextContent(node: React.ReactNode): string {
   if (node == null || typeof node === "boolean") {

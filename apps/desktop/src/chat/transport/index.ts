@@ -11,12 +11,12 @@ import {
 import {
   type SessionContext,
   commands as templateCommands,
-} from "@skald/plugin-template";
+} from "@notiz/plugin-template";
 
 import type { ContextRef } from "../context/entities";
 import { extractContextRefsFromMessages } from "../context/refs";
 import { CONTEXT_TEXT_FIELD } from "../tools/context-text";
-import type { SkaldUIMessage } from "../types";
+import type { NotizUIMessage } from "../types";
 import {
   getSessionIdsFromSearchOutput,
   hasContextText,
@@ -32,7 +32,7 @@ export type ResolvedChatContext =
   | { kind: "session"; context: SessionContext }
   | { kind: "text"; text: string };
 
-export class CustomChatTransport implements ChatTransport<SkaldUIMessage> {
+export class CustomChatTransport implements ChatTransport<NotizUIMessage> {
   constructor(
     private model: LanguageModel,
     private tools: ToolSet,
@@ -169,7 +169,7 @@ export class CustomChatTransport implements ChatTransport<SkaldUIMessage> {
     };
   }
 
-  sendMessages: ChatTransport<SkaldUIMessage>["sendMessages"] = async (
+  sendMessages: ChatTransport<NotizUIMessage>["sendMessages"] = async (
     options,
   ) => {
     const cache = new Map<string, string | null>();
@@ -204,7 +204,7 @@ export class CustomChatTransport implements ChatTransport<SkaldUIMessage> {
       },
     });
 
-    const messagesWithContext: SkaldUIMessage[] = [];
+    const messagesWithContext: NotizUIMessage[] = [];
 
     for (const [index, msg] of options.messages.entries()) {
       if (msg.role === "user") {
@@ -238,7 +238,7 @@ export class CustomChatTransport implements ChatTransport<SkaldUIMessage> {
         );
         messagesWithContext.push({
           ...msg,
-          parts: expandedParts as SkaldUIMessage["parts"],
+          parts: expandedParts as NotizUIMessage["parts"],
         });
       } else {
         messagesWithContext.push(msg);
@@ -278,7 +278,7 @@ export class CustomChatTransport implements ChatTransport<SkaldUIMessage> {
     });
   };
 
-  reconnectToStream: ChatTransport<SkaldUIMessage>["reconnectToStream"] =
+  reconnectToStream: ChatTransport<NotizUIMessage>["reconnectToStream"] =
     async () => {
       return null;
     };

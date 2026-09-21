@@ -1,5 +1,5 @@
-import { parseImageMetadata } from "@skald/editor/node-views";
-import { cn } from "@skald/utils";
+import { parseImageMetadata } from "@notiz/editor/node-views";
+import { cn } from "@notiz/utils";
 
 const HEADING_SHARED =
   "text-muted-foreground font-semibold text-sm mb-1 min-h-6";

@@ -9,7 +9,7 @@ const fsSyncMocks = vi.hoisted(() => ({
 vi.mock("@tauri-apps/api/path", () => ({
   sep: () => "/",
 }));
-vi.mock("@skald/plugin-fs-sync", () => ({ commands: fsSyncMocks }));
+vi.mock("@notiz/plugin-fs-sync", () => ({ commands: fsSyncMocks }));
 
 describe("loadAllSessionData", () => {
   beforeEach(() => {

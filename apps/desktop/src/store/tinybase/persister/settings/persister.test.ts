@@ -45,7 +45,7 @@ const { notifyListen, notifyUnlisten, settingsLoad, settingsSave, mockState } =
     };
   });
 
-vi.mock("@skald/plugin-notify", () => ({
+vi.mock("@notiz/plugin-notify", () => ({
   events: {
     fileChanged: {
       listen: notifyListen,
@@ -53,14 +53,14 @@ vi.mock("@skald/plugin-notify", () => ({
   },
 }));
 
-vi.mock("@skald/plugin-settings", () => ({
+vi.mock("@notiz/plugin-settings", () => ({
   commands: {
     load: settingsLoad,
     save: settingsSave,
   },
 }));
 
-vi.mock("@skald/plugin-detect", () => ({
+vi.mock("@notiz/plugin-detect", () => ({
   commands: {
     getPreferredLanguages: vi
       .fn()
@@ -110,7 +110,7 @@ describe("settingsPersister roundtrip", () => {
         spoken_languages: ["en", "ko"],
       },
       personalization: {
-        dictionary_terms: ["Skald", "Parakeet TDT"],
+        dictionary_terms: ["Notiz", "Parakeet TDT"],
       },
     };
 
@@ -156,6 +156,20 @@ describe("settingsPersister roundtrip", () => {
     expect(values.current_stt_model).toBe("stt-rt-v4");
   });
 
+  test("migrates provider ids from earlier app names on load", () => {
+    const [, values] = settingsToContent({
+      ai: {
+        current_llm_provider: "skald_local",
+        current_stt_provider: "skald",
+        current_stt_model: "soniqo-parakeet-streaming",
+      },
+    });
+
+    expect(values.current_llm_provider).toBe("notiz_local");
+    expect(values.current_stt_provider).toBe("notiz");
+    expect(values.current_stt_model).toBe("soniqo-parakeet-streaming");
+  });
+
   test("store -> settings -> store preserves all data", () => {
     const store1 = createMergeableStore()
       .setTablesSchema(SCHEMA.table)
@@ -194,7 +208,7 @@ describe("settingsPersister roundtrip", () => {
       audio_retention: "none",
       ai_language: "en",
       spoken_languages: '["en","ko"]',
-      personalization_dictionary_terms: '["Skald","Parakeet TDT"]',
+      personalization_dictionary_terms: '["Notiz","Parakeet TDT"]',
       mic_active_threshold: 15,
     });
 

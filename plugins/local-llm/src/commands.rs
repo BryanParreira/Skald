@@ -11,7 +11,7 @@ pub async fn models_dir<R: tauri::Runtime>(app: tauri::AppHandle<R>) -> Result<S
 #[tauri::command]
 #[specta::specta]
 pub async fn list_supported_model() -> Result<Vec<ModelInfo>, String> {
-    Ok(skald_local_llm_core::list_supported_models())
+    Ok(notiz_local_llm_core::list_supported_models())
 }
 
 #[tauri::command]

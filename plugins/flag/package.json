@@ -1,5 +1,5 @@
 {
-  "name": "@skald/plugin-flag",
+  "name": "@notiz/plugin-flag",
   "private": true,
   "main": "./js/index.ts",
   "scripts": {

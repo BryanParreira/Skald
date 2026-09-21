@@ -6,7 +6,7 @@ export interface UnderstandResult {
   executionTimeMs: number;
 }
 
-export async function understandSkaldRepo(
+export async function understandNotizRepo(
   request: string,
 ): Promise<UnderstandResult> {
   try {

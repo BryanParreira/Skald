@@ -9,7 +9,7 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 import { useMainContentCenterOffset } from "./content-offset";
 

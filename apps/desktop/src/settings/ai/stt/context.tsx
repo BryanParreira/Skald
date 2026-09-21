@@ -9,7 +9,7 @@ import {
 import {
   commands as localSttCommands,
   type LocalModel,
-} from "@skald/plugin-local-stt";
+} from "@notiz/plugin-local-stt";
 
 import { useBillingAccess } from "~/auth/billing";
 import { useToastAction } from "~/store/zustand/toast-action";

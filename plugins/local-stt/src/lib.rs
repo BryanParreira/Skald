@@ -1,6 +1,6 @@
+use notiz_model_downloader::ModelDownloadManager;
+use notiz_supervisor::dynamic::DynamicSupervisorMsg;
 use ractor::{ActorCell, ActorRef};
-use skald_model_downloader::ModelDownloadManager;
-use skald_supervisor::dynamic::DynamicSupervisorMsg;
 use tauri::{Manager, Wry};
 
 mod commands;
@@ -54,7 +54,7 @@ fn make_specta_builder<R: tauri::Runtime>() -> tauri_specta::Builder<R> {
         .events(tauri_specta::collect_events![
             types::DownloadProgressPayload,
         ])
-        .typ::<skald_whisper_local_model::WhisperModel>()
+        .typ::<notiz_whisper_local_model::WhisperModel>()
         .error_handling(tauri_specta::ErrorHandlingMode::Result)
 }
 

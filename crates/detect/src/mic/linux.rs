@@ -59,7 +59,7 @@ impl crate::Observer for Detector {
                     }
                 };
 
-                let mut context = match Context::new(&mainloop, "skald-mic-detector") {
+                let mut context = match Context::new(&mainloop, "notiz-mic-detector") {
                     Some(c) => c,
                     None => {
                         tracing::error!("failed_to_create_pulseaudio_context");
@@ -183,7 +183,7 @@ fn check_mic_in_use() -> bool {
         None => return false,
     };
 
-    let mut context = match Context::new(&mainloop, "skald-mic-check") {
+    let mut context = match Context::new(&mainloop, "notiz-mic-check") {
         Some(c) => c,
         None => return false,
     };

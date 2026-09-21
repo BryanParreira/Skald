@@ -1,4 +1,4 @@
-import { events as notifyEvents } from "@skald/plugin-notify";
+import { events as notifyEvents } from "@notiz/plugin-notify";
 
 export type NotifyListenerHandle = {
   unlisten: (() => void) | null;

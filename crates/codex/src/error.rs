@@ -30,19 +30,19 @@ pub enum Error {
     Poisoned,
 }
 
-impl From<skald_cli_process::ProcessError> for Error {
-    fn from(value: skald_cli_process::ProcessError) -> Self {
+impl From<notiz_cli_process::ProcessError> for Error {
+    fn from(value: notiz_cli_process::ProcessError) -> Self {
         match value {
-            skald_cli_process::ProcessError::MissingStdin => Self::MissingStdin,
-            skald_cli_process::ProcessError::MissingStdout => Self::MissingStdout,
-            skald_cli_process::ProcessError::StdinWrite(error) => Self::StdinWrite(error),
-            skald_cli_process::ProcessError::StdoutRead(error) => Self::StdoutRead(error),
-            skald_cli_process::ProcessError::Wait(error) => Self::Wait(error),
-            skald_cli_process::ProcessError::Kill(error) => Self::Kill(error),
-            skald_cli_process::ProcessError::ProcessFailed { detail } => {
+            notiz_cli_process::ProcessError::MissingStdin => Self::MissingStdin,
+            notiz_cli_process::ProcessError::MissingStdout => Self::MissingStdout,
+            notiz_cli_process::ProcessError::StdinWrite(error) => Self::StdinWrite(error),
+            notiz_cli_process::ProcessError::StdoutRead(error) => Self::StdoutRead(error),
+            notiz_cli_process::ProcessError::Wait(error) => Self::Wait(error),
+            notiz_cli_process::ProcessError::Kill(error) => Self::Kill(error),
+            notiz_cli_process::ProcessError::ProcessFailed { detail } => {
                 Self::ProcessFailed { detail }
             }
-            skald_cli_process::ProcessError::Cancelled => Self::Cancelled,
+            notiz_cli_process::ProcessError::Cancelled => Self::Cancelled,
         }
     }
 }

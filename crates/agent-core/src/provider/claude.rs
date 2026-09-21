@@ -7,7 +7,7 @@ const STOP_EVENT: &str = "Stop";
 const COMMAND: &str = "char claude notify";
 
 pub fn health(options: &HealthCheckOptions) -> ProviderHealth {
-    let health = skald_claude::health_check_with_options(&skald_claude::ClaudeOptions {
+    let health = notiz_claude::health_check_with_options(&notiz_claude::ClaudeOptions {
         claude_path_override: options.claude_path_override.clone(),
         ..Default::default()
     });
@@ -25,11 +25,11 @@ pub fn health(options: &HealthCheckOptions) -> ProviderHealth {
 }
 
 pub fn install_cli() -> Result<InstallCliResponse, String> {
-    let settings_path = skald_claude::settings_path();
-    let mut settings = skald_claude::read_settings(&settings_path)?;
+    let settings_path = notiz_claude::settings_path();
+    let mut settings = notiz_claude::read_settings(&settings_path)?;
 
-    skald_claude::upsert_command_hook(&mut settings, STOP_EVENT, COMMAND)?;
-    skald_claude::write_settings(&settings_path, &settings)?;
+    notiz_claude::upsert_command_hook(&mut settings, STOP_EVENT, COMMAND)?;
+    notiz_claude::write_settings(&settings_path, &settings)?;
 
     Ok(InstallCliResponse {
         provider: ProviderKind::Claude,
@@ -42,27 +42,27 @@ pub fn install_cli() -> Result<InstallCliResponse, String> {
 }
 
 pub fn upgrade() {
-    upgrade_at(&skald_claude::settings_path());
+    upgrade_at(&notiz_claude::settings_path());
 }
 
 fn upgrade_at(settings_path: &std::path::Path) {
-    let Ok(mut settings) = skald_claude::read_settings(settings_path) else {
+    let Ok(mut settings) = notiz_claude::read_settings(settings_path) else {
         return;
     };
-    if !skald_claude::has_command_hook(&settings, STOP_EVENT, COMMAND) {
+    if !notiz_claude::has_command_hook(&settings, STOP_EVENT, COMMAND) {
         return;
     }
-    let _ = skald_claude::remove_command_hook(&mut settings, STOP_EVENT, COMMAND);
-    let _ = skald_claude::upsert_command_hook(&mut settings, STOP_EVENT, COMMAND);
-    let _ = skald_claude::write_settings(settings_path, &settings);
+    let _ = notiz_claude::remove_command_hook(&mut settings, STOP_EVENT, COMMAND);
+    let _ = notiz_claude::upsert_command_hook(&mut settings, STOP_EVENT, COMMAND);
+    let _ = notiz_claude::write_settings(settings_path, &settings);
 }
 
 pub fn uninstall_cli() -> Result<UninstallCliResponse, String> {
-    let settings_path = skald_claude::settings_path();
-    let mut settings = skald_claude::read_settings(&settings_path)?;
+    let settings_path = notiz_claude::settings_path();
+    let mut settings = notiz_claude::read_settings(&settings_path)?;
 
-    skald_claude::remove_command_hook(&mut settings, STOP_EVENT, COMMAND)?;
-    skald_claude::write_settings(&settings_path, &settings)?;
+    notiz_claude::remove_command_hook(&mut settings, STOP_EVENT, COMMAND)?;
+    notiz_claude::write_settings(&settings_path, &settings)?;
 
     Ok(UninstallCliResponse {
         provider: ProviderKind::Claude,
@@ -75,29 +75,29 @@ pub fn uninstall_cli() -> Result<UninstallCliResponse, String> {
 }
 
 fn integration_installed() -> Result<bool, String> {
-    let settings_path = skald_claude::settings_path();
-    let settings = skald_claude::read_settings(&settings_path)?;
-    Ok(skald_claude::has_command_hook(
+    let settings_path = notiz_claude::settings_path();
+    let settings = notiz_claude::read_settings(&settings_path)?;
+    Ok(notiz_claude::has_command_hook(
         &settings, STOP_EVENT, COMMAND,
     ))
 }
 
-impl From<skald_claude::HealthStatus> for ProviderHealthStatus {
-    fn from(value: skald_claude::HealthStatus) -> Self {
+impl From<notiz_claude::HealthStatus> for ProviderHealthStatus {
+    fn from(value: notiz_claude::HealthStatus) -> Self {
         match value {
-            skald_claude::HealthStatus::Ready => Self::Ready,
-            skald_claude::HealthStatus::Warning => Self::Warning,
-            skald_claude::HealthStatus::Error => Self::Error,
+            notiz_claude::HealthStatus::Ready => Self::Ready,
+            notiz_claude::HealthStatus::Warning => Self::Warning,
+            notiz_claude::HealthStatus::Error => Self::Error,
         }
     }
 }
 
-impl From<skald_claude::HealthAuthStatus> for ProviderAuthStatus {
-    fn from(value: skald_claude::HealthAuthStatus) -> Self {
+impl From<notiz_claude::HealthAuthStatus> for ProviderAuthStatus {
+    fn from(value: notiz_claude::HealthAuthStatus) -> Self {
         match value {
-            skald_claude::HealthAuthStatus::Authenticated => Self::Authenticated,
-            skald_claude::HealthAuthStatus::Unauthenticated => Self::Unauthenticated,
-            skald_claude::HealthAuthStatus::Unknown => Self::Unknown,
+            notiz_claude::HealthAuthStatus::Authenticated => Self::Authenticated,
+            notiz_claude::HealthAuthStatus::Unauthenticated => Self::Unauthenticated,
+            notiz_claude::HealthAuthStatus::Unknown => Self::Unknown,
         }
     }
 }
@@ -124,8 +124,8 @@ mod tests {
 
         upgrade_at(&path);
 
-        let settings = skald_claude::read_settings(&path).unwrap();
-        assert!(!skald_claude::has_command_hook(
+        let settings = notiz_claude::read_settings(&path).unwrap();
+        assert!(!notiz_claude::has_command_hook(
             &settings, STOP_EVENT, COMMAND
         ));
     }
@@ -136,13 +136,13 @@ mod tests {
         let path = dir.path().join("settings.json");
 
         let mut settings = serde_json::json!({});
-        skald_claude::upsert_command_hook(&mut settings, STOP_EVENT, COMMAND).unwrap();
-        skald_claude::write_settings(&path, &settings).unwrap();
+        notiz_claude::upsert_command_hook(&mut settings, STOP_EVENT, COMMAND).unwrap();
+        notiz_claude::write_settings(&path, &settings).unwrap();
 
         upgrade_at(&path);
 
-        let settings = skald_claude::read_settings(&path).unwrap();
-        assert!(skald_claude::has_command_hook(
+        let settings = notiz_claude::read_settings(&path).unwrap();
+        assert!(notiz_claude::has_command_hook(
             &settings, STOP_EVENT, COMMAND
         ));
     }

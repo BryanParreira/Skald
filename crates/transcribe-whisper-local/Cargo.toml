@@ -5,34 +5,34 @@ edition = "2024"
 
 [features]
 default = []
-coreml = ["skald-whisper-local/coreml"]
-directml = ["skald-pyannote-local/directml"]
-cuda = ["skald-whisper-local/cuda"]
-hipblas = ["skald-whisper-local/hipblas"]
-openblas = ["skald-whisper-local/openblas"]
-metal = ["skald-whisper-local/metal"]
-vulkan = ["skald-whisper-local/vulkan"]
-openmp = ["skald-whisper-local/openmp"]
+coreml = ["notiz-whisper-local/coreml"]
+directml = ["notiz-pyannote-local/directml"]
+cuda = ["notiz-whisper-local/cuda"]
+hipblas = ["notiz-whisper-local/hipblas"]
+openblas = ["notiz-whisper-local/openblas"]
+metal = ["notiz-whisper-local/metal"]
+vulkan = ["notiz-whisper-local/vulkan"]
+openmp = ["notiz-whisper-local/openmp"]
 [dev-dependencies]
 bytes = { workspace = true }
 dirs = { workspace = true }
 futures-util = { workspace = true }
+notiz-data = { workspace = true }
 owhisper-client = { workspace = true }
 reqwest = { workspace = true, features = ["json", "stream"] }
-skald-data = { workspace = true }
 tokio-tungstenite = { workspace = true }
 
 [dependencies]
+notiz-audio-chunking = { workspace = true }
+notiz-audio-interface = { workspace = true }
+notiz-audio-utils = { workspace = true }
+notiz-model-manager = { workspace = true, features = ["whisper-local"] }
+notiz-pyannote-local = { workspace = true }
+notiz-transcribe-core = { workspace = true }
+notiz-whisper = { workspace = true }
+notiz-whisper-local = { workspace = true }
+notiz-ws-utils = { workspace = true }
 owhisper-interface = { workspace = true }
-skald-audio-chunking = { workspace = true }
-skald-audio-interface = { workspace = true }
-skald-audio-utils = { workspace = true }
-skald-model-manager = { workspace = true, features = ["whisper-local"] }
-skald-pyannote-local = { workspace = true }
-skald-transcribe-core = { workspace = true }
-skald-whisper = { workspace = true }
-skald-whisper-local = { workspace = true }
-skald-ws-utils = { workspace = true }
 
 bytes = { workspace = true }
 serde_html_form = { workspace = true }

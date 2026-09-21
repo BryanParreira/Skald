@@ -1,5 +1,5 @@
-use skald_apple_todo::types::{Reminder, ReminderList};
-use skald_ticket_interface::{CollectionPage, TicketPage};
+use notiz_apple_todo::types::{Reminder, ReminderList};
+use notiz_ticket_interface::{CollectionPage, TicketPage};
 
 use crate::error::Error;
 

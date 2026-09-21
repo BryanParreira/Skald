@@ -38,18 +38,18 @@ fn make_specta_builder<R: tauri::Runtime>() -> tauri_specta::Builder<R> {
 }
 
 pub fn init<R: tauri::Runtime>(
-    db: std::sync::Arc<skald_db_core::Db>,
+    db: std::sync::Arc<notiz_db_core::Db>,
 ) -> tauri::plugin::TauriPlugin<R> {
     let specta_builder = make_specta_builder();
 
     tauri::plugin::Builder::new(PLUGIN_NAME)
         .invoke_handler(specta_builder.invoke_handler())
         .setup(move |app, _| {
-            skald_tauri_utils::block_on(skald_db_app::prepare_schema(db.as_ref()))?;
+            notiz_tauri_utils::block_on(notiz_db_app::prepare_schema(db.as_ref()))?;
 
             let pool = db.pool().clone();
             let app_handle = app.app_handle().clone();
-            skald_tauri_utils::spawn("import legacy tinybase json", async move {
+            notiz_tauri_utils::spawn("import legacy tinybase json", async move {
                 import::import_legacy_data(&app_handle, &pool).await
             });
             app.manage(std::sync::Arc::new(runtime::PluginDbRuntime::new(db)));
@@ -63,8 +63,8 @@ mod test {
     use std::sync::{Arc, Mutex};
     use std::time::Duration;
 
+    use notiz_db_reactive::QueryEventSink;
     use serde_json::json;
-    use skald_db_reactive::QueryEventSink;
     use tauri::ipc::{Channel, InvokeResponseBody};
 
     use super::*;
@@ -120,8 +120,8 @@ mod test {
     async fn setup_runtime() -> (tempfile::TempDir, Arc<runtime::PluginDbRuntime>) {
         let dir = tempfile::tempdir().unwrap();
         let db_path = dir.path().join("app.db");
-        let db = skald_db_core::Db::open(skald_db_core::DbOpenOptions {
-            storage: skald_db_core::DbStorage::Local(&db_path),
+        let db = notiz_db_core::Db::open(notiz_db_core::DbOpenOptions {
+            storage: notiz_db_core::DbStorage::Local(&db_path),
             cloudsync_enabled: false,
             journal_mode_wal: true,
             foreign_keys: true,
@@ -129,7 +129,7 @@ mod test {
         })
         .await
         .unwrap();
-        skald_db_app::prepare_schema(&db).await.unwrap();
+        notiz_db_app::prepare_schema(&db).await.unwrap();
 
         (dir, Arc::new(runtime::PluginDbRuntime::new(Arc::new(db))))
     }
@@ -137,8 +137,8 @@ mod test {
     async fn setup_unmigrated_runtime() -> (tempfile::TempDir, Arc<runtime::PluginDbRuntime>) {
         let dir = tempfile::tempdir().unwrap();
         let db_path = dir.path().join("app.db");
-        let db = skald_db_core::Db::open(skald_db_core::DbOpenOptions {
-            storage: skald_db_core::DbStorage::Local(&db_path),
+        let db = notiz_db_core::Db::open(notiz_db_core::DbOpenOptions {
+            storage: notiz_db_core::DbStorage::Local(&db_path),
             cloudsync_enabled: false,
             journal_mode_wal: true,
             foreign_keys: true,
@@ -212,7 +212,7 @@ mod test {
             .execute_proxy(
                 "INSERT INTO templates (id, title) VALUES (?, ?)".to_string(),
                 vec![json!("template-1"), json!("Template 1")],
-                skald_db_execute::ProxyQueryMethod::Run,
+                notiz_db_execute::ProxyQueryMethod::Run,
             )
             .await
             .unwrap();
@@ -251,7 +251,7 @@ mod test {
 
         assert!(matches!(
             registration.analysis,
-            skald_db_reactive::DependencyAnalysis::Reactive { .. }
+            notiz_db_reactive::DependencyAnalysis::Reactive { .. }
         ));
 
         let event = next_event(&events, 0).await.unwrap();

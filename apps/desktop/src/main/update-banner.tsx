@@ -6,8 +6,8 @@ import {
   commands as updaterCommands,
   events as updaterEvents,
   type Result,
-} from "@skald/plugin-updater2";
-import { cn } from "@skald/utils";
+} from "@notiz/plugin-updater2";
+import { cn } from "@notiz/utils";
 
 import { useMountEffect } from "~/shared/hooks/useMountEffect";
 import { useDevtoolsOtaPreview } from "~/store/zustand/devtools-ota-preview";

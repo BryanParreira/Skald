@@ -1,7 +1,7 @@
 use ractor::{ActorRef, call_t, registry};
 
 use crate::{CaptureConfigUpdate, CaptureParams, CaptureState};
-use skald_transcription_core::listener::{
+use notiz_transcription_core::listener::{
     StartSessionError,
     actors::{RootActor, RootMsg, SessionParams, SourceActor, SourceMsg},
 };
@@ -17,7 +17,7 @@ impl<'a, R: tauri::Runtime, M: tauri::Manager<R>> Listener<'a, R, M> {
     pub async fn list_microphone_devices(&self) -> Result<Vec<String>, crate::Error> {
         let audio = self
             .manager
-            .state::<std::sync::Arc<dyn skald_audio::AudioProvider>>();
+            .state::<std::sync::Arc<dyn notiz_audio::AudioProvider>>();
         Ok(audio.list_mic_devices())
     }
 

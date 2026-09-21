@@ -8,8 +8,8 @@ export function sortProviders<T extends Sortable>(
   providers: readonly T[],
 ): T[] {
   return [...providers].sort((a, b) => {
-    if (a.id === "skald") return -1;
-    if (b.id === "skald") return 1;
+    if (a.id === "notiz") return -1;
+    if (b.id === "notiz") return 1;
 
     if (a.id === "custom") return 1;
     if (b.id === "custom") return -1;

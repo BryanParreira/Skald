@@ -16,31 +16,31 @@ pub use event_types::*;
 pub use template_ops::*;
 pub use template_types::*;
 
-pub const APP_MIGRATION_STEPS: &[skald_db_migrate::MigrationStep] = &[
-    skald_db_migrate::MigrationStep {
+pub const APP_MIGRATION_STEPS: &[notiz_db_migrate::MigrationStep] = &[
+    notiz_db_migrate::MigrationStep {
         id: "20260413020000_templates",
-        scope: skald_db_migrate::MigrationScope::Plain,
+        scope: notiz_db_migrate::MigrationScope::Plain,
         sql: include_str!("../migrations/20260413020000_templates.sql"),
     },
-    skald_db_migrate::MigrationStep {
+    notiz_db_migrate::MigrationStep {
         id: "20260414120000_calendars_events",
-        scope: skald_db_migrate::MigrationScope::Plain,
+        scope: notiz_db_migrate::MigrationScope::Plain,
         sql: include_str!("../migrations/20260414120000_calendars_events.sql"),
     },
-    skald_db_migrate::MigrationStep {
+    notiz_db_migrate::MigrationStep {
         id: "20260524000000_default_templates",
-        scope: skald_db_migrate::MigrationScope::Plain,
+        scope: notiz_db_migrate::MigrationScope::Plain,
         sql: include_str!("../migrations/20260524000000_default_templates.sql"),
     },
-    skald_db_migrate::MigrationStep {
+    notiz_db_migrate::MigrationStep {
         id: "20260624000000_repair_templates",
-        scope: skald_db_migrate::MigrationScope::Plain,
+        scope: notiz_db_migrate::MigrationScope::Plain,
         sql: include_str!("../migrations/20260624000000_repair_templates.sql"),
     },
 ];
 
-pub fn schema() -> skald_db_migrate::DbSchema {
-    skald_db_migrate::DbSchema {
+pub fn schema() -> notiz_db_migrate::DbSchema {
+    notiz_db_migrate::DbSchema {
         steps: APP_MIGRATION_STEPS,
         validate_cloudsync_table: cloudsync_alter_guard_required,
     }
@@ -48,7 +48,7 @@ pub fn schema() -> skald_db_migrate::DbSchema {
 
 #[derive(Debug)]
 pub enum AppSchemaError {
-    Migrate(skald_db_migrate::MigrateError),
+    Migrate(notiz_db_migrate::MigrateError),
     Sqlx(sqlx::Error),
 }
 
@@ -63,8 +63,8 @@ impl std::fmt::Display for AppSchemaError {
 
 impl std::error::Error for AppSchemaError {}
 
-impl From<skald_db_migrate::MigrateError> for AppSchemaError {
-    fn from(error: skald_db_migrate::MigrateError) -> Self {
+impl From<notiz_db_migrate::MigrateError> for AppSchemaError {
+    fn from(error: notiz_db_migrate::MigrateError) -> Self {
         Self::Migrate(error)
     }
 }
@@ -75,9 +75,9 @@ impl From<sqlx::Error> for AppSchemaError {
     }
 }
 
-pub async fn prepare_schema(db: &skald_db_core::Db) -> Result<(), AppSchemaError> {
+pub async fn prepare_schema(db: &notiz_db_core::Db) -> Result<(), AppSchemaError> {
     let templates_missing_before_migration = !templates_table_exists(db.pool()).await?;
-    skald_db_migrate::migrate(db, schema()).await?;
+    notiz_db_migrate::migrate(db, schema()).await?;
     repair_missing_core_tables(db.pool(), templates_missing_before_migration).await?;
     Ok(())
 }
@@ -118,12 +118,12 @@ async fn repair_missing_core_tables(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use skald_db_core::Db;
+    use notiz_db_core::Db;
     use sqlx::Row;
 
     async fn test_db() -> Db {
-        let db = Db::open(skald_db_core::DbOpenOptions {
-            storage: skald_db_core::DbStorage::Memory,
+        let db = Db::open(notiz_db_core::DbOpenOptions {
+            storage: notiz_db_core::DbStorage::Memory,
             cloudsync_enabled: false,
             journal_mode_wal: true,
             foreign_keys: true,
@@ -136,8 +136,8 @@ mod tests {
     }
 
     async fn test_db_without_default_templates() -> Db {
-        let db = Db::open(skald_db_core::DbOpenOptions {
-            storage: skald_db_core::DbStorage::Memory,
+        let db = Db::open(notiz_db_core::DbOpenOptions {
+            storage: notiz_db_core::DbStorage::Memory,
             cloudsync_enabled: false,
             journal_mode_wal: true,
             foreign_keys: true,
@@ -145,9 +145,9 @@ mod tests {
         })
         .await
         .unwrap();
-        skald_db_migrate::migrate(
+        notiz_db_migrate::migrate(
             &db,
-            skald_db_migrate::DbSchema {
+            notiz_db_migrate::DbSchema {
                 steps: &APP_MIGRATION_STEPS[..2],
                 validate_cloudsync_table: cloudsync_alter_guard_required,
             },
@@ -195,9 +195,9 @@ mod tests {
     #[tokio::test]
     async fn repair_migration_recreates_missing_templates_table() {
         let db = Db::connect_memory_plain().await.unwrap();
-        skald_db_migrate::migrate(
+        notiz_db_migrate::migrate(
             &db,
-            skald_db_migrate::DbSchema {
+            notiz_db_migrate::DbSchema {
                 steps: &APP_MIGRATION_STEPS[..3],
                 validate_cloudsync_table: cloudsync_alter_guard_required,
             },
@@ -210,7 +210,7 @@ mod tests {
             .await
             .unwrap();
 
-        skald_db_migrate::migrate(&db, schema()).await.unwrap();
+        notiz_db_migrate::migrate(&db, schema()).await.unwrap();
 
         let row_count: i64 = sqlx::query_scalar("SELECT COUNT(*) FROM templates")
             .fetch_one(db.pool())
@@ -240,9 +240,9 @@ mod tests {
     #[tokio::test]
     async fn prepare_schema_seeds_templates_when_repair_migration_creates_missing_table() {
         let db = Db::connect_memory_plain().await.unwrap();
-        skald_db_migrate::migrate(
+        notiz_db_migrate::migrate(
             &db,
-            skald_db_migrate::DbSchema {
+            notiz_db_migrate::DbSchema {
                 steps: &APP_MIGRATION_STEPS[..3],
                 validate_cloudsync_table: cloudsync_alter_guard_required,
             },
@@ -410,9 +410,9 @@ mod tests {
     #[tokio::test]
     async fn migrations_seed_default_templates_without_overwriting_existing_rows() {
         let db = Db::connect_memory_plain().await.unwrap();
-        skald_db_migrate::migrate(
+        notiz_db_migrate::migrate(
             &db,
-            skald_db_migrate::DbSchema {
+            notiz_db_migrate::DbSchema {
                 steps: &APP_MIGRATION_STEPS[..1],
                 validate_cloudsync_table: cloudsync_alter_guard_required,
             },
@@ -436,7 +436,7 @@ mod tests {
         .await
         .unwrap();
 
-        skald_db_migrate::migrate(&db, schema()).await.unwrap();
+        notiz_db_migrate::migrate(&db, schema()).await.unwrap();
 
         let rows = list_templates(db.pool()).await.unwrap();
         assert_eq!(rows.len(), 17);

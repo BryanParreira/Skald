@@ -11,8 +11,8 @@ const markdownMocks = vi.hoisted(() => ({
   md2json: vi.fn().mockReturnValue({ type: "doc", content: [] }),
 }));
 
-vi.mock("@skald/plugin-fs-sync", () => ({ commands: fsSyncMocks }));
-vi.mock("@skald/editor/markdown", () => markdownMocks);
+vi.mock("@notiz/plugin-fs-sync", () => ({ commands: fsSyncMocks }));
+vi.mock("@notiz/editor/markdown", () => markdownMocks);
 
 describe("processMdFile", () => {
   let result: LoadedSessionData;

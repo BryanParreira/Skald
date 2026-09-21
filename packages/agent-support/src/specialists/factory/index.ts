@@ -20,7 +20,7 @@ import {
   loadPrompt,
   type PromptConfig,
   type SpecialistConfig,
-} from "@skald/agent-core";
+} from "@notiz/agent-core";
 
 import { executeCodeTool } from "../../tools/execute-code";
 

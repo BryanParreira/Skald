@@ -4,15 +4,15 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+notiz-api-auth = { workspace = true }
+notiz-api-env = { workspace = true }
+notiz-chatwoot = { workspace = true }
+notiz-llm-proxy = { workspace = true }
+notiz-mcp = { workspace = true }
+notiz-openrouter = { workspace = true }
+notiz-template-support = { workspace = true }
 regex = { workspace = true }
 reqwest = { workspace = true }
-skald-api-auth = { workspace = true }
-skald-api-env = { workspace = true }
-skald-chatwoot = { workspace = true }
-skald-llm-proxy = { workspace = true }
-skald-mcp = { workspace = true }
-skald-openrouter = { workspace = true }
-skald-template-support = { workspace = true }
 urlencoding = { workspace = true }
 
 utoipa = { workspace = true }

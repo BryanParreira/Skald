@@ -8,7 +8,7 @@ export const commands = {
     try {
       return {
         status: "ok",
-        data: await TAURI_INVOKE("plugin:skald-tray|set_tray_icon_visible", {
+        data: await TAURI_INVOKE("plugin:notiz-tray|set_tray_icon_visible", {
           visible,
         }),
       };

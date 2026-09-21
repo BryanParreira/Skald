@@ -5,7 +5,7 @@ edition = "2024"
 
 [dependencies]
 log = { workspace = true }
-skald-notification-interface = { workspace = true }
+notiz-notification-interface = { workspace = true }
 uuid = { workspace = true, features = ["v4"] }
 
 [dev-dependencies]

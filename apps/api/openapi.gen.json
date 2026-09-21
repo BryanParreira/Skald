@@ -1,7 +1,7 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Skald AI API",
+    "title": "Notiz AI API",
     "description": "AI services API for speech-to-text transcription, LLM chat completions, and subscription management",
     "license": {
       "name": ""
@@ -229,7 +229,7 @@
                   "type": "null"
                 },
                 {
-                  "$ref": "#/components/schemas/SkaldTask"
+                  "$ref": "#/components/schemas/NotizTask"
                 }
               ]
             }
@@ -870,7 +870,7 @@
           {
             "name": "provider",
             "in": "query",
-            "description": "STT provider. Use 'skald' for automatic routing (default), or specify:\ndeepgram, soniox, assemblyai, gladia, elevenlabs, fireworks, openai, dashscope, mistral",
+            "description": "STT provider. Use 'notiz' for automatic routing (default), or specify:\ndeepgram, soniox, assemblyai, gladia, elevenlabs, fireworks, openai, dashscope, mistral",
             "required": false,
             "schema": {
               "type": "string"
@@ -954,7 +954,7 @@
           {
             "name": "provider",
             "in": "query",
-            "description": "STT provider. Use 'skald' for automatic routing (default), or specify:\ndeepgram, soniox, assemblyai, gladia, elevenlabs, fireworks, openai, dashscope, mistral",
+            "description": "STT provider. Use 'notiz' for automatic routing (default), or specify:\ndeepgram, soniox, assemblyai, gladia, elevenlabs, fireworks, openai, dashscope, mistral",
             "required": false,
             "schema": {
               "type": "string"
@@ -2013,7 +2013,7 @@
           }
         }
       },
-      "SkaldTask": {
+      "NotizTask": {
         "type": "string",
         "enum": ["chat", "enhance", "title"]
       },

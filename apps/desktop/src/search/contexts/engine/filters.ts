@@ -1,4 +1,4 @@
-import type { SearchFilters as TantivySearchFilters } from "@skald/plugin-tantivy";
+import type { SearchFilters as TantivySearchFilters } from "@notiz/plugin-tantivy";
 
 import type { SearchFilters } from "./types";
 

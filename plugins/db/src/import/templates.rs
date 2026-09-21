@@ -1,6 +1,6 @@
 use std::path::Path;
 
-use skald_db_app::UpsertTemplate;
+use notiz_db_app::UpsertTemplate;
 use sqlx::SqlitePool;
 
 pub async fn import_legacy_templates_from_path(
@@ -13,7 +13,7 @@ pub async fn import_legacy_templates_from_path(
 
     let templates = read_template_file(path)?;
     for template in templates {
-        skald_db_app::insert_template_if_missing(
+        notiz_db_app::insert_template_if_missing(
             pool,
             UpsertTemplate {
                 id: &template.id,
@@ -196,11 +196,11 @@ struct ParsedTemplate {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use skald_db_core::Db;
+    use notiz_db_core::Db;
 
     async fn test_db() -> Db {
         let db = Db::connect_memory_plain().await.unwrap();
-        skald_db_app::prepare_schema(&db).await.unwrap();
+        notiz_db_app::prepare_schema(&db).await.unwrap();
         db
     }
 
@@ -283,7 +283,7 @@ mod tests {
             .await
             .unwrap();
 
-        let row = skald_db_app::get_template(db.pool(), "template-1")
+        let row = notiz_db_app::get_template(db.pool(), "template-1")
             .await
             .unwrap()
             .unwrap();
@@ -313,14 +313,14 @@ mod tests {
             .await
             .unwrap();
 
-        let existing_row = skald_db_app::get_template(db.pool(), "template-1")
+        let existing_row = notiz_db_app::get_template(db.pool(), "template-1")
             .await
             .unwrap()
             .unwrap();
         assert_eq!(existing_row.title, "Weekly");
         assert_eq!(existing_row.description, "Agenda");
 
-        let imported_row = skald_db_app::get_template(db.pool(), "template-2")
+        let imported_row = notiz_db_app::get_template(db.pool(), "template-2")
             .await
             .unwrap()
             .unwrap();
@@ -334,7 +334,7 @@ mod tests {
         let dir = tempfile::tempdir().unwrap();
         let path = dir.path().join(super::super::TEMPLATES_FILENAME);
 
-        skald_db_app::upsert_template(
+        notiz_db_app::upsert_template(
             db.pool(),
             UpsertTemplate {
                 id: "template-1",
@@ -373,14 +373,14 @@ mod tests {
             .await
             .unwrap();
 
-        let seeded_row = skald_db_app::get_template(db.pool(), "template-1")
+        let seeded_row = notiz_db_app::get_template(db.pool(), "template-1")
             .await
             .unwrap()
             .unwrap();
         assert_eq!(seeded_row.title, "Seeded");
         assert_eq!(seeded_row.description, "Keep this");
 
-        let inserted_row = skald_db_app::get_template(db.pool(), "template-2")
+        let inserted_row = notiz_db_app::get_template(db.pool(), "template-2")
             .await
             .unwrap()
             .unwrap();

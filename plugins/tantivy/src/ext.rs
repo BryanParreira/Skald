@@ -16,8 +16,8 @@ use crate::{
     SearchRequest, SearchResult, Snippet,
 };
 
-pub fn detect_language(text: &str) -> skald_language::Language {
-    skald_language::detect(text)
+pub fn detect_language(text: &str) -> notiz_language::Language {
+    notiz_language::detect(text)
 }
 
 fn parse_query_parts(query: &str) -> (Vec<&str>, Vec<&str>) {

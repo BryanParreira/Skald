@@ -15,7 +15,7 @@ specta-typescript = { workspace = true }
 tokio = { workspace = true, features = ["macros"] }
 
 [dependencies]
-skald-storage = { workspace = true, features = ["specta"] }
+notiz-storage = { workspace = true, features = ["specta"] }
 
 tauri = { workspace = true, features = ["test"] }
 tauri-specta = { workspace = true, features = ["derive", "typescript"] }

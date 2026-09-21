@@ -2,9 +2,9 @@ import { Trans, useLingui } from "@lingui/react/macro";
 import { Search, X } from "lucide-react";
 import { useMemo, useState } from "react";
 
-import { Badge } from "@skald/ui/components/ui/badge";
-import { Button } from "@skald/ui/components/ui/button";
-import { cn } from "@skald/utils";
+import { Badge } from "@notiz/ui/components/ui/badge";
+import { Button } from "@notiz/ui/components/ui/button";
+import { cn } from "@notiz/utils";
 
 import {
   getAdditionalSpokenLanguages,

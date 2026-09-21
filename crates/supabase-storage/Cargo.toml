@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-skald-observability = { workspace = true }
+notiz-observability = { workspace = true }
 
 reqwest = { workspace = true, features = ["json"] }
 serde = { workspace = true, features = ["derive"] }

@@ -102,7 +102,7 @@ impl<'a, R: tauri::Runtime, M: tauri::Manager<R>> Screen<'a, R, M> {
         options: WindowContextCaptureOptions,
     ) -> Result<WindowContextCapture, crate::Error> {
         let _ = self.manager;
-        let capture = skald_screen_core::capture_frontmost_window_context(map_options(options))?;
+        let capture = notiz_screen_core::capture_frontmost_window_context(map_options(options))?;
 
         Ok(map_capture(capture))
     }
@@ -113,8 +113,8 @@ impl<'a, R: tauri::Runtime, M: tauri::Manager<R>> Screen<'a, R, M> {
         options: WindowContextCaptureOptions,
     ) -> Result<WindowContextCapture, crate::Error> {
         let _ = self.manager;
-        let capture = skald_screen_core::capture_target_window_context(
-            &skald_screen_core::WindowCaptureTarget {
+        let capture = notiz_screen_core::capture_target_window_context(
+            &notiz_screen_core::WindowCaptureTarget {
                 window_id: target.window_id,
                 pid: target.pid,
                 app_name: target.app_name,
@@ -129,11 +129,11 @@ impl<'a, R: tauri::Runtime, M: tauri::Manager<R>> Screen<'a, R, M> {
 
 fn map_options(
     options: WindowContextCaptureOptions,
-) -> skald_screen_core::WindowContextCaptureOptions {
-    let default_policy = skald_screen_core::WindowContextImagePolicy::default();
+) -> notiz_screen_core::WindowContextCaptureOptions {
+    let default_policy = notiz_screen_core::WindowContextImagePolicy::default();
     let image_policy = options.image_policy.unwrap_or_default();
-    skald_screen_core::WindowContextCaptureOptions {
-        image_policy: skald_screen_core::WindowContextImagePolicy {
+    notiz_screen_core::WindowContextCaptureOptions {
+        image_policy: notiz_screen_core::WindowContextImagePolicy {
             max_long_side: image_policy
                 .max_long_side
                 .unwrap_or(default_policy.max_long_side),
@@ -141,7 +141,7 @@ fn map_options(
     }
 }
 
-fn map_capture(capture: skald_screen_core::WindowContextImage) -> WindowContextCapture {
+fn map_capture(capture: notiz_screen_core::WindowContextImage) -> WindowContextCapture {
     WindowContextCapture {
         mime_type: capture.mime_type,
         data_base64: STANDARD.encode(capture.image_bytes),
@@ -149,11 +149,11 @@ fn map_capture(capture: skald_screen_core::WindowContextImage) -> WindowContextC
         width: capture.width,
         height: capture.height,
         strategy: match capture.strategy {
-            skald_screen_core::CaptureStrategy::WindowOnly => CaptureStrategy::WindowOnly,
-            skald_screen_core::CaptureStrategy::WindowWithContext => {
+            notiz_screen_core::CaptureStrategy::WindowOnly => CaptureStrategy::WindowOnly,
+            notiz_screen_core::CaptureStrategy::WindowWithContext => {
                 CaptureStrategy::WindowWithContext
             }
-            skald_screen_core::CaptureStrategy::Display => CaptureStrategy::Display,
+            notiz_screen_core::CaptureStrategy::Display => CaptureStrategy::Display,
         },
         crop: CaptureRect {
             x: capture.crop.x,
@@ -162,7 +162,7 @@ fn map_capture(capture: skald_screen_core::WindowContextImage) -> WindowContextC
             height: capture.crop.height,
         },
         subject: match capture.subject {
-            skald_screen_core::CaptureSubject::Window(window) => CaptureSubject::Window {
+            notiz_screen_core::CaptureSubject::Window(window) => CaptureSubject::Window {
                 window: WindowContextMetadata {
                     id: window.id,
                     pid: window.pid,
@@ -176,7 +176,7 @@ fn map_capture(capture: skald_screen_core::WindowContextImage) -> WindowContextC
                     },
                 },
             },
-            skald_screen_core::CaptureSubject::Display(display) => CaptureSubject::Display {
+            notiz_screen_core::CaptureSubject::Display(display) => CaptureSubject::Display {
                 display: DisplayContextMetadata {
                     id: display.id,
                     name: display.name,
@@ -215,8 +215,8 @@ impl<R: tauri::Runtime, T: tauri::Manager<R>> ScreenPluginExt<R> for T {
 mod tests {
     use super::*;
 
-    fn rect() -> skald_screen_core::CaptureRect {
-        skald_screen_core::CaptureRect {
+    fn rect() -> notiz_screen_core::CaptureRect {
+        notiz_screen_core::CaptureRect {
             x: 1,
             y: 2,
             width: 300,
@@ -226,15 +226,15 @@ mod tests {
 
     #[test]
     fn maps_window_subject_capture() {
-        let capture = map_capture(skald_screen_core::WindowContextImage {
+        let capture = map_capture(notiz_screen_core::WindowContextImage {
             image_bytes: vec![1, 2, 3],
             mime_type: "image/png".to_string(),
             captured_at_ms: 10,
             width: 300,
             height: 200,
-            strategy: skald_screen_core::CaptureStrategy::WindowWithContext,
+            strategy: notiz_screen_core::CaptureStrategy::WindowWithContext,
             crop: rect(),
-            subject: skald_screen_core::CaptureSubject::Window(skald_screen_core::WindowMetadata {
+            subject: notiz_screen_core::CaptureSubject::Window(notiz_screen_core::WindowMetadata {
                 id: 7,
                 pid: 42,
                 app_name: "Ghostty".to_string(),
@@ -256,16 +256,16 @@ mod tests {
 
     #[test]
     fn maps_display_subject_capture() {
-        let capture = map_capture(skald_screen_core::WindowContextImage {
+        let capture = map_capture(notiz_screen_core::WindowContextImage {
             image_bytes: vec![1, 2, 3],
             mime_type: "image/png".to_string(),
             captured_at_ms: 10,
             width: 400,
             height: 300,
-            strategy: skald_screen_core::CaptureStrategy::Display,
+            strategy: notiz_screen_core::CaptureStrategy::Display,
             crop: rect(),
-            subject: skald_screen_core::CaptureSubject::Display(
-                skald_screen_core::DisplayMetadata {
+            subject: notiz_screen_core::CaptureSubject::Display(
+                notiz_screen_core::DisplayMetadata {
                     id: 3,
                     name: "Built-in Retina Display".to_string(),
                     rect: rect(),

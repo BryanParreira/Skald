@@ -1,5 +1,5 @@
 {
-  "name": "@skald/ui",
+  "name": "@notiz/ui",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -28,7 +28,7 @@
     "@radix-ui/react-slot": "^1.2.4",
     "@radix-ui/react-switch": "^1.2.6",
     "@radix-ui/react-tooltip": "^1.2.8",
-    "@skald/utils": "workspace:^",
+    "@notiz/utils": "workspace:^",
     "class-variance-authority": "^0.7.1",
     "cmdk": "1.1.1",
     "embla-carousel-react": "^8.6.0",

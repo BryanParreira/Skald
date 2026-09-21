@@ -1,4 +1,4 @@
-import type { AudioSourceMetadata } from "@skald/plugin-fs-sync";
+import type { AudioSourceMetadata } from "@notiz/plugin-fs-sync";
 
 export function estimateUploadedAudioSessionCreatedAt(
   metadata: Pick<

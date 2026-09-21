@@ -17,9 +17,9 @@ use axum::{
 use owhisper_client::Provider;
 
 use crate::config::SttProxyConfig;
+use crate::notiz_routing::{NotizRouter, RoutingMode, should_use_notiz_routing};
 use crate::provider_selector::{ProviderSelector, SelectedProvider};
 use crate::query_params::QueryParams;
-use crate::skald_routing::{RoutingMode, SkaldRouter, should_use_skald_routing};
 use crate::supabase::SupabaseClient;
 
 pub(crate) use error::{RouteError, parse_async_provider};
@@ -30,7 +30,7 @@ const MAX_BATCH_AUDIO_BODY_BYTES: usize = 512 * 1024 * 1024;
 pub(crate) struct AppState {
     pub config: SttProxyConfig,
     pub selector: ProviderSelector,
-    pub router: Option<Arc<SkaldRouter>>,
+    pub router: Option<Arc<NotizRouter>>,
     pub client: reqwest::Client,
 }
 
@@ -65,8 +65,8 @@ impl AppState {
     pub fn resolve_provider(&self, params: &mut QueryParams) -> Result<SelectedProvider, Response> {
         let provider_param = params.remove_first("provider");
 
-        if should_use_skald_routing(provider_param.as_deref()) {
-            return self.resolve_skald_provider(params);
+        if should_use_notiz_routing(provider_param.as_deref()) {
+            return self.resolve_notiz_provider(params);
         }
 
         let requested = match provider_param {
@@ -75,7 +75,7 @@ impl AppState {
                 Err(_) => {
                     return Err((
                         StatusCode::BAD_REQUEST,
-                        format!("Invalid provider: {}. Supported providers: skald, deepgram, soniox, assemblyai, gladia, elevenlabs, fireworks, openai, mistral, dashscope", s)
+                        format!("Invalid provider: {}. Supported providers: notiz, deepgram, soniox, assemblyai, gladia, elevenlabs, fireworks, openai, mistral, dashscope", s)
                     ).into_response());
                 }
             },
@@ -85,7 +85,7 @@ impl AppState {
         self.selector.select(requested).map_err(|e| {
             tracing::warn!(
                 error = %e,
-                skald.stt.requested_provider = ?requested,
+                notiz.stt.requested_provider = ?requested,
                 "provider_selection_failed"
             );
             (StatusCode::BAD_REQUEST, e.to_string()).into_response()
@@ -93,10 +93,10 @@ impl AppState {
     }
 
     #[allow(clippy::result_large_err)]
-    fn resolve_skald_provider(&self, params: &QueryParams) -> Result<SelectedProvider, Response> {
+    fn resolve_notiz_provider(&self, params: &QueryParams) -> Result<SelectedProvider, Response> {
         let router = self.router.as_ref().ok_or_else(|| {
-            tracing::warn!("skald_routing_not_configured");
-            (StatusCode::BAD_REQUEST, "skald routing is not configured").into_response()
+            tracing::warn!("notiz_routing_not_configured");
+            (StatusCode::BAD_REQUEST, "notiz routing is not configured").into_response()
         })?;
 
         let languages = params.get_languages();
@@ -104,23 +104,23 @@ impl AppState {
         let routed_provider = router.select_provider(&languages, &available_providers);
 
         tracing::debug!(
-            skald.stt.language_codes = ?languages,
-            skald.stt.available_providers = ?available_providers,
-            skald.stt.provider.name = ?routed_provider,
-            "skald_routing"
+            notiz.stt.language_codes = ?languages,
+            notiz.stt.available_providers = ?available_providers,
+            notiz.stt.provider.name = ?routed_provider,
+            "notiz_routing"
         );
 
         self.selector.select(routed_provider).map_err(|e| {
             tracing::warn!(
                 error = %e,
-                skald.stt.language_codes = ?languages,
-                "skald_routing_failed"
+                notiz.stt.language_codes = ?languages,
+                "notiz_routing_failed"
             );
             (StatusCode::BAD_REQUEST, e.to_string()).into_response()
         })
     }
 
-    pub fn resolve_skald_provider_chain_for_mode(
+    pub fn resolve_notiz_provider_chain_for_mode(
         &self,
         mode: RoutingMode,
         params: &QueryParams,
@@ -142,7 +142,7 @@ impl AppState {
 
 fn make_state(config: SttProxyConfig) -> AppState {
     let selector = config.provider_selector();
-    let router = config.skald_router().map(Arc::new);
+    let router = config.notiz_router().map(Arc::new);
 
     AppState {
         config,
@@ -198,7 +198,7 @@ mod tests {
         let mut env = Env::default();
         env.stt.deepgram_api_key = Some("deepgram-key".to_string());
 
-        let supabase = skald_api_env::SupabaseEnv {
+        let supabase = notiz_api_env::SupabaseEnv {
             supabase_url: String::new(),
             supabase_anon_key: String::new(),
             supabase_service_role_key: String::new(),

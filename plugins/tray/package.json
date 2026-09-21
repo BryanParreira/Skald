@@ -1,9 +1,9 @@
 {
-  "name": "@skald/plugin-tray",
+  "name": "@notiz/plugin-tray",
   "private": true,
   "main": "./js/index.ts",
   "scripts": {
-    "codegen": "cargo test -p tauri-plugin-skald-tray",
+    "codegen": "cargo test -p tauri-plugin-notiz-tray",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

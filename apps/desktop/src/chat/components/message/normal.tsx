@@ -3,16 +3,16 @@ import { BrainIcon, CheckIcon, CopyIcon, RotateCcwIcon } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Streamdown } from "streamdown";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 import { Disclosure, MessageBubble, MessageContainer } from "./shared";
 import { Tool } from "./tool";
 import type { Part } from "./types";
 
 import { hasRenderableContent } from "~/chat/components/shared";
-import type { SkaldUIMessage } from "~/chat/types";
+import type { NotizUIMessage } from "~/chat/types";
 
-function getMessageText(message: SkaldUIMessage): string {
+function getMessageText(message: NotizUIMessage): string {
   return message.parts
     .filter(
       (part): part is Extract<Part, { type: "text" }> => part.type === "text",
@@ -25,7 +25,7 @@ export function NormalMessage({
   message,
   handleReload,
 }: {
-  message: SkaldUIMessage;
+  message: NotizUIMessage;
   handleReload?: () => void;
 }) {
   const { t } = useLingui();

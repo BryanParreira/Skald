@@ -1,5 +1,5 @@
 {
-  "name": "@skald/changelog",
+  "name": "@notiz/changelog",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@skald/utils": "workspace:^",
+    "@notiz/utils": "workspace:^",
     "streamdown": "^2.5.0"
   },
   "devDependencies": {

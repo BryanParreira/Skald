@@ -1,7 +1,7 @@
 import { createMergeableStore } from "tinybase/with-schemas";
 import { type Mock, beforeEach, describe, expect, test, vi } from "vitest";
 
-import { SCHEMA } from "@skald/store";
+import { SCHEMA } from "@notiz/store";
 
 import { importData } from "./importer";
 import type { Store } from "./main";

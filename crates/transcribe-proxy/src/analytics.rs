@@ -1,6 +1,6 @@
 use std::time::Duration;
 
-use skald_analytics::{AnalyticsClient, AnalyticsPayload};
+use notiz_analytics::{AnalyticsClient, AnalyticsPayload};
 
 #[derive(Debug, Clone)]
 pub struct SttEvent {
@@ -36,8 +36,8 @@ impl SttAnalyticsReporter for AnalyticsClient {
             let distinct_id = event.fingerprint.unwrap_or_else(|| {
                 let fallback_id = uuid::Uuid::new_v4().to_string();
                 tracing::warn!(
-                    skald.analytics.fallback_distinct_id = %fallback_id,
-                    skald.stt.provider.name = %event.provider,
+                    notiz.analytics.fallback_distinct_id = %fallback_id,
+                    notiz.stt.provider.name = %event.provider,
                     "device_fingerprint missing, falling back to random UUID for distinct_id"
                 );
                 fallback_id

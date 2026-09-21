@@ -22,8 +22,8 @@ import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-} from "@skald/ui/components/ui/resizable";
-import { cn } from "@skald/utils";
+} from "@notiz/ui/components/ui/resizable";
+import { cn } from "@notiz/utils";
 
 import { ClassicMainSidebar } from "./shell-sidebar";
 import { ClassicMainTabContent } from "./tab-content";

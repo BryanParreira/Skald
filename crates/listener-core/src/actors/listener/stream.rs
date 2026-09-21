@@ -31,7 +31,7 @@ pub(super) async fn process_stream<S, E, H>(
                 loop {
                     tokio::select! {
                         _ = &mut finalize_timeout => {
-                            tracing::warn!(skald.timeout.reached = true, "break_timeout");
+                            tracing::warn!(notiz.timeout.reached = true, "break_timeout");
                             break;
                         }
                         result = listen_stream.next() => {
@@ -65,7 +65,7 @@ pub(super) async fn process_stream<S, E, H>(
                                     break;
                                 }
                                 None => {
-                                    tracing::info!(skald.stream.ended = true, "break_from_finalize");
+                                    tracing::info!(notiz.stream.ended = true, "break_from_finalize");
                                     break;
                                 }
                             }

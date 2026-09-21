@@ -1,4 +1,4 @@
-use skald_api_env::PyannoteEnv;
+use notiz_api_env::PyannoteEnv;
 
 #[derive(Clone)]
 pub struct PyannoteConfig {
@@ -16,8 +16,8 @@ impl PyannoteConfig {
 
     pub fn client(
         &self,
-    ) -> Result<skald_pyannote_cloud::Client, Box<dyn std::error::Error + Send + Sync>> {
-        skald_pyannote_cloud::Client::builder(&self.api_key)
+    ) -> Result<notiz_pyannote_cloud::Client, Box<dyn std::error::Error + Send + Sync>> {
+        notiz_pyannote_cloud::Client::builder(&self.api_key)
             .base_url(&self.api_base)
             .build()
     }

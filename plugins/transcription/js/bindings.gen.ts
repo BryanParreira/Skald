@@ -344,7 +344,7 @@ export type BatchProvider =
   | "pyannote"
   | "dashscope"
   | "mistral"
-  | "skald"
+  | "notiz"
   | "am"
   | "soniqo"
   | "aquavoice"

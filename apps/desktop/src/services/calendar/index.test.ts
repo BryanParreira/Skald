@@ -1,7 +1,7 @@
 import { createMergeableStore, createQueries } from "tinybase/with-schemas";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 
-import { SCHEMA } from "@skald/store";
+import { SCHEMA } from "@notiz/store";
 
 const pluginCalendar = vi.hoisted(() => ({
   listCalendars: vi.fn(),
@@ -21,7 +21,7 @@ const processMocks = vi.hoisted(() => ({
   syncSessionParticipants: vi.fn(),
 }));
 
-vi.mock("@skald/plugin-calendar", () => ({
+vi.mock("@notiz/plugin-calendar", () => ({
   commands: {
     listCalendars: pluginCalendar.listCalendars,
     listConnectionIds: pluginCalendar.listConnectionIds,

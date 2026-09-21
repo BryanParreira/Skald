@@ -10,8 +10,8 @@ use crate::{
     ListenerRuntime, SessionDataEvent,
     actors::{ChannelMode, ListenerMsg, RecMsg, SAMPLE_RATE},
 };
-use skald_audio_utils::f32_to_i16_bytes;
-use skald_vad_masking::VadMask;
+use notiz_audio_utils::f32_to_i16_bytes;
+use notiz_vad_masking::VadMask;
 
 use super::{ListenerRefreshReplay, ListenerRouting, SourceFrame};
 
@@ -393,7 +393,7 @@ mod tests {
 
     use ractor::{Actor, ActorProcessingErr, ActorRef};
 
-    use skald_audio::CaptureFrame;
+    use notiz_audio::CaptureFrame;
 
     use super::*;
     use crate::{
@@ -403,12 +403,12 @@ mod tests {
 
     struct TestRuntime;
 
-    impl skald_storage::StorageRuntime for TestRuntime {
-        fn global_base(&self) -> Result<PathBuf, skald_storage::Error> {
+    impl notiz_storage::StorageRuntime for TestRuntime {
+        fn global_base(&self) -> Result<PathBuf, notiz_storage::Error> {
             Ok(std::env::temp_dir())
         }
 
-        fn vault_base(&self) -> Result<PathBuf, skald_storage::Error> {
+        fn vault_base(&self) -> Result<PathBuf, notiz_storage::Error> {
             Ok(std::env::temp_dir())
         }
     }

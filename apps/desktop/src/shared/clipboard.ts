@@ -1,4 +1,4 @@
-import { sonnerToast } from "@skald/ui/components/ui/toast";
+import { sonnerToast } from "@notiz/ui/components/ui/toast";
 
 export async function copyTextToClipboard(
   text: string,

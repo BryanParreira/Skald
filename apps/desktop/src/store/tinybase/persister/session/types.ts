@@ -2,7 +2,7 @@ import type {
   MappingSessionParticipantStorage,
   SessionKeyFactsStorage,
   SessionStorage,
-} from "@skald/store";
+} from "@notiz/store";
 
 export type ParticipantData = MappingSessionParticipantStorage & { id: string };
 export type SessionKeyFactsData = SessionKeyFactsStorage & { id: string };

@@ -1,14 +1,14 @@
 import { CONTEXT_TEXT_FIELD } from "./context-text";
 
-import type { SkaldUIMessage } from "~/chat/types";
+import type { NotizUIMessage } from "~/chat/types";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
 }
 
 export function stripEphemeralToolContext(
-  parts: SkaldUIMessage["parts"],
-): SkaldUIMessage["parts"] {
+  parts: NotizUIMessage["parts"],
+): NotizUIMessage["parts"] {
   let changed = false;
   const sanitized = parts.map((part) => {
     const record = isRecord(part) ? (part as Record<string, unknown>) : null;
@@ -33,5 +33,5 @@ export function stripEphemeralToolContext(
     };
   });
 
-  return changed ? (sanitized as SkaldUIMessage["parts"]) : parts;
+  return changed ? (sanitized as NotizUIMessage["parts"]) : parts;
 }

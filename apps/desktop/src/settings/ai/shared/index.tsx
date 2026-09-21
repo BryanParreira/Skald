@@ -5,23 +5,23 @@ import { ExternalLink } from "lucide-react";
 import type { ReactNode } from "react";
 import { Streamdown } from "streamdown";
 
-import type { AIProvider } from "@skald/store";
-import { aiProviderSchema } from "@skald/store";
+import type { AIProvider } from "@notiz/store";
+import { aiProviderSchema } from "@notiz/store";
 import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@skald/ui/components/ui/accordion";
+} from "@notiz/ui/components/ui/accordion";
 import {
   InputGroup,
   InputGroupInput,
-} from "@skald/ui/components/ui/input-group";
+} from "@notiz/ui/components/ui/input-group";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@skald/ui/components/ui/tooltip";
-import { cn } from "@skald/utils";
+} from "@notiz/ui/components/ui/tooltip";
+import { cn } from "@notiz/utils";
 
 import {
   getProviderSelectionBlockers,
@@ -33,7 +33,7 @@ import {
 import { useBillingAccess } from "~/auth/billing";
 import * as settings from "~/store/tinybase/store/settings";
 
-export * from "./skald-cloud-button";
+export * from "./notiz-cloud-button";
 export * from "./model-combobox";
 
 type ProviderType = "stt" | "llm";
@@ -53,13 +53,13 @@ type ProviderConfig = {
   };
 };
 
-const SKALD_ICON_SRC = "/assets/skald-icon.png";
+const NOTIZ_ICON_SRC = "/assets/notiz-icon.png";
 
-export function SkaldProviderIcon() {
+export function NotizProviderIcon() {
   return (
     <img
-      src={SKALD_ICON_SRC}
-      alt="Skald"
+      src={NOTIZ_ICON_SRC}
+      alt="Notiz"
       data-slot="provider-logo"
       className="size-4 object-contain object-center [clip-path:inset(6%_round_18%)]"
     />
@@ -142,7 +142,7 @@ function useIsProviderConfigured(
   );
 }
 
-export function NonSkaldProviderCard({
+export function NonNotizProviderCard({
   config,
   providerType,
   providers,

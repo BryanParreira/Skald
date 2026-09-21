@@ -1,4 +1,4 @@
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 import type { ToastAction, ToastType } from "./types";
 

@@ -16,12 +16,12 @@ use crate::{
     actors::session::session_span,
     actors::{ChannelMode, ListenerMsg, RecMsg},
 };
-use skald_audio::{AudioProvider, CaptureFrame};
+use notiz_audio::{AudioProvider, CaptureFrame};
 
 use pipeline::Pipeline;
 use stream::start_source_loop;
 
-use skald_device_monitor::{DeviceMonitorHandle, DeviceSwitch, DeviceSwitchMonitor};
+use notiz_device_monitor::{DeviceMonitorHandle, DeviceSwitch, DeviceSwitchMonitor};
 
 pub enum SourceMsg {
     SetMicMute(bool),

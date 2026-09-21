@@ -1,6 +1,6 @@
 use std::collections::HashSet;
 
-use skald_askama_utils::{TEMPLATE_FILTERS, TemplateUsage, extract};
+use notiz_askama_utils::{TEMPLATE_FILTERS, TemplateUsage, extract};
 
 use crate::Error;
 

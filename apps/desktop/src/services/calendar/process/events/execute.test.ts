@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 
-import type { SessionEvent } from "@skald/store";
+import type { SessionEvent } from "@notiz/store";
 
 import type { Ctx } from "../../ctx";
 import type { IncomingEvent } from "../../fetch/types";

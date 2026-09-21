@@ -1,4 +1,4 @@
-import { commands as windowsCommands } from "@skald/plugin-windows";
+import { commands as windowsCommands } from "@notiz/plugin-windows";
 
 export async function openStandaloneNoteWindow(sessionId: string) {
   const result = await windowsCommands.windowShow({

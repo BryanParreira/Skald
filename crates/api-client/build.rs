@@ -12,22 +12,22 @@ const ALLOWED_PATH_PREFIXES: &[&str] = &[
 const TYPE_REPLACEMENTS: &[(&str, &str)] = &[
     (
         "GoogleListCalendarsResponse",
-        "skald_google_calendar::ListCalendarsResponse",
+        "notiz_google_calendar::ListCalendarsResponse",
     ),
     (
         "GoogleListEventsResponse",
-        "skald_google_calendar::ListEventsResponse",
+        "notiz_google_calendar::ListEventsResponse",
     ),
     (
         "OutlookListCalendarsResponse",
-        "skald_outlook_calendar::ListCalendarsResponse",
+        "notiz_outlook_calendar::ListCalendarsResponse",
     ),
     (
         "OutlookListEventsResponse",
-        "skald_outlook_calendar::ListEventsResponse",
+        "notiz_outlook_calendar::ListEventsResponse",
     ),
-    ("CollectionPage", "skald_ticket_interface::CollectionPage"),
-    ("TicketPage", "skald_ticket_interface::TicketPage"),
+    ("CollectionPage", "notiz_ticket_interface::CollectionPage"),
+    ("TicketPage", "notiz_ticket_interface::TicketPage"),
 ];
 
 fn main() {

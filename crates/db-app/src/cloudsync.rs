@@ -1,6 +1,6 @@
 use std::sync::LazyLock;
 
-use skald_db_core::CloudsyncTableSpec;
+use notiz_db_core::CloudsyncTableSpec;
 
 static CLOUDSYNC_TABLE_REGISTRY: LazyLock<Vec<CloudsyncTableSpec>> = LazyLock::new(|| {
     vec![CloudsyncTableSpec {

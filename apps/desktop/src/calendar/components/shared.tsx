@@ -1,7 +1,7 @@
 import { Icon } from "@iconify-icon/react";
 import type { ReactNode } from "react";
 
-import { OutlookIcon } from "@skald/ui/components/icons/outlook";
+import { OutlookIcon } from "@notiz/ui/components/icons/outlook";
 
 export type CalendarProvider = {
   disabled: boolean;
@@ -28,7 +28,7 @@ const _PROVIDERS = [
       />
     ),
     platform: "macos",
-    docsPath: "https://github.com/BryanParreira/Skald",
+    docsPath: "https://github.com/BryanParreira/Notiz",
     nangoIntegrationId: undefined,
   },
   {
@@ -38,7 +38,7 @@ const _PROVIDERS = [
     badge: "",
     icon: <Icon icon="logos:google-calendar" width={16} height={16} />,
     platform: "all",
-    docsPath: "https://github.com/BryanParreira/Skald",
+    docsPath: "https://github.com/BryanParreira/Notiz",
     nangoIntegrationId: "google-calendar",
   },
   {
@@ -48,7 +48,7 @@ const _PROVIDERS = [
     badge: "",
     icon: <OutlookIcon size={16} />,
     platform: "all",
-    docsPath: "https://github.com/BryanParreira/Skald",
+    docsPath: "https://github.com/BryanParreira/Notiz",
     nangoIntegrationId: "outlook",
   },
 ] as const satisfies readonly CalendarProvider[];

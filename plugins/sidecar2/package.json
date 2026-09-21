@@ -1,5 +1,5 @@
 {
-  "name": "@skald/plugin-sidecar2",
+  "name": "@notiz/plugin-sidecar2",
   "private": true,
   "main": "./js/index.ts",
   "scripts": {

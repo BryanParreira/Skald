@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use skald_openrouter::{
+use notiz_openrouter::{
     ChatCompletionRequest, ChatMessage, Client as OpenRouterClient, ResponseFormat, Role,
 };
 

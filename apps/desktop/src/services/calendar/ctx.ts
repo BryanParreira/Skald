@@ -1,11 +1,11 @@
 import type { Queries } from "tinybase/with-schemas";
 
-import { commands as calendarCommands } from "@skald/plugin-calendar";
+import { commands as calendarCommands } from "@notiz/plugin-calendar";
 import type {
   CalendarListItem,
   CalendarProviderType,
   ProviderConnectionIds,
-} from "@skald/plugin-calendar";
+} from "@notiz/plugin-calendar";
 
 import {
   findCalendarByTrackingId,

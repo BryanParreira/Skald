@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 import { useCallback } from "react";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 import type { ContextRef } from "~/chat/context/entities";
 import { useChatAppearance } from "~/chat/hooks/use-chat-appearance";
@@ -70,7 +70,7 @@ export function ChatBodyEmpty({
                   : "text-foreground",
               ])}
             >
-              Skald AI
+              Notiz AI
             </span>
           </div>
           <p
@@ -81,7 +81,7 @@ export function ChatBodyEmpty({
                 : "text-muted-foreground",
             ])}
           >
-            Hi, I'm Skald AI. Set up a language model and I'll be ready to help.
+            Hi, I'm Notiz AI. Set up a language model and I'll be ready to help.
           </p>
           <button
             onClick={handleGoToSettings}

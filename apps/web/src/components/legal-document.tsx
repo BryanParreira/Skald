@@ -2,17 +2,17 @@ import { MDXContent } from "@content-collections/mdx/react";
 import { Link } from "@tanstack/react-router";
 import type { Legal } from "content-collections";
 
-import { SKALD_SITE_URL } from "@/lib/seo";
+import { NOTIZ_SITE_URL } from "@/lib/seo";
 
 import { mdxComponents } from "./mdx-components";
 
 export function legalHead(doc: Legal, path: "/privacy" | "/terms") {
-  const url = `${SKALD_SITE_URL}${path}`;
+  const url = `${NOTIZ_SITE_URL}${path}`;
 
   return {
     links: [{ rel: "canonical", href: url }],
     meta: [
-      { title: `${doc.title} — Skald` },
+      { title: `${doc.title} — Notiz` },
       { name: "description", content: doc.summary || doc.title },
       { property: "og:title", content: doc.title },
       { property: "og:description", content: doc.summary || doc.title },

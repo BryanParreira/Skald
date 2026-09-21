@@ -1,11 +1,11 @@
 import { Trans } from "@lingui/react/macro";
 
-import { Accordion } from "@skald/ui/components/ui/accordion";
+import { Accordion } from "@notiz/ui/components/ui/accordion";
 
 import { useSttSettings } from "./context";
 import { ProviderId, PROVIDERS } from "./shared";
 
-import { NonSkaldProviderCard, StyledStreamdown } from "~/settings/ai/shared";
+import { NonNotizProviderCard, StyledStreamdown } from "~/settings/ai/shared";
 
 export function ConfigureProviders() {
   const { accordionValue, setAccordionValue } = useSttSettings();
@@ -22,9 +22,9 @@ export function ConfigureProviders() {
         value={accordionValue}
         onValueChange={setAccordionValue}
       >
-        {PROVIDERS.filter((provider) => provider.id !== "skald").map(
+        {PROVIDERS.filter((provider) => provider.id !== "notiz").map(
           (provider) => (
-            <NonSkaldProviderCard
+            <NonNotizProviderCard
               key={provider.id}
               config={provider}
               providerType="stt"
@@ -40,8 +40,8 @@ export function ConfigureProviders() {
 
 function ProviderContext({ providerId }: { providerId: ProviderId }) {
   const content =
-    providerId === "skald"
-      ? "**Skald Cloud** routes request to the **best available model** for highest accuracy and performance."
+    providerId === "notiz"
+      ? "**Notiz Cloud** routes request to the **best available model** for highest accuracy and performance."
       : providerId === "deepgram"
         ? `Use [Deepgram](https://deepgram.com) for transcriptions. \
     If you want to use a [Dedicated](https://developers.deepgram.com/reference/custom-endpoints#deepgram-dedicated-endpoints)

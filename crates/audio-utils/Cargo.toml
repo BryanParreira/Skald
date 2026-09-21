@@ -7,9 +7,9 @@ edition = "2024"
 audioadapter-buffers = "2.0"
 bytes = { workspace = true }
 futures-util = { workspace = true }
-skald-audio-interface = { workspace = true }
-skald-audio-mime = { workspace = true }
-skald-resampler = { workspace = true }
+notiz-audio-interface = { workspace = true }
+notiz-audio-mime = { workspace = true }
+notiz-resampler = { workspace = true }
 thiserror = { workspace = true }
 tracing = { workspace = true }
 
@@ -19,4 +19,4 @@ rubato = "1.0.1"
 vorbis_rs = { workspace = true }
 
 [dev-dependencies]
-skald-data = { workspace = true }
+notiz-data = { workspace = true }

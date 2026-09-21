@@ -20,7 +20,7 @@ use reqwest::Client;
 
 use crate::analytics::{AnalyticsReporter, GenerationEvent};
 use crate::config::LlmProxyConfig;
-use crate::model::{ModelContext, SkaldTask};
+use crate::model::{ModelContext, NotizTask};
 use crate::types::{ChatCompletionRequest, ToolChoice, has_audio_content};
 
 fn provider_endpoint(base_url: &str) -> (Option<String>, Option<u16>) {
@@ -79,16 +79,16 @@ impl IntoResponse for ProxyError {
                 let error_type = status_code
                     .map(|code| code.to_string())
                     .unwrap_or_else(|| "llm_upstream_request_failed".to_string());
-                skald_observability::mark_current_span_as_error(&error_type);
+                notiz_observability::mark_current_span_as_error(&error_type);
                 if let Some(code) = status_code {
                     tracing::Span::current().record("http.response.status_code", code as i64);
                 }
                 tracing::error!(
                     error.type = %error_type,
                     error = %e,
-                    skald.upstream.status_code = ?status_code,
-                    skald.error.is_timeout = %is_timeout,
-                    skald.error.is_connect = %is_connect,
+                    notiz.upstream.status_code = ?status_code,
+                    notiz.error.is_timeout = %is_timeout,
+                    notiz.error.is_connect = %is_connect,
                     "upstream_request_failed"
                 );
                 sentry::configure_scope(|scope| {
@@ -99,7 +99,7 @@ impl IntoResponse for ProxyError {
                 (StatusCode::BAD_GATEWAY, e.to_string())
             }
             Self::Timeout => {
-                skald_observability::mark_current_span_as_error("llm_upstream_timeout");
+                notiz_observability::mark_current_span_as_error("llm_upstream_timeout");
                 tracing::error!("upstream_request_timeout");
                 sentry::configure_scope(|scope| {
                     scope.set_tag("error.type", "llm_upstream_timeout");
@@ -109,12 +109,12 @@ impl IntoResponse for ProxyError {
             Self::BodyRead(e) => {
                 let is_timeout = e.is_timeout();
                 let is_decode = e.is_decode();
-                skald_observability::mark_current_span_as_error("response_body_read_failed");
+                notiz_observability::mark_current_span_as_error("response_body_read_failed");
                 tracing::error!(
                     error.type = "response_body_read_failed",
                     error = %e,
-                    skald.error.is_timeout = %is_timeout,
-                    skald.error.is_decode = %is_decode,
+                    notiz.error.is_timeout = %is_timeout,
+                    notiz.error.is_decode = %is_decode,
                     "response_body_read_failed"
                 );
                 sentry::configure_scope(|scope| {
@@ -159,7 +159,7 @@ pub fn chat_completions_router(config: LlmProxyConfig) -> Router {
         .with_state(state)
 }
 
-use skald_analytics::{AuthenticatedUserId, DeviceFingerprint};
+use notiz_analytics::{AuthenticatedUserId, DeviceFingerprint};
 
 pub struct AnalyticsContext {
     pub fingerprint: Option<String>,
@@ -192,7 +192,7 @@ where
     name = "llm.completions",
     skip(state, analytics_ctx, headers, request),
     fields(
-        skald.subsystem = "llm",
+        notiz.subsystem = "llm",
         http.request.method = "POST",
         http.response.status_code = tracing::field::Empty,
         gen_ai.operation.name = "chat",
@@ -205,9 +205,9 @@ where
         server.address = tracing::field::Empty,
         server.port = tracing::field::Empty,
         url.full = tracing::field::Empty,
-        skald.gen_ai.request.streaming = tracing::field::Empty,
-        skald.gen_ai.request.message_count = tracing::field::Empty,
-        skald.task.name = tracing::field::Empty,
+        notiz.gen_ai.request.streaming = tracing::field::Empty,
+        notiz.gen_ai.request.message_count = tracing::field::Empty,
+        notiz.task.name = tracing::field::Empty,
         enduser.id = tracing::field::Empty,
         enduser.pseudo.id = tracing::field::Empty,
         error.type = tracing::field::Empty,
@@ -224,12 +224,12 @@ async fn completions_handler(
 ) -> Response {
     let start_time = Instant::now();
     let span = tracing::Span::current();
-    span.record("skald.subsystem", "llm");
+    span.record("notiz.subsystem", "llm");
 
     let task = headers
         .get(crate::CHAR_TASK_HEADER)
         .and_then(|v| v.to_str().ok())
-        .and_then(|s| s.parse::<SkaldTask>().ok());
+        .and_then(|s| s.parse::<NotizTask>().ok());
 
     let needs_tool_calling = request.tools.as_ref().is_some_and(|t| !t.is_empty())
         && !matches!(&request.tool_choice, Some(ToolChoice::String(s)) if s == "none");
@@ -249,9 +249,9 @@ async fn completions_handler(
     let (server_address, server_port) = provider_endpoint(provider_base_url);
 
     span.record("gen_ai.provider.name", provider_name);
-    span.record("skald.gen_ai.request.streaming", stream);
+    span.record("notiz.gen_ai.request.streaming", stream);
     span.record(
-        "skald.gen_ai.request.message_count",
+        "notiz.gen_ai.request.message_count",
         request.messages.len() as i64,
     );
     if let Some(model) = models.first() {
@@ -261,7 +261,7 @@ async fn completions_handler(
         span.record("otel.name", "chat");
     }
     if let Some(task_name) = task_name.as_deref() {
-        span.record("skald.task.name", task_name);
+        span.record("notiz.task.name", task_name);
     }
     if let Some(user_id) = analytics_ctx.user_id.as_deref() {
         span.record("enduser.id", user_id);
@@ -278,11 +278,11 @@ async fn completions_handler(
     span.record("url.full", provider_base_url);
 
     tracing::info!(
-        skald.gen_ai.request.streaming = %stream,
-        skald.gen_ai.request.tool_calling = %needs_tool_calling,
-        skald.task.name = %task_name.as_deref().unwrap_or("none"),
-        skald.gen_ai.request.message_count = %request.messages.len(),
-        skald.gen_ai.request.model_candidate_count = %models.len(),
+        notiz.gen_ai.request.streaming = %stream,
+        notiz.gen_ai.request.tool_calling = %needs_tool_calling,
+        notiz.task.name = %task_name.as_deref().unwrap_or("none"),
+        notiz.gen_ai.request.message_count = %request.messages.len(),
+        notiz.gen_ai.request.model_candidate_count = %models.len(),
         gen_ai.provider.name = %provider_name,
         "llm_completion_request_received"
     );
@@ -294,31 +294,31 @@ async fn completions_handler(
         if let Some(model) = models.first() {
             scope.set_tag("gen_ai.request.model", model);
         }
-        scope.set_tag("skald.gen_ai.request.streaming", stream.to_string());
+        scope.set_tag("notiz.gen_ai.request.streaming", stream.to_string());
         scope.set_tag(
-            "skald.gen_ai.request.tool_calling",
+            "notiz.gen_ai.request.tool_calling",
             needs_tool_calling.to_string(),
         );
         if let Some(task_name) = task_name.as_deref() {
-            scope.set_tag("skald.task.name", task_name);
+            scope.set_tag("notiz.task.name", task_name);
         }
 
         let mut ctx = BTreeMap::new();
         ctx.insert(
-            "skald.gen_ai.request.model_candidate_count".into(),
+            "notiz.gen_ai.request.model_candidate_count".into(),
             models.len().into(),
         );
         ctx.insert(
-            "skald.gen_ai.request.message_count".into(),
+            "notiz.gen_ai.request.message_count".into(),
             request.messages.len().into(),
         );
         ctx.insert(
-            "skald.gen_ai.request.tool_calling".into(),
+            "notiz.gen_ai.request.tool_calling".into(),
             needs_tool_calling.into(),
         );
         if let Some(task_name) = task_name.as_deref() {
             ctx.insert(
-                "skald.task.name".into(),
+                "notiz.task.name".into(),
                 serde_json::Value::String(task_name.to_string()),
             );
         }
@@ -328,7 +328,7 @@ async fn completions_handler(
     let provider_request = match provider.build_request(&request, models, stream) {
         Ok(req) => req,
         Err(e) => {
-            skald_observability::mark_current_span_as_error("provider_request_build_failed");
+            notiz_observability::mark_current_span_as_error("provider_request_build_failed");
             tracing::error!(
                 error.type = "provider_request_build_failed",
                 error = %e,
@@ -365,7 +365,7 @@ async fn completions_handler(
                 req_builder = req_builder.header(key, value);
             }
 
-            skald_observability::with_current_trace_context(req_builder)
+            notiz_observability::with_current_trace_context(req_builder)
                 .json(&provider_request)
                 .send()
                 .await
@@ -374,7 +374,7 @@ async fn completions_handler(
         .notify(|err, dur: Duration| {
             tracing::warn!(
                 error = %err,
-                skald.retry.delay_ms = dur.as_millis(),
+                notiz.retry.delay_ms = dur.as_millis(),
                 gen_ai.provider.name = %provider.name(),
                 "retrying_llm_request"
             );
@@ -385,7 +385,7 @@ async fn completions_handler(
             tracing::info!(
                 service.peer.name = %provider_name,
                 gen_ai.provider.name = %provider_name,
-                skald.duration_ms = upstream_request_started_at.elapsed().as_millis() as u64,
+                notiz.duration_ms = upstream_request_started_at.elapsed().as_millis() as u64,
                 "llm_upstream_request_finished"
             );
         })
@@ -399,7 +399,7 @@ async fn completions_handler(
                 .status()
                 .map(|status| status.as_u16().to_string())
                 .unwrap_or_else(|| "llm_upstream_request_failed".to_string());
-            skald_observability::mark_current_span_as_error(&error_type);
+            notiz_observability::mark_current_span_as_error(&error_type);
             tracing::error!(
                 error.type = %error_type,
                 service.peer.name = %provider_name,
@@ -409,11 +409,11 @@ async fn completions_handler(
             return ProxyError::UpstreamRequest(e).into_response();
         }
         Err(_) => {
-            skald_observability::mark_current_span_as_error("llm_upstream_timeout");
+            notiz_observability::mark_current_span_as_error("llm_upstream_timeout");
             tracing::error!(
                 error.type = "llm_upstream_timeout",
                 service.peer.name = %provider_name,
-                skald.timeout_ms = state.config.timeout.as_millis() as u64,
+                notiz.timeout_ms = state.config.timeout.as_millis() as u64,
                 "llm_upstream_timeout"
             );
             return ProxyError::Timeout.into_response();
@@ -421,8 +421,8 @@ async fn completions_handler(
     };
 
     tracing::info!(
-        skald.subsystem = "llm",
-        skald.duration_ms = start_time.elapsed().as_millis() as u64,
+        notiz.subsystem = "llm",
+        notiz.duration_ms = start_time.elapsed().as_millis() as u64,
         "llm_completion_request_finished"
     );
 

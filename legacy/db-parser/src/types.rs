@@ -1,1 +1,1 @@
-pub use skald_importer_core::ir::*;
+pub use notiz_importer_core::ir::*;

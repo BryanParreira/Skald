@@ -16,6 +16,20 @@ const JSON_ARRAY_FIELDS = new Set([
   "ignored_recurring_series",
 ]);
 
+// The app shipped under earlier names; keep saved provider selections working.
+const LEGACY_PROVIDER_IDS: Record<string, string> = {
+  skald: "notiz",
+  skald_local: "notiz_local",
+  velo: "notiz",
+  velo_local: "notiz_local",
+};
+
+function renameLegacyProvider(value: unknown): unknown {
+  return typeof value === "string"
+    ? (LEGACY_PROVIDER_IDS[value] ?? value)
+    : value;
+}
+
 function getByPath(obj: unknown, path: readonly [string, string]): unknown {
   const section = (obj as Record<string, unknown>)?.[path[0]];
   return (section as Record<string, unknown>)?.[path[1]];
@@ -107,11 +121,15 @@ function settingsToStoreValues(settings: unknown): Record<string, unknown> {
       value = normalizeAudioRetention(value, undefined);
     }
 
+    if (key === "current_stt_provider" || key === "current_llm_provider") {
+      value = renameLegacyProvider(value);
+    }
+
     if (key === "current_stt_model") {
       value = normalizeStoredSttModel(
-        getByPath(settings, ["ai", "current_stt_provider"]) as
-          | string
-          | undefined,
+        renameLegacyProvider(
+          getByPath(settings, ["ai", "current_stt_provider"]),
+        ) as string | undefined,
         value as string | undefined,
       );
     }

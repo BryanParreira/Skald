@@ -26,7 +26,7 @@ use env::env;
 
 use crate::env::Env;
 
-const PAID_ENTITLEMENTS: &[&str] = &["skald_pro", "skald_lite"];
+const PAID_ENTITLEMENTS: &[&str] = &["notiz_pro", "notiz_lite"];
 
 fn paid_auth_state(supabase_url: &str) -> AuthState {
     AuthState::new(supabase_url)
@@ -87,9 +87,9 @@ async fn app() -> Router {
     let analytics = build_analytics_client(env);
 
     let llm_config =
-        skald_llm_proxy::LlmProxyConfig::new(&env.llm).with_analytics(analytics.clone());
-    let stt_config = skald_transcribe_proxy::SttProxyConfig::new(&env.stt, &env.supabase)
-        .with_skald_routing(skald_transcribe_proxy::SkaldRoutingConfig::default())
+        notiz_llm_proxy::LlmProxyConfig::new(&env.llm).with_analytics(analytics.clone());
+    let stt_config = notiz_transcribe_proxy::SttProxyConfig::new(&env.stt, &env.supabase)
+        .with_notiz_routing(notiz_transcribe_proxy::NotizRoutingConfig::default())
         .with_analytics(analytics.clone());
 
     let stt_rate_limit = rate_limit::RateLimitState::builder()
@@ -121,16 +121,16 @@ async fn app() -> Router {
     let auth_state_basic = AuthState::new(&env.supabase.supabase_url);
     let auth_state_support = AuthState::new(&env.supabase.supabase_url);
 
-    let nango_config = skald_api_nango::NangoConfig::new(
+    let nango_config = notiz_api_nango::NangoConfig::new(
         &env.nango,
         &env.supabase,
         Some(env.supabase.supabase_service_role_key.clone()),
     );
-    let nango_connection_state = skald_api_nango::NangoConnectionState::from_config(&nango_config);
+    let nango_connection_state = notiz_api_nango::NangoConnectionState::from_config(&nango_config);
     let subscription_config =
-        skald_api_subscription::SubscriptionConfig::new(&env.supabase, &env.stripe, &env.loops)
+        notiz_api_subscription::SubscriptionConfig::new(&env.supabase, &env.stripe, &env.loops)
             .with_analytics(analytics.clone());
-    let support_config = skald_api_support::SupportConfig::new(
+    let support_config = notiz_api_support::SupportConfig::new(
         &env.github_app,
         &env.llm,
         &env.support_database,
@@ -139,35 +139,35 @@ async fn app() -> Router {
         &env.chatwoot,
         auth_state_support.clone(),
     );
-    let research_config = skald_api_research::ResearchConfig {
+    let research_config = notiz_api_research::ResearchConfig {
         exa_api_key: env.exa_api_key.clone(),
         jina_api_key: env.jina_api_key.clone(),
     };
-    let pyannote_config = skald_api_pyannote::PyannoteConfig::new(&env.pyannote);
+    let pyannote_config = notiz_api_pyannote::PyannoteConfig::new(&env.pyannote);
 
-    use skald_api_nango::NangoIntegrationId;
+    use notiz_api_nango::NangoIntegrationId;
 
-    let mut forward_handlers = skald_api_nango::ForwardHandlerRegistry::new();
+    let mut forward_handlers = notiz_api_nango::ForwardHandlerRegistry::new();
     forward_handlers.insert(
-        skald_api_nango::Linear::ID.to_string(),
-        skald_api_nango::forward_handler(skald_linear::webhook::handle),
+        notiz_api_nango::Linear::ID.to_string(),
+        notiz_api_nango::forward_handler(notiz_linear::webhook::handle),
     );
 
     let webhook_routes = Router::new()
         .nest(
             "/nango",
-            skald_api_nango::webhook_router(nango_config.clone(), forward_handlers),
+            notiz_api_nango::webhook_router(nango_config.clone(), forward_handlers),
         )
         .nest(
             "/stt",
-            skald_transcribe_proxy::callback_router(stt_config.clone()),
+            notiz_transcribe_proxy::callback_router(stt_config.clone()),
         );
 
     let auth_state_integration = paid_auth_state(&env.supabase.supabase_url);
 
     let paid_routes = Router::new()
-        .merge(skald_api_research::router(research_config))
-        .nest("/pyannote", skald_api_pyannote::router(pyannote_config))
+        .merge(notiz_api_research::router(research_config))
+        .nest("/pyannote", notiz_api_pyannote::router(pyannote_config))
         .route_layer(middleware::from_fn(auth::sentry_and_analytics))
         .route_layer(middleware::from_fn_with_state(
             auth_state_paid,
@@ -175,12 +175,12 @@ async fn app() -> Router {
         ));
 
     let integration_routes = Router::new()
-        .nest("/calendar", skald_api_calendar::router())
-        .nest("/mail", skald_api_mail::router())
-        .nest("/ticket", skald_api_ticket::router())
+        .nest("/calendar", notiz_api_calendar::router())
+        .nest("/mail", notiz_api_mail::router())
+        .nest("/ticket", notiz_api_ticket::router())
         .nest(
             "/nango",
-            skald_api_nango::session_router(nango_config.clone()),
+            notiz_api_nango::session_router(nango_config.clone()),
         )
         .layer(axum::Extension(nango_connection_state))
         .route_layer(middleware::from_fn(auth::sentry_and_analytics))
@@ -192,7 +192,7 @@ async fn app() -> Router {
     let integration_management_routes = Router::new()
         .nest(
             "/nango",
-            skald_api_nango::management_router(nango_config.clone()),
+            notiz_api_nango::management_router(nango_config.clone()),
         )
         .route_layer(middleware::from_fn(auth::sentry_and_analytics))
         .route_layer(middleware::from_fn_with_state(
@@ -201,22 +201,22 @@ async fn app() -> Router {
         ));
 
     let stt_routes = Router::new()
-        .merge(skald_transcribe_proxy::listen_router(stt_config.clone()))
-        .nest("/stt", skald_transcribe_proxy::router(stt_config))
+        .merge(notiz_transcribe_proxy::listen_router(stt_config.clone()))
+        .nest("/stt", notiz_transcribe_proxy::router(stt_config))
         .route_layer(middleware::from_fn_with_state(
             stt_rate_limit,
             rate_limit::rate_limit,
         ));
 
     let llm_routes = Router::new()
-        .merge(skald_llm_proxy::chat_completions_router(llm_config.clone()))
-        .nest("/llm", skald_llm_proxy::router(llm_config))
+        .merge(notiz_llm_proxy::chat_completions_router(llm_config.clone()))
+        .nest("/llm", notiz_llm_proxy::router(llm_config))
         .route_layer(middleware::from_fn_with_state(
             llm_rate_limit,
             rate_limit::rate_limit,
         ));
 
-    let subscription_router = skald_api_subscription::router(subscription_config);
+    let subscription_router = notiz_api_subscription::router(subscription_config);
     let auth_routes = Router::new()
         .merge(stt_routes)
         .merge(llm_routes)
@@ -230,7 +230,7 @@ async fn app() -> Router {
         ));
 
     let support_routes = Router::new()
-        .merge(skald_api_support::router(support_config).await)
+        .merge(notiz_api_support::router(support_config).await)
         .layer(middleware::from_fn_with_state(
             auth_state_support.clone(),
             auth::optional_auth,
@@ -301,19 +301,19 @@ async fn app() -> Router {
                                 server.address = tracing::field::Empty,
                                 server.port = tracing::field::Empty,
                                 client.address = tracing::field::Empty,
-                                skald.subsystem = "edge",
+                                notiz.subsystem = "edge",
                                 enduser.id = tracing::field::Empty,
                                 enduser.pseudo.id = tracing::field::Empty,
-                                skald.stt.provider.name = tracing::field::Empty,
-                                skald.stt.routing_strategy = tracing::field::Empty,
-                                skald.stt.model = tracing::field::Empty,
-                                skald.stt.language_codes = tracing::field::Empty,
-                                skald.audio.sample_rate_hz = tracing::field::Empty,
-                                skald.audio.channel_count = tracing::field::Empty,
+                                notiz.stt.provider.name = tracing::field::Empty,
+                                notiz.stt.routing_strategy = tracing::field::Empty,
+                                notiz.stt.model = tracing::field::Empty,
+                                notiz.stt.language_codes = tracing::field::Empty,
+                                notiz.audio.sample_rate_hz = tracing::field::Empty,
+                                notiz.audio.channel_count = tracing::field::Empty,
                                 gen_ai.provider.name = tracing::field::Empty,
-                                skald.gen_ai.request.streaming = tracing::field::Empty,
-                                skald.gen_ai.request.message_count = tracing::field::Empty,
-                                skald.request.id = tracing::field::Empty,
+                                notiz.gen_ai.request.streaming = tracing::field::Empty,
+                                notiz.gen_ai.request.message_count = tracing::field::Empty,
+                                notiz.request.id = tracing::field::Empty,
                                 error.type = tracing::field::Empty,
                                 otel.status_code = tracing::field::Empty,
                                 otel.kind = "server",
@@ -329,7 +329,7 @@ async fn app() -> Router {
                             if let Some(client_address) = client_address.as_deref() {
                                 span.record("client.address", client_address);
                             }
-                            skald_observability::set_remote_parent(&span, request.headers());
+                            notiz_observability::set_remote_parent(&span, request.headers());
                             span
                         })
                         .on_request(|request: &Request<Body>, span: &tracing::Span| {
@@ -342,7 +342,7 @@ async fn app() -> Router {
                                 .get(REQUEST_ID_HEADER)
                                 .and_then(|v| v.to_str().ok())
                             {
-                                span.record("skald.request.id", request_id);
+                                span.record("notiz.request.id", request_id);
                             }
                             configure_sentry_trace_scope(span, env, SystemTime::now());
                             tracing::info!(
@@ -364,7 +364,7 @@ async fn app() -> Router {
                                     response.status().as_u16() as i64,
                                 );
                                 if response.status().is_server_error() {
-                                    skald_observability::mark_span_as_error(
+                                    notiz_observability::mark_span_as_error(
                                         span,
                                         &response.status().as_u16().to_string(),
                                     );
@@ -372,7 +372,7 @@ async fn app() -> Router {
                                 tracing::info!(
                                     parent: span,
                                     http.response.status_code = %response.status().as_u16(),
-                                    skald.duration_ms = %latency.as_millis(),
+                                    notiz.duration_ms = %latency.as_millis(),
                                     "http_request_finished"
                                 );
                             },
@@ -392,12 +392,12 @@ async fn app() -> Router {
                                         "http_server_failure".to_string()
                                     }
                                 };
-                                skald_observability::mark_span_as_error(span, error_type.as_str());
+                                notiz_observability::mark_span_as_error(span, error_type.as_str());
                                 tracing::error!(
                                     parent: span,
                                     error.type = %error_type,
                                     error = %failure_class,
-                                    skald.duration_ms = %latency.as_millis(),
+                                    notiz.duration_ms = %latency.as_millis(),
                                     "http_request_failed"
                                 );
                             },
@@ -406,8 +406,8 @@ async fn app() -> Router {
         )
 }
 
-fn build_analytics_client(env: &Env) -> Arc<skald_analytics::AnalyticsClient> {
-    let mut builder = skald_analytics::AnalyticsClientBuilder::default();
+fn build_analytics_client(env: &Env) -> Arc<notiz_analytics::AnalyticsClient> {
+    let mut builder = notiz_analytics::AnalyticsClientBuilder::default();
     if cfg!(debug_assertions) {
         tracing::info!("analytics: dev mode, printing events as tracing");
     } else {
@@ -431,7 +431,7 @@ fn main() -> std::io::Result<()> {
 
     let _guard = sentry::init(sentry::ClientOptions {
         dsn: env.sentry_dsn.as_ref().and_then(|s| s.parse().ok()),
-        release: option_env!("APP_VERSION").map(|v| format!("skald-api@{}", v).into()),
+        release: option_env!("APP_VERSION").map(|v| format!("notiz-api@{}", v).into()),
         environment: Some(
             if cfg!(debug_assertions) {
                 "development"
@@ -451,13 +451,13 @@ fn main() -> std::io::Result<()> {
     });
 
     sentry::configure_scope(|scope| {
-        scope.set_tag("service.namespace", "skald");
+        scope.set_tag("service.namespace", "notiz");
         scope.set_tag("service.name", "api");
     });
 
     let observability = observability::init("api", &env.observability);
 
-    skald_transcribe_proxy::ApiKeys::from(&env.stt.stt).log_configured_providers();
+    notiz_transcribe_proxy::ApiKeys::from(&env.stt.stt).log_configured_providers();
 
     tokio::runtime::Builder::new_multi_thread()
         .enable_all()
@@ -498,22 +498,22 @@ async fn version() -> &'static str {
 }
 
 fn configure_sentry_trace_scope(span: &tracing::Span, env: &Env, request_started_at: SystemTime) {
-    let Some(trace_identifiers) = skald_observability::span_identifiers(span) else {
+    let Some(trace_identifiers) = notiz_observability::span_identifiers(span) else {
         return;
     };
 
     let trace_url = build_honeycomb_trace_url(env, &trace_identifiers, request_started_at);
     sentry::configure_scope(|scope| {
         scope.set_tag(
-            "skald.honeycomb.trace_id",
+            "notiz.honeycomb.trace_id",
             trace_identifiers.trace_id.as_str(),
         );
         scope.set_tag(
-            "skald.honeycomb.span_id",
+            "notiz.honeycomb.span_id",
             trace_identifiers.span_id.as_str(),
         );
         if let Some(trace_url) = trace_url.as_deref() {
-            scope.set_tag("skald.honeycomb.trace_url", trace_url);
+            scope.set_tag("notiz.honeycomb.trace_url", trace_url);
         }
 
         let mut context = std::collections::BTreeMap::new();
@@ -522,13 +522,13 @@ fn configure_sentry_trace_scope(span: &tracing::Span, env: &Env, request_started
         if let Some(trace_url) = trace_url {
             context.insert("trace_url".into(), Value::String(trace_url));
         }
-        scope.set_context("skald.honeycomb", Context::Other(context));
+        scope.set_context("notiz.honeycomb", Context::Other(context));
     });
 }
 
 fn build_honeycomb_trace_url(
     env: &Env,
-    trace_identifiers: &skald_observability::TraceIdentifiers,
+    trace_identifiers: &notiz_observability::TraceIdentifiers,
     request_started_at: SystemTime,
 ) -> Option<String> {
     let team = env.observability.honeycomb_ui_team.as_deref()?;

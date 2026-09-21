@@ -9,7 +9,7 @@
       "Bash(echo \"NOTARIZE_EXIT=$?\")",
       "Bash(xcrun stapler *)",
       "Bash(spctl -a -t open --context context:primary-signature -v /Volumes/Davoid/Coding/Projects/Velo/apps/desktop/src-tauri/target/aarch64-apple-darwin/release/bundle/dmg/Velo_1.0.14_aarch64.dmg)",
-      "Bash(curl -sL \"https://github.com/BryanParreira/Skald/releases/latest/download/latest.json\")",
+      "Bash(curl -sL \"https://github.com/BryanParreira/Notiz/releases/latest/download/latest.json\")",
       "Bash(pnpm -F @hypr/editor test session-switch)",
       "Bash(git -C /Volumes/Davoid/Coding/Projects/Velo log --oneline -5 -- apps/desktop/src/session/components/note-input/raw.tsx)",
       "Bash(git -C /Volumes/Davoid/Coding/Projects/Velo log --oneline -10 -- apps/desktop/src/session/components/note-input/index.tsx)",

@@ -1,4 +1,4 @@
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 type ModelIconSpec = {
   label: string;
@@ -9,7 +9,7 @@ type ModelIconSpec = {
 };
 
 const MODEL_ICON_ASSET_BASE = "/assets/model-icons";
-const SKALD_ICON_SRC = "/assets/skald-icon.png";
+const NOTIZ_ICON_SRC = "/assets/notiz-icon.png";
 
 export function getLocalModelIcon(model: string): ModelIconSpec | null {
   const value = model.toLowerCase();
@@ -17,9 +17,9 @@ export function getLocalModelIcon(model: string): ModelIconSpec | null {
   if (value === "cloud") {
     return {
       label: "A",
-      title: "Skald Pro",
+      title: "Notiz Pro",
       className: "border-border bg-card text-muted-foreground",
-      imageSrc: SKALD_ICON_SRC,
+      imageSrc: NOTIZ_ICON_SRC,
       imageClassName: "size-4 object-contain",
     };
   }

@@ -4,12 +4,12 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-skald-api-auth = { workspace = true }
-skald-api-error = { workspace = true }
-skald-api-nango = { workspace = true }
-skald-google-calendar = { workspace = true, features = ["utoipa"] }
-skald-nango = { workspace = true }
-skald-outlook-calendar = { workspace = true, features = ["utoipa"] }
+notiz-api-auth = { workspace = true }
+notiz-api-error = { workspace = true }
+notiz-api-nango = { workspace = true }
+notiz-google-calendar = { workspace = true, features = ["utoipa"] }
+notiz-nango = { workspace = true }
+notiz-outlook-calendar = { workspace = true, features = ["utoipa"] }
 
 chrono = { workspace = true, features = ["serde"] }
 

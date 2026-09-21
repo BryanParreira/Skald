@@ -4,8 +4,8 @@ use std::path::{Path, PathBuf};
 
 use clap::{Parser, ValueEnum};
 use hound::{SampleFormat, WavSpec, WavWriter};
-use skald_audacity::{Project, Track};
-use skald_audio_utils::{audio_file_metadata, resample_audio, source_from_path};
+use notiz_audacity::{Project, Track};
+use notiz_audio_utils::{audio_file_metadata, resample_audio, source_from_path};
 
 const TARGET_SAMPLE_RATE: u32 = 16_000;
 

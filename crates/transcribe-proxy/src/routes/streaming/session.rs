@@ -27,8 +27,8 @@ pub fn build_session_config(
     name = "stt.session.init",
     skip(state, selected, params),
     fields(
-        skald.subsystem = "stt",
-        skald.stt.provider.name = ?selected.provider()
+        notiz.subsystem = "stt",
+        notiz.stt.provider.name = ?selected.provider()
     )
 )]
 pub async fn init_session(
@@ -44,7 +44,7 @@ pub async fn init_session(
 
     let config = build_session_config(provider, params)?;
 
-    let resp = skald_observability::with_current_trace_context(
+    let resp = notiz_observability::with_current_trace_context(
         state
             .client
             .post(init_url)
@@ -68,8 +68,8 @@ pub async fn init_session(
         .map_err(|e| format!("session init parse failed: {}", e))?;
 
     tracing::debug!(
-        skald.stt.session.id = %init.id,
-        skald.stt.provider.name = ?provider,
+        notiz.stt.session.id = %init.id,
+        notiz.stt.provider.name = ?provider,
         "session_initialized"
     );
 

@@ -10,7 +10,7 @@ async fn main() {
     std::fs::create_dir_all(&out_dir).unwrap();
 
     let decoder = rodio::Decoder::new(std::io::BufReader::new(
-        std::fs::File::open(skald_data::english_1::AUDIO_MP3_PATH).unwrap(),
+        std::fs::File::open(notiz_data::english_1::AUDIO_MP3_PATH).unwrap(),
     ))
     .unwrap();
 

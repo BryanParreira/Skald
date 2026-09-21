@@ -1,7 +1,7 @@
+use notiz_api_auth::{AuthContext, AuthState};
 use octocrab::Octocrab;
 use reqwest::Client as HttpClient;
 use serde::Deserialize;
-use skald_api_auth::{AuthContext, AuthState};
 use stripe::Client as StripeClient;
 
 use crate::config::SupportConfig;
@@ -13,7 +13,7 @@ pub(crate) struct AppState {
     pub(crate) stripe: StripeClient,
     pub(crate) _auth: AuthState,
     pub(crate) http_client: HttpClient,
-    pub(crate) chatwoot: skald_chatwoot::Client,
+    pub(crate) chatwoot: notiz_chatwoot::Client,
 }
 
 impl AppState {
@@ -51,7 +51,7 @@ impl AppState {
                 .build()
                 .expect("failed to build chatwoot http client");
 
-            skald_chatwoot::Client::new_with_client(
+            notiz_chatwoot::Client::new_with_client(
                 &config.chatwoot.chatwoot_base_url,
                 reqwest_client,
             )

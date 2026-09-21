@@ -2,7 +2,7 @@ use std::{collections::HashMap, path::PathBuf, sync::Arc};
 use tauri::{Manager, Runtime, ipc::Channel};
 use tauri_specta::Event;
 
-use skald_model_downloader::{DownloadableModel, ModelDownloadManager, ModelDownloaderRuntime};
+use notiz_model_downloader::{DownloadableModel, ModelDownloadManager, ModelDownloaderRuntime};
 
 struct TauriModelRuntime<R: Runtime> {
     app_handle: tauri::AppHandle<R>,
@@ -10,16 +10,16 @@ struct TauriModelRuntime<R: Runtime> {
 }
 
 impl<R: Runtime> ModelDownloaderRuntime<crate::SupportedModel> for TauriModelRuntime<R> {
-    fn models_base(&self) -> Result<PathBuf, skald_model_downloader::Error> {
+    fn models_base(&self) -> Result<PathBuf, notiz_model_downloader::Error> {
         Ok(models_base(&self.app_handle))
     }
 
     fn emit_progress(
         &self,
         model: &crate::SupportedModel,
-        status: skald_model_downloader::DownloadStatus,
+        status: notiz_model_downloader::DownloadStatus,
     ) {
-        use skald_model_downloader::DownloadStatus;
+        use notiz_model_downloader::DownloadStatus;
 
         // Global broadcast — the only way progress reaches listeners that
         // weren't the ones who triggered the download (e.g. the Settings UI
@@ -90,7 +90,7 @@ pub struct LocalLlmExt<'a, R: Runtime, M: Manager<R>> {
 
 impl<'a, R: Runtime, M: Manager<R>> LocalLlmExt<'a, R, M> {
     pub fn models_dir(&self) -> PathBuf {
-        skald_local_llm_core::llm_models_dir(&models_base(self.manager))
+        notiz_local_llm_core::llm_models_dir(&models_base(self.manager))
     }
 
     #[tracing::instrument(skip_all)]
@@ -192,14 +192,14 @@ impl<'a, R: Runtime, M: Manager<R>> LocalLlmExt<'a, R, M> {
 
     #[tracing::instrument(skip_all)]
     pub async fn list_downloaded_model(&self) -> Result<Vec<crate::SupportedModel>, crate::Error> {
-        Ok(skald_local_llm_core::list_downloaded_models(
+        Ok(notiz_local_llm_core::list_downloaded_models(
             &self.models_dir(),
         )?)
     }
 
     #[tracing::instrument(skip_all)]
     pub async fn list_custom_models(&self) -> Result<Vec<crate::CustomModelInfo>, crate::Error> {
-        Ok(skald_local_llm_core::list_custom_models()?)
+        Ok(notiz_local_llm_core::list_custom_models()?)
     }
 
     #[tracing::instrument(skip_all)]
@@ -222,7 +222,7 @@ impl<'a, R: Runtime, M: Manager<R>> LocalLlmExt<'a, R, M> {
 
         if !self.is_model_downloaded(&model).await? {
             tracing::warn!("start_server: model not downloaded");
-            return Err(skald_local_llm_core::Error::ModelNotDownloaded.into());
+            return Err(notiz_local_llm_core::Error::ModelNotDownloaded.into());
         }
 
         let file_path = self.models_dir().join(model.file_name());
@@ -250,7 +250,7 @@ impl<'a, R: Runtime, M: Manager<R>> LocalLlmExt<'a, R, M> {
         use tauri_plugin_shell::ShellExt;
         let command = self.manager.app_handle().shell().command(&binary_path);
 
-        let server = match skald_local_llm_core::LlmServer::start_with_model_path(
+        let server = match notiz_local_llm_core::LlmServer::start_with_model_path(
             model.display_name().to_string(),
             file_path,
             command,

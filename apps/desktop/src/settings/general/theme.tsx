@@ -7,7 +7,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@skald/ui/components/ui/select";
+} from "@notiz/ui/components/ui/select";
 
 import { useConfigValue } from "~/shared/config";
 import {

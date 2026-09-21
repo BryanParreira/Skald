@@ -36,7 +36,7 @@ const {
   getListenerStateMock: vi.fn(),
 }));
 
-vi.mock("@skald/plugin-notification", () => ({
+vi.mock("@notiz/plugin-notification", () => ({
   events: {
     notificationEvent: {
       listen: notificationListenMock,
@@ -44,7 +44,7 @@ vi.mock("@skald/plugin-notification", () => ({
   },
 }));
 
-vi.mock("@skald/plugin-updater2", () => ({
+vi.mock("@notiz/plugin-updater2", () => ({
   commands: {
     maybeEmitUpdated: maybeEmitUpdatedMock,
   },
@@ -55,7 +55,7 @@ vi.mock("@skald/plugin-updater2", () => ({
   },
 }));
 
-vi.mock("@skald/plugin-windows", () => ({
+vi.mock("@notiz/plugin-windows", () => ({
   getCurrentWebviewWindowLabel: getCurrentWebviewWindowLabelMock,
 }));
 

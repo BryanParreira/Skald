@@ -63,8 +63,8 @@ pub async fn handler(
     }
     .map_err(|e| {
         tracing::error!(
-            skald.stt.job.id = %id,
-            skald.stt.provider.name = %provider,
+            notiz.stt.job.id = %id,
+            notiz.stt.provider.name = %provider,
             error = %e,
             "callback processing failed"
         );
@@ -100,7 +100,7 @@ async fn cleanup_audio(supabase: &SupabaseClient, job_id: &str) {
         Ok(None) => return,
         Err(e) => {
             tracing::warn!(
-                skald.stt.job.id = %job_id,
+                notiz.stt.job.id = %job_id,
                 error = %e,
                 "failed to fetch job for cleanup"
             );
@@ -114,8 +114,8 @@ async fn cleanup_audio(supabase: &SupabaseClient, job_id: &str) {
         .await
     {
         tracing::warn!(
-            skald.stt.job.id = %job_id,
-            skald.file.id = %job.file_id,
+            notiz.stt.job.id = %job_id,
+            notiz.file.id = %job.file_id,
             error = %e,
             "failed to delete audio file"
         );

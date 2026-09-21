@@ -60,15 +60,15 @@ pub enum CloudsyncRuntimeError {
     #[error("cloudsync sync interval must be greater than 0")]
     InvalidSyncInterval,
     #[error(transparent)]
-    Cloudsync(#[from] skald_cloudsync::Error),
+    Cloudsync(#[from] notiz_cloudsync::Error),
 }
 
-impl From<skald_cloudsync::ErrorKind> for CloudsyncErrorKind {
-    fn from(kind: skald_cloudsync::ErrorKind) -> Self {
+impl From<notiz_cloudsync::ErrorKind> for CloudsyncErrorKind {
+    fn from(kind: notiz_cloudsync::ErrorKind) -> Self {
         match kind {
-            skald_cloudsync::ErrorKind::Transient => Self::Transient,
-            skald_cloudsync::ErrorKind::Auth => Self::Auth,
-            skald_cloudsync::ErrorKind::Fatal => Self::Fatal,
+            notiz_cloudsync::ErrorKind::Transient => Self::Transient,
+            notiz_cloudsync::ErrorKind::Auth => Self::Auth,
+            notiz_cloudsync::ErrorKind::Fatal => Self::Fatal,
         }
     }
 }

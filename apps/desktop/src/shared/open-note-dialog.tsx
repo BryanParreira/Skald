@@ -11,7 +11,7 @@ import {
 import { createPortal } from "react-dom";
 import { useHotkeys } from "react-hotkeys-hook";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 import { useMainContentCenterOffset } from "~/shared/main/content-offset";
 import * as main from "~/store/tinybase/store/main";

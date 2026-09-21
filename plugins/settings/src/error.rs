@@ -9,7 +9,7 @@ pub enum Error {
     #[error(transparent)]
     Json(#[from] serde_json::Error),
     #[error(transparent)]
-    Storage(#[from] skald_storage::Error),
+    Storage(#[from] notiz_storage::Error),
 }
 
 impl Serialize for Error {

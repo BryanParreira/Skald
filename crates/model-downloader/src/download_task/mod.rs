@@ -74,15 +74,15 @@ async fn fail_task<M: DownloadableModel>(params: &DownloadTaskParams<M>, reason:
     cleanup_for_failure(params).await;
 }
 
-fn log_download_error(error: &skald_file::Error) -> Option<String> {
-    if matches!(error, skald_file::Error::Cancelled) {
+fn log_download_error(error: &notiz_file::Error) -> Option<String> {
+    if matches!(error, notiz_file::Error::Cancelled) {
         return None;
     }
 
     tracing::error!(error = %error, "model_download_error");
 
     let reason = match error {
-        skald_file::Error::ReqwestError(e) => {
+        notiz_file::Error::ReqwestError(e) => {
             if e.is_timeout() {
                 "Download timed out. Please check your internet connection and try again."
                     .to_string()
@@ -93,11 +93,11 @@ fn log_download_error(error: &skald_file::Error) -> Option<String> {
                 format!("Network error: {}", e)
             }
         }
-        skald_file::Error::FileIOError(e) => {
+        notiz_file::Error::FileIOError(e) => {
             format!("File system error: {}", e)
         }
-        skald_file::Error::Cancelled => unreachable!(),
-        skald_file::Error::OtherError(msg) => msg.clone(),
+        notiz_file::Error::Cancelled => unreachable!(),
+        notiz_file::Error::OtherError(msg) => msg.clone(),
     };
     Some(reason)
 }

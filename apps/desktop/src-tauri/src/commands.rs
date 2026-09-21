@@ -1,6 +1,6 @@
 use crate::AppExt;
 
-const STAGING_BUNDLE_ID: &str = "com.skald.staging";
+const STAGING_BUNDLE_ID: &str = "com.notiz.staging";
 
 #[tauri::command]
 #[specta::specta]

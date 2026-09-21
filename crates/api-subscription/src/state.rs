@@ -1,4 +1,4 @@
-use skald_loops::LoopClient;
+use notiz_loops::LoopClient;
 use stripe::Client as StripeClient;
 
 use crate::config::SubscriptionConfig;

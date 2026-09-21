@@ -7,7 +7,7 @@ import { format as dateFnsFormat, isValid } from "date-fns";
  * It re-exports ALL date-fns functions and adds custom helpers where needed.
  */
 
-// Re-export ALL date-fns functions so users can import any date-fns function from @skald/utils
+// Re-export ALL date-fns functions so users can import any date-fns function from @notiz/utils
 export * from "date-fns";
 export { TZDate } from "@date-fns/tz";
 

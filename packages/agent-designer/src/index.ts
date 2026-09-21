@@ -1,5 +1,5 @@
 // Re-export everything from agent-core for backwards compatibility
-export * from "@skald/agent-core";
+export * from "@notiz/agent-core";
 
 // Main agent exports
 export { agent } from "./agent";

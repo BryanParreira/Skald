@@ -10,10 +10,10 @@ import {
 } from "@lobehub/icons";
 import type { ReactNode } from "react";
 
-import type { LocalModel } from "@skald/plugin-local-stt";
+import type { LocalModel } from "@notiz/plugin-local-stt";
 
 import { env } from "~/env";
-import { SkaldProviderIcon, ProviderBrandImage } from "~/settings/ai/shared";
+import { NotizProviderIcon, ProviderBrandImage } from "~/settings/ai/shared";
 import { type ProviderRequirement } from "~/settings/ai/shared/eligibility";
 import { sortProviders } from "~/settings/ai/shared/sort-providers";
 import { localSttQueries } from "~/stt/useLocalSttModel";
@@ -171,10 +171,10 @@ export function formatModelSize(sizeBytes?: number | null) {
 const _PROVIDERS = [
   {
     disabled: false,
-    id: "skald",
-    displayName: "Skald",
+    id: "notiz",
+    displayName: "Notiz",
     badge: null,
-    icon: <SkaldProviderIcon />,
+    icon: <NotizProviderIcon />,
     baseUrl: new URL("/stt", env.VITE_API_URL).toString(),
     models: ["cloud"],
     requirements: [],

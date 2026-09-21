@@ -1,6 +1,6 @@
 use tauri_plugin_settings::SettingsPluginExt;
 
-use skald_hooks::HooksConfig;
+use notiz_hooks::HooksConfig;
 
 use crate::error::{Error, Result};
 

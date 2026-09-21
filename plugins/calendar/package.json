@@ -1,5 +1,5 @@
 {
-  "name": "@skald/plugin-calendar",
+  "name": "@notiz/plugin-calendar",
   "private": true,
   "main": "./js/index.ts",
   "scripts": {

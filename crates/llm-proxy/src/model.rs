@@ -23,14 +23,14 @@ const MODEL_LATEST_SONNET: &str = "~anthropic/claude-sonnet-latest";
 )]
 #[serde(rename_all = "lowercase")]
 #[strum(serialize_all = "lowercase")]
-pub enum SkaldTask {
+pub enum NotizTask {
     Chat,
     Enhance,
     Title,
 }
 
 pub struct ModelContext {
-    pub task: Option<SkaldTask>,
+    pub task: Option<NotizTask>,
     pub needs_tool_calling: bool,
     pub has_audio: bool,
 }
@@ -49,15 +49,15 @@ impl Default for StaticModelResolver {
         let mut models = HashMap::new();
 
         models.insert(
-            SkaldTask::Chat.to_string(),
+            NotizTask::Chat.to_string(),
             vec![MODEL_LATEST_SONNET.into()],
         );
         models.insert(
-            SkaldTask::Title.to_string(),
+            NotizTask::Title.to_string(),
             vec![MODEL_LATEST_SONNET.into()],
         );
         models.insert(
-            SkaldTask::Enhance.to_string(),
+            NotizTask::Enhance.to_string(),
             vec![MODEL_LATEST_SONNET.into()],
         );
         models.insert(
@@ -115,7 +115,7 @@ mod tests {
 
     type ResolveTestCase = (
         &'static str,
-        Option<SkaldTask>,
+        Option<NotizTask>,
         bool,
         bool,
         Option<(&'static str, Vec<&'static str>)>,
@@ -138,7 +138,7 @@ mod tests {
         let cases: &[ResolveTestCase] = &[
             (
                 "by_task",
-                Some(SkaldTask::Chat),
+                Some(NotizTask::Chat),
                 false,
                 false,
                 None,
@@ -155,7 +155,7 @@ mod tests {
             ("default", None, false, false, None, &[MODEL_LATEST_SONNET]),
             (
                 "task_overrides_tool_calling",
-                Some(SkaldTask::Chat),
+                Some(NotizTask::Chat),
                 true,
                 false,
                 None,
@@ -163,7 +163,7 @@ mod tests {
             ),
             (
                 "with_models_custom_key",
-                Some(SkaldTask::Enhance),
+                Some(NotizTask::Enhance),
                 false,
                 false,
                 Some(("enhance", vec!["foo/bar"])),
@@ -171,7 +171,7 @@ mod tests {
             ),
             (
                 "enhance_uses_quality_models",
-                Some(SkaldTask::Enhance),
+                Some(NotizTask::Enhance),
                 false,
                 false,
                 None,
@@ -179,7 +179,7 @@ mod tests {
             ),
             (
                 "audio_overrides_task",
-                Some(SkaldTask::Chat),
+                Some(NotizTask::Chat),
                 false,
                 true,
                 None,

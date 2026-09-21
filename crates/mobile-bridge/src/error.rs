@@ -33,13 +33,13 @@ pub(crate) fn parse_params_json(params_json: &str) -> Result<Vec<serde_json::Val
     }
 }
 
-pub(crate) fn execute_error(error: skald_db_execute::Error) -> BridgeError {
+pub(crate) fn execute_error(error: notiz_db_execute::Error) -> BridgeError {
     BridgeError::QueryFailed {
         reason: error.to_string(),
     }
 }
 
-pub(crate) fn reactive_error(error: skald_db_reactive::Error) -> BridgeError {
+pub(crate) fn reactive_error(error: notiz_db_reactive::Error) -> BridgeError {
     BridgeError::QueryFailed {
         reason: error.to_string(),
     }
@@ -51,7 +51,7 @@ pub(crate) fn cloudsync_error(error: impl std::fmt::Display) -> BridgeError {
     }
 }
 
-pub(crate) fn cloudsync_runtime_error(error: skald_db_core::CloudsyncRuntimeError) -> BridgeError {
+pub(crate) fn cloudsync_runtime_error(error: notiz_db_core::CloudsyncRuntimeError) -> BridgeError {
     BridgeError::CloudsyncFailed {
         reason: error.to_string(),
     }
@@ -66,9 +66,9 @@ pub(crate) fn serialization_error(error: serde_json::Error) -> BridgeError {
 #[derive(Debug, thiserror::Error)]
 pub(crate) enum OpenAppDbError {
     #[error(transparent)]
-    Open(#[from] skald_db_core::DbOpenError),
+    Open(#[from] notiz_db_core::DbOpenError),
     #[error(transparent)]
-    Migrate(#[from] skald_db_migrate::MigrateError),
+    Migrate(#[from] notiz_db_migrate::MigrateError),
     #[error(transparent)]
-    AppSchema(#[from] skald_db_app::AppSchemaError),
+    AppSchema(#[from] notiz_db_app::AppSchemaError),
 }

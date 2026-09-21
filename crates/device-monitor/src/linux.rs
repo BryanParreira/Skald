@@ -14,7 +14,7 @@ use std::sync::mpsc;
 type PulseAudioHandles = (Rc<RefCell<Mainloop>>, Rc<RefCell<Context>>);
 
 fn is_headphone_from_default_output_device() -> Option<bool> {
-    skald_audio_device::linux::is_headphone_from_default_output_device()
+    notiz_audio_device::linux::is_headphone_from_default_output_device()
 }
 
 fn setup_pulseaudio(stop_rx: &mpsc::Receiver<()>) -> Option<PulseAudioHandles> {
@@ -48,7 +48,7 @@ fn setup_pulseaudio(stop_rx: &mpsc::Receiver<()>) -> Option<PulseAudioHandles> {
         }
     };
 
-    let context = match Context::new_with_proplist(&*mainloop.borrow(), "SkaldContext", &proplist) {
+    let context = match Context::new_with_proplist(&*mainloop.borrow(), "NotizContext", &proplist) {
         Some(c) => Rc::new(RefCell::new(c)),
         None => {
             tracing::error!("Failed to create PulseAudio context");

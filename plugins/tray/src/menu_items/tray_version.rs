@@ -10,12 +10,12 @@ pub struct TrayVersion;
 impl TrayVersion {
     fn get_channel(identifier: &str, app_name: &str) -> &'static str {
         match identifier {
-            "com.skald.stable" | "com.skald.app" => "stable",
-            "com.skald.staging" => "staging",
-            "com.skald.dev" => "dev",
+            "com.notiz.stable" | "com.notiz.app" => "stable",
+            "com.notiz.staging" => "staging",
+            "com.notiz.dev" => "dev",
             _ => match app_name {
-                "Skald" => "stable",
-                "Skald Staging" => "staging",
+                "Notiz" => "stable",
+                "Notiz Staging" => "staging",
                 _ => "dev",
             },
         }
@@ -23,7 +23,7 @@ impl TrayVersion {
 }
 
 impl MenuItemHandler for TrayVersion {
-    const ID: &'static str = "skald_tray_version";
+    const ID: &'static str = "notiz_tray_version";
 
     fn build(app: &AppHandle<tauri::Wry>) -> Result<MenuItemKind<tauri::Wry>> {
         let identifier = &app.config().identifier;
@@ -46,26 +46,26 @@ mod tests {
     #[test]
     fn gets_channel_from_identifier() {
         assert_eq!(
-            TrayVersion::get_channel("com.skald.stable", "Skald"),
+            TrayVersion::get_channel("com.notiz.stable", "Notiz"),
             "stable"
         );
         assert_eq!(
-            TrayVersion::get_channel("com.skald.staging", "Skald Staging"),
+            TrayVersion::get_channel("com.notiz.staging", "Notiz Staging"),
             "staging"
         );
         assert_eq!(
-            TrayVersion::get_channel("com.skald.dev", "Skald Dev"),
+            TrayVersion::get_channel("com.notiz.dev", "Notiz Dev"),
             "dev"
         );
     }
 
     #[test]
     fn falls_back_to_product_name_for_unknown_identifier() {
-        assert_eq!(TrayVersion::get_channel("unknown", "Skald"), "stable");
+        assert_eq!(TrayVersion::get_channel("unknown", "Notiz"), "stable");
         assert_eq!(
-            TrayVersion::get_channel("unknown", "Skald Staging"),
+            TrayVersion::get_channel("unknown", "Notiz Staging"),
             "staging"
         );
-        assert_eq!(TrayVersion::get_channel("unknown", "Skald Dev"), "dev");
+        assert_eq!(TrayVersion::get_channel("unknown", "Notiz Dev"), "dev");
     }
 }

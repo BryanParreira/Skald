@@ -102,18 +102,18 @@ vi.mock("@lingui/react", () => ({
   }),
 }));
 
-vi.mock("@skald/editor/markdown", () => ({
+vi.mock("@notiz/editor/markdown", () => ({
   json2md: () => "",
   parseJsonContent: () => ({}),
 }));
 
-vi.mock("@skald/plugin-analytics", () => ({
+vi.mock("@notiz/plugin-analytics", () => ({
   commands: {
     event: vi.fn(),
   },
 }));
 
-vi.mock("@skald/ui/components/ui/spinner", () => ({
+vi.mock("@notiz/ui/components/ui/spinner", () => ({
   Spinner: () => <span data-testid="tab-spinner" />,
 }));
 

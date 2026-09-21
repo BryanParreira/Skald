@@ -4,14 +4,14 @@ import { z } from "zod";
 import {
   commands as templateCommands,
   type EventContactCandidate as TemplateEventContactCandidate,
-} from "@skald/plugin-template";
+} from "@notiz/plugin-template";
 import type {
   EventParticipant,
   HumanStorage,
   MappingSessionParticipantStorage,
   OrganizationStorage,
   SessionEvent,
-} from "@skald/store";
+} from "@notiz/store";
 
 import { deterministicGenerationSettings } from "~/ai/model-settings";
 import { DEFAULT_USER_ID, id } from "~/shared/utils";

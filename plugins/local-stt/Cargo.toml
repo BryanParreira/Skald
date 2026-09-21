@@ -9,22 +9,22 @@ description = ""
 
 [features]
 default = []
-whisper-cpp = ["dep:skald-transcribe-whisper-local", "dep:skald-whisper-local"]
-coreml = ["whisper-cpp", "skald-transcribe-whisper-local/coreml"]
-directml = ["whisper-cpp", "skald-transcribe-whisper-local/directml"]
-cuda = ["whisper-cpp", "skald-transcribe-whisper-local/cuda"]
-hipblas = ["whisper-cpp", "skald-transcribe-whisper-local/hipblas"]
-openblas = ["whisper-cpp", "skald-transcribe-whisper-local/openblas"]
-metal = ["whisper-cpp", "skald-transcribe-whisper-local/metal"]
-vulkan = ["whisper-cpp", "skald-transcribe-whisper-local/vulkan"]
-openmp = ["whisper-cpp", "skald-transcribe-whisper-local/openmp"]
+whisper-cpp = ["dep:notiz-transcribe-whisper-local", "dep:notiz-whisper-local"]
+coreml = ["whisper-cpp", "notiz-transcribe-whisper-local/coreml"]
+directml = ["whisper-cpp", "notiz-transcribe-whisper-local/directml"]
+cuda = ["whisper-cpp", "notiz-transcribe-whisper-local/cuda"]
+hipblas = ["whisper-cpp", "notiz-transcribe-whisper-local/hipblas"]
+openblas = ["whisper-cpp", "notiz-transcribe-whisper-local/openblas"]
+metal = ["whisper-cpp", "notiz-transcribe-whisper-local/metal"]
+vulkan = ["whisper-cpp", "notiz-transcribe-whisper-local/vulkan"]
+openmp = ["whisper-cpp", "notiz-transcribe-whisper-local/openmp"]
 [build-dependencies]
 tauri-plugin = { workspace = true, features = ["build"] }
 
 [dev-dependencies]
-skald-audio-utils = { workspace = true }
-skald-data = { workspace = true }
-skald-language = { workspace = true, features = ["whisper"] }
+notiz-audio-utils = { workspace = true }
+notiz-data = { workspace = true }
+notiz-language = { workspace = true, features = ["whisper"] }
 
 dirs = { workspace = true }
 reqwest = { workspace = true }
@@ -35,19 +35,19 @@ tokio-tungstenite = { workspace = true }
 tower = { workspace = true }
 
 [dependencies]
-skald-am = { workspace = true }
-skald-audio-utils = { workspace = true }
-skald-download-interface = { workspace = true }
-skald-file = { workspace = true }
-skald-host = { workspace = true }
-skald-language = { workspace = true, features = ["whisper"] }
-skald-local-model = { workspace = true }
-skald-local-stt-core = { workspace = true, features = ["specta"] }
-skald-model-downloader = { workspace = true, features = ["specta"] }
-skald-transcribe-soniqo = { workspace = true }
-skald-transcribe-whisper-local = { workspace = true, optional = true }
-skald-whisper-local = { workspace = true, optional = true }
-skald-whisper-local-model = { workspace = true }
+notiz-am = { workspace = true }
+notiz-audio-utils = { workspace = true }
+notiz-download-interface = { workspace = true }
+notiz-file = { workspace = true }
+notiz-host = { workspace = true }
+notiz-language = { workspace = true, features = ["whisper"] }
+notiz-local-model = { workspace = true }
+notiz-local-stt-core = { workspace = true, features = ["specta"] }
+notiz-model-downloader = { workspace = true, features = ["specta"] }
+notiz-transcribe-soniqo = { workspace = true }
+notiz-transcribe-whisper-local = { workspace = true, optional = true }
+notiz-whisper-local = { workspace = true, optional = true }
+notiz-whisper-local-model = { workspace = true }
 
 owhisper-client = { workspace = true }
 owhisper-interface = { workspace = true }
@@ -79,8 +79,8 @@ tokio = { workspace = true, features = ["rt", "macros"] }
 tokio-util = { workspace = true }
 tracing = { workspace = true }
 
+notiz-supervisor = { workspace = true }
 ractor = { workspace = true, features = ["async-trait"] }
-skald-supervisor = { workspace = true }
 
 port-killer = "0.1.0"
 port_check = "0.3.0"

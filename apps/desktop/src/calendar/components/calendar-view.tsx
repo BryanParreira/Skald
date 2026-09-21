@@ -15,18 +15,18 @@ import {
 import { ChevronLeftIcon, ChevronRightIcon, RefreshCwIcon } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import { Button } from "@skald/ui/components/ui/button";
+import { Button } from "@notiz/ui/components/ui/button";
 import {
   ButtonGroup,
   ButtonGroupSeparator,
-} from "@skald/ui/components/ui/button-group";
-import { Spinner } from "@skald/ui/components/ui/spinner";
+} from "@notiz/ui/components/ui/button-group";
+import { Spinner } from "@notiz/ui/components/ui/spinner";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@skald/ui/components/ui/tooltip";
-import { cn } from "@skald/utils";
+} from "@notiz/ui/components/ui/tooltip";
+import { cn } from "@notiz/utils";
 
 import { useSync } from "./context";
 import { DayCell } from "./day-cell";

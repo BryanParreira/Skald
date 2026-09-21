@@ -4,7 +4,7 @@ use std::sync::Mutex;
 
 use swift_rs::{Bool, SRString, swift};
 
-pub use skald_notification_interface::*;
+pub use notiz_notification_interface::*;
 
 swift!(fn _show_notification(json_payload: &SRString) -> Bool);
 
@@ -81,15 +81,15 @@ struct NotificationPayload<'a> {
     participants: Option<&'a [Participant]>,
     event_details: Option<&'a EventDetails>,
     action_label: Option<&'a str>,
-    action_variant: Option<&'a skald_notification_interface::NotificationActionVariant>,
+    action_variant: Option<&'a notiz_notification_interface::NotificationActionVariant>,
     options: Option<&'a [String]>,
     footer: Option<&'a NotificationFooter>,
     icon: Option<&'a NotificationIcon>,
 }
 
 fn resolve_default_icon(
-    notification: &skald_notification_interface::Notification,
-) -> skald_notification_interface::Notification {
+    notification: &notiz_notification_interface::Notification,
+) -> notiz_notification_interface::Notification {
     let mut resolved = notification.clone();
 
     if resolved.icon.is_none() {
@@ -102,7 +102,7 @@ fn resolve_default_icon(
     resolved
 }
 
-pub fn show(notification: &skald_notification_interface::Notification) {
+pub fn show(notification: &notiz_notification_interface::Notification) {
     let notification = resolve_default_icon(notification);
 
     let key = notification

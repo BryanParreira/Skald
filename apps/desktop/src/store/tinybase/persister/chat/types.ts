@@ -1,4 +1,4 @@
-import type { ChatGroup, ChatMessageStorage } from "@skald/store";
+import type { ChatGroup, ChatMessageStorage } from "@notiz/store";
 
 export type ChatGroupData = ChatGroup & { id: string };
 

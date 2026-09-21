@@ -10,21 +10,21 @@ import {
   type ValuesSchema,
 } from "tinybase/with-schemas";
 
-import { commands as detectCommands } from "@skald/plugin-detect";
-import { commands as localLlmCommands } from "@skald/plugin-local-llm";
-import { commands as localSttCommands } from "@skald/plugin-local-stt";
-import { commands as shortcutCommands } from "@skald/plugin-shortcut";
-import { commands as trayCommands } from "@skald/plugin-tray";
+import { commands as detectCommands } from "@notiz/plugin-detect";
+import { commands as localLlmCommands } from "@notiz/plugin-local-llm";
+import { commands as localSttCommands } from "@notiz/plugin-local-stt";
+import { commands as shortcutCommands } from "@notiz/plugin-shortcut";
+import { commands as trayCommands } from "@notiz/plugin-tray";
 import {
   commands as windowsCommands,
   getCurrentWebviewWindowLabel,
-} from "@skald/plugin-windows";
+} from "@notiz/plugin-windows";
 
 import { registerSaveHandler } from "./save";
 
 import { hotkeyFor } from "~/dictation/hotkey";
 import { useSettingsPersister } from "~/store/tinybase/persister/settings";
-import { isConfiguredSttModel, isSkaldLocalSttModel } from "~/stt/capabilities";
+import { isConfiguredSttModel, isNotizLocalSttModel } from "~/stt/capabilities";
 
 export const STORE_ID = "settings";
 
@@ -318,7 +318,7 @@ export const StoreComponent = () => {
   const synchronizer = useCreateSynchronizer(store, async (store) =>
     createBroadcastChannelSynchronizer(
       store,
-      "skald-sync-settings",
+      "notiz-sync-settings",
     ).startSync(),
   );
 
@@ -373,7 +373,7 @@ function clearInvalidSttModel(store: Store) {
   const provider = store.getValue("current_stt_provider") as string | undefined;
   const model = store.getValue("current_stt_model") as string | undefined;
 
-  if (provider === "skald" && model && !isConfiguredSttModel(provider, model)) {
+  if (provider === "notiz" && model && !isConfiguredSttModel(provider, model)) {
     store.delValue("current_stt_model");
     return true;
   }
@@ -390,7 +390,7 @@ function syncLocalSttServer(store: Store) {
   const provider = store.getValue("current_stt_provider") as string | undefined;
   const model = store.getValue("current_stt_model") as string | undefined;
 
-  if (isSkaldLocalSttModel(provider, model)) {
+  if (isNotizLocalSttModel(provider, model)) {
     localSttCommands.startServer(model).catch(console.error);
   } else {
     localSttCommands.stopServer(null).catch(console.error);
@@ -401,7 +401,7 @@ function syncLocalLlmServer(store: Store) {
   const provider = store.getValue("current_llm_provider") as string | undefined;
   const model = store.getValue("current_llm_model") as string | undefined;
 
-  if (provider === "skald_local" && model) {
+  if (provider === "notiz_local" && model) {
     localLlmCommands
       .startServer(model as Parameters<typeof localLlmCommands.startServer>[0])
       .catch(console.error);

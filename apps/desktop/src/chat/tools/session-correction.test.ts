@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 
-import { md2json } from "@skald/editor/markdown";
+import { md2json } from "@notiz/editor/markdown";
 
 import {
   buildApplySessionCorrectionTool,
@@ -480,11 +480,11 @@ describe("session correction dictionary learning", () => {
     const result = await (tool as any).execute({
       target: "transcript",
       oldText: "anna log",
-      newText: "Skald",
+      newText: "Notiz",
     });
 
-    expect(learn).toHaveBeenCalledWith("Skald");
-    expect(result).toMatchObject({ status: "applied", learnedTerm: "Skald" });
+    expect(learn).toHaveBeenCalledWith("Notiz");
+    expect(result).toMatchObject({ status: "applied", learnedTerm: "Notiz" });
   });
 
   it("does not learn from a summary-only correction", async () => {
@@ -494,7 +494,7 @@ describe("session correction dictionary learning", () => {
     const result = await (tool as any).execute({
       target: "summary",
       oldText: "anna log",
-      newText: "Skald",
+      newText: "Notiz",
     });
 
     expect(learn).not.toHaveBeenCalled();
@@ -509,10 +509,10 @@ describe("session correction dictionary learning", () => {
     const result = await (tool as any).execute({
       target: "transcript",
       oldText: "anna log",
-      newText: "Skald",
+      newText: "Notiz",
     });
 
-    expect(learn).toHaveBeenCalledWith("Skald");
+    expect(learn).toHaveBeenCalledWith("Notiz");
     expect(result).not.toHaveProperty("learnedTerm");
   });
 });

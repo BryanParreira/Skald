@@ -1,13 +1,13 @@
 use std::sync::Arc;
 
 use axum::{Extension, Json, extract::Path, response::Html};
-use serde::{Deserialize, Serialize};
-use skald_recall::{
+use notiz_recall::{
     AutomaticLeaveConfig, BotStatusCode, BotVariant, CreateBotRequest, EveryoneLeftConfig,
     OutputMedia, OutputMediaConfig, OutputMediaKind, OutputMediaWebpageConfig,
     RealTimeTranscriptionConfig, RecallClient, RecordingConfig, SilenceDetectionConfig,
     StartRecordingOn, TranscriptionOptions, TranscriptionProvider, VariantKind,
 };
+use serde::{Deserialize, Serialize};
 use utoipa::ToSchema;
 
 use crate::config::BotConfig;
@@ -45,7 +45,7 @@ pub async fn send_bot(
     let bot = client
         .create_bot(CreateBotRequest {
             meeting_url: req.meeting_url,
-            bot_name: req.bot_name.unwrap_or_else(|| "Skald".into()),
+            bot_name: req.bot_name.unwrap_or_else(|| "Notiz".into()),
             transcription_options: Some(TranscriptionOptions {
                 provider: TranscriptionProvider::MeetingCaptions,
             }),
@@ -100,7 +100,7 @@ pub async fn start_demo(
     let bot = client
         .create_bot(CreateBotRequest {
             meeting_url: req.meeting_url.clone(),
-            bot_name: "Skald Demo".into(),
+            bot_name: "Notiz Demo".into(),
             transcription_options: None,
             real_time_transcription: None,
             output_media: Some(OutputMedia {

@@ -6,7 +6,7 @@ edition = "2024"
 [features]
 default = []
 server = ["dep:reqwest", "dep:jsonwebtoken", "dep:tokio"]
-client = ["dep:skald-storage"]
+client = ["dep:notiz-storage"]
 refresh = ["dep:reqwest", "dep:backon", "dep:tokio"]
 
 [dependencies]
@@ -25,7 +25,7 @@ reqwest = { workspace = true, features = ["json"], optional = true }
 tokio = { workspace = true, features = ["sync"], optional = true }
 
 # client feature
-skald-storage = { workspace = true, optional = true }
+notiz-storage = { workspace = true, optional = true }
 
 [dev-dependencies]
 axum = { workspace = true }

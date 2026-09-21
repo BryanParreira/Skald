@@ -20,7 +20,7 @@ const hoisted = vi.hoisted(() => ({
   templateId: undefined as string | undefined,
   llmStatus: {
     status: "success",
-    providerId: "skald",
+    providerId: "notiz",
     isHosted: true,
   } as LLMConnectionStatus,
   isCaretNearBottom: false,
@@ -38,7 +38,7 @@ vi.mock("./listen", () => ({
 vi.mock("~/shared/chat-cta", () => ({
   ChatCTA: () => (
     <button type="button" onClick={() => hoisted.sendEvent({ type: "OPEN" })}>
-      Ask Skald anything
+      Ask Notiz anything
     </button>
   ),
 }));
@@ -132,7 +132,7 @@ describe("FloatingActionButton", () => {
     hoisted.templateId = undefined;
     hoisted.llmStatus = {
       status: "success",
-      providerId: "skald",
+      providerId: "notiz",
       isHosted: true,
     };
     hoisted.isCaretNearBottom = false;
@@ -151,7 +151,7 @@ describe("FloatingActionButton", () => {
     render(<FloatingActionButton tab={tab} />);
 
     expect(
-      screen.queryByRole("button", { name: "Ask Skald anything" }),
+      screen.queryByRole("button", { name: "Ask Notiz anything" }),
     ).not.toBeNull();
   });
 
@@ -161,7 +161,7 @@ describe("FloatingActionButton", () => {
     render(<FloatingActionButton tab={tab} />);
 
     expect(
-      screen.queryByRole("button", { name: "Ask Skald anything" }),
+      screen.queryByRole("button", { name: "Ask Notiz anything" }),
     ).not.toBeNull();
   });
 
@@ -177,7 +177,7 @@ describe("FloatingActionButton", () => {
     render(<FloatingActionButton tab={tab} />);
 
     expect(
-      screen.queryByRole("button", { name: "Ask Skald anything" }),
+      screen.queryByRole("button", { name: "Ask Notiz anything" }),
     ).toBeNull();
 
     fireEvent.click(screen.getByRole("button", { name: "Generate summary" }));
@@ -199,7 +199,7 @@ describe("FloatingActionButton", () => {
     render(<FloatingActionButton tab={tab} />);
 
     expect(
-      screen.queryByRole("button", { name: "Ask Skald anything" }),
+      screen.queryByRole("button", { name: "Ask Notiz anything" }),
     ).toBeNull();
     expect(
       screen.getByRole("button", { name: "Generate summary" }),
@@ -213,7 +213,7 @@ describe("FloatingActionButton", () => {
     render(<FloatingActionButton tab={tab} />);
 
     expect(
-      screen.queryByRole("button", { name: "Ask Skald anything" }),
+      screen.queryByRole("button", { name: "Ask Notiz anything" }),
     ).toBeNull();
   });
 
@@ -226,7 +226,7 @@ describe("FloatingActionButton", () => {
     render(<FloatingActionButton tab={tab} />);
 
     expect(
-      screen.queryByRole("button", { name: "Ask Skald anything" }),
+      screen.queryByRole("button", { name: "Ask Notiz anything" }),
     ).toBeNull();
   });
 
@@ -239,7 +239,7 @@ describe("FloatingActionButton", () => {
     render(<FloatingActionButton tab={tab} />);
 
     expect(
-      screen.queryByRole("button", { name: "Ask Skald anything" }),
+      screen.queryByRole("button", { name: "Ask Notiz anything" }),
     ).not.toBeNull();
   });
 
@@ -248,7 +248,7 @@ describe("FloatingActionButton", () => {
 
     render(<FloatingActionButton tab={tab} />);
 
-    const wrapper = screen.getByText("Ask Skald anything").parentElement;
+    const wrapper = screen.getByText("Ask Notiz anything").parentElement;
     const hoverZone = wrapper?.parentElement;
 
     expect(hoverZone?.className).toContain("pointer-events-none");
@@ -270,7 +270,7 @@ describe("FloatingActionButton", () => {
 
     render(<FloatingActionButton tab={tab} />);
 
-    const wrapper = screen.getByText("Ask Skald anything").parentElement;
+    const wrapper = screen.getByText("Ask Notiz anything").parentElement;
     const hoverZone = wrapper?.parentElement;
 
     expect(hoverZone?.className).toContain("pointer-events-none");
@@ -294,7 +294,7 @@ describe("FloatingActionButton", () => {
 
     render(<FloatingActionButton tab={tab} />);
 
-    const wrapper = screen.getByText("Ask Skald anything").parentElement;
+    const wrapper = screen.getByText("Ask Notiz anything").parentElement;
 
     expect(
       screen.queryByRole("button", { name: "Start listening" }),
@@ -310,7 +310,7 @@ describe("FloatingActionButton", () => {
 
     render(<FloatingActionButton tab={tab} />);
 
-    fireEvent.click(screen.getByRole("button", { name: "Ask Skald anything" }));
+    fireEvent.click(screen.getByRole("button", { name: "Ask Notiz anything" }));
 
     expect(hoisted.sendEvent).toHaveBeenCalledWith({ type: "OPEN" });
   });
@@ -346,7 +346,7 @@ describe("FloatingActionButton", () => {
     render(<FloatingActionButton audioExists tab={tab} />);
 
     expect(
-      screen.queryByRole("button", { name: "Ask Skald anything" }),
+      screen.queryByRole("button", { name: "Ask Notiz anything" }),
     ).toBeNull();
 
     fireEvent.click(
@@ -381,7 +381,7 @@ describe("FloatingActionButton", () => {
     expect(status.className).toContain("text-red-400");
     expect(status.parentElement?.className).toContain("pb-4");
     expect(
-      screen.queryByRole("button", { name: "Ask Skald anything" }),
+      screen.queryByRole("button", { name: "Ask Notiz anything" }),
     ).toBeNull();
   });
 

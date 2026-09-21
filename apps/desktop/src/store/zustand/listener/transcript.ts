@@ -5,7 +5,7 @@ import type {
   LiveTranscriptDelta,
   LiveTranscriptSegment,
   LiveTranscriptSegmentDelta,
-} from "@skald/plugin-transcription";
+} from "@notiz/plugin-transcription";
 
 import type { RuntimeSpeakerHint, WordLike } from "~/stt/segment";
 

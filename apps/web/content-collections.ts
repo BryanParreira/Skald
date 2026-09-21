@@ -48,7 +48,7 @@ const articles = defineCollection({
 
     const slug = document._meta.path.replace(/\.mdx$/, "");
 
-    const rawAuthor = document.author || "Skald Team";
+    const rawAuthor = document.author || "Notiz Team";
     const author = Array.isArray(rawAuthor) ? rawAuthor : [rawAuthor];
     const title = document.display_title || document.meta_title;
 

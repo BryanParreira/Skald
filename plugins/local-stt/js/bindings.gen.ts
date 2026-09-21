@@ -181,7 +181,7 @@ export type DownloadStatus =
   | { downloading: number }
   | "completed"
   | { failed: string };
-export type GgufLlmModel = "Llama3p2_3bQ4" | "Gemma3_4bQ4" | "SkaldLLM";
+export type GgufLlmModel = "Llama3p2_3bQ4" | "Gemma3_4bQ4" | "NotizLLM";
 export type LocalModel = SoniqoModel | WhisperModel | AmModel | GgufLlmModel;
 export type ServerInfo = {
   url: string | null;

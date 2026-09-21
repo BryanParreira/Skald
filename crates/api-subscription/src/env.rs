@@ -1,1 +1,1 @@
-pub use skald_api_env::StripeEnv;
+pub use notiz_api_env::StripeEnv;

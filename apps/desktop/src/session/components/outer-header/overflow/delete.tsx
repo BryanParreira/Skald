@@ -2,8 +2,8 @@ import { Trans } from "@lingui/react/macro";
 import { Loader2Icon, TrashIcon } from "lucide-react";
 import { useCallback } from "react";
 
-import { DropdownMenuItem } from "@skald/ui/components/ui/dropdown-menu";
-import { cn } from "@skald/utils";
+import { DropdownMenuItem } from "@notiz/ui/components/ui/dropdown-menu";
+import { cn } from "@notiz/utils";
 
 import { useAudioPlayer } from "~/audio-player";
 import {

@@ -10,9 +10,9 @@ import {
 } from "lucide-react";
 import { defaultRehypePlugins, Streamdown } from "streamdown";
 
-import { commands as openerCommands } from "@skald/plugin-opener2";
-import { commands as todoCommands } from "@skald/plugin-todo";
-import { cn } from "@skald/utils";
+import { commands as openerCommands } from "@notiz/plugin-opener2";
+import { commands as todoCommands } from "@notiz/plugin-todo";
+import { cn } from "@notiz/utils";
 
 import { streamdownComponents } from "~/session/components/streamdown";
 import { type TaskResource } from "~/store/zustand/tabs";

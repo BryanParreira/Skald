@@ -4,22 +4,22 @@ use tauri_plugin_detect::env::test_support::TestEnv;
 use tauri_plugin_detect::handler::handle_detect_event;
 use tauri_plugin_detect::{DetectEvent, ProcessorState};
 
-fn zoom() -> skald_detect::InstalledApp {
-    skald_detect::InstalledApp {
+fn zoom() -> notiz_detect::InstalledApp {
+    notiz_detect::InstalledApp {
         id: "us.zoom.xos".to_string(),
         name: "zoom.us".to_string(),
     }
 }
 
-fn aqua_voice() -> skald_detect::InstalledApp {
-    skald_detect::InstalledApp {
+fn aqua_voice() -> notiz_detect::InstalledApp {
+    notiz_detect::InstalledApp {
         id: "com.electron.aqua-voice".to_string(),
         name: "Aqua Voice".to_string(),
     }
 }
 
-fn slack() -> skald_detect::InstalledApp {
-    skald_detect::InstalledApp {
+fn slack() -> notiz_detect::InstalledApp {
+    notiz_detect::InstalledApp {
         id: "com.tinyspeck.slackmacgap".to_string(),
         name: "Slack".to_string(),
     }
@@ -38,19 +38,19 @@ impl Harness {
         }
     }
 
-    fn mic_started(&self, app: skald_detect::InstalledApp) {
+    fn mic_started(&self, app: notiz_detect::InstalledApp) {
         handle_detect_event(
             &self.env,
             &self.state,
-            skald_detect::DetectEvent::MicStarted(vec![app]),
+            notiz_detect::DetectEvent::MicStarted(vec![app]),
         );
     }
 
-    fn mic_stopped(&self, app: skald_detect::InstalledApp) {
+    fn mic_stopped(&self, app: notiz_detect::InstalledApp) {
         handle_detect_event(
             &self.env,
             &self.state,
-            skald_detect::DetectEvent::MicStopped(vec![app]),
+            notiz_detect::DetectEvent::MicStopped(vec![app]),
         );
     }
 
@@ -461,7 +461,7 @@ async fn test_multiple_apps_start_simultaneously() {
     handle_detect_event(
         &h.env,
         &h.state,
-        skald_detect::DetectEvent::MicStarted(vec![zoom(), slack()]),
+        notiz_detect::DetectEvent::MicStarted(vec![zoom(), slack()]),
     );
 
     h.advance_secs(15).await;
@@ -535,7 +535,7 @@ async fn test_stop_all_apps_simultaneously() {
     handle_detect_event(
         &h.env,
         &h.state,
-        skald_detect::DetectEvent::MicStopped(vec![zoom(), slack()]),
+        notiz_detect::DetectEvent::MicStopped(vec![zoom(), slack()]),
     );
     h.take_events();
 

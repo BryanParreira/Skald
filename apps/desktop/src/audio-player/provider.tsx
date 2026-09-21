@@ -12,7 +12,7 @@ import {
 } from "react";
 import WaveSurfer from "wavesurfer.js";
 
-import { commands as fsSyncCommands } from "@skald/plugin-fs-sync";
+import { commands as fsSyncCommands } from "@notiz/plugin-fs-sync";
 
 import { useBillingAccess } from "~/auth/billing";
 

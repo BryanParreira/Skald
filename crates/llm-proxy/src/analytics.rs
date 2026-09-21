@@ -1,4 +1,4 @@
-use skald_analytics::{AnalyticsClient, AnalyticsPayload};
+use notiz_analytics::{AnalyticsClient, AnalyticsPayload};
 
 #[derive(Debug, Clone)]
 pub struct GenerationEvent {

@@ -1,7 +1,7 @@
 use std::sync::Arc;
 
 use axum::{Extension, Json};
-use skald_recall::{BotStatusCode, BotStatusWebhook, RecallClient, TranscriptWebhook};
+use notiz_recall::{BotStatusCode, BotStatusWebhook, RecallClient, TranscriptWebhook};
 
 use crate::error::Result;
 
@@ -13,19 +13,19 @@ pub async fn status_change(
     let code = &event.data.status.code;
 
     tracing::info!(
-        skald.bot.id = %bot_id,
-        skald.bot.status_code = ?code,
+        notiz.bot.id = %bot_id,
+        notiz.bot.status_code = ?code,
         "bot_status_change"
     );
 
     match code {
         BotStatusCode::CallEnded => {
-            tracing::info!(skald.bot.id = %bot_id, "bot_call_ended");
+            tracing::info!(notiz.bot.id = %bot_id, "bot_call_ended");
         }
         BotStatusCode::Fatal => {
             let message = event.data.status.message.as_deref().unwrap_or("unknown");
             tracing::error!(
-                skald.bot.id = %bot_id,
+                notiz.bot.id = %bot_id,
                 error = %message,
                 "bot_fatal"
             );
@@ -53,10 +53,10 @@ pub async fn transcript(Json(payload): Json<TranscriptWebhook>) -> Result<()> {
         .join(" ");
 
     tracing::info!(
-        skald.bot.id = %payload.bot_id,
-        skald.transcript.speaker = %payload.transcript.speaker,
-        skald.transcript.is_final = payload.transcript.is_final,
-        skald.transcript.char_count = text.chars().count() as u64,
+        notiz.bot.id = %payload.bot_id,
+        notiz.transcript.speaker = %payload.transcript.speaker,
+        notiz.transcript.is_final = payload.transcript.is_final,
+        notiz.transcript.char_count = text.chars().count() as u64,
         "transcript_received"
     );
 

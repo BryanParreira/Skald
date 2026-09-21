@@ -1,5 +1,5 @@
 {
-  "name": "@skald/plugin-todo",
+  "name": "@notiz/plugin-todo",
   "private": true,
   "main": "./js/index.ts",
   "scripts": {

@@ -1,13 +1,13 @@
 import { useMemo } from "react";
 
-import type { JSONContent } from "@skald/editor/note";
-import type { TaskStorage } from "@skald/editor/task-storage";
+import type { JSONContent } from "@notiz/editor/note";
+import type { TaskStorage } from "@notiz/editor/task-storage";
 import {
   createTaskSourceKey,
   isSameTask,
   type TaskRecord,
   type TaskSource,
-} from "@skald/editor/tasks";
+} from "@notiz/editor/tasks";
 
 import { DEFAULT_USER_ID } from "~/shared/utils";
 import * as main from "~/store/tinybase/store/main";

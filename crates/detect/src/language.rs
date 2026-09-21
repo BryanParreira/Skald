@@ -1,4 +1,4 @@
-pub fn get_preferred_languages() -> Vec<skald_language::Language> {
+pub fn get_preferred_languages() -> Vec<notiz_language::Language> {
     use objc2_foundation::NSLocale;
 
     let languages = NSLocale::preferredLanguages();
@@ -8,7 +8,7 @@ pub fn get_preferred_languages() -> Vec<skald_language::Language> {
         .collect()
 }
 
-fn locale_to_language(locale: &str) -> Option<skald_language::Language> {
+fn locale_to_language(locale: &str) -> Option<notiz_language::Language> {
     locale.parse().ok()
 }
 
@@ -22,7 +22,7 @@ pub fn get_current_locale_identifier() -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use skald_language::ISO639;
+    use notiz_language::ISO639;
 
     #[test]
     fn test_locale_to_language() {

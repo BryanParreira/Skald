@@ -1,8 +1,8 @@
 import { createCustomPersister } from "tinybase/persisters/with-schemas";
 import type { Content } from "tinybase/with-schemas";
 
-import { commands as detectCommands } from "@skald/plugin-detect";
-import { commands } from "@skald/plugin-settings";
+import { commands as detectCommands } from "@notiz/plugin-detect";
+import { commands } from "@notiz/plugin-settings";
 
 import {
   type LanguageDefaults,

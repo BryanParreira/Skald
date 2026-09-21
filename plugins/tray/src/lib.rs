@@ -4,9 +4,9 @@ mod menu_items;
 mod tray_icon;
 
 pub use ext::*;
-pub use menu_items::{SkaldMenuItem, UpdateMenuState};
+pub use menu_items::{NotizMenuItem, UpdateMenuState};
 
-const PLUGIN_NAME: &str = "skald-tray";
+const PLUGIN_NAME: &str = "notiz-tray";
 
 pub fn init() -> tauri::plugin::TauriPlugin<tauri::Wry> {
     let specta_builder = make_specta_builder();

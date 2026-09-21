@@ -10,7 +10,7 @@ import {
 const settingsMocks = vi.hoisted(() => ({
   vaultBase: vi
     .fn()
-    .mockResolvedValue({ status: "ok", data: "/mock/data/dir/skald" }),
+    .mockResolvedValue({ status: "ok", data: "/mock/data/dir/notiz" }),
 }));
 
 const fs2Mocks = vi.hoisted(() => ({
@@ -28,10 +28,10 @@ const notifyMocks = vi.hoisted(() => ({
   },
 }));
 
-vi.mock("@skald/plugin-settings", () => ({ commands: settingsMocks }));
-vi.mock("@skald/plugin-fs2", () => ({ commands: fs2Mocks }));
-vi.mock("@skald/plugin-fs-sync", () => ({ commands: fsSyncMocks }));
-vi.mock("@skald/plugin-notify", () => ({ events: notifyMocks }));
+vi.mock("@notiz/plugin-settings", () => ({ commands: settingsMocks }));
+vi.mock("@notiz/plugin-fs2", () => ({ commands: fs2Mocks }));
+vi.mock("@notiz/plugin-fs-sync", () => ({ commands: fsSyncMocks }));
+vi.mock("@notiz/plugin-notify", () => ({ events: notifyMocks }));
 
 describe("createJsonFilePersister", () => {
   let store: ReturnType<typeof createTestMainStore>;

@@ -22,7 +22,7 @@
 
   /* ── Animations ──────────────────────────────── */
   --animate-ios-opacity-spin: ios-opacity-spin 1s linear infinite;
-  --animate-skald-dancing-stick: skald-dancing-stick 1s ease-in-out infinite;
+  --animate-notiz-dancing-stick: notiz-dancing-stick 1s ease-in-out infinite;
 
   /* ── Colors: greys ────────────────────────────── */
   --grey-900: oklch(0.3 0.0197 81.53);
@@ -58,7 +58,7 @@
 }
 
 @theme inline {
-  @keyframes skald-dancing-stick {
+  @keyframes notiz-dancing-stick {
     0%,
     100% {
       transform: scaleY(0.2);

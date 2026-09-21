@@ -7,31 +7,31 @@ describe("extractSessionIdAndFolder", () => {
   describe("standard paths", () => {
     test("extracts session id and empty folder from root session path", () => {
       const result = extractSessionIdAndFolder(
-        "/data/skald/sessions/session-123/_meta.json",
+        "/data/notiz/sessions/session-123/_meta.json",
       );
       expect(result).toEqual({
         sessionId: "session-123",
-        folderPath: "/data/skald/sessions",
+        folderPath: "/data/notiz/sessions",
       });
     });
 
     test("extracts session id and folder from nested path", () => {
       const result = extractSessionIdAndFolder(
-        "/data/skald/sessions/work/session-123/_meta.json",
+        "/data/notiz/sessions/work/session-123/_meta.json",
       );
       expect(result).toEqual({
         sessionId: "session-123",
-        folderPath: "/data/skald/sessions/work",
+        folderPath: "/data/notiz/sessions/work",
       });
     });
 
     test("extracts session id and folder from deeply nested path", () => {
       const result = extractSessionIdAndFolder(
-        "/data/skald/sessions/work/project-a/meetings/session-123/_meta.json",
+        "/data/notiz/sessions/work/project-a/meetings/session-123/_meta.json",
       );
       expect(result).toEqual({
         sessionId: "session-123",
-        folderPath: "/data/skald/sessions/work/project-a/meetings",
+        folderPath: "/data/notiz/sessions/work/project-a/meetings",
       });
     });
   });

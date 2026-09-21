@@ -5,14 +5,14 @@ edition = "2024"
 
 [dependencies]
 audioadapter-buffers = "2.0"
-skald-afconvert = { workspace = true }
-skald-audio-utils = { workspace = true }
-skald-mp3 = { workspace = true }
-skald-resampler = { workspace = true }
+notiz-afconvert = { workspace = true }
+notiz-audio-utils = { workspace = true }
+notiz-mp3 = { workspace = true }
+notiz-resampler = { workspace = true }
 
 rodio = { workspace = true, features = ["symphonia-all"] }
 thiserror = { workspace = true }
 
 [dev-dependencies]
 assert_fs = "1"
-skald-data = { workspace = true }
+notiz-data = { workspace = true }

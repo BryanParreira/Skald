@@ -1,6 +1,6 @@
 import type { StateCreator, StoreMutatorIdentifier } from "zustand";
 
-import { getCurrentWebviewWindowLabel } from "@skald/plugin-windows";
+import { getCurrentWebviewWindowLabel } from "@notiz/plugin-windows";
 
 import {
   getDefaultState,

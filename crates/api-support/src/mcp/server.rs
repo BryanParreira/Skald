@@ -15,7 +15,7 @@ elicit_safe!(Confirmation);
 
 use crate::state::AppState;
 
-use skald_mcp::McpAuth;
+use notiz_mcp::McpAuth;
 
 use super::prompts;
 use super::tools::{

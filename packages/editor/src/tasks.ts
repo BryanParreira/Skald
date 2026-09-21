@@ -1,4 +1,4 @@
-import type { TaskStatus } from "@skald/store";
+import type { TaskStatus } from "@notiz/store";
 
 import type { JSONContent } from "./note";
 
@@ -9,7 +9,7 @@ export interface TaskSource {
   id: string;
 }
 
-export type { TaskStatus } from "@skald/store";
+export type { TaskStatus } from "@notiz/store";
 
 export interface TaskRecord {
   taskId: string;

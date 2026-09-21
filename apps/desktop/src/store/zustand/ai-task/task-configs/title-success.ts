@@ -1,4 +1,4 @@
-import { parseJsonContent } from "@skald/editor/markdown";
+import { parseJsonContent } from "@notiz/editor/markdown";
 
 import type { TaskConfig } from ".";
 

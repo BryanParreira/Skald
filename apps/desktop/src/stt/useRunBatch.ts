@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 
-import type { TranscriptionParams } from "@skald/plugin-transcription";
-import type { TranscriptStorage } from "@skald/store";
+import type { TranscriptionParams } from "@notiz/plugin-transcription";
+import type { TranscriptStorage } from "@notiz/store";
 
 import { useListener } from "./contexts";
 import { useKeywords } from "./useKeywords";
@@ -78,10 +78,10 @@ export function getBatchProvider(
     return "deepgram";
   }
 
-  if (provider === "skald") {
+  if (provider === "notiz") {
     if (model.startsWith("soniqo-")) return "soniqo";
     if (model.startsWith("am-")) return "am";
-    return "skald";
+    return "notiz";
   }
   if (DIRECT_BATCH_PROVIDERS.has(provider as TranscriptionParams["provider"])) {
     return provider as TranscriptionParams["provider"];
@@ -107,7 +107,7 @@ export function getBatchFallbackTarget({
 }): BatchTarget {
   if (isPaid && accessToken) {
     return {
-      provider: "skald",
+      provider: "notiz",
       model: "cloud",
       baseUrl: new URL("/stt", apiBaseUrl).toString(),
       apiKey: accessToken,

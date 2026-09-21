@@ -23,11 +23,11 @@ impl Default for MistralAdapter {
 }
 
 impl MistralAdapter {
-    fn is_language_supported(lang: &skald_language::Language) -> bool {
+    fn is_language_supported(lang: &notiz_language::Language) -> bool {
         lang.matches_any_code(SUPPORTED_LANGUAGES)
     }
 
-    fn language_support_impl(languages: &[skald_language::Language]) -> LanguageSupport {
+    fn language_support_impl(languages: &[notiz_language::Language]) -> LanguageSupport {
         if languages.is_empty() {
             return LanguageSupport::Supported {
                 quality: LanguageQuality::NoData,
@@ -43,19 +43,19 @@ impl MistralAdapter {
         }
     }
 
-    pub fn language_support_live(languages: &[skald_language::Language]) -> LanguageSupport {
+    pub fn language_support_live(languages: &[notiz_language::Language]) -> LanguageSupport {
         Self::language_support_impl(languages)
     }
 
-    pub fn language_support_batch(languages: &[skald_language::Language]) -> LanguageSupport {
+    pub fn language_support_batch(languages: &[notiz_language::Language]) -> LanguageSupport {
         Self::language_support_impl(languages)
     }
 
-    pub fn is_supported_languages_live(languages: &[skald_language::Language]) -> bool {
+    pub fn is_supported_languages_live(languages: &[notiz_language::Language]) -> bool {
         Self::language_support_live(languages).is_supported()
     }
 
-    pub fn is_supported_languages_batch(languages: &[skald_language::Language]) -> bool {
+    pub fn is_supported_languages_batch(languages: &[notiz_language::Language]) -> bool {
         Self::language_support_batch(languages).is_supported()
     }
 

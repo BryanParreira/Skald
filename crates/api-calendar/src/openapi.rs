@@ -22,7 +22,7 @@ struct ApiDoc;
 
 pub fn openapi() -> utoipa::openapi::OpenApi {
     let mut doc = ApiDoc::openapi();
-    doc.merge(skald_google_calendar::openapi::openapi());
-    doc.merge(skald_outlook_calendar::openapi::openapi());
+    doc.merge(notiz_google_calendar::openapi::openapi());
+    doc.merge(notiz_outlook_calendar::openapi::openapi());
     doc
 }

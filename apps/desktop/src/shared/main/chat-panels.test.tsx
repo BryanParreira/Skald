@@ -22,14 +22,14 @@ vi.mock("@tauri-apps/api/core", () => ({
   isTauri: () => true,
 }));
 
-vi.mock("@skald/plugin-windows", () => ({
+vi.mock("@notiz/plugin-windows", () => ({
   commands: {
     windowExpandWidth: mocks.windowExpandWidth,
     windowRestoreWidth: mocks.windowRestoreWidth,
   },
 }));
 
-vi.mock("@skald/ui/components/ui/resizable", () => ({
+vi.mock("@notiz/ui/components/ui/resizable", () => ({
   ResizablePanelGroup: ({
     children,
     direction,

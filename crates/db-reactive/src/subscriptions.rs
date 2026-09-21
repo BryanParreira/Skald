@@ -1,7 +1,7 @@
 use std::collections::HashSet;
 use std::sync::Arc;
 
-use skald_db_execute::DbExecutor;
+use notiz_db_execute::DbExecutor;
 
 use crate::watch::{DependencyWatchIndex, WatchId};
 use crate::{DependencyAnalysis, DependencyTarget, QueryEventSink, SubscriptionRegistration};

@@ -1,7 +1,7 @@
+use notiz_ws_client::client::Message;
 use owhisper_interface::ListenParams;
 use owhisper_interface::stream::{Alternatives, Channel, Metadata, StreamResponse};
 use serde::Deserialize;
-use skald_ws_client::client::Message;
 
 use super::SmallestAIAdapter;
 use crate::adapter::RealtimeSttAdapter;
@@ -14,7 +14,7 @@ impl RealtimeSttAdapter for SmallestAIAdapter {
 
     fn is_supported_languages(
         &self,
-        languages: &[skald_language::Language],
+        languages: &[notiz_language::Language],
         model: Option<&str>,
     ) -> bool {
         SmallestAIAdapter::is_supported_languages_live(languages, model)
@@ -65,7 +65,7 @@ impl RealtimeSttAdapter for SmallestAIAdapter {
             Err(error) => {
                 tracing::warn!(
                     error = ?error,
-                    skald.payload.size_bytes = raw.len() as u64,
+                    notiz.payload.size_bytes = raw.len() as u64,
                     "smallestai_json_parse_failed"
                 );
                 return vec![];
@@ -285,7 +285,7 @@ impl SmallestMessageError {
 
 #[cfg(test)]
 mod tests {
-    use skald_language::ISO639;
+    use notiz_language::ISO639;
 
     use super::*;
 

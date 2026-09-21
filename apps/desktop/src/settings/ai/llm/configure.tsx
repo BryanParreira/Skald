@@ -1,13 +1,13 @@
 import { Trans } from "@lingui/react/macro";
 import { Loader2 } from "lucide-react";
 
-import { Accordion } from "@skald/ui/components/ui/accordion";
+import { Accordion } from "@notiz/ui/components/ui/accordion";
 
 import { useLlmSettings } from "./context";
 import { ProviderId, PROVIDERS } from "./shared";
 
 import { useLocalLlmModelDownload } from "~/ai/hooks/useLocalLlmModel";
-import { NonSkaldProviderCard, StyledStreamdown } from "~/settings/ai/shared";
+import { NonNotizProviderCard, StyledStreamdown } from "~/settings/ai/shared";
 
 export function ConfigureProviders() {
   const { accordionValue, setAccordionValue } = useLlmSettings();
@@ -24,9 +24,9 @@ export function ConfigureProviders() {
         value={accordionValue}
         onValueChange={setAccordionValue}
       >
-        {PROVIDERS.filter((provider) => provider.id !== "skald").map(
+        {PROVIDERS.filter((provider) => provider.id !== "notiz").map(
           (provider) => (
-            <NonSkaldProviderCard
+            <NonNotizProviderCard
               key={provider.id}
               config={provider}
               providerType="llm"
@@ -41,7 +41,7 @@ export function ConfigureProviders() {
 }
 
 function ProviderContext({ providerId }: { providerId: ProviderId }) {
-  if (providerId === "skald_local") {
+  if (providerId === "notiz_local") {
     return <LocalLlmDownloadStatus />;
   }
 
@@ -55,9 +55,9 @@ function ProviderContext({ providerId }: { providerId: ProviderId }) {
           : providerId === "openrouter"
             ? "We filter out models from the combobox based on heuristics like **input modalities** and **tool support**."
             : providerId === "azure_openai"
-              ? "Enter your **Azure OpenAI endpoint** (e.g. `https://your-resource.openai.azure.com`) as the Base URL and your **API key**. [Report issues](https://github.com/BryanParreira/Skald/issues)"
+              ? "Enter your **Azure OpenAI endpoint** (e.g. `https://your-resource.openai.azure.com`) as the Base URL and your **API key**. [Report issues](https://github.com/BryanParreira/Notiz/issues)"
               : providerId === "azure_ai"
-                ? "Enter your **Azure AI Foundry endpoint** as the Base URL and your **API key**. Supports Claude and other models deployed via Azure AI Foundry. [Report issues](https://github.com/BryanParreira/Skald/issues)"
+                ? "Enter your **Azure AI Foundry endpoint** as the Base URL and your **API key**. Supports Claude and other models deployed via Azure AI Foundry. [Report issues](https://github.com/BryanParreira/Notiz/issues)"
                 : providerId === "google_generative_ai"
                   ? "Visit [AI Studio](https://aistudio.google.com/api-keys) to create an API key."
                   : providerId === "cloudflare_workers_ai"

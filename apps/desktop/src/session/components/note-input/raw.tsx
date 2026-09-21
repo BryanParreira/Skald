@@ -1,13 +1,13 @@
 import type { EditorView } from "prosemirror-view";
 import { forwardRef, useCallback, useEffect, useMemo, useRef } from "react";
 
-import { parseJsonContent } from "@skald/editor/markdown";
+import { parseJsonContent } from "@notiz/editor/markdown";
 import {
   NoteEditor,
   type JSONContent,
   type NoteEditorRef,
-} from "@skald/editor/note";
-import { cn } from "@skald/utils";
+} from "@notiz/editor/note";
+import { cn } from "@notiz/utils";
 
 import { AudioDropTarget } from "./audio-drop-target";
 import { useNoteFileHandlerConfig } from "./file-handler";

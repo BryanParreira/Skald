@@ -23,13 +23,13 @@ vi.mock("@lingui/react/macro", () => ({
   }),
 }));
 
-vi.mock("@skald/ui/components/ui/button", () => ({
+vi.mock("@notiz/ui/components/ui/button", () => ({
   Button: ({ children, ...props }: ButtonHTMLAttributes<HTMLButtonElement>) => (
     <button {...props}>{children}</button>
   ),
 }));
 
-vi.mock("@skald/ui/components/ui/tooltip", () => ({
+vi.mock("@notiz/ui/components/ui/tooltip", () => ({
   Tooltip: ({ children }: { children: ReactNode }) => <>{children}</>,
   TooltipTrigger: ({ children }: { children: ReactNode }) => <>{children}</>,
   TooltipContent: ({ children }: { children: ReactNode }) => <>{children}</>,

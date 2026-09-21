@@ -17,14 +17,14 @@ vulkan = ["actual", "whisper-rs/vulkan"]
 openmp = ["actual", "whisper-rs/openmp"]
 
 [dependencies]
-skald-audio-utils = { workspace = true }
-skald-whisper = { workspace = true }
+notiz-audio-utils = { workspace = true }
+notiz-whisper = { workspace = true }
 
 dasp = { workspace = true }
 hound = { workspace = true }
 
+notiz-audio-interface = { workspace = true }
 rodio = { workspace = true }
-skald-audio-interface = { workspace = true }
 whisper-rs = { git = "https://codeberg.org/tazz4843/whisper-rs", rev = "129b982", features = ["raw-api", "tracing_backend"], optional = true }
 
 futures-util = { workspace = true }
@@ -40,7 +40,7 @@ regex = { workspace = true }
 uuid = { workspace = true, features = ["v4"] }
 
 [dev-dependencies]
-skald-data = { workspace = true }
+notiz-data = { workspace = true }
 
 dirs = { workspace = true }
 futures-util = { workspace = true }

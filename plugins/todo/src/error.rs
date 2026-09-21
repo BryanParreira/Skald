@@ -1,7 +1,7 @@
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
     #[error(transparent)]
-    AppleTodo(#[from] skald_apple_todo::Error),
+    AppleTodo(#[from] notiz_apple_todo::Error),
     #[error("unsupported platform")]
     UnsupportedPlatform,
     #[error("invalid read path: {0}")]

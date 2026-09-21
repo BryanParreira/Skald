@@ -55,7 +55,7 @@ vi.mock("./useSTTConnection", () => ({
   useSTTConnection: useSTTConnectionMock,
 }));
 
-vi.mock("@skald/ui/components/ui/toast", () => ({
+vi.mock("@notiz/ui/components/ui/toast", () => ({
   sonnerToast: {
     message: sonnerToastMessageMock,
   },
@@ -208,7 +208,7 @@ describe("getBatchProvider", () => {
   });
 
   test("maps local soniqo models to soniqo batch provider", () => {
-    expect(getBatchProvider("skald", "soniqo-parakeet-batch")).toBe("soniqo");
+    expect(getBatchProvider("notiz", "soniqo-parakeet-batch")).toBe("soniqo");
   });
 });
 
@@ -233,7 +233,7 @@ describe("getBatchFallbackTarget", () => {
         apiBaseUrl: "https://api.test",
       }),
     ).toEqual({
-      provider: "skald",
+      provider: "notiz",
       model: "cloud",
       baseUrl: "https://api.test/stt",
       apiKey: "token",
@@ -366,7 +366,7 @@ describe("useRunBatch", () => {
   test("passes selected transcription languages to batch transcription", async () => {
     useSTTConnectionMock.mockReturnValue({
       conn: {
-        provider: "skald",
+        provider: "notiz",
         model: "soniqo-parakeet-batch",
         baseUrl: "soniqo://local",
         apiKey: "",
@@ -436,7 +436,7 @@ describe("useRunBatch", () => {
 
     expect(startTranscriptionMock).toHaveBeenCalledWith(
       expect.objectContaining({
-        provider: "skald",
+        provider: "notiz",
         model: "cloud",
         base_url: "https://api.test/stt",
         api_key: "paid-token",

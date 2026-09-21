@@ -64,8 +64,8 @@ export type ImportSourceInfo = {
 };
 export type ImportSourceKind =
   | "granola"
-  | "skald_v0_stable"
-  | "skald_v0_nightly"
+  | "notiz_v0_stable"
+  | "notiz_v0_nightly"
   | "as_is";
 export type ImportStats = {
   sessionsCount: number;
@@ -83,7 +83,7 @@ export type JsonValue =
   | string
   | JsonValue[]
   | Partial<{ [key in string]: JsonValue }>;
-export type TransformKind = "skald_v0" | "granola" | "as_is";
+export type TransformKind = "notiz_v0" | "granola" | "as_is";
 
 /** tauri-specta globals **/
 

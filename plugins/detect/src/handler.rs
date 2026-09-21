@@ -13,7 +13,7 @@ pub fn setup<R: Runtime>(app: &AppHandle<R>) -> Result<(), Box<dyn std::error::E
     };
     let processor = app.state::<ProcessorState>().inner().clone();
 
-    let callback = skald_detect::new_callback(move |event| {
+    let callback = notiz_detect::new_callback(move |event| {
         let env = env.clone();
         let processor = processor.clone();
         tauri::async_runtime::spawn(async move {
@@ -32,24 +32,24 @@ pub fn setup<R: Runtime>(app: &AppHandle<R>) -> Result<(), Box<dyn std::error::E
 pub fn handle_detect_event<E: Env>(
     env: &E,
     state: &ProcessorState,
-    event: skald_detect::DetectEvent,
+    event: notiz_detect::DetectEvent,
 ) {
     match event {
-        skald_detect::DetectEvent::MicStarted(apps) => {
+        notiz_detect::DetectEvent::MicStarted(apps) => {
             if !env.is_detect_enabled() {
                 return;
             }
             handle_mic_started(env, state, apps);
         }
-        skald_detect::DetectEvent::MicStopped(apps) => {
+        notiz_detect::DetectEvent::MicStopped(apps) => {
             handle_mic_stopped(env, state, apps);
         }
         #[cfg(all(target_os = "macos", feature = "zoom"))]
-        skald_detect::DetectEvent::ZoomMuteStateChanged { value } => {
+        notiz_detect::DetectEvent::ZoomMuteStateChanged { value } => {
             env.emit(DetectEvent::MicMuteStateChanged { value });
         }
         #[cfg(all(target_os = "macos", feature = "sleep"))]
-        skald_detect::DetectEvent::SleepStateChanged { value } => {
+        notiz_detect::DetectEvent::SleepStateChanged { value } => {
             env.emit(DetectEvent::SleepStateChanged { value });
         }
     }
@@ -58,7 +58,7 @@ pub fn handle_detect_event<E: Env>(
 fn handle_mic_started<E: Env>(
     env: &E,
     state: &ProcessorState,
-    apps: Vec<skald_detect::InstalledApp>,
+    apps: Vec<notiz_detect::InstalledApp>,
 ) {
     let mut guard = state.lock().unwrap_or_else(|e| e.into_inner());
 
@@ -93,7 +93,7 @@ fn handle_mic_started<E: Env>(
 fn handle_mic_stopped<E: Env>(
     env: &E,
     state: &ProcessorState,
-    apps: Vec<skald_detect::InstalledApp>,
+    apps: Vec<notiz_detect::InstalledApp>,
 ) {
     {
         let mut guard = state.lock().unwrap_or_else(|e| e.into_inner());

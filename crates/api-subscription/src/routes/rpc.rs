@@ -4,7 +4,7 @@ use utoipa::ToSchema;
 
 use crate::state::AppState;
 
-use skald_api_auth::AuthContext;
+use notiz_api_auth::AuthContext;
 
 #[derive(Debug, Serialize, ToSchema)]
 #[serde(rename_all = "snake_case")]

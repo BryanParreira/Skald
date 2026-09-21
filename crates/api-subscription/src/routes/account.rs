@@ -7,8 +7,8 @@ use axum::{
     response::{IntoResponse, Response},
 };
 use backon::{ExponentialBuilder, Retryable};
+use notiz_api_auth::AuthContext;
 use serde::Serialize;
-use skald_api_auth::AuthContext;
 use stripe_core::customer::DeleteCustomer;
 use utoipa::ToSchema;
 
@@ -130,7 +130,7 @@ async fn try_delete_stripe_customer(state: &AppState, user_id: &str) -> Result<(
         Ok(_) => {
             tracing::info!(
                 enduser.id = %user_id,
-                skald.billing.customer.id = %customer_id,
+                notiz.billing.customer.id = %customer_id,
                 "stripe_customer_deleted"
             );
             Ok(())
@@ -138,7 +138,7 @@ async fn try_delete_stripe_customer(state: &AppState, user_id: &str) -> Result<(
         Err(e) => {
             tracing::error!(
                 enduser.id = %user_id,
-                skald.billing.customer.id = %customer_id,
+                notiz.billing.customer.id = %customer_id,
                 error = %e,
                 "stripe_customer_deletion_failed"
             );

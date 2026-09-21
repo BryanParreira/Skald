@@ -7,9 +7,9 @@ edition = "2024"
 owhisper-interface = { workspace = true }
 
 json-patch = "4.1"
+notiz-template-app = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }
-skald-template-app = { workspace = true }
 specta = { workspace = true }
 thiserror = { workspace = true }
 uuid = { workspace = true, features = ["v4"] }

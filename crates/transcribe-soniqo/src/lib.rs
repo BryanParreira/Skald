@@ -164,16 +164,16 @@ impl SoniqoModel {
         }
     }
 
-    pub fn supports_language(self, language: &skald_language::Language) -> bool {
+    pub fn supports_language(self, language: &notiz_language::Language) -> bool {
         match self {
             Self::ParakeetStreaming | Self::ParakeetBatch => {
-                skald_language::is_parakeet_tdt_v3_language(language)
+                notiz_language::is_parakeet_tdt_v3_language(language)
             }
             Self::Omnilingual | Self::Qwen3Small | Self::Qwen3Large => true,
         }
     }
 
-    pub fn supports_languages(self, languages: &[skald_language::Language]) -> bool {
+    pub fn supports_languages(self, languages: &[notiz_language::Language]) -> bool {
         languages
             .iter()
             .all(|language| self.supports_language(language))
@@ -396,9 +396,9 @@ pub fn transcribe_file(
     let started_at = Instant::now();
 
     tracing::info!(
-        skald.stt.provider.name = "soniqo",
-        skald.stt.model = %model,
-        skald.stt.language = %language_label,
+        notiz.stt.provider.name = "soniqo",
+        notiz.stt.model = %model,
+        notiz.stt.language = %language_label,
         file.extension = %file_extension,
         "soniqo_native_file_transcription_start"
     );
@@ -409,8 +409,8 @@ pub fn transcribe_file(
     match &result {
         Ok(transcript) => {
             tracing::info!(
-                skald.stt.provider.name = "soniqo",
-                skald.stt.model = %model,
+                notiz.stt.provider.name = "soniqo",
+                notiz.stt.model = %model,
                 elapsed_ms,
                 transcript.duration_seconds = transcript.duration_seconds,
                 transcript.text_chars = transcript.text.chars().count(),
@@ -419,8 +419,8 @@ pub fn transcribe_file(
         }
         Err(error) => {
             tracing::error!(
-                skald.stt.provider.name = "soniqo",
-                skald.stt.model = %model,
+                notiz.stt.provider.name = "soniqo",
+                notiz.stt.model = %model,
                 elapsed_ms,
                 error = %error,
                 "soniqo_native_file_transcription_failed"
@@ -600,7 +600,7 @@ pub fn batch_response_from_channels(
                         batch_words_from_chunks(&channel.chunks, channel_index as i32)
                     };
                     tracing::info!(
-                        skald.stt.provider.name = "soniqo",
+                        notiz.stt.provider.name = "soniqo",
                         channel.index = channel_index,
                         channel.transcript_chars = transcript.len(),
                         channel.word_count = words.len(),

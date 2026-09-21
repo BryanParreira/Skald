@@ -3,8 +3,8 @@ use std::task::{Context, Poll};
 
 use dasp::interpolate::Interpolator;
 use futures_util::{Stream, pin_mut};
+use notiz_audio_interface::AsyncSource;
 use pin_project::pin_project;
-use skald_audio_interface::AsyncSource;
 
 #[pin_project]
 pub struct ResamplerDynamicOld<S: AsyncSource> {

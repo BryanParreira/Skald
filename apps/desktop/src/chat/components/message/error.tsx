@@ -1,7 +1,7 @@
 import { Trans, useLingui } from "@lingui/react/macro";
 import { ExternalLink, RotateCcw } from "lucide-react";
 
-import { commands as openerCommands } from "@skald/plugin-opener2";
+import { commands as openerCommands } from "@notiz/plugin-opener2";
 
 import { ActionButton, MessageBubble, MessageContainer } from "./shared";
 

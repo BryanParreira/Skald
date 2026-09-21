@@ -15,8 +15,8 @@ specta-typescript = { workspace = true }
 tokio = { workspace = true, features = ["macros"] }
 
 [dependencies]
-skald-analytics = { workspace = true }
-skald-host = { workspace = true }
+notiz-analytics = { workspace = true }
+notiz-host = { workspace = true }
 
 tauri-plugin-misc = { workspace = true }
 tauri-plugin-store2 = { workspace = true }

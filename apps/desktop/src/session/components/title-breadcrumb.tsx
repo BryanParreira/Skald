@@ -2,7 +2,7 @@ import { useLingui } from "@lingui/react/macro";
 import { FolderIcon } from "lucide-react";
 import { useMemo } from "react";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 import * as main from "~/store/tinybase/store/main";
 

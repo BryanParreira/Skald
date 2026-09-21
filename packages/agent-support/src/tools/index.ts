@@ -3,7 +3,7 @@ import {
   createToolRegistry,
   readUrlTool,
   toolsRequiringApproval,
-} from "@skald/agent-core";
+} from "@notiz/agent-core";
 
 import { executeCodeTool } from "./execute-code";
 import { loopsTool } from "./loops";

@@ -1,7 +1,7 @@
 use std::time::Duration;
 
 use futures_util::{Stream, StreamExt, future, stream};
-use skald_audio_interface::AsyncSource;
+use notiz_audio_interface::AsyncSource;
 
 use crate::{AudioChunk, Chunker};
 

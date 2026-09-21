@@ -1,7 +1,7 @@
 import { useLingui } from "@lingui/react/macro";
 import type { ReactNode } from "react";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 import { useShell } from "~/contexts/shell";
 
@@ -29,9 +29,9 @@ export function ChatCTA({
     <button
       type="button"
       data-chat-cta-trigger
-      aria-label={ariaLabel ?? t`Ask Skald anything`}
+      aria-label={ariaLabel ?? t`Ask Notiz anything`}
       onClick={handleClick}
-      className="group/skald-chat-cta relative h-10 w-40 max-w-full cursor-text focus-visible:outline-none"
+      className="group/notiz-chat-cta relative h-10 w-40 max-w-full cursor-text focus-visible:outline-none"
     >
       <span
         data-chat-cta-surface
@@ -40,21 +40,21 @@ export function ChatCTA({
           "pointer-events-none absolute bottom-0 left-1/2 inline-flex h-2 w-[min(640px,calc(100cqw_-_2rem))] -translate-x-1/2 items-center overflow-hidden rounded-full border border-transparent bg-black dark:bg-white",
           "[clip-path:inset(0_calc(50%_-_3rem)_0_calc(50%_-_3rem)_round_9999px)]",
           "origin-bottom px-0 text-sm shadow-[0_10px_26px_rgba(0,0,0,0.22)] transition-[clip-path,height,padding,background-color,border-color,box-shadow] duration-200 ease-out dark:shadow-[0_10px_30px_rgba(0,0,0,0.5)]",
-          "group-hover/skald-chat-cta:border-border/70 group-focus-visible/skald-chat-cta:border-border/70 group-hover/skald-chat-cta:bg-[#f4f4f5] group-focus-visible/skald-chat-cta:bg-[#f4f4f5] dark:group-hover/skald-chat-cta:bg-[#202020] dark:group-focus-visible/skald-chat-cta:bg-[#202020]",
-          "group-hover/skald-chat-cta:shadow-[0_16px_42px_rgba(0,0,0,0.26)] group-focus-visible/skald-chat-cta:shadow-[0_16px_42px_rgba(0,0,0,0.26)] dark:group-hover/skald-chat-cta:shadow-[0_18px_52px_rgba(0,0,0,0.64)] dark:group-focus-visible/skald-chat-cta:shadow-[0_18px_52px_rgba(0,0,0,0.64)]",
-          "group-hover/skald-chat-cta:h-10 group-hover/skald-chat-cta:px-4 group-hover/skald-chat-cta:[clip-path:inset(0_0_0_0_round_9999px)]",
-          "group-focus-visible/skald-chat-cta:h-10 group-focus-visible/skald-chat-cta:px-4 group-focus-visible/skald-chat-cta:[clip-path:inset(0_0_0_0_round_9999px)]",
-          "group-focus-visible/skald-chat-cta:ring-ring group-focus-visible/skald-chat-cta:ring-2 group-focus-visible/skald-chat-cta:ring-offset-2",
+          "group-hover/notiz-chat-cta:border-border/70 group-focus-visible/notiz-chat-cta:border-border/70 group-hover/notiz-chat-cta:bg-[#f4f4f5] group-focus-visible/notiz-chat-cta:bg-[#f4f4f5] dark:group-hover/notiz-chat-cta:bg-[#202020] dark:group-focus-visible/notiz-chat-cta:bg-[#202020]",
+          "group-hover/notiz-chat-cta:shadow-[0_16px_42px_rgba(0,0,0,0.26)] group-focus-visible/notiz-chat-cta:shadow-[0_16px_42px_rgba(0,0,0,0.26)] dark:group-hover/notiz-chat-cta:shadow-[0_18px_52px_rgba(0,0,0,0.64)] dark:group-focus-visible/notiz-chat-cta:shadow-[0_18px_52px_rgba(0,0,0,0.64)]",
+          "group-hover/notiz-chat-cta:h-10 group-hover/notiz-chat-cta:px-4 group-hover/notiz-chat-cta:[clip-path:inset(0_0_0_0_round_9999px)]",
+          "group-focus-visible/notiz-chat-cta:h-10 group-focus-visible/notiz-chat-cta:px-4 group-focus-visible/notiz-chat-cta:[clip-path:inset(0_0_0_0_round_9999px)]",
+          "group-focus-visible/notiz-chat-cta:ring-ring group-focus-visible/notiz-chat-cta:ring-2 group-focus-visible/notiz-chat-cta:ring-offset-2",
         ])}
       >
         <span
           aria-hidden="true"
           className={cn([
             "max-w-0 min-w-0 flex-1 truncate text-left opacity-0",
-            "group-focus-within/skald-chat-cta:text-muted-foreground group-hover/skald-chat-cta:text-muted-foreground text-white/55",
+            "group-focus-within/notiz-chat-cta:text-muted-foreground group-hover/notiz-chat-cta:text-muted-foreground text-white/55",
             "transition-[max-width,opacity] duration-200 ease-out",
-            "group-hover/skald-chat-cta:max-w-full group-hover/skald-chat-cta:opacity-100",
-            "group-focus-within/skald-chat-cta:max-w-full group-focus-within/skald-chat-cta:opacity-100",
+            "group-hover/notiz-chat-cta:max-w-full group-hover/notiz-chat-cta:opacity-100",
+            "group-focus-within/notiz-chat-cta:max-w-full group-focus-within/notiz-chat-cta:opacity-100",
           ])}
         >
           {resolvedLabel}

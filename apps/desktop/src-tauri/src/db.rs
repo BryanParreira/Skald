@@ -1,8 +1,8 @@
 use std::sync::Arc;
 
-use skald_db_core::Db;
+use notiz_db_core::Db;
 
-const DEV_BUNDLE_ID: &str = "com.skald.dev";
+const DEV_BUNDLE_ID: &str = "com.notiz.dev";
 const DB_FILENAME: &str = "app.db";
 
 pub async fn open_desktop_db(identifier: &str) -> Arc<Db> {
@@ -24,7 +24,7 @@ fn desktop_db_dir(identifier: &str) -> Option<std::path::PathBuf> {
     }
 
     let data_dir = dirs::data_dir().expect("data_dir must be available");
-    let default_dir = skald_storage::global::compute_default_base(identifier)
+    let default_dir = notiz_storage::global::compute_default_base(identifier)
         .expect("data_dir must be available");
     let identifier_dir = data_dir.join(identifier);
 

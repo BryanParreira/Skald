@@ -4,13 +4,13 @@ use crate::state::AppState;
 
 pub(crate) async fn search(
     state: &AppState,
-    params: skald_exa::SearchRequest,
+    params: notiz_exa::SearchRequest,
 ) -> Result<CallToolResult, McpError> {
     let response = state
         .exa
         .search(params)
         .await
-        .map_err(|e: skald_exa::Error| McpError::internal_error(e.to_string(), None))?;
+        .map_err(|e: notiz_exa::Error| McpError::internal_error(e.to_string(), None))?;
 
     Ok(CallToolResult::success(vec![Content::text(
         serde_json::to_string(&response)

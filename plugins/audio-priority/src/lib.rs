@@ -12,7 +12,7 @@ pub use ext::*;
 pub use priority::*;
 pub use state::*;
 
-pub use skald_audio_device::{
+pub use notiz_audio_device::{
     AudioDevice, AudioDeviceBackend, AudioDirection, DeviceId, TransportType, backend,
 };
 

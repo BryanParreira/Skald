@@ -5,7 +5,7 @@ export {
   asTablesChanges,
   toPersistedChanges,
   toContent,
-} from "@skald/tinybase-utils";
+} from "@notiz/tinybase-utils";
 
 type TableRowType<K extends keyof TablesContent> =
   NonNullable<TablesContent[K]> extends Record<string, infer R> ? R : never;

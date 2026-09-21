@@ -19,7 +19,7 @@ impl BatchSttAdapter for CartesiaAdapter {
 
     fn is_supported_languages(
         &self,
-        languages: &[skald_language::Language],
+        languages: &[notiz_language::Language],
         _model: Option<&str>,
     ) -> bool {
         CartesiaAdapter::is_supported_languages_batch(languages)

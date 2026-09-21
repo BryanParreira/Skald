@@ -2,7 +2,7 @@ use std::collections::BTreeMap;
 use std::path::PathBuf;
 use std::process::Stdio;
 
-use skald_cli_process::spawn_streaming_lines;
+use notiz_cli_process::spawn_streaming_lines;
 use tokio::process::Command;
 use tokio_util::sync::CancellationToken;
 

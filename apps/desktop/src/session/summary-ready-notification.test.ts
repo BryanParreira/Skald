@@ -9,7 +9,7 @@ const { showNotificationMock, isAppWindowInBackgroundMock } = vi.hoisted(
   }),
 );
 
-vi.mock("@skald/plugin-notification", () => ({
+vi.mock("@notiz/plugin-notification", () => ({
   commands: { showNotification: showNotificationMock },
 }));
 

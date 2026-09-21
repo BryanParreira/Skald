@@ -19,11 +19,11 @@ fn resolve_store_dir<R: tauri::Runtime>(
     app: &tauri::AppHandle<R>,
 ) -> Result<PathBuf, crate::Error> {
     let bundle_id: &str = app.config().identifier.as_ref();
-    let global_base = skald_storage::global::compute_default_base(bundle_id)
-        .ok_or(skald_storage::Error::DataDirUnavailable)?;
+    let global_base = notiz_storage::global::compute_default_base(bundle_id)
+        .ok_or(notiz_storage::Error::DataDirUnavailable)?;
     std::fs::create_dir_all(&global_base)?;
 
-    Ok(skald_storage::vault::resolve_custom(&global_base, &global_base).unwrap_or(global_base))
+    Ok(notiz_storage::vault::resolve_custom(&global_base, &global_base).unwrap_or(global_base))
 }
 
 pub fn store_path<R: tauri::Runtime>(app: &tauri::AppHandle<R>) -> Result<PathBuf, crate::Error> {

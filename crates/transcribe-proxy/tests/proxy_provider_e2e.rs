@@ -19,7 +19,7 @@ async fn run_passthrough_live_test<A: RealtimeSttAdapter>(provider: Provider) {
     let sample_rate = provider.default_live_sample_rate();
     let params = owhisper_interface::ListenParams {
         model: Some(provider.default_live_model().to_string()),
-        languages: vec![skald_language::ISO639::En.into()],
+        languages: vec![notiz_language::ISO639::En.into()],
         sample_rate,
         ..Default::default()
     };
@@ -36,7 +36,7 @@ async fn run_passthrough_live_test<A: RealtimeSttAdapter>(provider: Provider) {
     run_live_stream_test(client, provider_name, sample_rate).await;
 }
 
-async fn run_skald_live_test(provider: Provider) {
+async fn run_notiz_live_test(provider: Provider) {
     let _ = tracing_subscriber::fmt::try_init();
 
     let api_key = std::env::var(provider.env_key_name())
@@ -46,20 +46,20 @@ async fn run_skald_live_test(provider: Provider) {
     let sample_rate = provider.default_live_sample_rate();
     let params = owhisper_interface::ListenParams {
         model: Some(provider.default_live_model().to_string()),
-        languages: vec![skald_language::ISO639::En.into()],
+        languages: vec![notiz_language::ISO639::En.into()],
         sample_rate,
         custom_query: Some(
-            [("provider".to_string(), "skald".to_string())]
+            [("provider".to_string(), "notiz".to_string())]
                 .into_iter()
                 .collect(),
         ),
         ..Default::default()
     };
 
-    let provider_name = format!("skald:{}", provider);
+    let provider_name = format!("notiz:{}", provider);
 
     let client = ListenClient::builder()
-        .adapter::<owhisper_client::SkaldAdapter>()
+        .adapter::<owhisper_client::NotizAdapter>()
         .api_base(format!("http://{}", addr))
         .params(params)
         .build_single()
@@ -118,7 +118,7 @@ async fn run_passthrough_batch_test(provider: Provider) {
     let addr = start_server_with_provider(provider, api_key).await;
 
     let audio_bytes =
-        std::fs::read(skald_data::english_1::AUDIO_PATH).expect("failed to read test audio file");
+        std::fs::read(notiz_data::english_1::AUDIO_PATH).expect("failed to read test audio file");
 
     let model = provider.default_batch_model();
     let url = format!(
@@ -129,7 +129,7 @@ async fn run_passthrough_batch_test(provider: Provider) {
     run_batch_request(url, audio_bytes, format!("passthrough:{}", provider)).await;
 }
 
-async fn run_skald_batch_test(provider: Provider) {
+async fn run_notiz_batch_test(provider: Provider) {
     let _ = tracing_subscriber::fmt::try_init();
 
     let api_key = std::env::var(provider.env_key_name())
@@ -137,15 +137,15 @@ async fn run_skald_batch_test(provider: Provider) {
     let addr = start_server_with_provider(provider, api_key).await;
 
     let audio_bytes =
-        std::fs::read(skald_data::english_1::AUDIO_PATH).expect("failed to read test audio file");
+        std::fs::read(notiz_data::english_1::AUDIO_PATH).expect("failed to read test audio file");
 
     let model = provider.default_batch_model();
     let url = format!(
-        "http://{}/listen?provider=skald&model={}&language=en",
+        "http://{}/listen?provider=notiz&model={}&language=en",
         addr, model
     );
 
-    run_batch_request(url, audio_bytes, format!("skald:{}", provider)).await;
+    run_batch_request(url, audio_bytes, format!("notiz:{}", provider)).await;
 }
 
 async fn run_batch_request(url: String, audio_bytes: Vec<u8>, provider_name: String) {
@@ -199,12 +199,12 @@ macro_rules! passthrough_live_test {
     };
 }
 
-macro_rules! skald_live_test {
+macro_rules! notiz_live_test {
     ($name:ident, $provider:expr) => {
         #[ignore]
         #[tokio::test]
         async fn $name() {
-            run_skald_live_test($provider).await;
+            run_notiz_live_test($provider).await;
         }
     };
 }
@@ -219,12 +219,12 @@ macro_rules! passthrough_batch_test {
     };
 }
 
-macro_rules! skald_batch_test {
+macro_rules! notiz_batch_test {
     ($name:ident, $provider:expr) => {
         #[ignore]
         #[tokio::test]
         async fn $name() {
-            run_skald_batch_test($provider).await;
+            run_notiz_batch_test($provider).await;
         }
     };
 }
@@ -272,29 +272,29 @@ mod passthrough {
     }
 }
 
-mod skald {
+mod notiz {
     use super::*;
 
     pub mod live {
         use super::*;
 
-        skald_live_test!(deepgram, Provider::Deepgram);
-        skald_live_test!(assemblyai, Provider::AssemblyAI);
-        skald_live_test!(soniox, Provider::Soniox);
-        skald_live_test!(gladia, Provider::Gladia);
-        skald_live_test!(fireworks, Provider::Fireworks);
-        skald_live_test!(elevenlabs, Provider::ElevenLabs);
+        notiz_live_test!(deepgram, Provider::Deepgram);
+        notiz_live_test!(assemblyai, Provider::AssemblyAI);
+        notiz_live_test!(soniox, Provider::Soniox);
+        notiz_live_test!(gladia, Provider::Gladia);
+        notiz_live_test!(fireworks, Provider::Fireworks);
+        notiz_live_test!(elevenlabs, Provider::ElevenLabs);
     }
 
     pub mod batch {
         use super::*;
 
-        skald_batch_test!(deepgram, Provider::Deepgram);
-        skald_batch_test!(assemblyai, Provider::AssemblyAI);
-        skald_batch_test!(soniox, Provider::Soniox);
-        skald_batch_test!(gladia, Provider::Gladia);
-        skald_batch_test!(fireworks, Provider::Fireworks);
-        skald_batch_test!(openai, Provider::OpenAI);
-        skald_batch_test!(elevenlabs, Provider::ElevenLabs);
+        notiz_batch_test!(deepgram, Provider::Deepgram);
+        notiz_batch_test!(assemblyai, Provider::AssemblyAI);
+        notiz_batch_test!(soniox, Provider::Soniox);
+        notiz_batch_test!(gladia, Provider::Gladia);
+        notiz_batch_test!(fireworks, Provider::Fireworks);
+        notiz_batch_test!(openai, Provider::OpenAI);
+        notiz_batch_test!(elevenlabs, Provider::ElevenLabs);
     }
 }

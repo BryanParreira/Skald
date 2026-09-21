@@ -2,8 +2,8 @@ import {
   commands as windowsCommands,
   events as windowsEvents,
   type FloatingBarSettingsChange,
-} from "@skald/plugin-windows";
-import type { GeneralStorage } from "@skald/store";
+} from "@notiz/plugin-windows";
+import type { GeneralStorage } from "@notiz/store";
 
 import { useConfigValue } from "~/shared/config";
 import { useMountEffect } from "~/shared/hooks/useMountEffect";

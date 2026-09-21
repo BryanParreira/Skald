@@ -25,8 +25,8 @@ pub enum NangoError {
     Internal(String),
 }
 
-impl From<skald_nango::Error> for NangoError {
-    fn from(err: skald_nango::Error) -> Self {
+impl From<notiz_nango::Error> for NangoError {
+    fn from(err: notiz_nango::Error) -> Self {
         Self::Nango(err.to_string())
     }
 }
@@ -45,6 +45,6 @@ impl IntoResponse for NangoError {
             ),
         };
 
-        skald_api_error::error_response(status, code, &message)
+        notiz_api_error::error_response(status, code, &message)
     }
 }

@@ -5,15 +5,15 @@ import {
 import { format } from "date-fns";
 import { forwardRef, type ReactNode, useCallback, useMemo } from "react";
 
-import { getSafeNodePos, TaskCheckbox } from "@skald/editor/node-views";
-import { useLinkedItemOpenBehavior } from "@skald/editor/note";
+import { getSafeNodePos, TaskCheckbox } from "@notiz/editor/node-views";
+import { useLinkedItemOpenBehavior } from "@notiz/editor/note";
 import {
   createTaskStatusAttrs,
   getNextTaskStatus,
   getOptionalTaskStatus,
   normalizeTaskStatus,
-} from "@skald/editor/tasks";
-import { cn, safeParseDate } from "@skald/utils";
+} from "@notiz/editor/tasks";
+import { cn, safeParseDate } from "@notiz/utils";
 
 import { toTz, useTimezone } from "~/calendar/hooks";
 import { getSessionEvent } from "~/session/utils";

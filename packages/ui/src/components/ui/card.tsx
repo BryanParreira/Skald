@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: "default" | "outline-solid" | "ghost";

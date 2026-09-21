@@ -26,13 +26,13 @@ pub(super) async fn handle_stream_response(
 
     span.record("http.response.status_code", http_status as i64);
     if status.is_client_error() || status.is_server_error() {
-        skald_observability::mark_span_as_error(&span, &http_status.to_string());
+        notiz_observability::mark_span_as_error(&span, &http_status.to_string());
     }
 
     tracing::info!(
         http.response.status_code = %http_status,
-        skald.gen_ai.request.streaming = true,
-        skald.duration_ms = %latency_ms,
+        notiz.gen_ai.request.streaming = true,
+        notiz.duration_ms = %latency_ms,
         "llm_completion_stream_started"
     );
 
@@ -41,7 +41,7 @@ pub(super) async fn handle_stream_response(
 
         let mut ctx = BTreeMap::new();
         ctx.insert("http.response.status_code".into(), http_status.into());
-        ctx.insert("skald.duration_ms".into(), (latency_ms as u64).into());
+        ctx.insert("notiz.duration_ms".into(), (latency_ms as u64).into());
         scope.set_context("gen_ai.response", sentry::protocol::Context::Other(ctx));
     });
 

@@ -7,7 +7,7 @@ import {
 } from "@tanstack/react-router";
 import { useState } from "react";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 import { Image } from "@/components/image";
 import { doUpdatePassword, fetchUser } from "@/functions/auth";
@@ -81,7 +81,7 @@ function Component() {
           >
             <Image
               src="/logo.svg"
-              alt="Skald"
+              alt="Notiz"
               width={96}
               height={96}
               className={cn([

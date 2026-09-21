@@ -3,7 +3,7 @@ import { Facehash, stringHash } from "facehash";
 import { ArrowDownUp, Plus, Search, X } from "lucide-react";
 import type { ComponentProps, KeyboardEvent, RefObject } from "react";
 
-import { Button } from "@skald/ui/components/ui/button";
+import { Button } from "@notiz/ui/components/ui/button";
 import {
   AppFloatingPanel,
   DropdownMenu,
@@ -11,8 +11,8 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
-} from "@skald/ui/components/ui/dropdown-menu";
-import { cn } from "@skald/utils";
+} from "@notiz/ui/components/ui/dropdown-menu";
+import { cn } from "@notiz/utils";
 
 import { CustomSidebarHeader } from "~/sidebar/custom-sidebar-header";
 

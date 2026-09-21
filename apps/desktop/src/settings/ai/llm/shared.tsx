@@ -12,7 +12,7 @@ import {
 import type { ReactNode } from "react";
 
 import { env } from "~/env";
-import { SkaldProviderIcon } from "~/settings/ai/shared";
+import { NotizProviderIcon } from "~/settings/ai/shared";
 import { type ProviderRequirement } from "~/settings/ai/shared/eligibility";
 import { sortProviders } from "~/settings/ai/shared/sort-providers";
 
@@ -32,18 +32,18 @@ export type Provider = {
 
 const _PROVIDERS = [
   {
-    id: "skald",
-    displayName: "Skald",
+    id: "notiz",
+    displayName: "Notiz",
     badge: "Recommended",
-    icon: <SkaldProviderIcon />,
+    icon: <NotizProviderIcon />,
     baseUrl: new URL("/llm", env.VITE_API_URL).toString(),
     requirements: [{ kind: "requires_auth" }],
   },
   {
-    id: "skald_local",
-    displayName: "Skald (Local)",
+    id: "notiz_local",
+    displayName: "Notiz (Local)",
     badge: "On-device",
-    icon: <SkaldProviderIcon />,
+    icon: <NotizProviderIcon />,
     baseUrl: undefined,
     requirements: [],
   },
@@ -62,7 +62,7 @@ const _PROVIDERS = [
       models: { label: "Available models", url: "https://lmstudio.ai/models" },
       setup: {
         label: "Setup guide",
-        url: "https://github.com/BryanParreira/Skald",
+        url: "https://github.com/BryanParreira/Notiz",
       },
     },
   },
@@ -81,7 +81,7 @@ const _PROVIDERS = [
       models: { label: "Available models", url: "https://ollama.com/library" },
       setup: {
         label: "Setup guide",
-        url: "https://github.com/BryanParreira/Skald",
+        url: "https://github.com/BryanParreira/Notiz",
       },
     },
   },

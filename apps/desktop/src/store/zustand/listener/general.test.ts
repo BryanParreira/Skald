@@ -19,31 +19,31 @@ vi.mock("@tauri-apps/api/app", () => ({
   getIdentifier: getIdentifierMock,
 }));
 
-vi.mock("@skald/plugin-detect", () => ({
+vi.mock("@notiz/plugin-detect", () => ({
   commands: {
     listMicUsingApplications: vi.fn(),
   },
 }));
 
-vi.mock("@skald/plugin-hooks", () => ({
+vi.mock("@notiz/plugin-hooks", () => ({
   commands: {
     runEventHooks: runEventHooksMock,
   },
 }));
 
-vi.mock("@skald/plugin-icon", () => ({
+vi.mock("@notiz/plugin-icon", () => ({
   commands: {
     setRecordingIndicator: setRecordingIndicatorMock,
   },
 }));
 
-vi.mock("@skald/plugin-settings", () => ({
+vi.mock("@notiz/plugin-settings", () => ({
   commands: {
     vaultBase: vaultBaseMock,
   },
 }));
 
-vi.mock("@skald/plugin-transcription", () => ({
+vi.mock("@notiz/plugin-transcription", () => ({
   commands: {
     setMicMuted: vi.fn(),
     startCapture: vi.fn(),
@@ -78,11 +78,11 @@ describe("General Listener Slice", () => {
   beforeEach(() => {
     store = createListenerStore();
     vi.clearAllMocks();
-    getIdentifierMock.mockResolvedValue("com.skald.stable");
+    getIdentifierMock.mockResolvedValue("com.notiz.stable");
     runEventHooksMock.mockResolvedValue({ status: "ok", data: null });
     setRecordingIndicatorMock.mockResolvedValue({ status: "ok", data: null });
     stopCaptureMock.mockResolvedValue({ status: "ok", data: null });
-    vaultBaseMock.mockResolvedValue({ status: "ok", data: "/tmp/skald" });
+    vaultBaseMock.mockResolvedValue({ status: "ok", data: "/tmp/notiz" });
   });
 
   describe("Initial State", () => {
@@ -703,7 +703,7 @@ describe("General Listener Slice", () => {
       await expect(
         store.getState().startTranscription({
           session_id: sessionId,
-          provider: "skald",
+          provider: "notiz",
           file_path: "/tmp/session.wav",
           base_url: "",
           api_key: "",

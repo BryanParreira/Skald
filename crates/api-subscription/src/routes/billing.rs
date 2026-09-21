@@ -3,8 +3,8 @@ use axum::{
     extract::{Query, State},
     response::{IntoResponse, Response},
 };
-use skald_analytics::{AnalyticsClient, DeviceFingerprint, ToAnalyticsPayload};
-use skald_api_auth::AuthContext;
+use notiz_analytics::{AnalyticsClient, DeviceFingerprint, ToAnalyticsPayload};
+use notiz_api_auth::AuthContext;
 
 use crate::state::AppState;
 use crate::stripe::{create_trial_subscription, get_or_create_customer};
@@ -24,7 +24,7 @@ use crate::trial::{Interval, StartTrialQuery, StartTrialResponse, TrialOutcome};
 #[tracing::instrument(
     name = "subscription.start_trial",
     skip(state, query, auth, device_fingerprint),
-    fields(skald.subsystem = "subscription")
+    fields(notiz.subsystem = "subscription")
 )]
 pub async fn start_trial(
     State(state): State<AppState>,

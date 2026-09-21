@@ -1,6 +1,6 @@
 import { useRouteContext } from "@tanstack/react-router";
 
-import { TaskStorageProvider } from "@skald/editor/task-storage";
+import { TaskStorageProvider } from "@notiz/editor/task-storage";
 
 import { ClassicMainServices } from "./lifecycle";
 

@@ -1,7 +1,7 @@
 import type { Store } from "tinybase/with-schemas";
 
-import type { Schemas } from "@skald/store";
-import { asTablesChanges } from "@skald/tinybase-utils";
+import type { Schemas } from "@notiz/store";
+import { asTablesChanges } from "@notiz/tinybase-utils";
 
 import { loadSingleSession } from "./load";
 import type { LoadedSessionData } from "./load";

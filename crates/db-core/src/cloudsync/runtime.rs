@@ -247,7 +247,7 @@ async fn cloudsync_background_loop(
                 let state = Arc::clone(&runtime_state);
 
                 let result = (|| async {
-                    skald_cloudsync::network_sync(&pool, wait_ms, max_retries).await
+                    notiz_cloudsync::network_sync(&pool, wait_ms, max_retries).await
                 })
                     .retry(
                         ExponentialBuilder::default()
@@ -255,7 +255,7 @@ async fn cloudsync_background_loop(
                             .with_max_delay(Duration::from_secs(MAX_BACKOFF_SECS))
                             .with_jitter(),
                     )
-                    .when(|e| e.kind() == skald_cloudsync::ErrorKind::Transient)
+                    .when(|e| e.kind() == notiz_cloudsync::ErrorKind::Transient)
                     .notify(|e, dur| {
                         let mut runtime = state.lock().unwrap();
                         runtime.consecutive_failures = runtime.consecutive_failures.saturating_add(1);

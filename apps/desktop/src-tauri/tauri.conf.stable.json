@@ -1,11 +1,11 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "Skald",
-  "mainBinaryName": "skald",
-  "identifier": "com.skald.stable",
+  "productName": "Notiz",
+  "mainBinaryName": "notiz",
+  "identifier": "com.notiz.stable",
   "plugins": {
     "deep-link": {
-      "desktop": { "schemes": ["skald"] }
+      "desktop": { "schemes": ["notiz"] }
     }
   }
 }

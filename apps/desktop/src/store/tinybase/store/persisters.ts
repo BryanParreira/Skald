@@ -1,8 +1,8 @@
 import { getCurrentWindow } from "@tauri-apps/api/window";
 import { useEffect } from "react";
 
-import { flushAllPendingNoteUpdates } from "@skald/editor/note";
-import { getCurrentWebviewWindowLabel } from "@skald/plugin-windows";
+import { flushAllPendingNoteUpdates } from "@notiz/editor/note";
+import { getCurrentWebviewWindowLabel } from "@notiz/plugin-windows";
 
 import { useInitializeStore } from "./initialize";
 import { type Store } from "./main";

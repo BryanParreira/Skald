@@ -8,15 +8,15 @@
     "groups": [
       "side_effect",
       ["builtin", "external"],
-      "skald-internal",
+      "notiz-internal",
       "app-internal",
       ["parent", "sibling", "index"],
       "unknown"
     ],
     "customGroups": [
       {
-        "groupName": "skald-internal",
-        "elementNamePattern": ["@skald/**"]
+        "groupName": "notiz-internal",
+        "elementNamePattern": ["@notiz/**"]
       },
       {
         "groupName": "app-internal",

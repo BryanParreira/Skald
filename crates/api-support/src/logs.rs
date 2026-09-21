@@ -46,14 +46,14 @@ pub(crate) fn safe_tail(s: &str, max_bytes: usize) -> &str {
 }
 
 pub(crate) async fn analyze_logs(api_key: &str, logs: &str) -> Option<String> {
-    let client = skald_openrouter::Client::new(api_key);
+    let client = notiz_openrouter::Client::new(api_key);
     let tail = safe_tail(logs, 10000);
 
-    let req = skald_openrouter::ChatCompletionRequest {
+    let req = notiz_openrouter::ChatCompletionRequest {
         model: Some("google/gemini-2.0-flash-001".to_string()),
         max_tokens: Some(300),
-        messages: vec![skald_openrouter::ChatMessage::new(
-            skald_openrouter::Role::User,
+        messages: vec![notiz_openrouter::ChatMessage::new(
+            notiz_openrouter::Role::User,
             format!(
                 "Extract only ERROR and WARNING entries from these logs. Output max 800 chars, no explanation:\n\n{tail}"
             ),

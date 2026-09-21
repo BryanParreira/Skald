@@ -1,7 +1,7 @@
 use crate::types::{
     ImportDataResult, ImportSource, ImportSourceInfo, ImportSourceKind, ImportStats,
 };
-use skald_importer_core::output::to_tinybase_json;
+use notiz_importer_core::output::to_tinybase_json;
 
 pub struct Importer<R: tauri::Runtime> {
     _runtime: std::marker::PhantomData<fn() -> R>,

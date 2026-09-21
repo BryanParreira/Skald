@@ -7,7 +7,7 @@ import {
   type ImportSourceInfo,
   type ImportSourceKind,
   type ImportStats,
-} from "@skald/plugin-importer";
+} from "@notiz/plugin-importer";
 
 import { ImportPreview } from "./import-preview";
 import { SourceItem } from "./source-item";

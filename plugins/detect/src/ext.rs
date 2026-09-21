@@ -4,14 +4,14 @@ pub struct Detect<'a, R: tauri::Runtime, M: tauri::Manager<R>> {
 }
 
 impl<'a, R: tauri::Runtime, M: tauri::Manager<R>> Detect<'a, R, M> {
-    pub fn list_installed_applications(&self) -> Vec<skald_detect::InstalledApp> {
-        skald_detect::list_installed_apps()
+    pub fn list_installed_applications(&self) -> Vec<notiz_detect::InstalledApp> {
+        notiz_detect::list_installed_apps()
     }
 
     pub fn list_mic_using_applications(
         &self,
-    ) -> Result<Vec<skald_detect::InstalledApp>, crate::Error> {
-        Ok(skald_detect::list_mic_using_apps()?)
+    ) -> Result<Vec<notiz_detect::InstalledApp>, crate::Error> {
+        Ok(notiz_detect::list_mic_using_apps()?)
     }
 
     pub fn list_default_ignored_bundle_ids(&self) -> Vec<String> {

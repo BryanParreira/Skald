@@ -8,7 +8,7 @@
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "paths": {
-      "@skald/ui/*": ["./src/*"]
+      "@notiz/ui/*": ["./src/*"]
     }
   }
 }

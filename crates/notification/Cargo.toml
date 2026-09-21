@@ -5,16 +5,16 @@ edition = "2024"
 
 [features]
 default = ["legacy"]
-legacy = ["dep:skald-notification-macos", "dep:skald-notification-linux"]
+legacy = ["dep:notiz-notification-macos", "dep:notiz-notification-linux"]
 
 [dependencies]
 serde = { workspace = true, features = ["derive"] }
 tracing = { workspace = true }
 
-skald-notification-interface = { workspace = true }
+notiz-notification-interface = { workspace = true }
 
 [target.'cfg(target_os = "macos")'.dependencies]
-skald-notification-macos = { path = "../notification-macos", package = "notification-macos", optional = true }
+notiz-notification-macos = { path = "../notification-macos", package = "notification-macos", optional = true }
 
 [target.'cfg(target_os = "linux")'.dependencies]
-skald-notification-linux = { path = "../notification-linux", package = "notification-linux", optional = true }
+notiz-notification-linux = { path = "../notification-linux", package = "notification-linux", optional = true }

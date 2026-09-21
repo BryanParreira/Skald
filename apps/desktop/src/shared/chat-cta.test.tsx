@@ -31,7 +31,7 @@ describe("ChatCTA", () => {
     render(<ChatCTA />);
 
     const button = screen.getByRole("button", {
-      name: "Ask Skald anything",
+      name: "Ask Notiz anything",
     });
 
     fireEvent.click(button);
@@ -43,7 +43,7 @@ describe("ChatCTA", () => {
     render(<ChatCTA />);
 
     const button = screen.getByRole("button", {
-      name: "Ask Skald anything",
+      name: "Ask Notiz anything",
     });
     const surface = button.querySelector("[data-chat-cta-surface]");
     const label = screen.getByText("Ask anything");
@@ -74,30 +74,30 @@ describe("ChatCTA", () => {
       "dark:shadow-[0_10px_30px_rgba(0,0,0,0.5)]",
     );
     expect(surface?.className).toContain(
-      "group-hover/skald-chat-cta:shadow-[0_16px_42px_rgba(0,0,0,0.26)]",
+      "group-hover/notiz-chat-cta:shadow-[0_16px_42px_rgba(0,0,0,0.26)]",
     );
     expect(surface?.className).toContain(
-      "dark:group-hover/skald-chat-cta:shadow-[0_18px_52px_rgba(0,0,0,0.64)]",
+      "dark:group-hover/notiz-chat-cta:shadow-[0_18px_52px_rgba(0,0,0,0.64)]",
     );
     expect(surface?.className).toContain("border");
     expect(surface?.className).toContain("border-transparent");
     expect(surface?.className).not.toContain("border-2");
     expect(surface?.className).toContain("pointer-events-none");
     expect(surface?.className).toContain(
-      "group-hover/skald-chat-cta:border-border/70",
+      "group-hover/notiz-chat-cta:border-border/70",
     );
     expect(surface?.className).toContain(
-      "group-hover/skald-chat-cta:bg-[#f4f4f5]",
+      "group-hover/notiz-chat-cta:bg-[#f4f4f5]",
     );
     expect(surface?.className).toContain(
-      "dark:group-hover/skald-chat-cta:bg-[#202020]",
+      "dark:group-hover/notiz-chat-cta:bg-[#202020]",
     );
-    expect(surface?.className).toContain("group-hover/skald-chat-cta:h-10");
+    expect(surface?.className).toContain("group-hover/notiz-chat-cta:h-10");
     expect(surface?.className).toContain(
-      "group-hover/skald-chat-cta:[clip-path:inset(0_0_0_0_round_9999px)]",
+      "group-hover/notiz-chat-cta:[clip-path:inset(0_0_0_0_round_9999px)]",
     );
     expect(surface?.className).toContain(
-      "group-focus-visible/skald-chat-cta:[clip-path:inset(0_0_0_0_round_9999px)]",
+      "group-focus-visible/notiz-chat-cta:[clip-path:inset(0_0_0_0_round_9999px)]",
     );
     expect(surface?.className).not.toContain("inset_0_0_0_1px");
     expect(button.querySelectorAll("svg")).toHaveLength(0);
@@ -106,11 +106,11 @@ describe("ChatCTA", () => {
     expect(label.className).toContain("text-white/55");
     expect(label.className).not.toContain("ml-2");
     expect(label.className).toContain(
-      "group-hover/skald-chat-cta:text-muted-foreground",
+      "group-hover/notiz-chat-cta:text-muted-foreground",
     );
-    expect(label.className).toContain("group-hover/skald-chat-cta:max-w-full");
+    expect(label.className).toContain("group-hover/notiz-chat-cta:max-w-full");
     expect(label.className).toContain(
-      "group-focus-within/skald-chat-cta:max-w-full",
+      "group-focus-within/notiz-chat-cta:max-w-full",
     );
   });
 
@@ -118,7 +118,7 @@ describe("ChatCTA", () => {
     render(<FloatingChatCTA />);
 
     const hoverZone = screen.getByRole("button", {
-      name: "Ask Skald anything",
+      name: "Ask Notiz anything",
     }).parentElement?.parentElement;
 
     expect(hoverZone?.className).toContain("h-10");
@@ -133,7 +133,7 @@ describe("ChatCTA", () => {
     render(<ChatCTA />);
 
     expect(
-      screen.queryByRole("button", { name: "Ask Skald anything" }),
+      screen.queryByRole("button", { name: "Ask Notiz anything" }),
     ).toBeNull();
   });
 
@@ -143,7 +143,7 @@ describe("ChatCTA", () => {
     render(<ChatCTA />);
 
     expect(
-      screen.queryByRole("button", { name: "Ask Skald anything" }),
+      screen.queryByRole("button", { name: "Ask Notiz anything" }),
     ).toBeNull();
   });
 });

@@ -3,7 +3,7 @@ use std::sync::Arc;
 
 use sqlx::{Row, SqlitePool};
 
-use skald_db_change::ChangeNotifier;
+use notiz_db_change::ChangeNotifier;
 
 use crate::DependencyTarget;
 
@@ -361,8 +361,8 @@ async fn load_schema_version(pool: &SqlitePool) -> Result<i64, sqlx::Error> {
 mod tests {
     use super::*;
 
-    async fn setup_fts_db() -> skald_db_core::Db {
-        let db = skald_db_core::Db::connect_memory_plain().await.unwrap();
+    async fn setup_fts_db() -> notiz_db_core::Db {
+        let db = notiz_db_core::Db::connect_memory_plain().await.unwrap();
         sqlx::query("CREATE VIRTUAL TABLE docs_fts USING fts5(title, body)")
             .execute(db.pool())
             .await
@@ -399,7 +399,7 @@ mod tests {
 
     #[tokio::test]
     async fn unsupported_virtual_modules_are_not_reactive() {
-        let db = skald_db_core::Db::connect_memory_plain().await.unwrap();
+        let db = notiz_db_core::Db::connect_memory_plain().await.unwrap();
         sqlx::query("CREATE VIRTUAL TABLE docs_rtree USING rtree(id, min_x, max_x)")
             .execute(db.pool())
             .await
@@ -417,7 +417,7 @@ mod tests {
 
     #[tokio::test]
     async fn canonicalize_raw_tables_reloads_after_schema_changes() {
-        let db = skald_db_core::Db::connect_memory_plain().await.unwrap();
+        let db = notiz_db_core::Db::connect_memory_plain().await.unwrap();
         sqlx::query("CREATE TABLE existing_notes (id TEXT PRIMARY KEY NOT NULL)")
             .execute(db.pool())
             .await

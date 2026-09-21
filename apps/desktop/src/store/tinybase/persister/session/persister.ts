@@ -1,4 +1,4 @@
-import type { Schemas } from "@skald/store";
+import type { Schemas } from "@notiz/store";
 
 import {
   getChangedSessionIds,

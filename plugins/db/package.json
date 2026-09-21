@@ -1,5 +1,5 @@
 {
-  "name": "@skald/plugin-db",
+  "name": "@notiz/plugin-db",
   "private": true,
   "main": "./js/index.ts",
   "scripts": {

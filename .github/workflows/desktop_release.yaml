@@ -21,7 +21,7 @@ jobs:
       matrix:
         include:
           - target: aarch64-apple-darwin
-            artifact: skald-macos-silicon.dmg
+            artifact: notiz-macos-silicon.dmg
 
     steps:
       - uses: actions/checkout@v4
@@ -36,7 +36,7 @@ jobs:
       - uses: ./.github/actions/pnpm_install
 
       - name: Build UI
-        run: pnpm -F @skald/ui build
+        run: pnpm -F @notiz/ui build
 
       - name: Import Apple certificate
         uses: ./.github/actions/apple_cert
@@ -52,7 +52,7 @@ jobs:
             --target "${{ matrix.target }}"
             --config "src-tauri/tauri.conf.stable.json"
           )
-          pnpm -F @skald/desktop tauri build "${BUILD_ARGS[@]}"
+          pnpm -F @notiz/desktop tauri build "${BUILD_ARGS[@]}"
         env:
           CI: false
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

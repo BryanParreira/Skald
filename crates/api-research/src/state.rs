@@ -1,5 +1,5 @@
-use skald_exa::ExaClient;
-use skald_jina::JinaClient;
+use notiz_exa::ExaClient;
+use notiz_jina::JinaClient;
 
 use crate::config::ResearchConfig;
 

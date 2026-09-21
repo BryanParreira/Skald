@@ -4,7 +4,7 @@ use std::future::Future;
 use std::pin::Pin;
 use std::time::{Duration, Instant};
 
-use skald_db_core::Db;
+use notiz_db_core::Db;
 use sqlx::migrate::{
     AppliedMigration, Migrate, MigrateError as SqlxMigrateError, Migration, MigrationType,
 };
@@ -252,13 +252,13 @@ impl Migrate for DbMigrateConnection<'_> {
 
                     let start = Instant::now();
 
-                    skald_db_core::cloudsync_begin_alter_on(&mut *self.conn, cs_table)
+                    notiz_db_core::cloudsync_begin_alter_on(&mut *self.conn, cs_table)
                         .await
                         .map_err(cloudsync_error)?;
 
                     execute_migration(&mut *self.conn, migration).await?;
 
-                    skald_db_core::cloudsync_commit_alter_on(&mut *self.conn, cs_table)
+                    notiz_db_core::cloudsync_commit_alter_on(&mut *self.conn, cs_table)
                         .await
                         .map_err(cloudsync_error)?;
 

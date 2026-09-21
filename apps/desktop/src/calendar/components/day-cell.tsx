@@ -6,8 +6,8 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@skald/ui/components/ui/popover";
-import { cn } from "@skald/utils";
+} from "@notiz/ui/components/ui/popover";
+import { cn } from "@notiz/utils";
 
 import { EventChip } from "./event-chip";
 import { SessionChip } from "./session-chip";

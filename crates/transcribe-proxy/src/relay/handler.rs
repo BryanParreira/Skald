@@ -82,7 +82,7 @@ impl WebSocketProxy {
             .clone()
             .into_client_request()
             .map_err(|e| crate::ProxyError::InvalidRequest(e.to_string()))?;
-        skald_observability::inject_current_trace_context(req.headers_mut());
+        notiz_observability::inject_current_trace_context(req.headers_mut());
 
         let connect_start = Instant::now();
         tracing::info!("upstream_connect_started");
@@ -92,7 +92,7 @@ impl WebSocketProxy {
         match upstream_result {
             Ok(Ok((stream, _))) => {
                 tracing::info!(
-                    skald.duration_ms = connect_start.elapsed().as_millis() as u64,
+                    notiz.duration_ms = connect_start.elapsed().as_millis() as u64,
                     "upstream_connect_succeeded"
                 );
                 Ok(stream)
@@ -101,7 +101,7 @@ impl WebSocketProxy {
                 tracing::error!(
                     error.type = "upstream_connect_failed",
                     error = %e,
-                    skald.duration_ms = connect_start.elapsed().as_millis() as u64,
+                    notiz.duration_ms = connect_start.elapsed().as_millis() as u64,
                     "upstream_connect_failed"
                 );
                 Err(crate::ProxyError::ConnectionFailed(e.to_string()))
@@ -109,7 +109,7 @@ impl WebSocketProxy {
             Err(_) => {
                 tracing::error!(
                     error.type = "upstream_connect_timeout",
-                    skald.timeout_ms = self.connect_timeout.as_millis() as u64,
+                    notiz.timeout_ms = self.connect_timeout.as_millis() as u64,
                     "upstream_connect_timeout"
                 );
                 Err(crate::ProxyError::ConnectionTimeout)
@@ -202,7 +202,7 @@ impl WebSocketProxy {
         }
 
         tracing::info!(
-            skald.duration_ms = duration.as_millis() as u64,
+            notiz.duration_ms = duration.as_millis() as u64,
             "websocket_proxy_connection_closed"
         );
     }
@@ -224,8 +224,8 @@ impl WebSocketProxy {
         if let Err(reason) = pending.enqueue(queued, is_control) {
             tracing::warn!(
                 error = %reason,
-                skald.payload.size_bytes = %size,
-                skald.ws.is_control_message = %is_control,
+                notiz.payload.size_bytes = %size,
+                notiz.ws.is_control_message = %is_control,
                 "pending_queue_enqueue_failed"
             );
             let _ = shutdown_tx.send(ShutdownSignal::Close {
@@ -392,8 +392,8 @@ impl WebSocketProxy {
                         Message::Close(frame) => {
                             let (code, reason) = convert::extract_axum_close(frame, "client_closed");
                             tracing::info!(
-                                skald.ws.close.code = code,
-                                skald.ws.close.reason = %reason,
+                                notiz.ws.close.code = code,
+                                notiz.ws.close.reason = %reason,
                                 "ws_client_close_received"
                             );
                             let _ = shutdown_tx.send(ShutdownSignal::Close { code, reason });
@@ -462,7 +462,7 @@ impl WebSocketProxy {
                             if let Some(upstream_err) = Provider::detect_any_error(text_bytes) {
                                 tracing::warn!(
                                     http.response.status_code = upstream_err.http_code,
-                                    skald.stt.provider.error_code = ?upstream_err.provider_code,
+                                    notiz.stt.provider.error_code = ?upstream_err.provider_code,
                                     error = %upstream_err.message,
                                     "upstream_error_detected"
                                 );
@@ -524,8 +524,8 @@ impl WebSocketProxy {
                                     ShutdownSignal::Close { code, reason }
                                 } else {
                                     tracing::warn!(
-                                        skald.ws.close.code = code,
-                                        skald.ws.close.reason = %reason,
+                                        notiz.ws.close.code = code,
+                                        notiz.ws.close.reason = %reason,
                                         "ws_upstream_abnormal_close"
                                     );
                                     ShutdownSignal::Abort
@@ -534,8 +534,8 @@ impl WebSocketProxy {
 
                             if let ShutdownSignal::Close { code, reason } = &signal {
                                 tracing::info!(
-                                    skald.ws.close.code = *code,
-                                    skald.ws.close.reason = %reason,
+                                    notiz.ws.close.code = *code,
+                                    notiz.ws.close.reason = %reason,
                                     "ws_upstream_close_received"
                                 );
                             }

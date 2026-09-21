@@ -1,6 +1,6 @@
 use dasp::sample::ToSample;
 
-use skald_onnx::{
+use notiz_onnx::{
     ndarray::{self, Array2},
     ort::{self, session::Session, value::TensorRef},
 };
@@ -19,7 +19,7 @@ impl Default for EmbeddingExtractor {
 
 impl EmbeddingExtractor {
     pub fn new() -> Self {
-        let session = skald_onnx::load_model_from_bytes(EMBEDDING_ONNX).unwrap();
+        let session = notiz_onnx::load_model_from_bytes(EMBEDDING_ONNX).unwrap();
         Self { session }
     }
 

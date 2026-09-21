@@ -1,6 +1,6 @@
-import { createDb } from "@skald/db";
-import { createUseDrizzleLiveQuery, createUseLiveQuery } from "@skald/db-react";
-import { tauriLiveQueryClient } from "@skald/db-tauri";
+import { createDb } from "@notiz/db";
+import { createUseDrizzleLiveQuery, createUseLiveQuery } from "@notiz/db-react";
+import { tauriLiveQueryClient } from "@notiz/db-tauri";
 
 export const db = createDb(tauriLiveQueryClient);
 export const useLiveQuery = createUseLiveQuery(tauriLiveQueryClient);

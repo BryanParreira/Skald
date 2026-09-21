@@ -7,7 +7,7 @@ pub use error::*;
 pub use ext::*;
 pub use feature::*;
 
-pub type ManagedState = skald_analytics::AnalyticsClient;
+pub type ManagedState = notiz_analytics::AnalyticsClient;
 
 const PLUGIN_NAME: &str = "flag";
 
@@ -52,13 +52,13 @@ mod test {
 
     fn create_app<R: tauri::Runtime>(builder: tauri::Builder<R>) -> tauri::App<R> {
         let mut ctx = tauri::test::mock_context(tauri::test::noop_assets());
-        ctx.config_mut().identifier = "com.skald.dev".to_string();
+        ctx.config_mut().identifier = "com.notiz.dev".to_string();
         ctx.config_mut().version = Some("1.0.0".to_string());
 
         builder
             .plugin(init())
             .setup(|app| {
-                let client = skald_analytics::AnalyticsClientBuilder::default().build();
+                let client = notiz_analytics::AnalyticsClientBuilder::default().build();
                 app.manage(client);
                 Ok(())
             })

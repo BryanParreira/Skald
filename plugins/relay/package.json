@@ -1,5 +1,5 @@
 {
-  "name": "@skald/plugin-relay",
+  "name": "@notiz/plugin-relay",
   "private": true,
   "type": "module",
   "exports": {

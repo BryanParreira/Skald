@@ -3,16 +3,16 @@
 stable_user_id=""
 stable_version=""
 
-if [ -d "$HOME/Library/Application Support/skald" ]; then
-    if [ -f "$HOME/Library/Application Support/skald/store.json" ]; then
-        stable_user_id=$(jq -r '."auth-user-id" // empty' "$HOME/Library/Application Support/skald/store.json")
+if [ -d "$HOME/Library/Application Support/notiz" ]; then
+    if [ -f "$HOME/Library/Application Support/notiz/store.json" ]; then
+        stable_user_id=$(jq -r '."auth-user-id" // empty' "$HOME/Library/Application Support/notiz/store.json")
     fi
 fi
 
 if [ -d "/Applications/Char.app" ]; then
     stable_version=$(defaults read /Applications/Char.app/Contents/Info.plist CFBundleShortVersionString 2>/dev/null || echo "")
-elif [ -d "/Applications/Skald.app" ]; then
-    stable_version=$(defaults read /Applications/Skald.app/Contents/Info.plist CFBundleShortVersionString 2>/dev/null || echo "")
+elif [ -d "/Applications/Notiz.app" ]; then
+    stable_version=$(defaults read /Applications/Notiz.app/Contents/Info.plist CFBundleShortVersionString 2>/dev/null || echo "")
 fi
 
 cat << EOF

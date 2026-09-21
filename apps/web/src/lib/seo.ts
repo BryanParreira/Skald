@@ -1,10 +1,10 @@
 import { env } from "@/env";
 
-export const SKALD_SITE_URL = env.VITE_APP_URL;
-export const DEFAULT_OG_IMAGE_URL = `${SKALD_SITE_URL}/og.jpg`;
-export const ROOT_TITLE = "Skald - Meeting Notes You Own";
+export const NOTIZ_SITE_URL = env.VITE_APP_URL;
+export const DEFAULT_OG_IMAGE_URL = `${NOTIZ_SITE_URL}/og.jpg`;
+export const ROOT_TITLE = "Notiz - Meeting Notes You Own";
 export const ROOT_DESCRIPTION =
-  "Private, bot-free meeting notes that stay under your control. Skald stores notes as files you own and works fully offline with on-device models or your own keys.";
+  "Private, bot-free meeting notes that stay under your control. Notiz stores notes as files you own and works fully offline with on-device models or your own keys.";
 export const ROOT_KEYWORDS =
   "private meeting notes, bot-free AI notes, local transcription, AI meeting notes, AI notetaker, meeting transcription, meeting summaries, BYOK AI, open source note taking, local AI";
 
@@ -20,14 +20,14 @@ export function getStructuredDataGraph(nodes: StructuredDataNode[]) {
 export function getOrganizationJsonLd() {
   return {
     "@type": "Organization",
-    name: "Skald",
-    url: SKALD_SITE_URL,
-    logo: `${SKALD_SITE_URL}/logo.svg`,
+    name: "Notiz",
+    url: NOTIZ_SITE_URL,
+    logo: `${NOTIZ_SITE_URL}/logo.svg`,
   };
 }
 
 export function getSoftwareApplicationJsonLd({
-  url = SKALD_SITE_URL,
+  url = NOTIZ_SITE_URL,
   description,
   featureList,
   aggregateOffer,
@@ -43,12 +43,12 @@ export function getSoftwareApplicationJsonLd({
 }) {
   return {
     "@type": "SoftwareApplication",
-    name: "Skald",
+    name: "Notiz",
     url,
     description,
     applicationCategory: "ProductivityApplication",
     operatingSystem: "macOS",
-    downloadUrl: SKALD_SITE_URL,
+    downloadUrl: NOTIZ_SITE_URL,
     publisher: getOrganizationJsonLd(),
     ...(featureList ? { featureList } : {}),
     ...(aggregateOffer

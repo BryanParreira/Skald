@@ -5,15 +5,15 @@ pub type Result<T> = std::result::Result<T, Error>;
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
     #[error(transparent)]
-    AmError(#[from] skald_am::Error),
+    AmError(#[from] notiz_am::Error),
     #[error(transparent)]
-    SkaldFileError(#[from] skald_file::Error),
+    NotizFileError(#[from] notiz_file::Error),
     #[error(transparent)]
     ShellError(#[from] tauri_plugin_shell::Error),
     #[error(transparent)]
     Sidecar2Error(#[from] tauri_plugin_sidecar2::Error),
     #[error(transparent)]
-    ModelDownloaderError(#[from] skald_model_downloader::Error),
+    ModelDownloaderError(#[from] notiz_model_downloader::Error),
     #[error("Model not downloaded")]
     ModelNotDownloaded,
     #[error("Server start failed {0}")]

@@ -2,7 +2,7 @@ import {
   executeCodeTool as coreExecuteCodeTool,
   formatExecutionResult,
   setExecuteCodeFunction,
-} from "@skald/agent-core";
+} from "@notiz/agent-core";
 
 import { executeCode } from "../modal/execute";
 

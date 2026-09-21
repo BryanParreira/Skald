@@ -1,4 +1,4 @@
-import type { SessionMentionDropConfig } from "@skald/editor/note";
+import type { SessionMentionDropConfig } from "@notiz/editor/note";
 
 import {
   hasSessionContextDragData,

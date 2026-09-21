@@ -7,14 +7,14 @@ description = ""
 [features]
 default = []
 specta = [
-  "skald-listener-core/specta",
-  "skald-listener2-core/specta",
+  "notiz-listener-core/specta",
+  "notiz-listener2-core/specta",
 ]
 tauri-event = [
-  "skald-listener-core/tauri-event",
-  "skald-listener2-core/tauri-event",
+  "notiz-listener-core/tauri-event",
+  "notiz-listener2-core/tauri-event",
 ]
 
 [dependencies]
-skald-listener-core = { workspace = true }
-skald-listener2-core = { workspace = true }
+notiz-listener-core = { workspace = true }
+notiz-listener2-core = { workspace = true }

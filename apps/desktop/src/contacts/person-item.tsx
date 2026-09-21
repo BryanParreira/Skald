@@ -1,7 +1,7 @@
 import { Pin } from "lucide-react";
 import React, { useCallback } from "react";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 import { ContactFacehash, getContactBgClass } from "~/contacts/shared";
 import { useNativeContextMenu } from "~/shared/hooks/useNativeContextMenu";

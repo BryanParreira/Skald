@@ -1,6 +1,6 @@
 import { AudioLinesIcon } from "lucide-react";
 
-import { Spinner } from "@skald/ui/components/ui/spinner";
+import { Spinner } from "@notiz/ui/components/ui/spinner";
 
 export function TranscriptListeningState({
   status,

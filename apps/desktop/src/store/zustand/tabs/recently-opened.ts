@@ -1,6 +1,6 @@
 import type { StateCreator, StoreApi, StoreMutatorIdentifier } from "zustand";
 
-import { getCurrentWebviewWindowLabel } from "@skald/plugin-windows";
+import { getCurrentWebviewWindowLabel } from "@notiz/plugin-windows";
 
 import { commands } from "~/types/tauri.gen";
 

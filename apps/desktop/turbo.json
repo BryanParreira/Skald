@@ -3,17 +3,17 @@
   "extends": ["//"],
   "tasks": {
     "dev": {
-      "dependsOn": ["@skald/ui#build"]
+      "dependsOn": ["@notiz/ui#build"]
     },
     "build": {
-      "dependsOn": ["@skald/ui#build"],
+      "dependsOn": ["@notiz/ui#build"],
       "outputs": ["dist/**"]
     },
     "tauri:dev": {
-      "dependsOn": ["@skald/ui#build"]
+      "dependsOn": ["@notiz/ui#build"]
     },
     "tauri:build": {
-      "dependsOn": ["@skald/ui#build"]
+      "dependsOn": ["@notiz/ui#build"]
     }
   }
 }

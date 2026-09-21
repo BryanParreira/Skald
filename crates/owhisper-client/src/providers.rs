@@ -417,8 +417,8 @@ impl Provider {
         msg: &owhisper_interface::ControlMessage,
     ) -> Option<String> {
         use crate::adapter::RealtimeSttAdapter;
+        use notiz_ws_client::client::Message;
         use owhisper_interface::ControlMessage;
-        use skald_ws_client::client::Message;
 
         fn extract_text(msg: Message) -> Option<String> {
             match msg {

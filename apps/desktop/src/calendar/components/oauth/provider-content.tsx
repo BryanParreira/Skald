@@ -1,11 +1,11 @@
 import { useCallback, useMemo } from "react";
 
-import type { ConnectionItem } from "@skald/api-client";
+import type { ConnectionItem } from "@notiz/api-client";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@skald/ui/components/ui/tooltip";
+} from "@notiz/ui/components/ui/tooltip";
 
 import {
   OAuthCalendarSelection,

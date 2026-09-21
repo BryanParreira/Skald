@@ -2,13 +2,13 @@ import { useLingui } from "@lingui/react/macro";
 import { Loader2Icon, RefreshCwIcon } from "lucide-react";
 import { useMemo } from "react";
 
-import { Button } from "@skald/ui/components/ui/button";
+import { Button } from "@notiz/ui/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@skald/ui/components/ui/tooltip";
-import { cn } from "@skald/utils";
+} from "@notiz/ui/components/ui/tooltip";
+import { cn } from "@notiz/utils";
 
 import {
   type PastSessionNote,

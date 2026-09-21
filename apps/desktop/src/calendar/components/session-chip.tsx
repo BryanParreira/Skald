@@ -1,16 +1,16 @@
 import { format } from "date-fns";
 import { useCallback, useMemo } from "react";
 
-import { commands as fsSyncCommands } from "@skald/plugin-fs-sync";
-import { commands as openerCommands } from "@skald/plugin-opener2";
-import { Button } from "@skald/ui/components/ui/button";
+import { commands as fsSyncCommands } from "@notiz/plugin-fs-sync";
+import { commands as openerCommands } from "@notiz/plugin-opener2";
+import { Button } from "@notiz/ui/components/ui/button";
 import {
   AppFloatingPanel,
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@skald/ui/components/ui/popover";
-import { cn } from "@skald/utils";
+} from "@notiz/ui/components/ui/popover";
+import { cn } from "@notiz/utils";
 
 import { toTz, useTimezone } from "~/calendar/hooks";
 import { useDeleteSession } from "~/session/hooks/useDeleteSession";

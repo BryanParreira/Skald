@@ -53,7 +53,7 @@ pub(super) async fn run_progressive_batch(
                 let message = format_user_friendly_error(&raw_error);
                 tracing::error!(
                     error = %raw_error,
-                    skald.error.user_message = %message,
+                    notiz.error.user_message = %message,
                     "batch supervisor spawn failed"
                 );
                 return Err(crate::BatchFailure::ProgressiveActorSpawnFailed {
@@ -280,7 +280,7 @@ pub(super) fn report_stream_start_failure(
 
     tracing::error!(
         error = %raw_error,
-        skald.error.user_message = %message,
+        notiz.error.user_message = %message,
         "{context}"
     );
     notify_start_result(notifier, Err(failure.clone().into()));
@@ -361,10 +361,10 @@ async fn process_stream_loop<S, Item, E, F>(
                             provider_error_from_event(&event)
                         {
                             tracing::error!(
-                                skald.stt.provider.name = %provider,
+                                notiz.stt.provider.name = %provider,
                                 error.code = ?error_code,
                                 error = %error_message,
-                                skald.response.count = response_count,
+                                notiz.response.count = response_count,
                                 "{context} received provider error response"
                             );
                             let message = format_user_friendly_error(error_message);
@@ -401,8 +401,8 @@ async fn process_stream_loop<S, Item, E, F>(
                         let message = format_user_friendly_error(&raw_error);
                         tracing::error!(
                             error = %raw_error,
-                            skald.error.user_message = %message,
-                            skald.response.count = response_count,
+                            notiz.error.user_message = %message,
+                            notiz.response.count = response_count,
                             "{context} stream error"
                         );
                         send_actor_message(
@@ -419,16 +419,16 @@ async fn process_stream_loop<S, Item, E, F>(
                     Ok(None) => {
                         if completions_seen >= expected_completions {
                             tracing::info!(
-                                skald.response.count = response_count,
+                                notiz.response.count = response_count,
                                 "{context} completed"
                             );
                             break;
                         }
 
                         tracing::error!(
-                            skald.response.count = response_count,
-                            skald.completions.expected = expected_completions,
-                            skald.completions.seen = completions_seen,
+                            notiz.response.count = response_count,
+                            notiz.completions.expected = expected_completions,
+                            notiz.completions.seen = completions_seen,
                             "{context} ended without completion signal"
                         );
                         send_actor_message(
@@ -443,8 +443,8 @@ async fn process_stream_loop<S, Item, E, F>(
                     }
                     Err(elapsed) => {
                         tracing::warn!(
-                            skald.timeout.elapsed = ?elapsed,
-                            skald.response.count = response_count,
+                            notiz.timeout.elapsed = ?elapsed,
+                            notiz.response.count = response_count,
                             "{context} timeout"
                         );
                         send_actor_message(

@@ -4,15 +4,15 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+notiz-analytics = { workspace = true }
+notiz-api-auth = { workspace = true }
+notiz-api-env = { workspace = true }
+notiz-audio-mime = { workspace = true }
+notiz-language = { workspace = true }
+notiz-observability = { workspace = true }
+notiz-supabase-storage = { workspace = true }
 owhisper-client = { workspace = true }
 owhisper-interface = { workspace = true, features = ["openapi"] }
-skald-analytics = { workspace = true }
-skald-api-auth = { workspace = true }
-skald-api-env = { workspace = true }
-skald-audio-mime = { workspace = true }
-skald-language = { workspace = true }
-skald-observability = { workspace = true }
-skald-supabase-storage = { workspace = true }
 
 axum = { workspace = true, features = ["ws"] }
 futures-util = { workspace = true }
@@ -38,10 +38,10 @@ urlencoding = { workspace = true }
 utoipa = { workspace = true }
 
 [dev-dependencies]
+notiz-audio-utils = { workspace = true }
+notiz-data = { workspace = true }
+notiz-language = { workspace = true }
 owhisper-interface = { workspace = true, features = ["openapi"] }
-skald-audio-utils = { workspace = true }
-skald-data = { workspace = true }
-skald-language = { workspace = true }
 
 rodio = { workspace = true }
 tokio-stream = { workspace = true }

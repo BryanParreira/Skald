@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 
-import { Button } from "@skald/ui/components/ui/button";
+import { Button } from "@notiz/ui/components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -17,19 +17,19 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@skald/ui/components/ui/command";
+} from "@notiz/ui/components/ui/command";
 import {
   AppFloatingPanel,
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@skald/ui/components/ui/popover";
+} from "@notiz/ui/components/ui/popover";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@skald/ui/components/ui/tooltip";
-import { cn } from "@skald/utils";
+} from "@notiz/ui/components/ui/tooltip";
+import { cn } from "@notiz/utils";
 
 import type { ListModelsResult, ModelIgnoreReason } from "./list-common";
 
@@ -68,7 +68,7 @@ const formatIgnoreReason = (reason: ModelIgnoreReason): string => {
 };
 
 const getDisplayName = (providerId: string, model: string): string => {
-  if (providerId === "skald" && model === "Auto") {
+  if (providerId === "notiz" && model === "Auto") {
     return "Pro (Cloud)";
   }
   return model;

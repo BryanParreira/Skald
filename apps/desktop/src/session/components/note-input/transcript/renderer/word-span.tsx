@@ -1,6 +1,6 @@
 import { Fragment, memo, useMemo } from "react";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 import type { HighlightSegment } from "./utils";
 

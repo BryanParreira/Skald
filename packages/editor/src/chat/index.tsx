@@ -27,7 +27,7 @@ import { EditorState, Plugin, PluginKey } from "prosemirror-state";
 import type { EditorView } from "prosemirror-view";
 import { forwardRef, useImperativeHandle, useMemo, useRef } from "react";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 import { EditorErrorBoundary } from "../editor-error-boundary";
 import {

@@ -1,6 +1,6 @@
 use std::{collections::HashMap, str::FromStr};
 
-use skald_frontmatter::{Document, Error as FrontmatterError};
+use notiz_frontmatter::{Document, Error as FrontmatterError};
 
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, specta::Type)]
 pub struct ParsedDocument {

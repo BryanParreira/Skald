@@ -5,13 +5,13 @@ edition = "2024"
 
 [features]
 default = []
-onnx = ["dep:skald-onnx", "dep:realfft"]
-coreml = ["onnx", "skald-onnx/coreml"]
+onnx = ["dep:notiz-onnx", "dep:realfft"]
+coreml = ["onnx", "notiz-onnx/coreml"]
 
 [dependencies]
+notiz-onnx = { workspace = true, optional = true }
 realfft = { workspace = true, optional = true }
 serde = { workspace = true }
-skald-onnx = { workspace = true, optional = true }
 thiserror = { workspace = true }
 
 [dev-dependencies]
@@ -19,9 +19,9 @@ approx = { workspace = true }
 criterion = { workspace = true }
 dasp = { workspace = true }
 hound = { workspace = true }
+notiz-audio-snapshot = { workspace = true }
+notiz-data = { workspace = true }
 rodio = { workspace = true }
-skald-audio-snapshot = { workspace = true }
-skald-data = { workspace = true }
 
 [[bench]]
 name = "denoise_bench"

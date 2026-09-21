@@ -10,14 +10,14 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-import { Button } from "@skald/ui/components/ui/button";
+import { Button } from "@notiz/ui/components/ui/button";
 import {
   AppFloatingPanel,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@skald/ui/components/ui/dropdown-menu";
-import { cn, formatDistanceToNow } from "@skald/utils";
+} from "@notiz/ui/components/ui/dropdown-menu";
+import { cn, formatDistanceToNow } from "@notiz/utils";
 
 import * as main from "~/store/tinybase/store/main";
 

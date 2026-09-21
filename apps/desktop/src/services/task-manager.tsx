@@ -7,7 +7,7 @@ import {
   useSetTask,
 } from "tinytick/ui-react";
 
-import { events as appleCalendarEvents } from "@skald/plugin-calendar";
+import { events as appleCalendarEvents } from "@notiz/plugin-calendar";
 
 import {
   AUDIO_RETENTION_INTERVAL,

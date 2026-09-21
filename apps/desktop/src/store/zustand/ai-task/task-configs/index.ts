@@ -5,7 +5,7 @@ import type {
   EnhanceUser,
   TitleSystem,
   TitleUser,
-} from "@skald/plugin-template";
+} from "@notiz/plugin-template";
 
 import type { EnhanceImageContext } from "./enhance-images";
 import { enhanceSuccess } from "./enhance-success";

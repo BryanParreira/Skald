@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { Button } from "@skald/ui/components/ui/button";
+import { Button } from "@notiz/ui/components/ui/button";
 
 import { computeCurrentNoteTab } from "./compute-note-tab";
 

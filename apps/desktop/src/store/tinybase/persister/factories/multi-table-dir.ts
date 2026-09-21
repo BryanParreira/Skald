@@ -1,6 +1,6 @@
 import type { MergeableStore, OptionalSchemas } from "tinybase/with-schemas";
 
-import { toContent, toPersistedChanges } from "@skald/tinybase-utils";
+import { toContent, toPersistedChanges } from "@notiz/tinybase-utils";
 
 import { createCollectorPersister } from "./collector";
 

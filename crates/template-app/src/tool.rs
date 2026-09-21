@@ -1,5 +1,5 @@
 #[allow(unused_imports)]
-use skald_askama_utils::filters;
+use notiz_askama_utils::filters;
 
 use crate::{SessionContext, common_derives};
 

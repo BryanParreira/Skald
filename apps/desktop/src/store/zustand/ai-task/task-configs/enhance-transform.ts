@@ -3,7 +3,7 @@ import type {
   Segment,
   Session,
   Transcript,
-} from "@skald/plugin-template";
+} from "@notiz/plugin-template";
 
 import type { TaskArgsMap, TaskArgsMapTransformed, TaskConfig } from ".";
 import { collectEnhanceImageContext } from "./enhance-images";

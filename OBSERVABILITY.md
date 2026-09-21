@@ -19,7 +19,7 @@ This repo has multiple binaries and runtime surfaces, but the same conventions a
 - `apps/api` is one OTEL service
 - `apps/desktop` is one Sentry/desktop service
 - internal route groups or modules are not separate OTEL services
-- internal logical breakdowns use `skald.subsystem`
+- internal logical breakdowns use `notiz.subsystem`
 
 Current canonical subsystem values include:
 
@@ -51,7 +51,7 @@ We use three separate concepts:
 
 Every process should set:
 
-- `service.namespace = "skald"`
+- `service.namespace = "notiz"`
 - `service.name = <logical process name>`
 - `service.version`
 - `deployment.environment`
@@ -78,13 +78,13 @@ For example, `edge`, `llm`, `stt`, and `subscription` inside `apps/api` are not 
 
 Use:
 
-- `skald.subsystem`
+- `notiz.subsystem`
 
 Examples:
 
-- API ingress span: `skald.subsystem = "edge"`
-- LLM handler span: `skald.subsystem = "llm"`
-- STT websocket/session spans: `skald.subsystem = "stt"`
+- API ingress span: `notiz.subsystem = "edge"`
+- LLM handler span: `notiz.subsystem = "llm"`
+- STT websocket/session spans: `notiz.subsystem = "stt"`
 
 Do not use a bare `service` span field for this.
 
@@ -161,7 +161,7 @@ It is not:
 
 - generate it once at ingress if missing
 - forward it unchanged when useful
-- record it as `skald.request.id`
+- record it as `notiz.request.id`
 - keep it semantically separate from OTEL trace context
 
 Never do this:
@@ -208,11 +208,11 @@ Examples:
 - `gen_ai.usage.input_tokens`
 - `gen_ai.usage.output_tokens`
 
-### Rule 2: Custom fields must use `skald.*`
+### Rule 2: Custom fields must use `notiz.*`
 
 If OTEL does not define a field, use:
 
-- `skald.*`
+- `notiz.*`
 
 Do not use:
 
@@ -246,11 +246,11 @@ Use:
 
 ### Request and duration
 
-- `skald.request.id`
-- `skald.duration_ms`
-- `skald.retry.delay_ms`
-- `skald.timeout_s`
-- `skald.timeout.elapsed`
+- `notiz.request.id`
+- `notiz.duration_ms`
+- `notiz.retry.delay_ms`
+- `notiz.timeout_s`
+- `notiz.timeout.elapsed`
 
 ### HTTP and routing
 
@@ -276,45 +276,45 @@ Use OTEL GenAI fields where available:
 - `gen_ai.usage.input_tokens`
 - `gen_ai.usage.output_tokens`
 
-Use `skald.*` for Skald-specific request metadata:
+Use `notiz.*` for Notiz-specific request metadata:
 
-- `skald.gen_ai.request.streaming`
-- `skald.gen_ai.request.message_count`
-- `skald.gen_ai.request.model_candidate_count`
-- `skald.gen_ai.request.tool_calling`
-- `skald.task.name`
+- `notiz.gen_ai.request.streaming`
+- `notiz.gen_ai.request.message_count`
+- `notiz.gen_ai.request.model_candidate_count`
+- `notiz.gen_ai.request.tool_calling`
+- `notiz.task.name`
 
 ### STT and audio
 
 Use:
 
-- `skald.stt.provider.name`
-- `skald.stt.routing_strategy`
-- `skald.stt.model`
-- `skald.stt.language_codes`
-- `skald.stt.language_code`
-- `skald.stt.session.id`
-- `skald.stt.job.id`
-- `skald.stt.provider_session.id`
-- `skald.stt.provider_session.duration_s`
-- `skald.stt.provider_session.expires_at`
-- `skald.stt.provider.error_code`
-- `skald.audio.sample_rate_hz`
-- `skald.audio.channel_count`
-- `skald.audio.channel_index`
-- `skald.audio.size_bytes`
-- `skald.audio.duration_s`
-- `skald.audio.device`
+- `notiz.stt.provider.name`
+- `notiz.stt.routing_strategy`
+- `notiz.stt.model`
+- `notiz.stt.language_codes`
+- `notiz.stt.language_code`
+- `notiz.stt.session.id`
+- `notiz.stt.job.id`
+- `notiz.stt.provider_session.id`
+- `notiz.stt.provider_session.duration_s`
+- `notiz.stt.provider_session.expires_at`
+- `notiz.stt.provider.error_code`
+- `notiz.audio.sample_rate_hz`
+- `notiz.audio.channel_count`
+- `notiz.audio.channel_index`
+- `notiz.audio.size_bytes`
+- `notiz.audio.duration_s`
+- `notiz.audio.device`
 
 ### Vendor-specific fields
 
 Keep vendor-specific fields namespaced:
 
-- `skald.supabase.*`
-- `skald.stripe.*`
-- `skald.connection.*`
-- `skald.integration.*`
-- `skald.bot.*`
+- `notiz.supabase.*`
+- `notiz.stripe.*`
+- `notiz.connection.*`
+- `notiz.integration.*`
+- `notiz.bot.*`
 
 Always prefer `service.peer.name` for the downstream system name.
 
@@ -322,9 +322,9 @@ Always prefer `service.peer.name` for the downstream system name.
 
 If raw payload capture is necessary for debug logs, use:
 
-- `skald.payload.raw`
-- `skald.http.response.body`
-- `skald.http.body_preview`
+- `notiz.payload.raw`
+- `notiz.http.response.body`
+- `notiz.http.body_preview`
 
 Do not put large raw payloads on high-volume spans by default.
 
@@ -339,7 +339,7 @@ Honeycomb service views come from OTEL resource attributes, especially:
 Because of that:
 
 - `apps/api` must stay one Honeycomb service: `api`
-- internal analysis should use `skald.subsystem`
+- internal analysis should use `notiz.subsystem`
 
 ### High cardinality
 
@@ -347,11 +347,11 @@ Honeycomb handles high-cardinality fields well. IDs are allowed when they help d
 
 Good high-cardinality examples:
 
-- `skald.request.id`
+- `notiz.request.id`
 - `enduser.id`
 - `enduser.pseudo.id`
 - `gen_ai.response.id`
-- `skald.stt.job.id`
+- `notiz.stt.job.id`
 - provider session IDs
 
 Do not avoid useful IDs just because they are high cardinality.
@@ -402,11 +402,11 @@ Canonical Sentry tags include:
 - `error.type`
 - `gen_ai.provider.name`
 - `gen_ai.request.model`
-- `skald.gen_ai.request.streaming`
-- `skald.stt.provider.name`
-- `skald.stt.routing_strategy`
-- `skald.stt.model`
-- `skald.stt.language_codes`
+- `notiz.gen_ai.request.streaming`
+- `notiz.stt.provider.name`
+- `notiz.stt.routing_strategy`
+- `notiz.stt.model`
+- `notiz.stt.language_codes`
 
 ### Context naming
 
@@ -416,9 +416,9 @@ Canonical context names include:
 
 - `gen_ai.request`
 - `gen_ai.response`
-- `skald.stt.request`
-- `skald.enduser.claims`
-- `skald.session`
+- `notiz.stt.request`
+- `notiz.enduser.claims`
+- `notiz.session`
 
 ### Sentry user
 
@@ -492,7 +492,7 @@ Meaning:
 
 1. Decide whether the concept already has an OTEL semantic convention.
 2. If yes, use the OTEL field name.
-3. If no, add a `skald.*` field.
+3. If no, add a `notiz.*` field.
 4. If the field will be recorded later on a span, declare it at span creation.
 5. If the code crosses a network boundary, extract or inject W3C trace context.
 6. If request correlation is needed, keep `x-request-id` separate from trace propagation.

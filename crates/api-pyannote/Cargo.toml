@@ -4,10 +4,10 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-skald-api-auth = { workspace = true }
-skald-api-env = { workspace = true }
-skald-api-error = { workspace = true }
-skald-pyannote-cloud = { workspace = true }
+notiz-api-auth = { workspace = true }
+notiz-api-env = { workspace = true }
+notiz-api-error = { workspace = true }
+notiz-pyannote-cloud = { workspace = true }
 
 axum = { workspace = true }
 reqwest = { workspace = true, features = ["json"] }

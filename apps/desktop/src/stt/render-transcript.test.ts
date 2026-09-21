@@ -4,7 +4,7 @@ const { renderTranscriptSegmentsCommand } = vi.hoisted(() => ({
   renderTranscriptSegmentsCommand: vi.fn(),
 }));
 
-vi.mock("@skald/plugin-transcription", () => ({
+vi.mock("@notiz/plugin-transcription", () => ({
   commands: {
     renderTranscriptSegments: renderTranscriptSegmentsCommand,
   },

@@ -119,7 +119,7 @@ impl AppWindow {
 impl WindowImpl for AppWindow {
     fn title(&self) -> String {
         match self {
-            Self::Main => "Skald".into(),
+            Self::Main => "Notiz".into(),
             Self::Composer => "Composer".into(),
             Self::Note(_) => "Note".into(),
         }

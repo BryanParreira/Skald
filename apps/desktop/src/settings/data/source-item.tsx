@@ -1,8 +1,8 @@
 import { CheckIcon, Loader2Icon } from "lucide-react";
 
-import { type ImportSourceInfo } from "@skald/plugin-importer";
-import { commands as openerCommands } from "@skald/plugin-opener2";
-import { Button } from "@skald/ui/components/ui/button";
+import { type ImportSourceInfo } from "@notiz/plugin-importer";
+import { commands as openerCommands } from "@notiz/plugin-opener2";
+import { Button } from "@notiz/ui/components/ui/button";
 
 export function SourceItem({
   source,

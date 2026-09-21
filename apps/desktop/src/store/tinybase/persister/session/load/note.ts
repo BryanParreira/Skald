@@ -1,5 +1,5 @@
-import { md2json } from "@skald/editor/markdown";
-import { commands as fsSyncCommands } from "@skald/plugin-fs-sync";
+import { md2json } from "@notiz/editor/markdown";
+import { commands as fsSyncCommands } from "@notiz/plugin-fs-sync";
 
 import type { LoadedSessionData } from "./types";
 

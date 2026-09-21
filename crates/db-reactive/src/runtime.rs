@@ -4,15 +4,15 @@ use std::sync::Arc;
 use tokio::sync::broadcast::error::{RecvError, TryRecvError};
 use tokio::sync::watch as tokio_watch;
 
-use skald_db_core::Db;
-use skald_db_execute::DbExecutor;
+use notiz_db_core::Db;
+use notiz_db_execute::DbExecutor;
 
 use crate::error::{Error, Result};
 use crate::schema::CatalogStore;
 use crate::subscriptions::{QueryEventPayload, RefreshJob, Registry};
 use crate::types::{DependencyAnalysis, QueryEventSink, SubscriptionRegistration};
 use crate::watch::WatchId;
-use skald_db_change::{ChangeNotifier, TableChange};
+use notiz_db_change::{ChangeNotifier, TableChange};
 
 pub struct LiveQueryRuntime<S> {
     db: Arc<Db>,
@@ -445,8 +445,8 @@ mod tests {
     use std::sync::{Arc, Mutex};
     use std::time::Duration;
 
+    use notiz_db_core::{DbOpenOptions, DbStorage};
     use serde_json::json;
-    use skald_db_core::{DbOpenOptions, DbStorage};
 
     use super::*;
     use crate::types::QueryEventSink;
@@ -491,15 +491,15 @@ mod tests {
         }
     }
 
-    const LIVE_QUERY_TEST_MIGRATION_STEPS: &[skald_db_migrate::MigrationStep] =
-        &[skald_db_migrate::MigrationStep {
+    const LIVE_QUERY_TEST_MIGRATION_STEPS: &[notiz_db_migrate::MigrationStep] =
+        &[notiz_db_migrate::MigrationStep {
             id: "20260415000000_live_query_test_schema",
-            scope: skald_db_migrate::MigrationScope::Plain,
+            scope: notiz_db_migrate::MigrationScope::Plain,
             sql: include_str!("../tests/common/live_query_test_schema.sql"),
         }];
 
-    fn live_query_test_schema() -> skald_db_migrate::DbSchema {
-        skald_db_migrate::DbSchema {
+    fn live_query_test_schema() -> notiz_db_migrate::DbSchema {
+        notiz_db_migrate::DbSchema {
             steps: LIVE_QUERY_TEST_MIGRATION_STEPS,
             validate_cloudsync_table: |_| false,
         }
@@ -512,7 +512,7 @@ mod tests {
     ) {
         let dir = tempfile::tempdir().unwrap();
         let db_path = dir.path().join("app.db");
-        let db = skald_db_core::Db::open(DbOpenOptions {
+        let db = notiz_db_core::Db::open(DbOpenOptions {
             storage: DbStorage::Local(&db_path),
             cloudsync_enabled: false,
             journal_mode_wal: true,
@@ -521,7 +521,7 @@ mod tests {
         })
         .await
         .unwrap();
-        skald_db_migrate::migrate(&db, live_query_test_schema())
+        notiz_db_migrate::migrate(&db, live_query_test_schema())
             .await
             .unwrap();
 

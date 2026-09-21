@@ -38,8 +38,8 @@ const GITHUB_USERNAME_TO_AUTHOR: Record<
   string,
   { name: string; email: string }
 > = {
-  yujonglee: { name: "Yujong Lee", email: "yujonglee@skald.com" },
-  ComputelessComputer: { name: "John Jeong", email: "john@skald.com" },
+  yujonglee: { name: "Yujong Lee", email: "yujonglee@notiz.com" },
+  ComputelessComputer: { name: "John Jeong", email: "john@notiz.com" },
 };
 
 export interface GitHubCredentials {

@@ -12,11 +12,11 @@
   },
   "iconLibrary": "lucide",
   "aliases": {
-    "components": "@skald/ui/components",
-    "utils": "@skald/utils",
-    "ui": "@skald/ui/components/ui",
-    "lib": "@skald/ui/lib",
-    "hooks": "@skald/ui/hooks"
+    "components": "@notiz/ui/components",
+    "utils": "@notiz/utils",
+    "ui": "@notiz/ui/components/ui",
+    "lib": "@notiz/ui/lib",
+    "hooks": "@notiz/ui/hooks"
   },
   "registries": {
     "@magicui": "https://magicui.design/r/{name}.json"

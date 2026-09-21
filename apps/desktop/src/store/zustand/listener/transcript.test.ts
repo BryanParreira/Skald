@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { createStore } from "zustand";
 
-import type { LiveTranscriptDelta } from "@skald/plugin-transcription";
+import type { LiveTranscriptDelta } from "@notiz/plugin-transcription";
 
 import {
   createTranscriptSlice,

@@ -1,5 +1,5 @@
 {
-  "name": "@skald/plugin-tracing",
+  "name": "@notiz/plugin-tracing",
   "private": true,
   "main": "./js/index.ts",
   "scripts": {

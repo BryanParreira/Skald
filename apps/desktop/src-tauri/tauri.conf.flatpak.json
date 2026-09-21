@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "Skald",
-  "mainBinaryName": "skald",
-  "identifier": "com.skald.app",
+  "productName": "Notiz",
+  "mainBinaryName": "notiz",
+  "identifier": "com.notiz.app",
   "plugins": {
     "updater": {
       "active": false

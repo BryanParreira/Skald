@@ -2,7 +2,7 @@ import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { type ComponentProps } from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { TooltipProvider } from "@skald/ui/components/ui/tooltip";
+import { TooltipProvider } from "@notiz/ui/components/ui/tooltip";
 
 import { TitleInput } from "./title-input";
 

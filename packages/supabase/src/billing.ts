@@ -35,8 +35,8 @@ export function deriveBillingInfo(
     subscriptionStatus === "trialing" &&
     (trialDaysRemaining === null || trialDaysRemaining > 0);
 
-  const hasProEntitlement = entitlements.includes("skald_pro");
-  const hasLiteEntitlement = entitlements.includes("skald_lite");
+  const hasProEntitlement = entitlements.includes("notiz_pro");
+  const hasLiteEntitlement = entitlements.includes("notiz_lite");
 
   const isPro = hasProEntitlement || isTrialing;
   const isLite = hasLiteEntitlement && !hasProEntitlement;

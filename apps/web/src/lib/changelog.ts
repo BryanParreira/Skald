@@ -1,4 +1,4 @@
-import { processContent } from "@skald/changelog";
+import { processContent } from "@notiz/changelog";
 
 import { getChangelogVersionFromPath } from "./changelog-path";
 

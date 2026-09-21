@@ -12,11 +12,11 @@ import {
   getAppLinkLabel,
   type GitHubAttrs,
   type AppLinkAttrs,
-} from "@skald/editor/app-link";
-import { getSafeNodePos } from "@skald/editor/node-views";
-import { commands as openerCommands } from "@skald/plugin-opener2";
-import { commands as todoCommands } from "@skald/plugin-todo";
-import { cn } from "@skald/utils";
+} from "@notiz/editor/app-link";
+import { getSafeNodePos } from "@notiz/editor/node-views";
+import { commands as openerCommands } from "@notiz/plugin-opener2";
+import { commands as todoCommands } from "@notiz/plugin-todo";
+import { cn } from "@notiz/utils";
 
 import { collectSiblingResources, openTaskTab } from "~/task/open-task-tab";
 

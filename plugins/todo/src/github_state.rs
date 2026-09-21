@@ -1,4 +1,4 @@
-use skald_github_issues::{GitHubIssuesClient, Issue, IssueComment};
+use notiz_github_issues::{GitHubIssuesClient, Issue, IssueComment};
 
 use crate::error::Error;
 
@@ -22,7 +22,7 @@ impl PublicGitHubHttpClient {
         );
         headers.insert(
             reqwest::header::USER_AGENT,
-            "skald-desktop".parse().unwrap(),
+            "notiz-desktop".parse().unwrap(),
         );
 
         let client = reqwest::Client::builder()
@@ -32,8 +32,8 @@ impl PublicGitHubHttpClient {
     }
 }
 
-impl skald_http::HttpClient for PublicGitHubHttpClient {
-    async fn get(&self, path: &str) -> Result<Vec<u8>, skald_http::Error> {
+impl notiz_http::HttpClient for PublicGitHubHttpClient {
+    async fn get(&self, path: &str) -> Result<Vec<u8>, notiz_http::Error> {
         let url = format!("https://api.github.com{path}");
         let resp = self.client.get(&url).send().await.map_err(Box::new)?;
         let status = resp.status();
@@ -49,19 +49,19 @@ impl skald_http::HttpClient for PublicGitHubHttpClient {
         _path: &str,
         _body: Vec<u8>,
         _content_type: &str,
-    ) -> Result<Vec<u8>, skald_http::Error> {
+    ) -> Result<Vec<u8>, notiz_http::Error> {
         unimplemented!()
     }
 
-    async fn put(&self, _path: &str, _body: Vec<u8>) -> Result<Vec<u8>, skald_http::Error> {
+    async fn put(&self, _path: &str, _body: Vec<u8>) -> Result<Vec<u8>, notiz_http::Error> {
         unimplemented!()
     }
 
-    async fn patch(&self, _path: &str, _body: Vec<u8>) -> Result<Vec<u8>, skald_http::Error> {
+    async fn patch(&self, _path: &str, _body: Vec<u8>) -> Result<Vec<u8>, notiz_http::Error> {
         unimplemented!()
     }
 
-    async fn delete(&self, _path: &str) -> Result<Vec<u8>, skald_http::Error> {
+    async fn delete(&self, _path: &str) -> Result<Vec<u8>, notiz_http::Error> {
         unimplemented!()
     }
 }

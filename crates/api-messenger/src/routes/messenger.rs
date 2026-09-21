@@ -49,7 +49,7 @@ pub async fn send_message(
                 ));
             }
 
-            let slack_req = skald_slack_web::PostMessageRequest {
+            let slack_req = notiz_slack_web::PostMessageRequest {
                 channel: req.channel.clone(),
                 text: req.text,
                 blocks: req.blocks,
@@ -72,8 +72,8 @@ pub async fn send_message(
             ))
         }
         SendMessageRequest::Teams(req) => {
-            let teams_req = skald_teems::SendMessageRequest {
-                body: skald_teems::MessageBody {
+            let teams_req = notiz_teems::SendMessageRequest {
+                body: notiz_teems::MessageBody {
                     content: req.content,
                     content_type: req.content_type,
                 },

@@ -1,6 +1,6 @@
 import type * as React from "react";
 
-import type { PluginEventRef, PluginModule } from "@skald/plugin-sdk";
+import type { PluginEventRef, PluginModule } from "@notiz/plugin-sdk";
 
 type SessionLifecyclePayload = {
   type: string;

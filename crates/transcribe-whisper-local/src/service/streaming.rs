@@ -14,13 +14,13 @@ use axum::{
     response::{IntoResponse, Response},
 };
 use futures_util::{SinkExt, Stream, StreamExt, stream::poll_fn};
+use notiz_audio_chunking::{SpeechChunkExt, SpeechChunkingConfig};
+use notiz_audio_interface::AsyncSource;
+use notiz_model_manager::{ModelManager, ModelManagerBuilder};
+use notiz_transcribe_core::TARGET_SAMPLE_RATE;
+use notiz_ws_utils::ConnectionManager;
 use owhisper_interface::stream::StreamResponse;
 use owhisper_interface::{ControlMessage, ListenParams};
-use skald_audio_chunking::{SpeechChunkExt, SpeechChunkingConfig};
-use skald_audio_interface::AsyncSource;
-use skald_model_manager::{ModelManager, ModelManagerBuilder};
-use skald_transcribe_core::TARGET_SAMPLE_RATE;
-use skald_ws_utils::ConnectionManager;
 use tokio::sync::mpsc;
 use tower::Service;
 
@@ -40,7 +40,7 @@ pub const HEALTH_PATH: &str = "/health";
 #[derive(Clone)]
 pub struct TranscribeService {
     model_path: PathBuf,
-    manager: ModelManager<skald_whisper_local::LoadedWhisper>,
+    manager: ModelManager<notiz_whisper_local::LoadedWhisper>,
     connection_manager: ConnectionManager,
 }
 
@@ -211,14 +211,14 @@ async fn handle_websocket(
     socket: axum::extract::ws::WebSocket,
     params: ListenParams,
     metadata: owhisper_interface::stream::Metadata,
-    guard: skald_ws_utils::ConnectionGuard,
-    model: Arc<skald_whisper_local::LoadedWhisper>,
-    manager: ModelManager<skald_whisper_local::LoadedWhisper>,
+    guard: notiz_ws_utils::ConnectionGuard,
+    model: Arc<notiz_whisper_local::LoadedWhisper>,
+    manager: ModelManager<notiz_whisper_local::LoadedWhisper>,
 ) {
     let (mut ws_sender, mut ws_receiver) = socket.split();
     let total_channels = (params.channels as usize).max(1);
     let redemption_time = redemption_time(&params);
-    let languages: Vec<skald_whisper::Language> = params
+    let languages: Vec<notiz_whisper::Language> = params
         .languages
         .iter()
         .filter_map(|lang| lang.clone().try_into().ok())
@@ -348,7 +348,7 @@ async fn handle_websocket(
                                         break;
                                     }
                                 } else {
-                                    let mixed = skald_audio_utils::mix_audio_f32(&ch0, &ch1);
+                                    let mixed = notiz_audio_utils::mix_audio_f32(&ch0, &ch1);
                                     channel_audio_durations[0] += mixed.len() as f64 / TARGET_SAMPLE_RATE as f64;
                                     if !mixed.is_empty() && audio_txs[0].send(mixed).await.is_err() {
                                         send_ws_best_effort(
@@ -435,8 +435,8 @@ type TranscriptionStream =
 #[allow(clippy::type_complexity)]
 fn build_transcription_streams(
     total_channels: usize,
-    loaded_model: &skald_whisper_local::LoadedWhisper,
-    languages: &[skald_whisper::Language],
+    loaded_model: &notiz_whisper_local::LoadedWhisper,
+    languages: &[notiz_whisper::Language],
     redemption_time: std::time::Duration,
 ) -> Result<
     (
@@ -508,12 +508,12 @@ impl AsyncSource for ChannelAudioSource {
 struct TranscribeChannelStream<S> {
     channel_idx: usize,
     chunk_stream: S,
-    model: skald_whisper_local::Whisper,
+    model: notiz_whisper_local::Whisper,
     pending: VecDeque<crate::service::Segment>,
 }
 
 impl<S> TranscribeChannelStream<S> {
-    fn new(channel_idx: usize, chunk_stream: S, model: skald_whisper_local::Whisper) -> Self {
+    fn new(channel_idx: usize, chunk_stream: S, model: notiz_whisper_local::Whisper) -> Self {
         Self {
             channel_idx,
             chunk_stream,
@@ -525,7 +525,7 @@ impl<S> TranscribeChannelStream<S> {
 
 impl<S> Stream for TranscribeChannelStream<S>
 where
-    S: Stream<Item = Result<skald_audio_chunking::AudioChunk, skald_audio_chunking::Error>> + Unpin,
+    S: Stream<Item = Result<notiz_audio_chunking::AudioChunk, notiz_audio_chunking::Error>> + Unpin,
 {
     type Item = Result<(usize, crate::service::Segment), crate::Error>;
 

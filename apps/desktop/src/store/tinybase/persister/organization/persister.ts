@@ -1,5 +1,5 @@
-import type { OrganizationStorage } from "@skald/store";
-import type { Schemas } from "@skald/store";
+import type { OrganizationStorage } from "@notiz/store";
+import type { Schemas } from "@notiz/store";
 
 import { parseOrganizationIdFromPath } from "./changes";
 import {

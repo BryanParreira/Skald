@@ -1,6 +1,6 @@
 use std::path::PathBuf;
 
-use skald_db_core::{Db, DbOpenOptions, DbStorage};
+use notiz_db_core::{Db, DbOpenOptions, DbStorage};
 
 use crate::error::OpenAppDbError;
 
@@ -17,7 +17,7 @@ pub(crate) async fn open_app_db(
     })
     .await?;
 
-    skald_db_app::prepare_schema(&db).await?;
+    notiz_db_app::prepare_schema(&db).await?;
 
     Ok(db)
 }

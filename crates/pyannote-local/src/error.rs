@@ -3,11 +3,11 @@ use serde::{Serialize, ser::Serializer};
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
     #[error(transparent)]
-    SkaldOnnxError(#[from] skald_onnx::Error),
+    NotizOnnxError(#[from] notiz_onnx::Error),
     #[error(transparent)]
-    OrtError(#[from] skald_onnx::ort::Error),
+    OrtError(#[from] notiz_onnx::ort::Error),
     #[error(transparent)]
-    ShapeError(#[from] skald_onnx::ndarray::ShapeError),
+    ShapeError(#[from] notiz_onnx::ndarray::ShapeError),
     #[error("knf error: {0}")]
     KnfError(String),
     #[error("empty row in outputs")]

@@ -8,9 +8,9 @@ tempfile = { workspace = true }
 tokio = { workspace = true, features = ["rt", "macros"] }
 
 [dependencies]
-skald-download-interface = { workspace = true }
-skald-file = { workspace = true }
-skald-language = { workspace = true }
+notiz-download-interface = { workspace = true }
+notiz-file = { workspace = true }
+notiz-language = { workspace = true }
 
 reqwest = { workspace = true, features = ["json", "query"] }
 tracing = { workspace = true }

@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 import { Toast } from "./component";
 import {

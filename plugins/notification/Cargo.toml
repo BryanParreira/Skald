@@ -14,10 +14,10 @@ tauri-plugin = { workspace = true, features = ["build"] }
 specta-typescript = { workspace = true }
 
 [dependencies]
-skald-detect = { workspace = true }
-skald-host = { workspace = true }
-skald-intercept = { workspace = true }
-skald-notification = { workspace = true, features = ["legacy"] }
+notiz-detect = { workspace = true }
+notiz-host = { workspace = true }
+notiz-intercept = { workspace = true }
+notiz-notification = { workspace = true, features = ["legacy"] }
 
 tauri-plugin-analytics = { workspace = true }
 tauri-plugin-dialog = { workspace = true }

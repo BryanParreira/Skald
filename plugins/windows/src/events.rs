@@ -119,12 +119,12 @@ mod test {
     fn navigate_from_str() {
         let test_cases = vec![
             (
-                "skald://skald.com/app/new?calendarEventId=123&record=true",
+                "notiz://notiz.com/app/new?calendarEventId=123&record=true",
                 "/app/new",
                 Some(serde_json::json!({ "calendarEventId": "123", "record": "true" })),
             ),
             (
-                "skald://skald.com/app/new?record=true",
+                "notiz://notiz.com/app/new?record=true",
                 "/app/new",
                 Some(serde_json::json!({ "record": "true" })),
             ),

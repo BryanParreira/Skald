@@ -1,3 +1,3 @@
-# Skald Desktop
+# Notiz Desktop
 
 This file is auto-generated on app startup.

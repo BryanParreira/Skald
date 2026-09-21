@@ -13,7 +13,7 @@ const LANGUAGE_DETECTION_LANGS: &[&str] = &[
     "zh",
 ];
 
-pub fn can_use_multi(model: &str, languages: &[skald_language::Language]) -> bool {
+pub fn can_use_multi(model: &str, languages: &[notiz_language::Language]) -> bool {
     if languages.len() < 2 {
         return false;
     }
@@ -72,7 +72,7 @@ impl LanguageQueryStrategy for DeepgramLanguageStrategy {
 
 fn single_language_query_code(
     params: &ListenParams,
-    language: &skald_language::Language,
+    language: &notiz_language::Language,
 ) -> String {
     let Some(region) = language.region() else {
         return language.iso639().code().to_string();
@@ -92,7 +92,7 @@ fn single_language_query_code(
 
 fn append_detect_language_query<'a>(
     query_pairs: &mut Serializer<'a, UrlQuery>,
-    languages: &[skald_language::Language],
+    languages: &[notiz_language::Language],
 ) {
     if languages.iter().all(supports_language_detection) {
         for language in languages {
@@ -103,7 +103,7 @@ fn append_detect_language_query<'a>(
     }
 }
 
-pub(super) fn supports_language_detection(language: &skald_language::Language) -> bool {
+pub(super) fn supports_language_detection(language: &notiz_language::Language) -> bool {
     LANGUAGE_DETECTION_LANGS.contains(&language.iso639().code())
 }
 

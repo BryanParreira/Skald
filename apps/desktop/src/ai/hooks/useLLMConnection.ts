@@ -9,8 +9,8 @@ import { fetch as tauriFetch } from "@tauri-apps/plugin-http";
 import { extractReasoningMiddleware, wrapLanguageModel } from "ai";
 import { useEffect, useMemo, useRef } from "react";
 
-import type { SkaldTask } from "@skald/api-client";
-import type { AIProviderStorage } from "@skald/store";
+import type { NotizTask } from "@notiz/api-client";
+import type { AIProviderStorage } from "@notiz/store";
 
 import { createAuthFetch } from "../auth-fetch";
 import { createTracedFetch, tracedFetch } from "../traced-fetch";
@@ -46,11 +46,11 @@ export type LLMConnectionStatus =
   | {
       status: "pending";
       reason: "local_server_starting";
-      providerId: "skald_local";
+      providerId: "notiz_local";
     }
   | { status: "error"; reason: "provider_not_found"; providerId: string }
-  | { status: "error"; reason: "unauthenticated"; providerId: "skald" }
-  | { status: "error"; reason: "not_pro"; providerId: "skald" }
+  | { status: "error"; reason: "unauthenticated"; providerId: "notiz" }
+  | { status: "error"; reason: "not_pro"; providerId: "notiz" }
   | {
       status: "error";
       reason: "missing_config";
@@ -64,7 +64,7 @@ type LLMConnectionResult = {
   status: LLMConnectionStatus;
 };
 
-export const useLanguageModel = (task?: SkaldTask): LanguageModelV3 | null => {
+export const useLanguageModel = (task?: NotizTask): LanguageModelV3 | null => {
   const { conn } = useLLMConnection();
   const accessTokenRef = useRef<string | undefined>(undefined);
 
@@ -72,7 +72,7 @@ export const useLanguageModel = (task?: SkaldTask): LanguageModelV3 | null => {
     if (!conn) return null;
 
     const hostedFetch =
-      conn.providerId === "skald"
+      conn.providerId === "notiz"
         ? createAuthFetch(
             task ? createTracedFetch(task) : tracedFetch,
             () => accessTokenRef.current,
@@ -98,7 +98,7 @@ export const useLLMConnection = (): LLMConnectionResult => {
 
   const localLlmServer = useLocalLlmServer();
   useEffect(() => {
-    if (current_llm_provider === "skald_local") {
+    if (current_llm_provider === "notiz_local") {
       void localLlmServer.ensureStarted();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -124,7 +124,7 @@ export const useLLMConnection = (): LLMConnectionResult => {
   );
   useEffect(() => {
     if (!current_llm_provider && isLocalModelDownloaded) {
-      setLlmProvider("skald_local");
+      setLlmProvider("notiz_local");
       setLlmModel(DEFAULT_LOCAL_LLM_MODEL);
     }
   }, [
@@ -206,14 +206,14 @@ const resolveLLMConnection = (params: {
     };
   }
 
-  if (providerId === "skald_local") {
+  if (providerId === "notiz_local") {
     if (!localServerUrl) {
       return {
         conn: null,
         status: {
           status: "pending",
           reason: "local_server_starting",
-          providerId: "skald_local",
+          providerId: "notiz_local",
         },
       };
     }
@@ -243,13 +243,13 @@ const resolveLLMConnection = (params: {
 
   if (blockers.length > 0) {
     const blocker = blockers[0];
-    if (blocker.code === "requires_auth" && providerId === "skald") {
+    if (blocker.code === "requires_auth" && providerId === "notiz") {
       return {
         conn: null,
         status: { status: "error", reason: "unauthenticated", providerId },
       };
     }
-    if (blocker.code === "requires_entitlement" && providerId === "skald") {
+    if (blocker.code === "requires_entitlement" && providerId === "notiz") {
       return {
         conn: null,
         status: { status: "error", reason: "not_pro", providerId },
@@ -268,7 +268,7 @@ const resolveLLMConnection = (params: {
     }
   }
 
-  if (providerId === "skald" && session) {
+  if (providerId === "notiz" && session) {
     return {
       conn: {
         providerId,
@@ -300,11 +300,11 @@ const wrapWithThinkingMiddleware = (
 
 const createLanguageModel = (
   conn: LLMConnectionInfo,
-  task?: SkaldTask,
+  task?: NotizTask,
   hostedFetch?: typeof fetch,
 ): LanguageModelV3 => {
   switch (conn.providerId) {
-    case "skald": {
+    case "notiz": {
       const provider = createOpenRouter({
         fetch: hostedFetch ?? (task ? createTracedFetch(task) : tracedFetch),
         baseURL: conn.baseUrl,
@@ -371,7 +371,7 @@ const createLanguageModel = (
       return wrapWithThinkingMiddleware(provider.chatModel(conn.modelId));
     }
 
-    case "skald_local": {
+    case "notiz_local": {
       const provider = createOpenAICompatible({
         fetch: tauriFetch,
         name: conn.providerId,

@@ -4,7 +4,7 @@ import type {
   IgnoredEvent,
   IgnoredRecurringSeries,
   SessionEvent,
-} from "@skald/store";
+} from "@notiz/store";
 
 import { getSessionEvent } from "~/session/utils";
 import * as main from "~/store/tinybase/store/main";

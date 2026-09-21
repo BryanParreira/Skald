@@ -13,7 +13,7 @@ pub enum BotError {
     BadRequest(String),
 
     #[error("Recall API error: {0}")]
-    Recall(#[from] skald_recall::Error),
+    Recall(#[from] notiz_recall::Error),
 
     #[error("Internal error: {0}")]
     Internal(String),
@@ -31,6 +31,6 @@ impl IntoResponse for BotError {
             ),
         };
 
-        skald_api_error::error_response(status, code, &message)
+        notiz_api_error::error_response(status, code, &message)
     }
 }

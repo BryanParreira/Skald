@@ -15,8 +15,8 @@ import {
   AccordionHeader,
   AccordionItem,
   AccordionTriggerPrimitive,
-} from "@skald/ui/components/ui/accordion";
-import { cn } from "@skald/utils";
+} from "@notiz/ui/components/ui/accordion";
+import { cn } from "@notiz/utils";
 
 import {
   type MenuItemDef,

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 // @ts-ignore virtual module provided by ./vite.ts
 import { latestContent, latestVersion } from "virtual:changelog";
 
-import { processContent } from "@skald/changelog";
+import { processContent } from "@notiz/changelog";
 
 export function getLatestVersion(): string | null {
   return latestVersion;
@@ -11,7 +11,7 @@ export function getLatestVersion(): string | null {
 async function fetchChangelogFromGitHub(
   version: string,
 ): Promise<string | null> {
-  const url = `https://raw.githubusercontent.com/BryanParreira/Skald/main/packages/changelog/content/${version}.md`;
+  const url = `https://raw.githubusercontent.com/BryanParreira/Notiz/main/packages/changelog/content/${version}.md`;
   try {
     const response = await fetch(url);
     if (!response.ok) {

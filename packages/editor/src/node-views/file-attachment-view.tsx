@@ -13,8 +13,8 @@ import {
 import type { NodeSpec } from "prosemirror-model";
 import { forwardRef } from "react";
 
-import { commands as openerCommands } from "@skald/plugin-opener2";
-import { cn } from "@skald/utils";
+import { commands as openerCommands } from "@notiz/plugin-opener2";
+import { cn } from "@notiz/utils";
 
 import { getSafeNodePos } from "./error-boundary";
 

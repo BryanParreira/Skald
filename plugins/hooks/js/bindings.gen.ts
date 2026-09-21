@@ -26,12 +26,12 @@ export const commands = {
 
 export type AfterListeningStoppedArgs = {
   resource_dir: string;
-  app_skald: string;
+  app_notiz: string;
   app_meeting?: string | null;
 };
 export type BeforeListeningStartedArgs = {
   resource_dir: string;
-  app_skald: string;
+  app_notiz: string;
   app_meeting?: string | null;
 };
 export type HookDefinition = { command: string };

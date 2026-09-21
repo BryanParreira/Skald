@@ -6,7 +6,7 @@ const { isSupportedLanguagesBatchMock, isSupportedLanguagesLiveMock } =
     isSupportedLanguagesLiveMock: vi.fn(),
   }));
 
-vi.mock("@skald/plugin-transcription", () => ({
+vi.mock("@notiz/plugin-transcription", () => ({
   commands: {
     isSupportedLanguagesBatch: isSupportedLanguagesBatchMock,
     isSupportedLanguagesLive: isSupportedLanguagesLiveMock,
@@ -75,10 +75,10 @@ describe("isSupportedLocalSttModel", () => {
 });
 
 describe("isConfiguredSttModel", () => {
-  test("requires known model ids for Skald STT", () => {
-    expect(isConfiguredSttModel("skald", "cloud")).toBe(true);
-    expect(isConfiguredSttModel("skald", "soniqo-qwen3-small")).toBe(true);
-    expect(isConfiguredSttModel("skald", "removed-local-model")).toBe(false);
+  test("requires known model ids for Notiz STT", () => {
+    expect(isConfiguredSttModel("notiz", "cloud")).toBe(true);
+    expect(isConfiguredSttModel("notiz", "soniqo-qwen3-small")).toBe(true);
+    expect(isConfiguredSttModel("notiz", "removed-local-model")).toBe(false);
   });
 
   test("allows custom model ids for external providers", () => {

@@ -1,12 +1,12 @@
 use anyhow::{Context, Result};
 use futures_util::Stream;
 use futures_util::task::AtomicWaker;
+use notiz_audio_utils::{pcm_i16_to_f32, pcm_i32_to_f32};
 use pin_project::pin_project;
 use ringbuf::{
     HeapCons, HeapProd, HeapRb,
     traits::{Observer, Producer, Split},
 };
-use skald_audio_utils::{pcm_i16_to_f32, pcm_i32_to_f32};
 use std::collections::VecDeque;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, AtomicU32, AtomicUsize, Ordering};
@@ -208,7 +208,7 @@ fn capture_audio_loop(
 
     current_sample_rate.store(capture_format.sample_rate, Ordering::Release);
     tracing::info!(
-        skald.audio.sample_rate_hz = capture_format.sample_rate,
+        notiz.audio.sample_rate_hz = capture_format.sample_rate,
         "wasapi_loopback_initialized"
     );
     let _ = init_tx.send(Ok(()));

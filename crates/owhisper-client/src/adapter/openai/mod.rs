@@ -10,13 +10,13 @@ use super::{LanguageQuality, LanguageSupport};
 pub struct OpenAIAdapter;
 
 impl OpenAIAdapter {
-    pub fn language_support_batch(_languages: &[skald_language::Language]) -> LanguageSupport {
+    pub fn language_support_batch(_languages: &[notiz_language::Language]) -> LanguageSupport {
         LanguageSupport::Supported {
             quality: LanguageQuality::NoData,
         }
     }
 
-    pub fn is_supported_languages_batch(languages: &[skald_language::Language]) -> bool {
+    pub fn is_supported_languages_batch(languages: &[notiz_language::Language]) -> bool {
         Self::language_support_batch(languages).is_supported()
     }
 

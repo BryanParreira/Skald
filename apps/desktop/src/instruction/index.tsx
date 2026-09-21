@@ -4,11 +4,11 @@ import { ChevronLeft, ExternalLink, Github } from "lucide-react";
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 
-import { commands as openerCommands } from "@skald/plugin-opener2";
-import { OutlookIcon } from "@skald/ui/components/icons/outlook";
-import { Button } from "@skald/ui/components/ui/button";
-import { Input } from "@skald/ui/components/ui/input";
-import { cn } from "@skald/utils";
+import { commands as openerCommands } from "@notiz/plugin-opener2";
+import { OutlookIcon } from "@notiz/ui/components/icons/outlook";
+import { Button } from "@notiz/ui/components/ui/button";
+import { Input } from "@notiz/ui/components/ui/input";
+import { cn } from "@notiz/utils";
 
 import { useAuth } from "~/auth";
 
@@ -72,7 +72,7 @@ function InstructionShell({
         <div className="flex w-full max-w-sm flex-col items-center gap-6 px-10 pb-10 text-center">
           {icon ?? (
             <img
-              src="/assets/skald-icon.png"
+              src="/assets/notiz-icon.png"
               alt=""
               className="h-14 w-14 object-contain object-center"
             />
@@ -168,7 +168,7 @@ export function InstructionScreen({
     return (
       <ExternalInstruction
         title={t`Complete your purchase`}
-        description={t`Finish checkout in your browser, then return to Skald.`}
+        description={t`Finish checkout in your browser, then return to Notiz.`}
         actionLabel={t`Reopen checkout page`}
         onBack={onBack}
         url={url}
@@ -185,7 +185,7 @@ export function InstructionScreen({
           ? t`Connect ${integration.displayName}`
           : t`Connect your integration`
       }
-      description={t`Authorize access in your browser, then return to Skald.`}
+      description={t`Authorize access in your browser, then return to Notiz.`}
       icon={integration?.icon}
       actionLabel={t`Reopen in browser`}
       onBack={onBack}
@@ -238,7 +238,7 @@ function SignInInstruction({ onBack }: { onBack: () => void }) {
   return (
     <InstructionShell
       title={t`Sign in to your account`}
-      description={t`Complete sign-in in your browser, then return to Skald.`}
+      description={t`Complete sign-in in your browser, then return to Notiz.`}
       onBack={onBack}
     >
       {showCallbackInput ? (
@@ -247,7 +247,7 @@ function SignInInstruction({ onBack }: { onBack: () => void }) {
             <Input
               type="text"
               className="h-10 font-mono text-xs"
-              placeholder="skald://deeplink/auth?access_token=..."
+              placeholder="notiz://deeplink/auth?access_token=..."
               value={callbackUrl}
               onChange={(e) => setCallbackUrl(e.target.value)}
             />
@@ -262,7 +262,7 @@ function SignInInstruction({ onBack }: { onBack: () => void }) {
           <p className="text-muted-foreground text-xs leading-5">
             <Trans>
               Paste the browser URL here if the browser button did not reopen
-              Skald.
+              Notiz.
             </Trans>
           </p>
         </>

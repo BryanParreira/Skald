@@ -4,7 +4,7 @@ mod fetch;
 pub mod runtime;
 
 pub use error::Error;
-pub use skald_calendar_interface::{
+pub use notiz_calendar_interface::{
     CalendarEvent, CalendarListItem, CalendarProviderType, CreateEventInput, EventFilter,
 };
 
@@ -13,7 +13,7 @@ pub fn start(runtime: impl runtime::CalendarRuntime) {
     {
         use std::sync::Arc;
         let runtime = Arc::new(runtime);
-        skald_apple_calendar::setup_change_notification(move || {
+        notiz_apple_calendar::setup_change_notification(move || {
             runtime.emit_changed();
         });
     }
@@ -279,8 +279,8 @@ fn open_apple_calendar() -> Result<(), Error> {
 }
 
 #[cfg(target_os = "macos")]
-fn list_apple_calendars() -> Result<Vec<skald_apple_calendar::types::AppleCalendar>, Error> {
-    let handle = skald_apple_calendar::Handle::new();
+fn list_apple_calendars() -> Result<Vec<notiz_apple_calendar::types::AppleCalendar>, Error> {
+    let handle = notiz_apple_calendar::Handle::new();
     handle
         .list_calendars()
         .map_err(|e| Error::Apple(e.to_string()))
@@ -289,9 +289,9 @@ fn list_apple_calendars() -> Result<Vec<skald_apple_calendar::types::AppleCalend
 #[cfg(target_os = "macos")]
 fn list_apple_events(
     filter: EventFilter,
-) -> Result<Vec<skald_apple_calendar::types::AppleEvent>, Error> {
-    let handle = skald_apple_calendar::Handle::new();
-    let filter = skald_apple_calendar::types::EventFilter {
+) -> Result<Vec<notiz_apple_calendar::types::AppleEvent>, Error> {
+    let handle = notiz_apple_calendar::Handle::new();
+    let filter = notiz_apple_calendar::types::EventFilter {
         from: filter.from,
         to: filter.to,
         calendar_tracking_id: filter.calendar_tracking_id,
@@ -304,12 +304,12 @@ fn list_apple_events(
 
 #[cfg(target_os = "macos")]
 fn create_apple_event(input: CreateEventInput) -> Result<String, Error> {
-    let handle = skald_apple_calendar::Handle::new();
+    let handle = notiz_apple_calendar::Handle::new();
 
     let start_date = parse_datetime(&input.started_at, "started_at")?;
     let end_date = parse_datetime(&input.ended_at, "ended_at")?;
 
-    let input = skald_apple_calendar::types::CreateEventInput {
+    let input = notiz_apple_calendar::types::CreateEventInput {
         title: input.title,
         start_date,
         end_date,
@@ -343,7 +343,7 @@ fn open_apple_calendar() -> Result<(), Error> {
 }
 
 #[cfg(not(target_os = "macos"))]
-fn list_apple_calendars() -> Result<Vec<skald_apple_calendar::types::AppleCalendar>, Error> {
+fn list_apple_calendars() -> Result<Vec<notiz_apple_calendar::types::AppleCalendar>, Error> {
     Err(Error::ProviderUnavailable {
         provider: CalendarProviderType::Apple,
     })
@@ -352,7 +352,7 @@ fn list_apple_calendars() -> Result<Vec<skald_apple_calendar::types::AppleCalend
 #[cfg(not(target_os = "macos"))]
 fn list_apple_events(
     _filter: EventFilter,
-) -> Result<Vec<skald_apple_calendar::types::AppleEvent>, Error> {
+) -> Result<Vec<notiz_apple_calendar::types::AppleEvent>, Error> {
     Err(Error::ProviderUnavailable {
         provider: CalendarProviderType::Apple,
     })

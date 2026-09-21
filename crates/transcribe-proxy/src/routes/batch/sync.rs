@@ -15,9 +15,9 @@ use owhisper_client::{
 use owhisper_interface::ListenParams;
 use owhisper_interface::batch::Response as BatchResponse;
 
+use crate::notiz_routing::{RetryConfig, RoutingMode};
 use crate::provider_selector::SelectedProvider;
 use crate::query_params::QueryParams;
-use crate::skald_routing::{RetryConfig, RoutingMode};
 
 use super::super::AppState;
 use super::super::model_resolution::resolve_model_batch;
@@ -82,9 +82,9 @@ fn log_batch_routing_trace(trace: &BatchRoutingTrace, success: bool) {
         .to_string()
     });
     if success {
-        tracing::info!(trace_json = %trace_json, "skald_batch_routing_trace");
+        tracing::info!(trace_json = %trace_json, "notiz_batch_routing_trace");
     } else {
-        tracing::error!(trace_json = %trace_json, "skald_batch_routing_trace");
+        tracing::error!(trace_json = %trace_json, "notiz_batch_routing_trace");
     }
 }
 
@@ -97,7 +97,7 @@ fn resolve_listen_params_for_provider(
     resolved_params
 }
 
-pub(super) async fn handle_skald_batch(
+pub(super) async fn handle_notiz_batch(
     state: &AppState,
     params: &QueryParams,
     listen_params: ListenParams,
@@ -106,7 +106,7 @@ pub(super) async fn handle_skald_batch(
     content_type: &str,
 ) -> Response {
     let mut provider_chain =
-        state.resolve_skald_provider_chain_for_mode(RoutingMode::Batch, params);
+        state.resolve_notiz_provider_chain_for_mode(RoutingMode::Batch, params);
     append_deepgram_batch_detection_fallback(state, &mut provider_chain, &listen_params);
 
     if provider_chain.is_empty() {
@@ -130,7 +130,7 @@ pub(super) async fn handle_skald_batch(
         provider_chain = ?provider_chain.iter().map(|p| p.provider()).collect::<Vec<_>>(),
         content_type = %content_type,
         body_size_bytes = %audio_size_bytes,
-        "skald_batch_transcription_request"
+        "notiz_batch_transcription_request"
     );
 
     let mut last_error: Option<String> = None;
@@ -161,8 +161,8 @@ pub(super) async fn handle_skald_batch(
         {
             Ok((response, retries)) => {
                 tracing::info!(
-                    skald.stt.provider.name = ?provider,
-                    skald.attempt.number = attempt + 1,
+                    notiz.stt.provider.name = ?provider,
+                    notiz.attempt.number = attempt + 1,
                     "batch_transcription_succeeded"
                 );
                 trace.attempts.push(BatchRoutingAttempt {
@@ -178,10 +178,10 @@ pub(super) async fn handle_skald_batch(
             }
             Err((e, retries)) => {
                 tracing::warn!(
-                    skald.stt.provider.name = ?provider,
+                    notiz.stt.provider.name = ?provider,
                     error = %e,
-                    skald.attempt.number = attempt + 1,
-                    skald.remaining_provider_count = provider_chain.len() - attempt - 1,
+                    notiz.attempt.number = attempt + 1,
+                    notiz.remaining_provider_count = provider_chain.len() - attempt - 1,
                     "provider_failed_trying_next"
                 );
                 trace.attempts.push(BatchRoutingAttempt {
@@ -245,9 +245,9 @@ pub(super) async fn transcribe_with_retry(
             .retry(backoff)
             .notify(|err, dur| {
                 tracing::warn!(
-                    skald.stt.provider.name = ?selected.provider(),
+                    notiz.stt.provider.name = ?selected.provider(),
                     error = %err,
-                    skald.retry.delay_ms = dur.as_millis(),
+                    notiz.retry.delay_ms = dur.as_millis(),
                     "retrying_transcription"
                 );
                 retries += 1;
@@ -399,7 +399,7 @@ fn classify_audio_processing_message(message: String) -> BatchAttemptError {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use skald_language::ISO639;
+    use notiz_language::ISO639;
 
     #[test]
     fn test_resolve_listen_params_for_provider_resolves_meta_model_per_provider() {

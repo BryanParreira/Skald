@@ -1,4 +1,4 @@
-use skald_hid_interface::{PacketError, PacketType};
+use notiz_hid_interface::{PacketError, PacketType};
 
 #[derive(Debug, thiserror::Error)]
 pub enum Error {

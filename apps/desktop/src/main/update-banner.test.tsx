@@ -65,7 +65,7 @@ const {
   },
 }));
 
-vi.mock("@skald/plugin-updater2", () => ({
+vi.mock("@notiz/plugin-updater2", () => ({
   commands: {
     check: checkMock,
     download: downloadMock,

@@ -1,6 +1,6 @@
 import path from "path";
 
-import { createAgentNode, loadPrompt } from "@skald/agent-core";
+import { createAgentNode, loadPrompt } from "@notiz/agent-core";
 
 import { tools } from "../tools";
 

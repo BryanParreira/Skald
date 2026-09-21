@@ -1,5 +1,5 @@
 {
-  "name": "@skald/plugin-windows",
+  "name": "@notiz/plugin-windows",
   "private": true,
   "main": "./js/index.ts",
   "exports": {

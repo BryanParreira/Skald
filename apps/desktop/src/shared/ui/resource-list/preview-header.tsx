@@ -2,7 +2,7 @@ import { useLingui } from "@lingui/react/macro";
 import { Copy } from "lucide-react";
 import type { ReactNode } from "react";
 
-import { Button, type ButtonProps } from "@skald/ui/components/ui/button";
+import { Button, type ButtonProps } from "@notiz/ui/components/ui/button";
 
 import { TemplateCategoryLabel } from "../template-category-label";
 

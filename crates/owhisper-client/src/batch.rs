@@ -5,7 +5,7 @@ use owhisper_interface::ListenParams;
 use owhisper_interface::batch::Response as BatchResponse;
 use reqwest_middleware::ClientWithMiddleware;
 
-use crate::adapter::{BatchSttAdapter, append_provider_param, is_skald_proxy};
+use crate::adapter::{BatchSttAdapter, append_provider_param, is_notiz_proxy};
 use crate::error::Error;
 use crate::http_client::create_client;
 use crate::{DeepgramAdapter, ListenClientBuilder, normalize_listen_params};
@@ -73,7 +73,7 @@ pub struct BatchClient<A: BatchSttAdapter = DeepgramAdapter> {
 
 impl<A: BatchSttAdapter> BatchClient<A> {
     fn normalize_api_base(api_base: String) -> String {
-        if !is_skald_proxy(&api_base) {
+        if !is_notiz_proxy(&api_base) {
             return api_base;
         }
         let provider_name = A::default().provider_name();
@@ -132,17 +132,17 @@ impl<A: crate::RealtimeSttAdapter + BatchSttAdapter> ListenClientBuilder<A> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{DeepgramAdapter, OpenAIAdapter, SkaldAdapter};
-    use skald_language::{ISO639, Language};
+    use crate::{DeepgramAdapter, NotizAdapter, OpenAIAdapter};
+    use notiz_language::{ISO639, Language};
 
     #[test]
-    fn injects_provider_for_skald_proxy() {
-        let client = BatchClient::<SkaldAdapter>::builder()
+    fn injects_provider_for_notiz_proxy() {
+        let client = BatchClient::<NotizAdapter>::builder()
             .api_base("https://api.hyprnote.com/stt")
             .api_key("test")
             .build();
 
-        assert!(client.api_base.contains("provider=skald"));
+        assert!(client.api_base.contains("provider=notiz"));
     }
 
     #[test]
@@ -156,7 +156,7 @@ mod tests {
     }
 
     #[test]
-    fn injects_provider_for_direct_provider_adapter_on_skald_proxy() {
+    fn injects_provider_for_direct_provider_adapter_on_notiz_proxy() {
         let client = BatchClient::<DeepgramAdapter>::builder()
             .api_base("https://api.hyprnote.com/stt")
             .api_key("test")
@@ -168,12 +168,12 @@ mod tests {
     #[test]
     fn rewrites_existing_provider_for_direct_provider_adapter() {
         let client = BatchClient::<OpenAIAdapter>::builder()
-            .api_base("https://api.hyprnote.com/stt?provider=skald&model=whisper-1")
+            .api_base("https://api.hyprnote.com/stt?provider=notiz&model=whisper-1")
             .api_key("test")
             .build();
 
         assert!(client.api_base.contains("provider=openai"));
-        assert!(!client.api_base.contains("provider=skald"));
+        assert!(!client.api_base.contains("provider=notiz"));
         assert!(client.api_base.contains("model=whisper-1"));
     }
 

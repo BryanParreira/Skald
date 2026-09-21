@@ -4,10 +4,10 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-skald-api-error = { workspace = true }
-skald-http = { workspace = true }
-skald-slack-web = { workspace = true }
-skald-teems = { workspace = true }
+notiz-api-error = { workspace = true }
+notiz-http = { workspace = true }
+notiz-slack-web = { workspace = true }
+notiz-teems = { workspace = true }
 
 axum = { workspace = true }
 serde = { workspace = true, features = ["derive"] }

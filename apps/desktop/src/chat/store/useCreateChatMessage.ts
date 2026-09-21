@@ -1,4 +1,4 @@
-import type { ChatMessage, ChatMessageStorage } from "@skald/store";
+import type { ChatMessage, ChatMessageStorage } from "@notiz/store";
 
 import * as main from "~/store/tinybase/store/main";
 

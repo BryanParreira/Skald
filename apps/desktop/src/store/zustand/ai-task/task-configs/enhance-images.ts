@@ -1,7 +1,7 @@
 import {
   type AttachmentInfo,
   commands as fsSyncCommands,
-} from "@skald/plugin-fs-sync";
+} from "@notiz/plugin-fs-sync";
 
 export type EnhanceImageContext = {
   base64: string;

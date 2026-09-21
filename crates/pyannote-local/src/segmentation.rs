@@ -1,4 +1,4 @@
-use skald_onnx::{
+use notiz_onnx::{
     ndarray::{self, ArrayBase, Axis, IxDyn, ViewRepr},
     ort::{self, session::Session, value::TensorRef},
 };
@@ -22,7 +22,7 @@ pub struct Segmenter {
 
 impl Segmenter {
     pub fn new(sample_rate: u32) -> Result<Self, crate::Error> {
-        let session = skald_onnx::load_model_from_bytes(SEGMENTATION_ONNX)?;
+        let session = notiz_onnx::load_model_from_bytes(SEGMENTATION_ONNX)?;
 
         Ok(Self {
             session,
@@ -170,6 +170,6 @@ mod tests {
         };
     }
 
-    test_segmentation!(test_segmentation_english_1, skald_data::english_1::AUDIO);
-    test_segmentation!(test_segmentation_english_2, skald_data::english_2::AUDIO);
+    test_segmentation!(test_segmentation_english_1, notiz_data::english_1::AUDIO);
+    test_segmentation!(test_segmentation_english_2, notiz_data::english_2::AUDIO);
 }

@@ -1,6 +1,6 @@
 import type { MouseEvent, ReactNode } from "react";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 export function TimelineMeta({ children }: { children: ReactNode }) {
   return (

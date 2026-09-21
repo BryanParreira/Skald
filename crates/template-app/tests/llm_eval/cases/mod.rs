@@ -2,8 +2,8 @@ mod enhance;
 mod title;
 mod transcript_patch;
 
-use skald_template_eval::EvalCase;
-use skald_template_eval::Failed;
+use notiz_template_eval::EvalCase;
+use notiz_template_eval::Failed;
 
 pub fn all(samples: usize) -> Result<Vec<EvalCase>, Failed> {
     Ok(vec![

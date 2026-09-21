@@ -35,7 +35,7 @@ impl CommandBuilder {
 pub struct ExternalSTTArgs {
     pub cmd_builder: CommandBuilder,
     pub api_key: String,
-    pub model: skald_am::AmModel,
+    pub model: notiz_am::AmModel,
     pub models_dir: PathBuf,
     pub port: u16,
 }
@@ -44,7 +44,7 @@ impl ExternalSTTArgs {
     pub fn new(
         cmd_builder: CommandBuilder,
         api_key: String,
-        model: skald_am::AmModel,
+        model: notiz_am::AmModel,
         models_dir: PathBuf,
         port: u16,
     ) -> Self {
@@ -61,9 +61,9 @@ impl ExternalSTTArgs {
 pub struct ExternalSTTState {
     base_url: String,
     api_key: Option<String>,
-    model: skald_am::AmModel,
+    model: notiz_am::AmModel,
     models_dir: PathBuf,
-    client: skald_am::Client,
+    client: notiz_am::Client,
     process_handle: Option<CommandChild>,
     task_handle: Option<tokio::task::JoinHandle<()>>,
 }
@@ -97,7 +97,7 @@ fn cleanup_state(state: &mut ExternalSTTState) {
     }
 
     if kill_failed {
-        skald_host::kill_processes_by_matcher(skald_host::ProcessMatcher::Sidecar);
+        notiz_host::kill_processes_by_matcher(notiz_host::ProcessMatcher::Sidecar);
     }
 
     if let Some(task) = state.task_handle.take() {
@@ -127,7 +127,7 @@ impl Actor for ExternalSTTActor {
         let cmd = cmd_builder.build()?;
         let (mut rx, child) = cmd.args(["--port", &port.to_string()]).spawn()?;
         let base_url = format!("http://localhost:{}/v1", port);
-        let client = skald_am::Client::new(&base_url);
+        let client = notiz_am::Client::new(&base_url);
 
         let task_handle = tokio::spawn(async move {
             loop {
@@ -190,13 +190,13 @@ impl Actor for ExternalSTTActor {
             let response = state
                 .client
                 .init(
-                    skald_am::InitRequest::new(api_key.clone())
+                    notiz_am::InitRequest::new(api_key.clone())
                         .with_model(model.clone(), &models_dir),
                 )
                 .await?;
 
             if !response.is_success() {
-                return Err(skald_am::Error::ServerError {
+                return Err(notiz_am::Error::ServerError {
                     status: response.status_str().to_string(),
                     message: response.message().to_string(),
                 });
@@ -243,8 +243,8 @@ impl Actor for ExternalSTTActor {
             ExternalSTTMessage::GetHealth(reply_port) => {
                 let status = match state.client.status().await {
                     Ok(r) => match r.status {
-                        skald_am::ServerStatusType::Ready => ServerStatus::Ready,
-                        skald_am::ServerStatusType::Initializing => ServerStatus::Loading,
+                        notiz_am::ServerStatusType::Ready => ServerStatus::Ready,
+                        notiz_am::ServerStatusType::Initializing => ServerStatus::Loading,
                         _ => ServerStatus::Unreachable,
                     },
                     Err(e) => {

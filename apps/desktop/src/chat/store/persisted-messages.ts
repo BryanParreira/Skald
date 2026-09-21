@@ -1,7 +1,7 @@
-import type { ChatMessageStatus, ChatMessageStorage } from "@skald/store";
+import type { ChatMessageStatus, ChatMessageStorage } from "@notiz/store";
 
 import { hasRenderableContent } from "~/chat/message-content";
-import type { SkaldUIMessage } from "~/chat/types";
+import type { NotizUIMessage } from "~/chat/types";
 import * as main from "~/store/tinybase/store/main";
 
 type ChatStore = NonNullable<ReturnType<typeof main.UI.useStore>>;
@@ -10,7 +10,7 @@ export type PersistedChatMessage = {
   id: string;
   row: ChatMessageStorage;
   status: ChatMessageStatus;
-  message: SkaldUIMessage;
+  message: NotizUIMessage;
 };
 
 function parseJson<T>(value: string | undefined, fallback: T): T {
@@ -38,7 +38,7 @@ export function normalizeChatMessageStatus(status: unknown): ChatMessageStatus {
   return "ready";
 }
 
-function extractTextContent(parts: SkaldUIMessage["parts"]) {
+function extractTextContent(parts: NotizUIMessage["parts"]) {
   return parts
     .filter((part): part is Extract<typeof part, { type: "text" }> => {
       return part.type === "text";
@@ -48,7 +48,7 @@ function extractTextContent(parts: SkaldUIMessage["parts"]) {
 }
 
 function getCreatedAt(
-  message: SkaldUIMessage,
+  message: NotizUIMessage,
   existingRow?: Partial<ChatMessageStorage>,
 ) {
   if (existingRow?.created_at) {
@@ -70,7 +70,7 @@ export function buildPersistedChatMessageRow({
   status,
   existingRow,
 }: {
-  message: SkaldUIMessage;
+  message: NotizUIMessage;
   chatGroupId: string;
   userId: string;
   status: ChatMessageStatus;
@@ -93,7 +93,7 @@ export function rowToPersistedChatMessage(
   row: Record<string, unknown>,
 ): PersistedChatMessage {
   const status = normalizeChatMessageStatus(row.status);
-  const message: SkaldUIMessage = {
+  const message: NotizUIMessage = {
     id,
     role: row.role as "user" | "assistant",
     parts: parseJson(row.parts as string | undefined, []),
@@ -147,14 +147,14 @@ export function shouldHidePersistedMessage(message: PersistedChatMessage) {
   );
 }
 
-export function shouldPersistFinishedMessage(message: SkaldUIMessage): boolean {
+export function shouldPersistFinishedMessage(message: NotizUIMessage): boolean {
   return message.role !== "assistant" || hasRenderableContent(message);
 }
 
 export function getVisibleChatMessages(
   store: ChatStore,
   chatGroupId: string,
-): SkaldUIMessage[] {
+): NotizUIMessage[] {
   return getPersistedChatMessages(store, chatGroupId)
     .filter((message) => !shouldHidePersistedMessage(message))
     .map((message) => message.message);

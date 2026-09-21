@@ -5,7 +5,7 @@ mod runtime;
 
 pub use error::Error;
 pub use events::*;
-pub use skald_calendar::ProviderConnectionIds;
+pub use notiz_calendar::ProviderConnectionIds;
 
 pub(crate) struct PluginConfig {
     pub api_base_url: String,
@@ -39,7 +39,7 @@ pub fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
         .setup(move |app, _api| {
             specta_builder.mount_events(app);
 
-            skald_calendar::start(runtime::TauriCalendarRuntime(app.app_handle().clone()));
+            notiz_calendar::start(runtime::TauriCalendarRuntime(app.app_handle().clone()));
 
             use tauri::Manager;
             app.manage(PluginConfig { api_base_url });

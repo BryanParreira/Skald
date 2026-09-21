@@ -8,11 +8,11 @@ import {
   useMemo,
 } from "react";
 
-import { commands as fsSyncCommands } from "@skald/plugin-fs-sync";
-import { commands as openerCommands } from "@skald/plugin-opener2";
-import { DancingSticks } from "@skald/ui/components/ui/dancing-sticks";
-import { Spinner } from "@skald/ui/components/ui/spinner";
-import { cn, format, getYear, safeParseDate, TZDate } from "@skald/utils";
+import { commands as fsSyncCommands } from "@notiz/plugin-fs-sync";
+import { commands as openerCommands } from "@notiz/plugin-opener2";
+import { DancingSticks } from "@notiz/ui/components/ui/dancing-sticks";
+import { Spinner } from "@notiz/ui/components/ui/spinner";
+import { cn, format, getYear, safeParseDate, TZDate } from "@notiz/utils";
 
 import {
   type EventTimelineItem,

@@ -3,21 +3,21 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteFooter } from "@/components/site-footer";
 import { changelogEntries, formatChangelogDate } from "@/lib/changelog";
 import { getEntrySummary } from "@/lib/changelog-summary";
-import { SKALD_SITE_URL } from "@/lib/seo";
+import { NOTIZ_SITE_URL } from "@/lib/seo";
 
 export const Route = createFileRoute("/changelog/")({
   component: Component,
   head: () => ({
-    links: [{ rel: "canonical", href: `${SKALD_SITE_URL}/changelog` }],
+    links: [{ rel: "canonical", href: `${NOTIZ_SITE_URL}/changelog` }],
     meta: [
-      { title: "Skald Changelog" },
+      { title: "Notiz Changelog" },
       {
         name: "description",
         content:
-          "See the latest Skald desktop app updates, fixes, and product changes.",
+          "See the latest Notiz desktop app updates, fixes, and product changes.",
       },
-      { property: "og:title", content: "Skald Changelog" },
-      { property: "og:url", content: `${SKALD_SITE_URL}/changelog` },
+      { property: "og:title", content: "Notiz Changelog" },
+      { property: "og:url", content: `${NOTIZ_SITE_URL}/changelog` },
     ],
   }),
 });
@@ -27,8 +27,8 @@ function Component() {
     <main className="min-h-screen bg-white text-[#181613]">
       <div className="mx-auto w-full max-w-[700px] px-5 py-8 md:px-8 md:py-12">
         <header className="flex items-center justify-between gap-6">
-          <Link to="/" aria-label="Skald home">
-            <img src="/logo.svg" alt="Skald" className="h-9 w-auto" />
+          <Link to="/" aria-label="Notiz home">
+            <img src="/logo.svg" alt="Notiz" className="h-9 w-auto" />
           </Link>
         </header>
 
@@ -37,7 +37,7 @@ function Component() {
             Changelog
           </h1>
           <p className="mt-6 max-w-2xl text-xl leading-9 text-[#363029]">
-            Product updates, fixes, and release notes for Skald.
+            Product updates, fixes, and release notes for Notiz.
           </p>
         </section>
 

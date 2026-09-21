@@ -1,32 +1,32 @@
 <div align="center">
 
-<img src="apps/desktop/src-tauri/icons/stable/128x128@2x.png" width="104" alt="Skald">
+<img src="apps/desktop/src-tauri/icons/stable/128x128@2x.png" width="104" alt="Notiz">
 
-# Skald
+# Notiz
 
 **Your meetings. Your machine. Your notes.**
 
 A local-first AI meeting assistant for macOS. It listens, transcribes, and writes
 the notes up — on your own hardware, into plain Markdown files you own.
 
-[![Download](https://img.shields.io/badge/Download-macOS-1f1b16?style=for-the-badge)](https://github.com/BryanParreira/Skald/releases/latest)
+[![Download](https://img.shields.io/badge/Download-macOS-1f1b16?style=for-the-badge)](https://github.com/BryanParreira/Notiz/releases/latest)
 [![License](https://img.shields.io/badge/License-MIT-1f1b16?style=for-the-badge)](LICENSE)
-[![Platform](https://img.shields.io/badge/macOS-14.2%2B-1f1b16?style=for-the-badge)](https://github.com/BryanParreira/Skald/releases/latest)
+[![Platform](https://img.shields.io/badge/macOS-14.2%2B-1f1b16?style=for-the-badge)](https://github.com/BryanParreira/Notiz/releases/latest)
 
 </div>
 
 ---
 
-A *skald* was the Norse court poet whose job was to listen to what happened and
-turn it into something worth keeping. That is the whole idea.
+*Notiz* is German for "note" — a short record of what happened, written down so
+it is worth keeping. That is the whole idea.
 
-No bot joins your call. Skald captures the audio your Mac is already playing and
+No bot joins your call. Notiz captures the audio your Mac is already playing and
 recording, so it works with Zoom, Meet, Teams, or two people talking across a
 table — with nothing to invite and nobody else in the room.
 
 ## Install
 
-**[Download the latest release →](https://github.com/BryanParreira/Skald/releases/latest)**
+**[Download the latest release →](https://github.com/BryanParreira/Notiz/releases/latest)**
 
 Requires macOS 14.2 or later, Apple silicon. Grant microphone and system-audio
 permission on first launch; the app walks you through it.
@@ -64,7 +64,7 @@ This is the part worth being precise about, so here is exactly what happens.
 | **AI requests** | Go straight from your machine to the provider you configured. They are not proxied through any server of ours. |
 
 The honest caveat: choosing a cloud transcriber or a hosted model means your data
-goes to *that vendor*, on your key and their terms. Skald does not add a hop, but
+goes to *that vendor*, on your key and their terms. Notiz does not add a hop, but
 it cannot make a remote API local.
 
 ## Build it yourself
@@ -74,7 +74,7 @@ Requires [Rust](https://rustup.rs), [Node 22+](https://nodejs.org), and
 
 ```bash
 pnpm install
-pnpm -F @skald/desktop tauri:dev     # run in development
+pnpm -F @notiz/desktop tauri:dev     # run in development
 pnpm -F desktop tauri:build          # produce a .app and .dmg
 ```
 
@@ -97,7 +97,7 @@ platform glue lives in [`plugins/`](plugins/).
 
 ## License
 
-[MIT](LICENSE). Skald is a fork of [Hyprnote](https://github.com/fastrepl/hyprnote)
+[MIT](LICENSE). Notiz is a fork of [Hyprnote](https://github.com/fastrepl/hyprnote)
 by Fastrepl, Inc., whose copyright notice the license retains. Fork it, change it,
 ship it.
 

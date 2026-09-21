@@ -1,8 +1,8 @@
 import {
   ResizablePanel,
   ResizablePanelGroup,
-} from "@skald/ui/components/ui/resizable";
-import { cn } from "@skald/utils";
+} from "@notiz/ui/components/ui/resizable";
+import { cn } from "@notiz/utils";
 
 export { MainShellBodyFrame } from "./body-frame";
 export { MainChatPanels } from "./chat-panels";

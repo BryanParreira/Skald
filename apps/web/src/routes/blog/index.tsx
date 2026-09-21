@@ -2,21 +2,21 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { allArticles } from "content-collections";
 
 import { SiteFooter } from "@/components/site-footer";
-import { SKALD_SITE_URL } from "@/lib/seo";
+import { NOTIZ_SITE_URL } from "@/lib/seo";
 
 export const Route = createFileRoute("/blog/")({
   component: Component,
   head: () => ({
-    links: [{ rel: "canonical", href: `${SKALD_SITE_URL}/blog` }],
+    links: [{ rel: "canonical", href: `${NOTIZ_SITE_URL}/blog` }],
     meta: [
-      { title: "Skald Blog" },
+      { title: "Notiz Blog" },
       {
         name: "description",
         content:
-          "Guides for AI meeting notes, privacy research, and engineering notes from the Skald team.",
+          "Guides for AI meeting notes, privacy research, and engineering notes from the Notiz team.",
       },
-      { property: "og:title", content: "Skald Blog" },
-      { property: "og:url", content: `${SKALD_SITE_URL}/blog` },
+      { property: "og:title", content: "Notiz Blog" },
+      { property: "og:url", content: `${NOTIZ_SITE_URL}/blog` },
     ],
   }),
 });
@@ -30,8 +30,8 @@ function Component() {
     <main className="min-h-screen bg-white text-[#181613]">
       <div className="mx-auto w-full max-w-[860px] px-5 py-8 md:px-8 md:py-12">
         <header className="flex items-center justify-between gap-6">
-          <Link to="/" aria-label="Skald home">
-            <img src="/logo.svg" alt="Skald" className="h-9 w-auto" />
+          <Link to="/" aria-label="Notiz home">
+            <img src="/logo.svg" alt="Notiz" className="h-9 w-auto" />
           </Link>
         </header>
 

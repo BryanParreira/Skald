@@ -2,7 +2,7 @@ import { Trans, useLingui } from "@lingui/react/macro";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 import { useFollowUpDraft } from "~/session/insights/follow-up";
 

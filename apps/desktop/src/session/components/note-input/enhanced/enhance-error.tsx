@@ -1,7 +1,7 @@
 import { Trans } from "@lingui/react/macro";
 import { AlertCircleIcon, RefreshCwIcon } from "lucide-react";
 
-import { Button } from "@skald/ui/components/ui/button";
+import { Button } from "@notiz/ui/components/ui/button";
 
 import { useAITask } from "~/ai/contexts";
 import { useLanguageModel } from "~/ai/hooks";

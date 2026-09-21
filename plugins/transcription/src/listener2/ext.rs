@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::sync::{Arc, MutexGuard};
 use std::time::{Duration, Instant};
 
-use skald_transcription_core::listener2 as core;
+use notiz_transcription_core::listener2 as core;
 use tauri_specta::Event;
 use tokio::task::JoinHandle;
 
@@ -482,7 +482,7 @@ mod tests {
             model: model.map(ToOwned::to_owned),
             base_url: base_url.to_string(),
             api_key: "key".to_string(),
-            languages: vec![skald_language::ISO639::En.into()],
+            languages: vec![notiz_language::ISO639::En.into()],
             keywords: vec![],
             num_speakers: None,
             min_speakers: None,
@@ -607,7 +607,7 @@ mod tests {
     #[test]
     fn batch_idle_timeout_skips_direct_cloud_batch() {
         let params =
-            transcription_params(core::BatchProvider::Skald, "https://api.char.com/stt", None);
+            transcription_params(core::BatchProvider::Notiz, "https://api.char.com/stt", None);
 
         assert_eq!(batch_idle_timeout(&params), None);
     }

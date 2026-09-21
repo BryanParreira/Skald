@@ -5,14 +5,14 @@ use std::time::Instant;
 use owhisper_client::{
     AdapterKind, AquaVoiceAdapter, ArgmaxAdapter, AssemblyAIAdapter, BatchSttAdapter,
     CartesiaAdapter, DeepgramAdapter, ElevenLabsAdapter, FireworksAdapter, GladiaAdapter,
-    MistralAdapter, OpenAIAdapter, PyannoteAdapter, SkaldAdapter, SonioxAdapter,
+    MistralAdapter, NotizAdapter, OpenAIAdapter, PyannoteAdapter, SonioxAdapter,
 };
 use owhisper_interface::batch_stream::BatchStreamEvent;
 use tracing::Instrument;
 
-use skald_audio_chunking::AudioChunk;
-use skald_audio_utils::Source;
-use skald_transcribe_core::{
+use notiz_audio_chunking::AudioChunk;
+use notiz_audio_utils::Source;
+use notiz_transcribe_core::{
     TARGET_SAMPLE_RATE, channel_duration_sec, chunk_channel_audio, split_resampled_channels,
 };
 
@@ -60,7 +60,7 @@ pub(super) async fn run_direct_batch_for_adapter_kind(
         ElevenLabs => ElevenLabsAdapter,
         Pyannote => PyannoteAdapter,
         Mistral => MistralAdapter,
-        Skald => SkaldAdapter,
+        Notiz => NotizAdapter,
         AquaVoice => AquaVoiceAdapter,
     }, unsupported: [DashScope])
 }
@@ -87,7 +87,7 @@ async fn run_direct_batch<A: BatchSttAdapter>(
                 let message = format_user_friendly_error(&raw_error);
                 tracing::error!(
                     error = %raw_error,
-                    skald.error.user_message = %message,
+                    notiz.error.user_message = %message,
                     "batch transcription failed"
                 );
                 return Err(crate::BatchFailure::DirectRequestFailed {
@@ -124,7 +124,7 @@ pub(super) async fn run_soniqo_batch(
                 provider: "soniqo".to_string(),
                 message: "Missing Soniqo model.".to_string(),
             })?
-            .parse::<skald_transcribe_soniqo::SoniqoModel>()
+            .parse::<notiz_transcribe_soniqo::SoniqoModel>()
             .map_err(|e| crate::BatchFailure::DirectRequestFailed {
                 provider: "soniqo".to_string(),
                 message: e.to_string(),
@@ -140,17 +140,17 @@ pub(super) async fn run_soniqo_batch(
         let language = listen_params
             .languages
             .first()
-            .map(skald_language::Language::bcp47_code);
+            .map(notiz_language::Language::bcp47_code);
         let language_hint = soniqo_language_hint(language.as_deref());
         let language_label = language.as_deref().unwrap_or("auto").to_string();
         let language_hint_label = language_hint.as_deref().unwrap_or("auto").to_string();
         let started_at = Instant::now();
 
         tracing::info!(
-            skald.stt.provider.name = "soniqo",
-            skald.stt.model = %model,
-            skald.stt.language = %language_label,
-            skald.stt.language_hint = %language_hint_label,
+            notiz.stt.provider.name = "soniqo",
+            notiz.stt.model = %model,
+            notiz.stt.language = %language_label,
+            notiz.stt.language_hint = %language_hint_label,
             file.extension = %file_extension,
             "soniqo_batch_start"
         );
@@ -166,8 +166,8 @@ pub(super) async fn run_soniqo_batch(
         .await
         .map_err(|e| {
             tracing::error!(
-                skald.stt.provider.name = "soniqo",
-                skald.stt.model = %model,
+                notiz.stt.provider.name = "soniqo",
+                notiz.stt.model = %model,
                 error = %e,
                 "soniqo_batch_task_join_failed"
             );
@@ -179,10 +179,10 @@ pub(super) async fn run_soniqo_batch(
         .map_err(|e| {
             let message = format_user_friendly_error(&e);
             tracing::error!(
-                skald.stt.provider.name = "soniqo",
-                skald.stt.model = %model,
+                notiz.stt.provider.name = "soniqo",
+                notiz.stt.model = %model,
                 error = %e,
-                skald.error.user_message = %message,
+                notiz.error.user_message = %message,
                 "soniqo_batch_failed"
             );
             crate::BatchFailure::DirectRequestFailed {
@@ -192,14 +192,14 @@ pub(super) async fn run_soniqo_batch(
         })?;
 
         tracing::info!(
-            skald.stt.provider.name = "soniqo",
-            skald.stt.model = %model,
+            notiz.stt.provider.name = "soniqo",
+            notiz.stt.model = %model,
             elapsed_ms = started_at.elapsed().as_millis() as u64,
             transcript.channel_count = transcribed.len(),
             "soniqo_batch_completed"
         );
 
-        let response = skald_transcribe_soniqo::batch_response_from_channels(model, transcribed);
+        let response = notiz_transcribe_soniqo::batch_response_from_channels(model, transcribed);
 
         Ok(BatchRunOutput {
             session_id: params.session_id,
@@ -212,12 +212,12 @@ pub(super) async fn run_soniqo_batch(
 }
 
 fn transcribe_soniqo_file(
-    model: skald_transcribe_soniqo::SoniqoModel,
+    model: notiz_transcribe_soniqo::SoniqoModel,
     file_path: &str,
     language: Option<&str>,
     progress: Option<&SoniqoProgressReporter>,
-) -> std::result::Result<Vec<skald_transcribe_soniqo::FileTranscript>, String> {
-    let source = skald_audio_utils::source_from_path(file_path).map_err(|e| e.to_string())?;
+) -> std::result::Result<Vec<notiz_transcribe_soniqo::FileTranscript>, String> {
+    let source = notiz_audio_utils::source_from_path(file_path).map_err(|e| e.to_string())?;
     let channel_count = u16::from(source.channels()).max(1) as usize;
     let sample_rate = u32::from(source.sample_rate());
     let duration_ms = source
@@ -225,9 +225,9 @@ fn transcribe_soniqo_file(
         .map(|duration| duration.as_millis().min(u128::from(u64::MAX)) as u64);
 
     tracing::info!(
-        skald.stt.provider.name = "soniqo",
-        skald.stt.model = %model,
-        skald.stt.language = %language.unwrap_or("auto"),
+        notiz.stt.provider.name = "soniqo",
+        notiz.stt.model = %model,
+        notiz.stt.language = %language.unwrap_or("auto"),
         audio.channel_count = channel_count,
         audio.sample_rate_hz = sample_rate,
         audio.duration_ms = duration_ms.unwrap_or_default(),
@@ -240,11 +240,11 @@ fn transcribe_soniqo_file(
             progress.emit(SONIQO_PROGRESS_PLANNED);
         }
         tracing::info!(
-            skald.stt.provider.name = "soniqo",
-            skald.stt.model = %model,
+            notiz.stt.provider.name = "soniqo",
+            notiz.stt.model = %model,
             "soniqo_single_channel_native_inference_start"
         );
-        return skald_transcribe_soniqo::transcribe_file(model, file_path, language)
+        return notiz_transcribe_soniqo::transcribe_file(model, file_path, language)
             .map(|transcript| {
                 if let Some(progress) = progress {
                     progress.emit(SONIQO_PROGRESS_MAX);
@@ -256,10 +256,10 @@ fn transcribe_soniqo_file(
 
     let resample_started_at = Instant::now();
     let samples =
-        skald_audio_utils::resample_audio(source, TARGET_SAMPLE_RATE).map_err(|e| e.to_string())?;
+        notiz_audio_utils::resample_audio(source, TARGET_SAMPLE_RATE).map_err(|e| e.to_string())?;
     tracing::info!(
-        skald.stt.provider.name = "soniqo",
-        skald.stt.model = %model,
+        notiz.stt.provider.name = "soniqo",
+        notiz.stt.model = %model,
         elapsed_ms = resample_started_at.elapsed().as_millis() as u64,
         audio.source_sample_rate_hz = sample_rate,
         audio.target_sample_rate_hz = TARGET_SAMPLE_RATE,
@@ -270,8 +270,8 @@ fn transcribe_soniqo_file(
     let channel_samples =
         collapse_identical_channels(split_resampled_channels(&samples, channel_count));
     tracing::info!(
-        skald.stt.provider.name = "soniqo",
-        skald.stt.model = %model,
+        notiz.stt.provider.name = "soniqo",
+        notiz.stt.model = %model,
         audio.source_channel_count = channel_count,
         audio.transcribed_channel_count = channel_samples.len(),
         "soniqo_channels_prepared"
@@ -335,8 +335,8 @@ fn soniqo_language_hint(language: Option<&str>) -> Option<String> {
         .map(|value| value.to_lowercase())
 }
 
-fn uses_resilient_soniqo_chunking(model: skald_transcribe_soniqo::SoniqoModel) -> bool {
-    matches!(model, skald_transcribe_soniqo::SoniqoModel::ParakeetBatch)
+fn uses_resilient_soniqo_chunking(model: notiz_transcribe_soniqo::SoniqoModel) -> bool {
+    matches!(model, notiz_transcribe_soniqo::SoniqoModel::ParakeetBatch)
 }
 
 fn soniqo_batch_progress(completed_chunks: usize, total_chunks: usize) -> f64 {
@@ -350,9 +350,9 @@ fn soniqo_batch_progress(completed_chunks: usize, total_chunks: usize) -> f64 {
 
 fn collect_soniqo_channel_transcripts<I>(
     transcripts: I,
-) -> std::result::Result<Vec<skald_transcribe_soniqo::FileTranscript>, String>
+) -> std::result::Result<Vec<notiz_transcribe_soniqo::FileTranscript>, String>
 where
-    I: IntoIterator<Item = std::result::Result<skald_transcribe_soniqo::FileTranscript, String>>,
+    I: IntoIterator<Item = std::result::Result<notiz_transcribe_soniqo::FileTranscript, String>>,
 {
     let mut output = Vec::new();
     let mut successful_channels = 0usize;
@@ -367,11 +367,11 @@ where
             Err(error) => {
                 failed_channels += 1;
                 tracing::warn!(
-                    skald.stt.provider.name = "soniqo",
+                    notiz.stt.provider.name = "soniqo",
                     error = %error,
                     "soniqo_channel_transcription_failed"
                 );
-                output.push(skald_transcribe_soniqo::FileTranscript::new(
+                output.push(notiz_transcribe_soniqo::FileTranscript::new(
                     String::new(),
                     0.05,
                 ));
@@ -389,15 +389,15 @@ where
 }
 
 fn soniqo_channel_plan(
-    model: skald_transcribe_soniqo::SoniqoModel,
+    model: notiz_transcribe_soniqo::SoniqoModel,
     channel_index: usize,
     samples: &[f32],
 ) -> std::result::Result<SoniqoChannelPlan, String> {
     let duration_seconds = channel_duration_sec(samples);
     let chunks = soniqo_channel_chunks(model, samples)?;
     tracing::info!(
-        skald.stt.provider.name = "soniqo",
-        skald.stt.model = %model,
+        notiz.stt.provider.name = "soniqo",
+        notiz.stt.model = %model,
         channel.index = channel_index,
         channel.duration_seconds = duration_seconds,
         channel.sample_count = samples.len(),
@@ -413,11 +413,11 @@ fn soniqo_channel_plan(
 }
 
 fn transcribe_soniqo_channel_chunks(
-    model: skald_transcribe_soniqo::SoniqoModel,
+    model: notiz_transcribe_soniqo::SoniqoModel,
     plan: SoniqoChannelPlan,
     language: Option<&str>,
     mut on_chunk_completed: impl FnMut(),
-) -> std::result::Result<skald_transcribe_soniqo::FileTranscript, String> {
+) -> std::result::Result<notiz_transcribe_soniqo::FileTranscript, String> {
     let mut texts = Vec::new();
     let mut transcript_chunks = Vec::new();
     let mut successful_chunks = 0usize;
@@ -429,8 +429,8 @@ fn transcribe_soniqo_channel_chunks(
             (chunk.sample_end - chunk.sample_start) * 1000 / TARGET_SAMPLE_RATE as usize;
         let chunk_started_at = Instant::now();
         tracing::info!(
-            skald.stt.provider.name = "soniqo",
-            skald.stt.model = %model,
+            notiz.stt.provider.name = "soniqo",
+            notiz.stt.model = %model,
             channel.index = channel_index,
             chunk.index = chunk_index,
             chunk.sample_start = chunk.sample_start,
@@ -448,8 +448,8 @@ fn transcribe_soniqo_channel_chunks(
             Err(e) => {
                 failed_chunks += 1;
                 tracing::warn!(
-                    skald.stt.provider.name = "soniqo",
-                    skald.stt.model = %model,
+                    notiz.stt.provider.name = "soniqo",
+                    notiz.stt.model = %model,
                     channel.index = channel_index,
                     chunk.index = chunk_index,
                     elapsed_ms = chunk_started_at.elapsed().as_millis() as u64,
@@ -463,8 +463,8 @@ fn transcribe_soniqo_channel_chunks(
         on_chunk_completed();
 
         tracing::info!(
-            skald.stt.provider.name = "soniqo",
-            skald.stt.model = %model,
+            notiz.stt.provider.name = "soniqo",
+            notiz.stt.model = %model,
             channel.index = channel_index,
             chunk.index = chunk_index,
             elapsed_ms = chunk_started_at.elapsed().as_millis() as u64,
@@ -475,7 +475,7 @@ fn transcribe_soniqo_channel_chunks(
         let text = text.trim();
         if !text.is_empty() {
             texts.push(text.to_string());
-            transcript_chunks.push(skald_transcribe_soniqo::FileTranscriptChunk {
+            transcript_chunks.push(notiz_transcribe_soniqo::FileTranscriptChunk {
                 text: text.to_string(),
                 start_seconds: chunk.sample_start as f64 / TARGET_SAMPLE_RATE as f64,
                 duration_seconds: (chunk.sample_end - chunk.sample_start) as f64
@@ -492,8 +492,8 @@ fn transcribe_soniqo_channel_chunks(
 
     if failed_chunks > 0 {
         tracing::warn!(
-            skald.stt.provider.name = "soniqo",
-            skald.stt.model = %model,
+            notiz.stt.provider.name = "soniqo",
+            notiz.stt.model = %model,
             channel.index = channel_index,
             chunk.success_count = successful_chunks,
             chunk.failed_count = failed_chunks,
@@ -502,23 +502,23 @@ fn transcribe_soniqo_channel_chunks(
     }
 
     if transcript_chunks.is_empty() {
-        return Ok(skald_transcribe_soniqo::FileTranscript::new(
+        return Ok(notiz_transcribe_soniqo::FileTranscript::new(
             texts.join(" "),
             plan.duration_seconds,
         ));
     }
 
-    Ok(skald_transcribe_soniqo::FileTranscript::from_chunks(
+    Ok(notiz_transcribe_soniqo::FileTranscript::from_chunks(
         transcript_chunks,
         plan.duration_seconds,
     ))
 }
 
 fn transcribe_soniqo_samples(
-    model: skald_transcribe_soniqo::SoniqoModel,
+    model: notiz_transcribe_soniqo::SoniqoModel,
     samples: &[f32],
     language: Option<&str>,
-) -> std::result::Result<skald_transcribe_soniqo::FileTranscript, String> {
+) -> std::result::Result<notiz_transcribe_soniqo::FileTranscript, String> {
     let file = tempfile::Builder::new()
         .prefix("soniqo_channel_")
         .suffix(".wav")
@@ -539,22 +539,22 @@ fn transcribe_soniqo_samples(
         writer.finalize().map_err(|e| e.to_string())?;
     }
 
-    skald_transcribe_soniqo::transcribe_file(model, file.path(), language)
+    notiz_transcribe_soniqo::transcribe_file(model, file.path(), language)
         .map_err(|e| e.to_string())
 }
 
 fn soniqo_channel_chunks(
-    model: skald_transcribe_soniqo::SoniqoModel,
+    model: notiz_transcribe_soniqo::SoniqoModel,
     samples: &[f32],
 ) -> std::result::Result<Vec<AudioChunk>, String> {
-    if model == skald_transcribe_soniqo::SoniqoModel::ParakeetBatch {
+    if model == notiz_transcribe_soniqo::SoniqoModel::ParakeetBatch {
         return Ok(split_audio_samples(
             samples,
             SONIQO_PARAKEET_MAX_CHUNK_SAMPLES,
         ));
     }
 
-    chunk_channel_audio::<skald_audio_chunking::Error>(samples).map_err(|e| e.to_string())
+    chunk_channel_audio::<notiz_audio_chunking::Error>(samples).map_err(|e| e.to_string())
 }
 
 fn split_audio_samples(samples: &[f32], max_samples: usize) -> Vec<AudioChunk> {
@@ -625,7 +625,7 @@ mod tests {
         let samples =
             vec![0.0; SONIQO_PARAKEET_MAX_CHUNK_SAMPLES * 2 + TARGET_SAMPLE_RATE as usize];
         let chunks = soniqo_channel_chunks(
-            skald_transcribe_soniqo::SoniqoModel::ParakeetBatch,
+            notiz_transcribe_soniqo::SoniqoModel::ParakeetBatch,
             &samples,
         )
         .unwrap();
@@ -660,10 +660,10 @@ mod tests {
     #[test]
     fn parakeet_batch_uses_resilient_chunking() {
         assert!(uses_resilient_soniqo_chunking(
-            skald_transcribe_soniqo::SoniqoModel::ParakeetBatch
+            notiz_transcribe_soniqo::SoniqoModel::ParakeetBatch
         ));
         assert!(!uses_resilient_soniqo_chunking(
-            skald_transcribe_soniqo::SoniqoModel::Omnilingual
+            notiz_transcribe_soniqo::SoniqoModel::Omnilingual
         ));
     }
 
@@ -683,7 +683,7 @@ mod tests {
     #[test]
     fn collect_soniqo_channel_transcripts_keeps_channel_slots() {
         let transcripts = collect_soniqo_channel_transcripts([
-            Ok(skald_transcribe_soniqo::FileTranscript::new(
+            Ok(notiz_transcribe_soniqo::FileTranscript::new(
                 "hello".to_string(),
                 1.0,
             )),
@@ -700,15 +700,15 @@ mod tests {
     fn collect_soniqo_channel_transcripts_preserves_later_channel_index() {
         let transcripts = collect_soniqo_channel_transcripts([
             Err("first failed".to_string()),
-            Ok(skald_transcribe_soniqo::FileTranscript::new(
+            Ok(notiz_transcribe_soniqo::FileTranscript::new(
                 "system audio".to_string(),
                 1.0,
             )),
         ])
         .unwrap();
 
-        let response = skald_transcribe_soniqo::batch_response_from_channels(
-            skald_transcribe_soniqo::SoniqoModel::ParakeetBatch,
+        let response = notiz_transcribe_soniqo::batch_response_from_channels(
+            notiz_transcribe_soniqo::SoniqoModel::ParakeetBatch,
             transcripts,
         );
         let alternative = &response.results.channels[1].alternatives[0];

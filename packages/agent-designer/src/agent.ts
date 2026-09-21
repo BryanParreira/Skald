@@ -1,4 +1,4 @@
-import { env } from "@skald/agent-core";
+import { env } from "@notiz/agent-core";
 
 import { graph } from "./graph";
 

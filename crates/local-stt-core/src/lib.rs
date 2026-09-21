@@ -1,4 +1,4 @@
-pub use skald_local_model::{AmModel, LocalModel, SoniqoModel, WhisperModel};
+pub use notiz_local_model::{AmModel, LocalModel, SoniqoModel, WhisperModel};
 
 pub static SUPPORTED_MODELS: &[LocalModel] = &[
     LocalModel::Soniqo(SoniqoModel::ParakeetStreaming),

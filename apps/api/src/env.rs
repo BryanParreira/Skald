@@ -12,39 +12,39 @@ fn default_port() -> u16 {
 pub struct Env {
     #[serde(default = "default_port")]
     pub port: u16,
-    #[serde(default, deserialize_with = "skald_api_env::filter_empty")]
+    #[serde(default, deserialize_with = "notiz_api_env::filter_empty")]
     pub sentry_dsn: Option<String>,
-    #[serde(default, deserialize_with = "skald_api_env::filter_empty")]
+    #[serde(default, deserialize_with = "notiz_api_env::filter_empty")]
     pub posthog_api_key: Option<String>,
 
     #[serde(flatten)]
     pub observability: crate::observability::Env,
 
     #[serde(flatten)]
-    pub supabase: skald_api_env::SupabaseEnv,
+    pub supabase: notiz_api_env::SupabaseEnv,
     #[serde(flatten)]
-    pub nango: skald_api_env::NangoEnv,
+    pub nango: notiz_api_env::NangoEnv,
     #[serde(flatten)]
-    pub stripe: skald_api_env::StripeEnv,
+    pub stripe: notiz_api_env::StripeEnv,
     #[serde(flatten)]
-    pub pyannote: skald_api_env::PyannoteEnv,
+    pub pyannote: notiz_api_env::PyannoteEnv,
     #[serde(flatten)]
-    pub github_app: skald_api_support::GitHubAppEnv,
+    pub github_app: notiz_api_support::GitHubAppEnv,
     #[serde(flatten)]
-    pub support_database: skald_api_support::SupportDatabaseEnv,
+    pub support_database: notiz_api_support::SupportDatabaseEnv,
     #[serde(flatten)]
-    pub chatwoot: skald_api_support::ChatwootEnv,
+    pub chatwoot: notiz_api_support::ChatwootEnv,
 
     pub exa_api_key: String,
     pub jina_api_key: String,
 
     #[serde(flatten)]
-    pub loops: skald_api_env::LoopsEnv,
+    pub loops: notiz_api_env::LoopsEnv,
 
     #[serde(flatten)]
-    pub llm: skald_llm_proxy::Env,
+    pub llm: notiz_llm_proxy::Env,
     #[serde(flatten)]
-    pub stt: skald_transcribe_proxy::Env,
+    pub stt: notiz_transcribe_proxy::Env,
 }
 
 static ENV: OnceLock<Env> = OnceLock::new();

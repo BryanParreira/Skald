@@ -9,7 +9,7 @@ import {
   useState,
 } from "react";
 
-import type { FileHandlerConfig } from "@skald/editor/note";
+import type { FileHandlerConfig } from "@notiz/editor/note";
 
 import { useFileUpload } from "~/shared/hooks/useFileUpload";
 import { isAudioUploadFile, useUploadFile } from "~/stt/useUploadFile";

@@ -18,7 +18,7 @@ impl BatchSttAdapter for ElevenLabsAdapter {
 
     fn is_supported_languages(
         &self,
-        languages: &[skald_language::Language],
+        languages: &[notiz_language::Language],
         _model: Option<&str>,
     ) -> bool {
         ElevenLabsAdapter::is_supported_languages_batch(languages)
@@ -90,7 +90,7 @@ impl ElevenLabsAdapter {
 
         let url = Self::batch_api_url(api_base);
         tracing::info!(
-            skald.file.path = %file_path.display(),
+            notiz.file.path = %file_path.display(),
             url.full = %url,
             "uploading_file_to_elevenlabs"
         );
@@ -244,7 +244,7 @@ mod tests {
         let adapter = ElevenLabsAdapter::default();
         let params = ListenParams::default();
 
-        let audio_path = std::path::PathBuf::from(skald_data::english_1::AUDIO_PATH);
+        let audio_path = std::path::PathBuf::from(notiz_data::english_1::AUDIO_PATH);
 
         let result = adapter
             .transcribe_file(&client, "", &api_key, &params, &audio_path)

@@ -4,8 +4,8 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-skald-audio = { workspace = true }
-skald-data = { workspace = true }
+notiz-audio = { workspace = true }
+notiz-data = { workspace = true }
 
 futures-util = { workspace = true }
 rodio = { workspace = true, features = ["symphonia-all"] }

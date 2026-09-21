@@ -1,7 +1,7 @@
-CREDENTIALS_FILE="$HOME/skald-s3.toml"
-BUCKET="fastrepl-skald-3bek8idy1fyk93awygrqyqpyzs1b4use1a-s3alias"
+CREDENTIALS_FILE="$HOME/notiz-s3.toml"
+BUCKET="fastrepl-notiz-3bek8idy1fyk93awygrqyqpyzs1b4use1a-s3alias"
 
-FROM_PATH="$HOME/dev/skald/.cache/"
+FROM_PATH="$HOME/dev/notiz/.cache/"
 TO_PATH="v0/"
 
 AWS_REGION=us-east-1 s5cmd \

@@ -6,7 +6,7 @@ import {
 import type { NodeSpec } from "prosemirror-model";
 import { forwardRef, useCallback, useRef, useState } from "react";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 import { getSafeNodePos } from "./error-boundary";
 

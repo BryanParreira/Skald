@@ -2,7 +2,7 @@
 
 ## Use This Crate For
 
-- Transport-agnostic live queries over `skald_db_core::Db`.
+- Transport-agnostic live queries over `notiz_db_core::Db`.
 - Conservative dependency analysis, subscription lifecycle, rerun targeting, and sink delivery.
 
 ## Put Changes Elsewhere When

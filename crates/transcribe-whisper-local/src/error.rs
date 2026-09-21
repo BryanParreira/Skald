@@ -6,13 +6,13 @@ pub enum Error {
     Io(#[from] std::io::Error),
 
     #[error(transparent)]
-    Audio(#[from] skald_audio_utils::Error),
+    Audio(#[from] notiz_audio_utils::Error),
 
     #[error(transparent)]
-    Whisper(#[from] skald_whisper_local::Error),
+    Whisper(#[from] notiz_whisper_local::Error),
 
     #[error(transparent)]
-    Chunking(#[from] skald_audio_chunking::Error),
+    Chunking(#[from] notiz_audio_chunking::Error),
 
     #[error(transparent)]
     Json(#[from] serde_json::Error),

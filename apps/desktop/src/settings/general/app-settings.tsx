@@ -1,7 +1,7 @@
 import { Trans } from "@lingui/react/macro";
 import { type ReactNode, useId } from "react";
 
-import { Switch } from "@skald/ui/components/ui/switch";
+import { Switch } from "@notiz/ui/components/ui/switch";
 
 interface SettingItem {
   value: boolean;
@@ -32,20 +32,20 @@ export function AppSettingsView({
       <section>
         <div className="flex flex-col gap-4">
           <SettingRow
-            title="Start Skald at login"
+            title="Start Notiz at login"
             description="Always ready without manually launching."
             checked={autostart.value}
             onChange={autostart.onChange}
           />
           <SettingRow
             title="Show app in Dock"
-            description="Show Skald in the Dock and app switcher."
+            description="Show Notiz in the Dock and app switcher."
             checked={showAppInDock.value}
             onChange={showAppInDock.onChange}
           />
           <SettingRow
             title="Show tray icon"
-            description="Keep Skald available from the menu bar."
+            description="Keep Notiz available from the menu bar."
             checked={showTrayIcon.value}
             onChange={showTrayIcon.onChange}
           />

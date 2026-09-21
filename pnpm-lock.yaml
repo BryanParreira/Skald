@@ -75,130 +75,130 @@ importers:
       '@handlewithcare/react-prosemirror':
         specifier: ^3.0.1
         version: 3.0.1(prosemirror-model@1.25.4)(prosemirror-state@1.4.4)(prosemirror-view@1.41.7)(react-dom@19.2.5(react@19.2.5))(react-reconciler@0.33.0(react@19.2.5))(react@19.2.5)
-      '@skald/api-client':
+      '@notiz/api-client':
         specifier: workspace:*
         version: link:../../packages/api-client
-      '@skald/changelog':
+      '@notiz/changelog':
         specifier: workspace:^
         version: link:../../packages/changelog
-      '@skald/db':
+      '@notiz/db':
         specifier: workspace:*
         version: link:../../packages/db
-      '@skald/db-react':
+      '@notiz/db-react':
         specifier: workspace:*
         version: link:../../packages/db-react
-      '@skald/db-tauri':
+      '@notiz/db-tauri':
         specifier: workspace:*
         version: link:../../packages/db-tauri
-      '@skald/editor':
+      '@notiz/editor':
         specifier: workspace:^
         version: link:../../packages/editor
-      '@skald/plugin-analytics':
+      '@notiz/plugin-analytics':
         specifier: workspace:*
         version: link:../../plugins/analytics
-      '@skald/plugin-auth':
+      '@notiz/plugin-auth':
         specifier: workspace:*
         version: link:../../plugins/auth
-      '@skald/plugin-calendar':
+      '@notiz/plugin-calendar':
         specifier: workspace:*
         version: link:../../plugins/calendar
-      '@skald/plugin-db':
+      '@notiz/plugin-db':
         specifier: workspace:*
         version: link:../../plugins/db
-      '@skald/plugin-deeplink2':
+      '@notiz/plugin-deeplink2':
         specifier: workspace:*
         version: link:../../plugins/deeplink2
-      '@skald/plugin-detect':
+      '@notiz/plugin-detect':
         specifier: workspace:*
         version: link:../../plugins/detect
-      '@skald/plugin-export':
+      '@notiz/plugin-export':
         specifier: workspace:*
         version: link:../../plugins/export
-      '@skald/plugin-fs-sync':
+      '@notiz/plugin-fs-sync':
         specifier: workspace:*
         version: link:../../plugins/fs-sync
-      '@skald/plugin-fs2':
+      '@notiz/plugin-fs2':
         specifier: workspace:*
         version: link:../../plugins/fs2
-      '@skald/plugin-hooks':
+      '@notiz/plugin-hooks':
         specifier: workspace:*
         version: link:../../plugins/hooks
-      '@skald/plugin-icon':
+      '@notiz/plugin-icon':
         specifier: workspace:*
         version: link:../../plugins/icon
-      '@skald/plugin-importer':
+      '@notiz/plugin-importer':
         specifier: workspace:*
         version: link:../../plugins/importer
-      '@skald/plugin-local-llm':
+      '@notiz/plugin-local-llm':
         specifier: workspace:*
         version: link:../../plugins/local-llm
-      '@skald/plugin-local-stt':
+      '@notiz/plugin-local-stt':
         specifier: workspace:*
         version: link:../../plugins/local-stt
-      '@skald/plugin-misc':
+      '@notiz/plugin-misc':
         specifier: workspace:*
         version: link:../../plugins/misc
-      '@skald/plugin-notification':
+      '@notiz/plugin-notification':
         specifier: workspace:*
         version: link:../../plugins/notification
-      '@skald/plugin-notify':
+      '@notiz/plugin-notify':
         specifier: workspace:*
         version: link:../../plugins/notify
-      '@skald/plugin-opener2':
+      '@notiz/plugin-opener2':
         specifier: workspace:*
         version: link:../../plugins/opener2
-      '@skald/plugin-permissions':
+      '@notiz/plugin-permissions':
         specifier: workspace:*
         version: link:../../plugins/permissions
-      '@skald/plugin-relay':
+      '@notiz/plugin-relay':
         specifier: workspace:*
         version: link:../../plugins/relay
-      '@skald/plugin-settings':
+      '@notiz/plugin-settings':
         specifier: workspace:*
         version: link:../../plugins/settings
-      '@skald/plugin-sfx':
+      '@notiz/plugin-sfx':
         specifier: workspace:*
         version: link:../../plugins/sfx
-      '@skald/plugin-shortcut':
+      '@notiz/plugin-shortcut':
         specifier: workspace:*
         version: link:../../plugins/shortcut
-      '@skald/plugin-store2':
+      '@notiz/plugin-store2':
         specifier: workspace:*
         version: link:../../plugins/store2
-      '@skald/plugin-tantivy':
+      '@notiz/plugin-tantivy':
         specifier: workspace:*
         version: link:../../plugins/tantivy
-      '@skald/plugin-template':
+      '@notiz/plugin-template':
         specifier: workspace:*
         version: link:../../plugins/template
-      '@skald/plugin-todo':
+      '@notiz/plugin-todo':
         specifier: workspace:*
         version: link:../../plugins/todo
-      '@skald/plugin-transcription':
+      '@notiz/plugin-transcription':
         specifier: workspace:*
         version: link:../../plugins/transcription
-      '@skald/plugin-tray':
+      '@notiz/plugin-tray':
         specifier: workspace:*
         version: link:../../plugins/tray
-      '@skald/plugin-updater2':
+      '@notiz/plugin-updater2':
         specifier: workspace:*
         version: link:../../plugins/updater2
-      '@skald/plugin-windows':
+      '@notiz/plugin-windows':
         specifier: workspace:*
         version: link:../../plugins/windows
-      '@skald/store':
+      '@notiz/store':
         specifier: workspace:*
         version: link:../../packages/store
-      '@skald/supabase':
+      '@notiz/supabase':
         specifier: workspace:*
         version: link:../../packages/supabase
-      '@skald/tinybase-utils':
+      '@notiz/tinybase-utils':
         specifier: workspace:*
         version: link:../../packages/tinybase-utils
-      '@skald/ui':
+      '@notiz/ui':
         specifier: workspace:^
         version: link:../../packages/ui
-      '@skald/utils':
+      '@notiz/utils':
         specifier: workspace:^
         version: link:../../packages/utils
       '@iconify-icon/react':
@@ -427,19 +427,19 @@ importers:
       '@honeycombio/opentelemetry-web':
         specifier: ^1.3.0
         version: 1.3.0(@opentelemetry/auto-instrumentations-web@0.49.1(@opentelemetry/api@1.9.1)(zone.js@0.15.1))
-      '@skald/api-client':
+      '@notiz/api-client':
         specifier: workspace:*
         version: link:../../packages/api-client
-      '@skald/changelog':
+      '@notiz/changelog':
         specifier: workspace:^
         version: link:../../packages/changelog
-      '@skald/supabase':
+      '@notiz/supabase':
         specifier: workspace:*
         version: link:../../packages/supabase
-      '@skald/ui':
+      '@notiz/ui':
         specifier: workspace:*
         version: link:../../packages/ui
-      '@skald/utils':
+      '@notiz/utils':
         specifier: workspace:*
         version: link:../../packages/utils
       '@iconify-icon/react':
@@ -641,10 +641,10 @@ importers:
       '@dotenvx/dotenvx':
         specifier: ^1.61.0
         version: 1.61.0
-      '@skald/plugin-auth':
+      '@notiz/plugin-auth':
         specifier: workspace:*
         version: link:../../plugins/auth
-      '@skald/plugin-deeplink2':
+      '@notiz/plugin-deeplink2':
         specifier: workspace:*
         version: link:../../plugins/deeplink2
       '@tailwindcss/typography':
@@ -731,7 +731,7 @@ importers:
 
   examples/plugins/hello-world:
     devDependencies:
-      '@skald/plugin-sdk':
+      '@notiz/plugin-sdk':
         specifier: workspace:*
         version: link:../../../packages/plugin-sdk
       '@types/react':
@@ -786,7 +786,7 @@ importers:
 
   packages/agent-designer:
     dependencies:
-      '@skald/agent-core':
+      '@notiz/agent-core':
         specifier: workspace:^
         version: link:../agent-core
       '@langchain/core':
@@ -832,7 +832,7 @@ importers:
 
   packages/agent-support:
     dependencies:
-      '@skald/agent-core':
+      '@notiz/agent-core':
         specifier: workspace:^
         version: link:../agent-core
       '@langchain/core':
@@ -896,7 +896,7 @@ importers:
 
   packages/changelog:
     dependencies:
-      '@skald/utils':
+      '@notiz/utils':
         specifier: workspace:^
         version: link:../utils
       react:
@@ -952,7 +952,7 @@ importers:
 
   packages/db:
     dependencies:
-      '@skald/db-runtime':
+      '@notiz/db-runtime':
         specifier: workspace:*
         version: link:../db-runtime
       drizzle-orm:
@@ -971,7 +971,7 @@ importers:
 
   packages/db-react:
     dependencies:
-      '@skald/db-runtime':
+      '@notiz/db-runtime':
         specifier: workspace:*
         version: link:../db-runtime
       react:
@@ -1002,10 +1002,10 @@ importers:
 
   packages/db-tauri:
     dependencies:
-      '@skald/db-runtime':
+      '@notiz/db-runtime':
         specifier: workspace:*
         version: link:../db-runtime
-      '@skald/plugin-db':
+      '@notiz/plugin-db':
         specifier: workspace:*
         version: link:../../plugins/db
     devDependencies:
@@ -1024,13 +1024,13 @@ importers:
       '@handlewithcare/react-prosemirror':
         specifier: ^3.0.1
         version: 3.0.1(prosemirror-model@1.25.4)(prosemirror-state@1.4.4)(prosemirror-view@1.41.7)(react-dom@19.2.5(react@19.2.5))(react-reconciler@0.33.0(react@19.2.5))(react@19.2.5)
-      '@skald/plugin-opener2':
+      '@notiz/plugin-opener2':
         specifier: workspace:*
         version: link:../../plugins/opener2
-      '@skald/store':
+      '@notiz/store':
         specifier: workspace:*
         version: link:../store
-      '@skald/utils':
+      '@notiz/utils':
         specifier: workspace:^
         version: link:../utils
       facehash:
@@ -1176,7 +1176,7 @@ importers:
 
   packages/ui:
     dependencies:
-      '@skald/utils':
+      '@notiz/utils':
         specifier: workspace:^
         version: link:../utils
       '@radix-ui/react-accordion':
@@ -1267,10 +1267,10 @@ importers:
       '@date-fns/tz':
         specifier: ^1.4.1
         version: 1.4.1
-      '@skald/plugin-transcription':
+      '@notiz/plugin-transcription':
         specifier: workspace:^
         version: link:../../plugins/transcription
-      '@skald/plugin-windows':
+      '@notiz/plugin-windows':
         specifier: workspace:^
         version: link:../../plugins/windows
       '@tauri-apps/api':

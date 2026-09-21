@@ -1,7 +1,7 @@
 use camino::Utf8PathBuf;
 
 use crate::SettingsPluginExt;
-use skald_storage::ObsidianVault;
+use notiz_storage::ObsidianVault;
 
 #[tauri::command]
 #[specta::specta]

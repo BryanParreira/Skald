@@ -1,5 +1,5 @@
 use crate::AudioPriorityPluginExt;
-use skald_audio_device::AudioDevice;
+use notiz_audio_device::AudioDevice;
 
 #[tauri::command]
 #[specta::specta]

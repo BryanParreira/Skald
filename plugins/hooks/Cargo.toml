@@ -14,10 +14,10 @@ tauri-plugin = { workspace = true, features = ["build"] }
 specta-typescript = { workspace = true }
 tokio = { workspace = true, features = ["macros", "rt"] }
 
-skald-docs = { workspace = true }
+notiz-docs = { workspace = true }
 
 [dependencies]
-skald-hooks = { workspace = true }
+notiz-hooks = { workspace = true }
 
 serde = { workspace = true }
 specta = { workspace = true }

@@ -4,11 +4,11 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-skald-am = { workspace = true }
-skald-file = { workspace = true }
-skald-model-downloader = { workspace = true }
-skald-transcribe-soniqo = { workspace = true }
-skald-whisper-local-model = { workspace = true }
+notiz-am = { workspace = true }
+notiz-file = { workspace = true }
+notiz-model-downloader = { workspace = true }
+notiz-transcribe-soniqo = { workspace = true }
+notiz-whisper-local-model = { workspace = true }
 
 serde = { workspace = true }
 specta = { workspace = true }

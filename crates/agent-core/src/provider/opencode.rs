@@ -4,7 +4,7 @@ use crate::{
 };
 
 pub fn health(options: &HealthCheckOptions) -> ProviderHealth {
-    let health = skald_opencode::health_check_with_options(&skald_opencode::OpencodeOptions {
+    let health = notiz_opencode::health_check_with_options(&notiz_opencode::OpencodeOptions {
         opencode_path_override: options.opencode_path_override.clone(),
         ..Default::default()
     });
@@ -22,16 +22,16 @@ pub fn health(options: &HealthCheckOptions) -> ProviderHealth {
 }
 
 pub fn install_cli() -> Result<InstallCliResponse, String> {
-    let plugin_path = skald_opencode::plugin_path();
+    let plugin_path = notiz_opencode::plugin_path();
 
-    if plugin_path.exists() && !skald_opencode::is_char_plugin(&plugin_path)? {
+    if plugin_path.exists() && !notiz_opencode::is_char_plugin(&plugin_path)? {
         return Err(format!(
             "refusing to replace existing plugin at {}",
             plugin_path.display()
         ));
     }
 
-    skald_opencode::write_plugin(&plugin_path)?;
+    notiz_opencode::write_plugin(&plugin_path)?;
 
     Ok(InstallCliResponse {
         provider: ProviderKind::Opencode,
@@ -44,16 +44,16 @@ pub fn install_cli() -> Result<InstallCliResponse, String> {
 }
 
 pub fn uninstall_cli() -> Result<UninstallCliResponse, String> {
-    let plugin_path = skald_opencode::plugin_path();
+    let plugin_path = notiz_opencode::plugin_path();
 
-    if plugin_path.exists() && !skald_opencode::has_char_plugin(&plugin_path)? {
+    if plugin_path.exists() && !notiz_opencode::has_char_plugin(&plugin_path)? {
         return Err(format!(
             "refusing to remove existing plugin at {}",
             plugin_path.display()
         ));
     }
 
-    skald_opencode::remove_plugin(&plugin_path)?;
+    notiz_opencode::remove_plugin(&plugin_path)?;
 
     Ok(UninstallCliResponse {
         provider: ProviderKind::Opencode,
@@ -66,36 +66,36 @@ pub fn uninstall_cli() -> Result<UninstallCliResponse, String> {
 }
 
 pub fn upgrade() {
-    upgrade_at(&skald_opencode::plugin_path());
+    upgrade_at(&notiz_opencode::plugin_path());
 }
 
 fn upgrade_at(plugin_path: &std::path::Path) {
-    if skald_opencode::is_char_plugin(plugin_path).unwrap_or(false) {
-        let _ = skald_opencode::write_plugin(plugin_path);
+    if notiz_opencode::is_char_plugin(plugin_path).unwrap_or(false) {
+        let _ = notiz_opencode::write_plugin(plugin_path);
     }
 }
 
 fn integration_installed() -> Result<bool, String> {
-    let plugin_path = skald_opencode::plugin_path();
-    skald_opencode::is_char_plugin(&plugin_path)
+    let plugin_path = notiz_opencode::plugin_path();
+    notiz_opencode::is_char_plugin(&plugin_path)
 }
 
-impl From<skald_opencode::HealthStatus> for ProviderHealthStatus {
-    fn from(value: skald_opencode::HealthStatus) -> Self {
+impl From<notiz_opencode::HealthStatus> for ProviderHealthStatus {
+    fn from(value: notiz_opencode::HealthStatus) -> Self {
         match value {
-            skald_opencode::HealthStatus::Ready => Self::Ready,
-            skald_opencode::HealthStatus::Warning => Self::Warning,
-            skald_opencode::HealthStatus::Error => Self::Error,
+            notiz_opencode::HealthStatus::Ready => Self::Ready,
+            notiz_opencode::HealthStatus::Warning => Self::Warning,
+            notiz_opencode::HealthStatus::Error => Self::Error,
         }
     }
 }
 
-impl From<skald_opencode::HealthAuthStatus> for ProviderAuthStatus {
-    fn from(value: skald_opencode::HealthAuthStatus) -> Self {
+impl From<notiz_opencode::HealthAuthStatus> for ProviderAuthStatus {
+    fn from(value: notiz_opencode::HealthAuthStatus) -> Self {
         match value {
-            skald_opencode::HealthAuthStatus::Authenticated => Self::Authenticated,
-            skald_opencode::HealthAuthStatus::Unauthenticated => Self::Unauthenticated,
-            skald_opencode::HealthAuthStatus::Unknown => Self::Unknown,
+            notiz_opencode::HealthAuthStatus::Authenticated => Self::Authenticated,
+            notiz_opencode::HealthAuthStatus::Unauthenticated => Self::Unauthenticated,
+            notiz_opencode::HealthAuthStatus::Unknown => Self::Unknown,
         }
     }
 }
@@ -136,6 +136,6 @@ mod tests {
 
         upgrade_at(&path);
 
-        assert!(skald_opencode::has_char_plugin(&path).unwrap());
+        assert!(notiz_opencode::has_char_plugin(&path).unwrap());
     }
 }

@@ -1,14 +1,14 @@
 import { SearchIcon } from "lucide-react";
 import { useCallback, useMemo } from "react";
 
-import { Card, CardContent } from "@skald/ui/components/ui/card";
+import { Card, CardContent } from "@notiz/ui/components/ui/card";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@skald/ui/components/ui/carousel";
+} from "@notiz/ui/components/ui/carousel";
 
 import { useToolState } from "./shared";
 

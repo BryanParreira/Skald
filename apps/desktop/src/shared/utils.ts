@@ -11,11 +11,11 @@ export const id = () => crypto.randomUUID() as string;
 export const getScheme = async (): Promise<string> => {
   const id = await getIdentifier();
   const schemes: Record<string, string> = {
-    "com.skald.stable": "skald",
-    "com.skald.staging": "skald-staging",
-    "com.skald.dev": "skald",
+    "com.notiz.stable": "notiz",
+    "com.notiz.staging": "notiz-staging",
+    "com.notiz.dev": "notiz",
   };
-  return schemes[id] ?? "skald";
+  return schemes[id] ?? "notiz";
 };
 
 type DesktopFlowPath =

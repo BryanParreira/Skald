@@ -2,9 +2,9 @@ import { Trans } from "@lingui/react/macro";
 import { useForm } from "@tanstack/react-form";
 import { disable, enable } from "@tauri-apps/plugin-autostart";
 
-import { commands as trayCommands } from "@skald/plugin-tray";
-import { commands as windowsCommands } from "@skald/plugin-windows";
-import type { General, GeneralStorage } from "@skald/store";
+import { commands as trayCommands } from "@notiz/plugin-tray";
+import { commands as windowsCommands } from "@notiz/plugin-windows";
+import type { General, GeneralStorage } from "@notiz/store";
 
 import { AppSettingsView } from "./app-settings";
 import {

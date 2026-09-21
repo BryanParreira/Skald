@@ -14,7 +14,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 const CATEGORY_ICONS: Record<string, LucideIcon> = {
   "customer success": HandshakeIcon,

@@ -3,18 +3,18 @@ import { useForm } from "@tanstack/react-form";
 import { HeartIcon, MoreHorizontalIcon, Plus, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-import { Badge } from "@skald/ui/components/ui/badge";
-import { Button } from "@skald/ui/components/ui/button";
+import { Badge } from "@notiz/ui/components/ui/badge";
+import { Button } from "@notiz/ui/components/ui/button";
 import {
   AppFloatingPanel,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@skald/ui/components/ui/dropdown-menu";
-import { Input } from "@skald/ui/components/ui/input";
-import { Textarea } from "@skald/ui/components/ui/textarea";
-import { cn } from "@skald/utils";
+} from "@notiz/ui/components/ui/dropdown-menu";
+import { Input } from "@notiz/ui/components/ui/input";
+import { Textarea } from "@notiz/ui/components/ui/textarea";
+import { cn } from "@notiz/utils";
 
 import {
   type UserTemplate,

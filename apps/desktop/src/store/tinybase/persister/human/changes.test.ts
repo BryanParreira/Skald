@@ -45,7 +45,7 @@ describe("parseHumanIdFromPath", () => {
 
   describe("absolute paths (defensive handling)", () => {
     test("parses id from absolute path", () => {
-      expect(parseHumanIdFromPath("/data/skald/humans/person-123.md")).toBe(
+      expect(parseHumanIdFromPath("/data/notiz/humans/person-123.md")).toBe(
         "person-123",
       );
     });

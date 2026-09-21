@@ -12,11 +12,11 @@ const mocks = vi.hoisted(() => ({
   },
 }));
 
-vi.mock("@skald/changelog", () => ({
+vi.mock("@notiz/changelog", () => ({
   ChangelogContent: ({ content }: { content: string }) => <div>{content}</div>,
 }));
 
-vi.mock("@skald/plugin-opener2", () => ({
+vi.mock("@notiz/plugin-opener2", () => ({
   commands: {
     openUrl: vi.fn(),
   },

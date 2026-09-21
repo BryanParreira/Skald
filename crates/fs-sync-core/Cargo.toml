@@ -8,11 +8,11 @@ default = []
 tauri-event = ["dep:tauri-specta"]
 
 [dependencies]
-skald-audio-norm = { workspace = true }
-skald-audio-utils = { workspace = true }
-skald-frontmatter = { workspace = true }
-skald-fs-format = { workspace = true }
-skald-tiptap = { workspace = true }
+notiz-audio-norm = { workspace = true }
+notiz-audio-utils = { workspace = true }
+notiz-frontmatter = { workspace = true }
+notiz-fs-format = { workspace = true }
+notiz-tiptap = { workspace = true }
 
 serde = { workspace = true }
 serde_json = { workspace = true }
@@ -31,8 +31,8 @@ uuid = { workspace = true, features = ["v4"] }
 [dev-dependencies]
 assert_fs = "1"
 criterion = { workspace = true }
+notiz-data = { workspace = true }
 predicates = "3"
-skald-data = { workspace = true }
 tempfile = { workspace = true }
 
 [[bench]]

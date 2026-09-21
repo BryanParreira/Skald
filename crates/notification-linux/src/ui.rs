@@ -236,7 +236,7 @@ impl NotificationManager {
         });
 
         Application::builder()
-            .application_id("com.skald.notifications")
+            .application_id("com.notiz.notifications")
             .build()
     }
 

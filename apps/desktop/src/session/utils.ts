@@ -1,4 +1,4 @@
-import type { SessionEvent } from "@skald/store";
+import type { SessionEvent } from "@notiz/store";
 
 import type * as main from "~/store/tinybase/store/main";
 

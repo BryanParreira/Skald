@@ -19,7 +19,7 @@ vi.mock("ai", () => ({
   generateText: vi.fn(),
 }));
 
-vi.mock("@skald/plugin-template", () => ({
+vi.mock("@notiz/plugin-template", () => ({
   commands: {
     render: mocks.renderTemplate,
   },

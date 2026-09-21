@@ -110,7 +110,7 @@ pub(super) async fn relay_client_to_upstreams(
                     Message::Binary(bytes) => {
                         if bytes.len() % FRAME_BYTES != 0 {
                             tracing::error!(
-                                skald.payload.size_bytes = bytes.len(),
+                                notiz.payload.size_bytes = bytes.len(),
                                 "invalid_stereo_frame_alignment"
                             );
                             let _ = event_tx
@@ -232,8 +232,8 @@ pub(super) async fn relay_upstream_to_events(
                     TungsteniteMessage::Text(text) => {
                         if proxy_debug_enabled() {
                             tracing::info!(
-                                skald.stream.channel = channel,
-                                skald.payload.size_bytes = text.len(),
+                                notiz.stream.channel = channel,
+                                notiz.payload.size_bytes = text.len(),
                                 raw = %text,
                                 "channel_split_upstream_text"
                             );

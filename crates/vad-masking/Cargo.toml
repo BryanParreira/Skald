@@ -6,10 +6,10 @@ edition = "2024"
 [dev-dependencies]
 clap = { workspace = true, features = ["derive"] }
 hound = { workspace = true }
+notiz-audacity = { workspace = true }
+notiz-data = { workspace = true }
 rodio = { workspace = true }
-skald-audacity = { workspace = true }
-skald-data = { workspace = true }
 
 [dependencies]
-skald-audio-utils = { workspace = true }
-skald-vad = { workspace = true, features = ["earshot"] }
+notiz-audio-utils = { workspace = true }
+notiz-vad = { workspace = true, features = ["earshot"] }

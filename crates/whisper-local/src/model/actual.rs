@@ -8,7 +8,7 @@ use whisper_rs::{
     WhisperTokenId,
 };
 
-use skald_whisper::Language;
+use notiz_whisper::Language;
 
 use crate::Segment;
 
@@ -305,7 +305,7 @@ impl Whisper {
     }
 
     fn debug(&mut self, audio: &[f32]) {
-        if let Ok(v) = std::env::var("SKALD_WHISPER_DEBUG")
+        if let Ok(v) = std::env::var("NOTIZ_WHISPER_DEBUG")
             && v == "1"
         {
             let mut writer = hound::WavWriter::create(
@@ -339,7 +339,7 @@ mod tests {
             .build()
             .unwrap();
 
-        let audio: Vec<f32> = skald_data::english_1::AUDIO
+        let audio: Vec<f32> = notiz_data::english_1::AUDIO
             .chunks_exact(2)
             .map(|chunk| i16::from_le_bytes([chunk[0], chunk[1]]) as f32 / 32768.0)
             .collect();

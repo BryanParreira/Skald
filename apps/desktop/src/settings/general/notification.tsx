@@ -8,10 +8,10 @@ import {
   commands as detectCommands,
   type InstalledApp,
   type Result,
-} from "@skald/plugin-detect";
-import { commands as notificationCommands } from "@skald/plugin-notification";
-import { Badge } from "@skald/ui/components/ui/badge";
-import { Button } from "@skald/ui/components/ui/button";
+} from "@notiz/plugin-detect";
+import { commands as notificationCommands } from "@notiz/plugin-notification";
+import { Badge } from "@notiz/ui/components/ui/badge";
+import { Button } from "@notiz/ui/components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -19,22 +19,22 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@skald/ui/components/ui/command";
+} from "@notiz/ui/components/ui/command";
 import {
   AppFloatingPanel,
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@skald/ui/components/ui/popover";
+} from "@notiz/ui/components/ui/popover";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@skald/ui/components/ui/select";
-import { Switch } from "@skald/ui/components/ui/switch";
-import { cn } from "@skald/utils";
+} from "@notiz/ui/components/ui/select";
+import { Switch } from "@notiz/ui/components/ui/switch";
+import { cn } from "@notiz/utils";
 
 import {
   getIgnoredBundleIds,

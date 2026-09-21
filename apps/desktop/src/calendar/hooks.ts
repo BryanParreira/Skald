@@ -1,8 +1,8 @@
 import { format } from "date-fns";
 import { useEffect, useMemo, useState } from "react";
 
-import { safeParseDate } from "@skald/utils";
-import { TZDate } from "@skald/utils";
+import { safeParseDate } from "@notiz/utils";
+import { TZDate } from "@notiz/utils";
 
 import { useConfigValue } from "~/shared/config";
 import { useIgnoredEvents } from "~/store/tinybase/hooks";

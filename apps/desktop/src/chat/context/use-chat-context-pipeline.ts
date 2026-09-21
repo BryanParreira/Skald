@@ -8,7 +8,7 @@ import {
 } from "./entities";
 import { extractContextRefsFromMessages } from "./refs";
 
-import type { SkaldUIMessage } from "~/chat/types";
+import type { NotizUIMessage } from "~/chat/types";
 import type * as main from "~/store/tinybase/store/main";
 
 function getSessionDisplayData(
@@ -100,7 +100,7 @@ function toDisplayEntity(
 }
 
 type UseChatContextPipelineParams = {
-  messages: SkaldUIMessage[];
+  messages: NotizUIMessage[];
   currentSessionId?: string;
   pendingManualRefs: ContextRef[];
   store: ReturnType<typeof main.UI.useStore>;

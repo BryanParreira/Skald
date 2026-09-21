@@ -1,5 +1,5 @@
 {
-  "name": "@skald/plugin-sdk",
+  "name": "@notiz/plugin-sdk",
   "private": true,
   "type": "module",
   "exports": {

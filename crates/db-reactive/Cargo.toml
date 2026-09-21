@@ -7,11 +7,11 @@ edition = "2024"
 specta = ["dep:specta"]
 
 [dependencies]
+notiz-db-change = { workspace = true }
+notiz-db-core = { workspace = true }
+notiz-db-execute = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true }
-skald-db-change = { workspace = true }
-skald-db-core = { workspace = true }
-skald-db-execute = { workspace = true }
 specta = { workspace = true, optional = true, features = ["serde_json"] }
 sqlx = { workspace = true, features = ["runtime-tokio", "sqlite", "sqlite-unbundled"] }
 thiserror = { workspace = true }
@@ -19,8 +19,8 @@ tokio = { workspace = true, features = ["macros", "sync", "time"] }
 uuid = { workspace = true, features = ["v4"] }
 
 [dev-dependencies]
-skald-cloudsync = { workspace = true }
-skald-db-migrate = { workspace = true }
+notiz-cloudsync = { workspace = true }
+notiz-db-migrate = { workspace = true }
 
 anyhow = { workspace = true }
 tempfile = { workspace = true }

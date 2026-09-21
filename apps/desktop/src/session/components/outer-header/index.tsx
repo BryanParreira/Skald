@@ -7,9 +7,9 @@ import {
   VideoIcon,
 } from "lucide-react";
 
-import { commands as openerCommands } from "@skald/plugin-opener2";
-import { DancingSticks } from "@skald/ui/components/ui/dancing-sticks";
-import { cn, safeParseDate } from "@skald/utils";
+import { commands as openerCommands } from "@notiz/plugin-opener2";
+import { DancingSticks } from "@notiz/ui/components/ui/dancing-sticks";
+import { cn, safeParseDate } from "@notiz/utils";
 
 import { MetadataButton } from "./metadata";
 import { OverflowButton } from "./overflow";

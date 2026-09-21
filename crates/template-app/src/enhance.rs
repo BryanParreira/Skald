@@ -1,5 +1,5 @@
 use crate::{EnhanceTemplate, Participant, Session, Transcript, common_derives};
-use skald_askama_utils::filters;
+use notiz_askama_utils::filters;
 
 common_derives! {
     #[derive(askama::Template)]
@@ -26,7 +26,7 @@ common_derives! {
 mod tests {
     use super::*;
     use crate::{Segment, TemplateSection};
-    use skald_askama_utils::{tpl_assert, tpl_snapshot};
+    use notiz_askama_utils::{tpl_assert, tpl_snapshot};
 
     tpl_assert!(
         test_language_as_specified,

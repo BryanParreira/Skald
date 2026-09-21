@@ -1,5 +1,5 @@
 {
-  "name": "@skald/e2e-blackbox",
+  "name": "@notiz/e2e-blackbox",
   "version": "0.0.0",
   "private": true,
   "type": "module",

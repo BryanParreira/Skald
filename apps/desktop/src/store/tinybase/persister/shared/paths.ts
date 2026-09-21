@@ -1,6 +1,6 @@
 import { sep } from "@tauri-apps/api/path";
 
-import { commands as settingsCommands } from "@skald/plugin-settings";
+import { commands as settingsCommands } from "@notiz/plugin-settings";
 
 export const SESSION_META_FILE = "_meta.json";
 export const SESSION_TRANSCRIPT_FILE = "transcript.json";

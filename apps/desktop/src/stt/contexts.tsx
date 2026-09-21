@@ -6,11 +6,11 @@ import { useShallow } from "zustand/shallow";
 import {
   commands as detectCommands,
   events as detectEvents,
-} from "@skald/plugin-detect";
+} from "@notiz/plugin-detect";
 import {
   commands as notificationCommands,
   type NotificationIcon,
-} from "@skald/plugin-notification";
+} from "@notiz/plugin-notification";
 
 import {
   AUTO_STOP_CONFIRM_TIMEOUT_SECONDS,
@@ -750,7 +750,7 @@ async function showMeetingEndedPrompt({
   void notificationCommands.showNotification({
     key: createAutoStopEndedNotificationKey(sessionId),
     title: "Did your meeting end?",
-    message: `Skald will stop listening in ${AUTO_STOP_CONFIRM_TIMEOUT_SECONDS} seconds.`,
+    message: `Notiz will stop listening in ${AUTO_STOP_CONFIRM_TIMEOUT_SECONDS} seconds.`,
     timeout: { secs: AUTO_STOP_CONFIRM_TIMEOUT_SECONDS, nanos: 0 },
     source: null,
     start_time: null,

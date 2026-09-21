@@ -3,10 +3,10 @@
 use std::collections::HashMap;
 use std::sync::{Mutex, OnceLock};
 
+use notiz_ws_client::client::Message;
 use owhisper_interface::ListenParams;
 use owhisper_interface::stream::{Alternatives, Channel, Metadata, StreamResponse};
 use serde::{Deserialize, Serialize};
-use skald_ws_client::client::Message;
 
 use super::GladiaAdapter;
 use crate::adapter::RealtimeSttAdapter;
@@ -52,7 +52,7 @@ impl RealtimeSttAdapter for GladiaAdapter {
 
     fn is_supported_languages(
         &self,
-        languages: &[skald_language::Language],
+        languages: &[notiz_language::Language],
         _model: Option<&str>,
     ) -> bool {
         GladiaAdapter::is_supported_languages_live(languages)
@@ -184,7 +184,7 @@ impl RealtimeSttAdapter for GladiaAdapter {
                 } => {
                     tracing::error!(
                         error = %message,
-                        skald.validation.errors = ?validation_errors,
+                        notiz.validation.errors = ?validation_errors,
                         "gladia_init_failed"
                     );
                     return None;
@@ -224,7 +224,7 @@ impl RealtimeSttAdapter for GladiaAdapter {
             Err(e) => {
                 tracing::warn!(
                     error = ?e,
-                    skald.payload.size_bytes = raw.len() as u64,
+                    notiz.payload.size_bytes = raw.len() as u64,
                     "gladia_json_parse_failed"
                 );
                 return vec![];
@@ -234,20 +234,20 @@ impl RealtimeSttAdapter for GladiaAdapter {
         match msg {
             GladiaMessage::Transcript(transcript) => Self::parse_transcript(transcript),
             GladiaMessage::StartSession { id } => {
-                tracing::debug!(skald.stt.provider_session.id = %id, "gladia_session_started");
+                tracing::debug!(notiz.stt.provider_session.id = %id, "gladia_session_started");
                 vec![]
             }
             GladiaMessage::EndSession { id } => {
                 let channels = SessionChannels::remove(&id).unwrap_or_else(|| {
                     tracing::warn!(
-                        skald.stt.provider_session.id = %id,
+                        notiz.stt.provider_session.id = %id,
                         "gladia_session_channels_not_found"
                     );
                     1
                 });
                 tracing::debug!(
-                    skald.stt.provider_session.id = %id,
-                    skald.audio.channel_count = channels,
+                    notiz.stt.provider_session.id = %id,
+                    notiz.audio.channel_count = channels,
                     "gladia_session_ended"
                 );
                 vec![StreamResponse::TerminalResponse {
@@ -271,7 +271,7 @@ impl RealtimeSttAdapter for GladiaAdapter {
             }
             GladiaMessage::Unknown => {
                 tracing::debug!(
-                    skald.payload.size_bytes = raw.len() as u64,
+                    notiz.payload.size_bytes = raw.len() as u64,
                     "gladia_unknown_message"
                 );
                 vec![]
@@ -525,7 +525,7 @@ impl GladiaAdapter {
 
 #[cfg(test)]
 mod tests {
-    use skald_language::ISO639;
+    use notiz_language::ISO639;
 
     use super::{GladiaAdapter, LanguageConfig};
     use crate::ListenClient;
@@ -551,7 +551,7 @@ mod tests {
     #[test]
     fn test_build_language_config_single_language() {
         let params = owhisper_interface::ListenParams {
-            languages: vec![skald_language::ISO639::En.into()],
+            languages: vec![notiz_language::ISO639::En.into()],
             ..Default::default()
         };
 
@@ -568,8 +568,8 @@ mod tests {
     fn test_build_language_config_multi_language() {
         let params = owhisper_interface::ListenParams {
             languages: vec![
-                skald_language::ISO639::En.into(),
-                skald_language::ISO639::Es.into(),
+                notiz_language::ISO639::En.into(),
+                notiz_language::ISO639::Es.into(),
             ],
             ..Default::default()
         };
@@ -587,9 +587,9 @@ mod tests {
     fn test_build_language_config_three_languages() {
         let params = owhisper_interface::ListenParams {
             languages: vec![
-                skald_language::ISO639::En.into(),
-                skald_language::ISO639::Ko.into(),
-                skald_language::ISO639::Ja.into(),
+                notiz_language::ISO639::En.into(),
+                notiz_language::ISO639::Ko.into(),
+                notiz_language::ISO639::Ja.into(),
             ],
             ..Default::default()
         };
@@ -647,7 +647,7 @@ mod tests {
     single_test!(
         test_build_single,
         owhisper_interface::ListenParams {
-            languages: vec![skald_language::ISO639::En.into()],
+            languages: vec![notiz_language::ISO639::En.into()],
             ..Default::default()
         }
     );
@@ -655,8 +655,8 @@ mod tests {
     single_test!(
         test_single_with_keywords,
         owhisper_interface::ListenParams {
-            languages: vec![skald_language::ISO639::En.into()],
-            keywords: vec!["Skald".to_string(), "transcription".to_string()],
+            languages: vec![notiz_language::ISO639::En.into()],
+            keywords: vec!["Notiz".to_string(), "transcription".to_string()],
             ..Default::default()
         }
     );
@@ -665,8 +665,8 @@ mod tests {
         test_single_multi_lang_1,
         owhisper_interface::ListenParams {
             languages: vec![
-                skald_language::ISO639::En.into(),
-                skald_language::ISO639::Es.into(),
+                notiz_language::ISO639::En.into(),
+                notiz_language::ISO639::Es.into(),
             ],
             ..Default::default()
         }
@@ -676,8 +676,8 @@ mod tests {
         test_single_multi_lang_2,
         owhisper_interface::ListenParams {
             languages: vec![
-                skald_language::ISO639::En.into(),
-                skald_language::ISO639::Ko.into(),
+                notiz_language::ISO639::En.into(),
+                notiz_language::ISO639::Ko.into(),
             ],
             ..Default::default()
         }
@@ -691,7 +691,7 @@ mod tests {
             .api_base("https://api.gladia.io")
             .api_key(std::env::var("GLADIA_API_KEY").expect("GLADIA_API_KEY not set"))
             .params(owhisper_interface::ListenParams {
-                languages: vec![skald_language::ISO639::En.into()],
+                languages: vec![notiz_language::ISO639::En.into()],
                 ..Default::default()
             })
             .build_dual()

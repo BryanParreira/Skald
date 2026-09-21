@@ -1,5 +1,5 @@
-import { commands as calendarCommands } from "@skald/plugin-calendar";
-import type { CalendarEvent } from "@skald/plugin-calendar";
+import { commands as calendarCommands } from "@notiz/plugin-calendar";
+import type { CalendarEvent } from "@notiz/plugin-calendar";
 
 import type { Ctx } from "../ctx";
 import type {

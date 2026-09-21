@@ -33,5 +33,5 @@ pub enum Error {
     Io(#[from] std::io::Error),
 
     #[error(transparent)]
-    AudioUtils(#[from] skald_audio_utils::Error),
+    AudioUtils(#[from] notiz_audio_utils::Error),
 }

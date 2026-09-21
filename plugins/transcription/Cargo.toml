@@ -14,12 +14,12 @@ tauri-plugin = { workspace = true, features = ["build"] }
 specta-typescript = { workspace = true }
 
 [dependencies]
-skald-audio = { workspace = true }
-skald-language = { workspace = true }
-skald-storage = { workspace = true }
-skald-transcribe-soniqo = { workspace = true }
-skald-transcript = { workspace = true }
-skald-transcription-core = { workspace = true, features = ["specta", "tauri-event"] }
+notiz-audio = { workspace = true }
+notiz-language = { workspace = true }
+notiz-storage = { workspace = true }
+notiz-transcribe-soniqo = { workspace = true }
+notiz-transcript = { workspace = true }
+notiz-transcription-core = { workspace = true, features = ["specta", "tauri-event"] }
 
 owhisper-client = { workspace = true }
 owhisper-interface = { workspace = true }

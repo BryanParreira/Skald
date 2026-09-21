@@ -35,7 +35,7 @@ pub async fn create_conversation(
 ) -> Result<Json<CreateConversationResponse>, SupportError> {
     let inbox_id = &state.config.chatwoot.chatwoot_inbox_identifier;
 
-    let body = skald_chatwoot::types::PublicConversationCreatePayload {
+    let body = notiz_chatwoot::types::PublicConversationCreatePayload {
         ..Default::default()
     };
 

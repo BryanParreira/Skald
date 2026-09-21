@@ -1,4 +1,4 @@
-pub use skald_language::PARAKEET_TDT_V3_LANGUAGE_CODES as PARAKEET_V3_LANGS;
+pub use notiz_language::PARAKEET_TDT_V3_LANGUAGE_CODES as PARAKEET_V3_LANGS;
 
 #[derive(
     Debug,
@@ -56,13 +56,13 @@ impl AmModel {
         }
     }
 
-    pub fn supported_languages(&self) -> Vec<skald_language::Language> {
-        use skald_language::ISO639;
+    pub fn supported_languages(&self) -> Vec<notiz_language::Language> {
+        use notiz_language::ISO639;
 
         match self {
             AmModel::ParakeetV2 => vec![ISO639::En.into()],
-            AmModel::ParakeetV3 => skald_language::parakeet_tdt_v3_languages(),
-            AmModel::WhisperLargeV3 => skald_language::whisper_multilingual(),
+            AmModel::ParakeetV3 => notiz_language::parakeet_tdt_v3_languages(),
+            AmModel::WhisperLargeV3 => notiz_language::whisper_multilingual(),
         }
     }
 
@@ -130,12 +130,12 @@ impl AmModel {
         Ok(())
     }
 
-    pub async fn download<F: Fn(skald_download_interface::DownloadProgress) + Send + Sync>(
+    pub async fn download<F: Fn(notiz_download_interface::DownloadProgress) + Send + Sync>(
         &self,
         output_path: impl AsRef<std::path::Path>,
         progress_callback: F,
     ) -> Result<(), crate::Error> {
-        skald_file::download_file_parallel(self.tar_url(), output_path, progress_callback).await?;
+        notiz_file::download_file_parallel(self.tar_url(), output_path, progress_callback).await?;
         Ok(())
     }
 }

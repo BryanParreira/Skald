@@ -10,14 +10,14 @@ mod tests {
     use super::*;
     use axum::http::StatusCode;
     use futures_util::StreamExt;
-    use skald_audio_utils::AudioFormatExt;
+    use notiz_audio_utils::AudioFormatExt;
     use tokio_tungstenite::{connect_async, tungstenite::Error as TungsteniteError};
 
     #[tokio::test]
     async fn test_service() -> Result<(), Box<dyn std::error::Error>> {
         let model_path = dirs::data_dir()
             .unwrap()
-            .join("skald")
+            .join("notiz")
             .join("models/stt/ggml-small-q8_0.bin");
 
         let app = TranscribeService::builder()
@@ -41,7 +41,7 @@ mod tests {
             .await;
 
         let audio = rodio::Decoder::try_from(
-            std::fs::File::open(skald_data::english_1::AUDIO_PATH).unwrap(),
+            std::fs::File::open(notiz_data::english_1::AUDIO_PATH).unwrap(),
         )
         .unwrap()
         .to_i16_le_chunks(16000, 512);
@@ -120,7 +120,7 @@ mod tests {
                 "http://{addr}/v1/listen?channels=1&sample_rate=16000"
             ))
             .header("content-type", "audio/wav")
-            .body(std::fs::read(skald_data::english_1::AUDIO_PATH).unwrap())
+            .body(std::fs::read(notiz_data::english_1::AUDIO_PATH).unwrap())
             .send()
             .await
             .unwrap();
@@ -157,7 +157,7 @@ mod tests {
             ))
             .header("content-type", "audio/wav")
             .header("accept", "text/event-stream")
-            .body(std::fs::read(skald_data::english_1::AUDIO_PATH).unwrap())
+            .body(std::fs::read(notiz_data::english_1::AUDIO_PATH).unwrap())
             .send()
             .await
             .unwrap();

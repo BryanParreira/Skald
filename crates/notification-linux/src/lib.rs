@@ -1,4 +1,4 @@
-pub use skald_notification_interface::*;
+pub use notiz_notification_interface::*;
 
 #[cfg(target_os = "linux")]
 mod r#impl;

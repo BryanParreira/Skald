@@ -1,6 +1,6 @@
 import { drizzle } from "drizzle-orm/sqlite-proxy";
 
-import type { DrizzleProxyClient } from "@skald/db-runtime";
+import type { DrizzleProxyClient } from "@notiz/db-runtime";
 
 import * as schema from "./schema";
 

@@ -1,6 +1,6 @@
 import { RowListener } from "tinybase/with-schemas";
 
-import { commands as tantivy } from "@skald/plugin-tantivy";
+import { commands as tantivy } from "@notiz/plugin-tantivy";
 
 import {
   createHumanSearchableContent,

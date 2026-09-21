@@ -1,7 +1,7 @@
 import type { LanguageModel, ToolSet } from "ai";
 import { useEffect, useMemo, useState } from "react";
 
-import { commands as templateCommands } from "@skald/plugin-template";
+import { commands as templateCommands } from "@notiz/plugin-template";
 
 import { CustomChatTransport } from "./index";
 import type { ResolvedChatContext } from "./index";

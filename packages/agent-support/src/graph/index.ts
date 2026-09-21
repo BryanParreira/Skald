@@ -4,7 +4,7 @@ import {
   type CompiledAgentGraph,
   createAgentGraph,
   setupCheckpointer,
-} from "@skald/agent-core";
+} from "@notiz/agent-core";
 
 import { agentNode } from "../nodes/agent";
 import { tools } from "../tools";

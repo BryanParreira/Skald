@@ -1,5 +1,5 @@
-import type { JsonValue } from "@skald/plugin-fs-sync";
-import type { OrganizationStorage } from "@skald/store";
+import type { JsonValue } from "@notiz/plugin-fs-sync";
+import type { OrganizationStorage } from "@notiz/store";
 
 export function frontmatterToOrganization(
   frontmatter: Record<string, unknown>,

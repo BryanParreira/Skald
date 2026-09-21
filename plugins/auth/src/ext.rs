@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
-use skald_supabase_auth::{client::store::AuthStore, session::find_session};
-use skald_template_support::AccountInfo;
+use notiz_supabase_auth::{client::store::AuthStore, session::find_session};
+use notiz_template_support::AccountInfo;
 
 pub(crate) fn parse_account_info(
     data: &HashMap<String, String>,

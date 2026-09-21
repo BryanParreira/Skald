@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 
-import { cn } from "@skald/utils";
+import { cn } from "@notiz/utils";
 
 import { restoreSessionData } from "~/store/tinybase/store/deleteSession";
 import * as main from "~/store/tinybase/store/main";

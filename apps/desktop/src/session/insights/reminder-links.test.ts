@@ -5,7 +5,7 @@ import { buildTaskReminderUrl, selectUnsentTasks } from "./reminder-links";
 describe("buildTaskReminderUrl", () => {
   it("points back at the note and identifies the task", () => {
     expect(buildTaskReminderUrl("session-1", "task-1")).toBe(
-      "skald://notes/open?session_id=session-1&task_id=task-1",
+      "notiz://notes/open?session_id=session-1&task_id=task-1",
     );
   });
 

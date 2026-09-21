@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 
-import type { TranscriptItem } from "@skald/plugin-export";
-import type { RenderTranscriptRequest } from "@skald/plugin-transcription";
+import type { TranscriptItem } from "@notiz/plugin-export";
+import type { RenderTranscriptRequest } from "@notiz/plugin-transcription";
 
 import { TRANSCRIPT_RENDER_CACHE_TIME_MS } from "./cache";
 import { useSessionTranscriptRenderData } from "./render-request-hooks";

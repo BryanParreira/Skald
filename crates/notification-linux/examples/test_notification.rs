@@ -7,7 +7,7 @@ fn main() {
 
     let notification = Notification::builder()
         .title("Test Notification")
-        .message("This is a test notification from skald")
+        .message("This is a test notification from notiz")
         .timeout(std::time::Duration::from_secs(5))
         .build();
 

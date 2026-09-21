@@ -4,14 +4,14 @@ import { fetch } from "@tauri-apps/plugin-http";
 import { ExternalLinkIcon, PlusIcon, XIcon } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
-import { commands as openerCommands } from "@skald/plugin-opener2";
-import { Input } from "@skald/ui/components/ui/input";
+import { commands as openerCommands } from "@notiz/plugin-opener2";
+import { Input } from "@notiz/ui/components/ui/input";
 import {
   Popover,
   PopoverAnchor,
   PopoverContent,
-} from "@skald/ui/components/ui/popover";
-import { cn } from "@skald/utils";
+} from "@notiz/ui/components/ui/popover";
+import { cn } from "@notiz/utils";
 
 import type { TodoProvider } from "./shared";
 

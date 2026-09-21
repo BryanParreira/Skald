@@ -45,7 +45,7 @@ vi.mock("@tauri-apps/plugin-dialog", () => ({
   open: vi.fn(),
 }));
 
-vi.mock("@skald/plugin-fs-sync", () => ({
+vi.mock("@notiz/plugin-fs-sync", () => ({
   commands: {
     audioImport: audioImportMock,
     audioImportData: audioImportDataMock,

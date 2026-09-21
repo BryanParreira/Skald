@@ -8,7 +8,7 @@ use super::MenuItemHandler;
 pub struct TrayQuit;
 
 impl MenuItemHandler for TrayQuit {
-    const ID: &'static str = "skald_tray_quit";
+    const ID: &'static str = "notiz_tray_quit";
 
     fn build(app: &AppHandle<tauri::Wry>) -> Result<MenuItemKind<tauri::Wry>> {
         let item = MenuItem::with_id(app, Self::ID, "Quit", true, Some("cmd+q"))?;
@@ -18,8 +18,8 @@ impl MenuItemHandler for TrayQuit {
     fn handle(app: &AppHandle<tauri::Wry>) {
         #[cfg(target_os = "macos")]
         {
-            skald_host::kill_processes_by_matcher(skald_host::ProcessMatcher::Sidecar);
-            skald_intercept::set_force_quit();
+            notiz_host::kill_processes_by_matcher(notiz_host::ProcessMatcher::Sidecar);
+            notiz_intercept::set_force_quit();
         }
 
         app.exit(0);

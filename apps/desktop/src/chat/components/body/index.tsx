@@ -2,8 +2,8 @@ import { Trans } from "@lingui/react/macro";
 import type { ChatStatus } from "ai";
 import { ChevronDownIcon } from "lucide-react";
 
-import { Button } from "@skald/ui/components/ui/button";
-import { cn } from "@skald/utils";
+import { Button } from "@notiz/ui/components/ui/button";
+import { cn } from "@notiz/utils";
 
 import { ChatBodyEmpty } from "./empty";
 import { ChatBodyNonEmpty } from "./non-empty";
@@ -11,7 +11,7 @@ import { useChatAutoScroll } from "./use-chat-auto-scroll";
 
 import type { ContextRef } from "~/chat/context/entities";
 import { chatFloatingControlClassNames } from "~/chat/surface";
-import type { SkaldUIMessage } from "~/chat/types";
+import type { NotizUIMessage } from "~/chat/types";
 import { useShell } from "~/contexts/shell";
 
 export function ChatBody({
@@ -23,7 +23,7 @@ export function ChatBody({
   hasContext = false,
   onSendMessage,
 }: {
-  messages: SkaldUIMessage[];
+  messages: NotizUIMessage[];
   status: ChatStatus;
   error?: Error;
   onReload?: () => void;

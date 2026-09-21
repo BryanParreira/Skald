@@ -12,5 +12,5 @@ pub(crate) fn mcp_service(
     ResearchMcpServer,
     rmcp::transport::streamable_http_server::session::local::LocalSessionManager,
 > {
-    skald_mcp::create_service(move || Ok(ResearchMcpServer::new(state.clone())))
+    notiz_mcp::create_service(move || Ok(ResearchMcpServer::new(state.clone())))
 }

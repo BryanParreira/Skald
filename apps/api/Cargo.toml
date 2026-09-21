@@ -4,22 +4,22 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+notiz-analytics = { workspace = true }
+notiz-api-auth = { workspace = true }
+notiz-api-calendar = { workspace = true }
+notiz-api-env = { workspace = true }
+notiz-api-mail = { workspace = true }
+notiz-api-nango = { workspace = true }
+notiz-api-pyannote = { workspace = true }
+notiz-api-research = { workspace = true }
+notiz-api-subscription = { workspace = true }
+notiz-api-support = { workspace = true }
+notiz-api-ticket = { workspace = true }
+notiz-linear = { workspace = true }
+notiz-llm-proxy = { workspace = true }
+notiz-observability = { workspace = true }
+notiz-transcribe-proxy = { workspace = true }
 owhisper-client = { workspace = true }
-skald-analytics = { workspace = true }
-skald-api-auth = { workspace = true }
-skald-api-calendar = { workspace = true }
-skald-api-env = { workspace = true }
-skald-api-mail = { workspace = true }
-skald-api-nango = { workspace = true }
-skald-api-pyannote = { workspace = true }
-skald-api-research = { workspace = true }
-skald-api-subscription = { workspace = true }
-skald-api-support = { workspace = true }
-skald-api-ticket = { workspace = true }
-skald-linear = { workspace = true }
-skald-llm-proxy = { workspace = true }
-skald-observability = { workspace = true }
-skald-transcribe-proxy = { workspace = true }
 
 axum = { workspace = true, features = ["ws"] }
 opentelemetry = { workspace = true }

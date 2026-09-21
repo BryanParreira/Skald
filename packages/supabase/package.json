@@ -1,5 +1,5 @@
 {
-  "name": "@skald/supabase",
+  "name": "@notiz/supabase",
   "exports": {
     ".": "./src/index.ts",
     "./middleware": "./src/middleware.ts",

@@ -1,6 +1,6 @@
 import { generateId, type LanguageModel, streamText } from "ai";
 
-import { commands as templateCommands } from "@skald/plugin-template";
+import { commands as templateCommands } from "@notiz/plugin-template";
 
 import type { TaskArgsMapTransformed, TaskConfig } from ".";
 

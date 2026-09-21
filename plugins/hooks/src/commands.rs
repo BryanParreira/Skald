@@ -1,4 +1,4 @@
-use skald_hooks::{HookEvent, HookResult};
+use notiz_hooks::{HookEvent, HookResult};
 
 use crate::HooksPluginExt;
 
