@@ -917,7 +917,7 @@ mod tests {
         use std::time::Instant;
         use tempfile::NamedTempFile;
 
-        let url = "https://storage2.hyprnote.com/v0/yujonglee/notiz-llm-sm/model_q4_k_m.gguf";
+        let url = "https://storage2.hyprnote.com/v0/yujonglee/hypr-llm-sm/model_q4_k_m.gguf";
         let test_client = reqwest::Client::builder().http1_only().build().unwrap();
 
         let head_response = test_client
